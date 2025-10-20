@@ -32,8 +32,17 @@ jobs:
         uses: actions/cache@v4
         with:
           path: docs/node_modules
-          key: docs-${{ hashFiles('docs/bun.lock') }}
-          restore-keys: docs-
+          key: docs-deps-${{ hashFiles('docs/bun.lock', 'docs/package.json') }}
+          restore-keys: docs-deps-
+
+      - name: Cache Build Folders
+        uses: actions/cache@v4
+        with:
+          path: |
+            docs/.next
+            docs/.source
+          key: docs-build-${{ hashFiles('docs/**/*', '!docs/node_modules/**', '!docs/.next/**', '!docs/.source/**') }}
+          restore-keys: docs-build-
 
       - name: Install and Build
         run: |
