@@ -2,31 +2,27 @@ name: Test Docusaurus Build
 
 on:
   pull_request:
-    branches: [ "develop", "main" ]
-    
+    branches: ["develop", "main"]
+
 jobs:
   build-test:
+    name: Test Docusaurus Build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./docs
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
       - name: Cache Dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: docs/node_modules
-          key: ${{ runner.os }}-docs-${{ hashFiles('docs/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-docs-
+          key: docs-${{ hashFiles('docs/bun.lock') }}
+          restore-keys: docs-
 
-      - name: Install Dependencies
-        working-directory: docs
-        run: npm ci
-
-      - name: Build Docusaurus
-        working-directory: docs
-        run: npm run build
+      - name: Install and Build
+        run: |
+          bun install --frozen-lockfile
+          bun run build
