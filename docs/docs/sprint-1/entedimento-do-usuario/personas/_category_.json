@@ -1,0 +1,8 @@
+{
+  "label": "Personas",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Esta seção apresenta as personas desenvolvidas a partir da pesquisa com usuários, descrevendo seus perfis, objetivos, dores e comportamentos que orientam as decisões de design e desenvolvimento."
+  }
+}
