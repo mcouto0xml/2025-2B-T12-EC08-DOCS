@@ -21,12 +21,12 @@ const config = {
 
   // Set the production url of your site here
   url: "https://mcouto0xml.github.io",
-  baseUrl: "/EC08-T12-DOCS/",
+  baseUrl: "/2025-2B-T12-EC08-DOCS/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'mcouto0xml', // Usually your GitHub org/user name.
-  projectName: 'EC08-T12-DOCS', // Usually your repo name.
+  projectName: '2025-2B-T12-EC08-DOCS', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
