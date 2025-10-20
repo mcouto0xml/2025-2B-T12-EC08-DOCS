@@ -12,13 +12,19 @@ import {
 } from "fumadocs-ui/components/dialog/search";
 import { useDocsSearch } from "fumadocs-core/search/client";
 import { create } from "@orama/orama";
+import { stemmer, language } from "@orama/stemmers/portuguese";
 import { useI18n } from "fumadocs-ui/contexts/i18n";
 
 function initOrama() {
   return create({
     schema: { _: "string" },
-    // https://docs.orama.com/docs/orama-js/supported-languages
-    language: "portuguese",
+    components: {
+      tokenizer: {
+        stemming: true,
+        stemmer,
+        language,
+      },
+    },
   });
 }
 

@@ -5,6 +5,7 @@
       "name": "docs",
       "dependencies": {
         "@orama/orama": "^3.1.16",
+        "@orama/stemmers": "^3.1.16",
         "fumadocs-core": "15.8.5",
         "fumadocs-mdx": "12.0.3",
         "fumadocs-ui": "15.8.5",
@@ -215,6 +216,8 @@
     "@next/swc-win32-x64-msvc": ["@next/swc-win32-x64-msvc@15.5.4", "", { "os": "win32", "cpu": "x64" }, "sha512-1ur2tSHZj8Px/KMAthmuI9FMp/YFusMMGoRNJaRZMOlSkgvLjzosSdQI0cJAKogdHl3qXUQKL9MGaYvKwA7DXg=="],
 
     "@orama/orama": ["@orama/orama@3.1.16", "", {}, "sha512-scSmQBD8eANlMUOglxHrN1JdSW8tDghsPuS83otqealBiIeMukCQMOf/wc0JJjDXomqwNdEQFLXLGHrU6PGxuA=="],
+
+    "@orama/stemmers": ["@orama/stemmers@3.1.16", "", {}, "sha512-DdkAkhDvWD12HZez+kniLxRK4hxf1f1y+7OHxv47HIdZPYUx1Y+7Z7dX/8nM7+jrq7sa7M0wLCYOpdhVXOYEBg=="],
 
     "@radix-ui/number": ["@radix-ui/number@1.1.1", "", {}, "sha512-MkKCwxlXTgz6CFoJx3pCwn07GKp36+aZyu/u2Ln2VrA5DcdyCZkASEDBTd8x5whTQQL5CiYf4prXKLcgQdv29g=="],
 
