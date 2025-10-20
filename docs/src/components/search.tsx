@@ -25,6 +25,7 @@ function initOrama() {
 export default function DefaultSearchDialog(props: SharedProps) {
   const { locale } = useI18n(); // (optional) for i18n
   const { search, setSearch, query } = useDocsSearch({
+    from: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/api/search`,
     type: "static",
     initOrama,
     locale,

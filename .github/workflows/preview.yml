@@ -1,0 +1,49 @@
+name: Test Docusaurus Build
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build-test:
+    name: Test and Deploy Preview
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./docs
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+        if: github.event.action != 'closed'
+
+      - name: Cache Dependencies
+        if: github.event.action != 'closed'
+        uses: actions/cache@v4
+        with:
+          path: docs/node_modules
+          key: docs-${{ hashFiles('docs/bun.lock') }}
+          restore-keys: docs-
+
+      - name: Install and Build
+        if: github.event.action != 'closed'
+        run: |
+          bun install --frozen-lockfile
+          NEXT_PUBLIC_BASE_PATH="/2025-2B-T12-EC08-DOCS/pr-preview/pr-${{ github.event.number }}" bun run build
+
+      - name: Deploy PR Preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./docs/out
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto

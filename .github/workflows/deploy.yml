@@ -6,14 +6,18 @@ on:
       - main
   workflow_dispatch: # manual trigger
 
+concurrency:
+  group: pages-deployment
+  cancel-in-progress: false
+
 permissions:
   contents: write
   pages: write
   id-token: write
 
 jobs:
-  build:
-    name: Build Documentation
+  build-and-deploy:
+    name: Build and Deploy Documentation
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -21,7 +25,9 @@ jobs:
         working-directory: ./docs
     steps:
       - uses: actions/checkout@v5
+
       - uses: oven-sh/setup-bun@v2
+
       - name: Cache Dependencies
         uses: actions/cache@v4
         with:
@@ -32,22 +38,12 @@ jobs:
       - name: Install and Build
         run: |
           bun install --frozen-lockfile
-          bun run build
+          NEXT_PUBLIC_BASE_PATH="/2025-2B-T12-EC08-DOCS" bun run build
 
-      - name: Upload artifact
-        id: deployment
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: ./docs/out
-
-  deploy:
-    name: Deploy to GitHub Pages
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./docs/out
+          branch: gh-pages
+          clean-exclude: pr-preview
+          force: false
