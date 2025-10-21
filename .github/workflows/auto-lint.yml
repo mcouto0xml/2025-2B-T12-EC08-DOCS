@@ -1,0 +1,52 @@
+name: Auto Lint & Format Documentation
+
+on:
+  push:
+    branches: [main, develop]
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./docs
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: docs/node_modules
+          key: docs-deps-${{ hashFiles('docs/bun.lock', 'docs/package.json') }}
+          restore-keys: docs-deps-
+
+      - name: Cache Build Folders
+        uses: actions/cache@v4
+        with:
+          path: |
+            docs/.next
+            docs/.source
+          key: docs-build-${{ hashFiles('docs/**/*', '!docs/node_modules/**', '!docs/.next/**', '!docs/.source/**') }}
+          restore-keys: docs-build-
+
+      - name: Install Dependencies
+        run: |
+          bun install --frozen-lockfile
+
+      - name: Run Linters
+        run: bun run lint
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "style: auto-lint and format code [skip ci]"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_author: "github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
