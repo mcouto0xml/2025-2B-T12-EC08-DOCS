@@ -1,0 +1,114 @@
+---
+title: Título do Documento
+description: Descrição breve do documento.
+---
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+:::note
+
+Esta é uma nota importante para destacar algo relevante no documento.
+
+:::
+
+:::warning
+
+Esta é uma advertência para chamar a atenção para um possível problema.
+
+:::
+
+<Callout>Hello World</Callout>
+
+<Callout title="Title">Hello World</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid chart="flowchart TD
+  U[Usuário] --> P[Proxy Reverso]
+
+  P --> FE[React.js Frontend]
+  P --> C[ASP.NET Core]
+  P --> FA[FastAPI]
+  P --> F[Flask]
+
+  B[Broker MQTT] -->|MQTT| C
+
+  C -->|Query e HTTP| PG[(PostgreSQL)]
+  C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+  FA -->|Função Direta| ML[Módulo de Retreinamento]
+  FA -->|Função Direta| IF[Gerador de Inferências]
+  FA -->|HTTP| BUCKET
+
+  F -->|Query e HTTP| PG
+  F -->|HTTP| BUCKET
+" />
+
+## Equações Matemáticas em LaTeX
+
+Inline: $$c = \pm\sqrt{a^2 + b^2}$$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+![Imagem](/img-teste.jpg)
+
+![Imagem Relativa](../img-teste.jpg)
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+```files
+sprint-1
+├── entendimento-do-negocio
+│   ├── analise-financeira.mdx
+│   ├── canvas-proposta-de-valor.mdx
+│   ├── index.mdx
+│   ├── matriz-de-risco.mdx
+│   ├── matriz-oceano-azul.mdx
+│   └── meta.json
+├── entendimento-do-projeto
+│   ├── index.mdx
+│   ├── meta.json
+│   ├── proposta-de-arquitetura.mdx
+│   ├── requisitos-funcionais.mdx
+│   └── requisitos-nao-funcionais.mdx
+├── entendimento-do-usuario
+│   ├── personas
+│   │   ├── index.mdx
+│   │   └── persona-1.mdx
+│   ├── index.mdx
+│   ├── mapa-de-jornada-do-usuario.mdx
+│   ├── meta.json
+│   └── user-stories.mdx
+├── analise-de-impacto-etico.mdx
+├── index.mdx
+└── meta.json
+```
