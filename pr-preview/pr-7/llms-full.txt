@@ -33,19 +33,26 @@ Bem-vindo à documentação do projeto! Aqui você encontrará informações det
 
 <Cards>
   <Card href="/docs/sprint-1/entendimento-do-negocio" title="Entedimento do Negócio">
-    Apresenta a análise do contexto de mercado, proposta de valor e viabilidade financeira do projeto, identificando oportunidades, riscos e posicionamento estratégico.
+    Apresenta a análise do contexto de mercado, proposta de valor e viabilidade
+    financeira do projeto, identificando oportunidades, riscos e posicionamento
+    estratégico.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-usuario" title="Entendimento do Usuário">
-    Detalha a pesquisa e análise do público-alvo, incluindo definição de personas, jornadas do usuário e necessidades específicas para orientar o desenvolvimento do produto.
+    Detalha a pesquisa e análise do público-alvo, incluindo definição de
+    personas, jornadas do usuário e necessidades específicas para orientar o
+    desenvolvimento do produto.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-projeto" title="Entendimento do Projeto">
-    Fornece uma visão geral dos objetivos, escopo e requisitos do projeto, estabelecendo as bases para o desenvolvimento e entrega bem-sucedida.
+    Fornece uma visão geral dos objetivos, escopo e requisitos do projeto,
+    estabelecendo as bases para o desenvolvimento e entrega bem-sucedida.
   </Card>
 
   <Card href="/docs/sprint-1/analise-de-impacto-etico" title="Análise de Impacto Ético">
-    Examina as implicações éticas do projeto, avaliando potenciais impactos sociais, ambientais e legais, e propondo diretrizes para garantir a responsabilidade e sustentabilidade.
+    Examina as implicações éticas do projeto, avaliando potenciais impactos
+    sociais, ambientais e legais, e propondo diretrizes para garantir a
+    responsabilidade e sustentabilidade.
   </Card>
 </Cards>
 
@@ -686,19 +693,24 @@ c = \pm\sqrt{a^2 + b^2}
 
 <Cards>
   <Card href="/docs/sprint-1/entendimento-do-negocio/canvas-proposta-de-valor" title="Canvas Proposta de Valor">
-    Apresenta o Canvas de Proposta de Valor, detalhando como o produto ou serviço atende às necessidades dos clientes e se diferencia no mercado.
+    Apresenta o Canvas de Proposta de Valor, detalhando como o produto ou
+    serviço atende às necessidades dos clientes e se diferencia no mercado.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul" title="Matriz de Avaliação de Valor Oceano Azul">
-    Detalha a Matriz de Avaliação de Valor Oceano Azul, destacando como o projeto se posiciona em relação à concorrência e identifica oportunidades de inovação.
+    Detalha a Matriz de Avaliação de Valor Oceano Azul, destacando como o
+    projeto se posiciona em relação à concorrência e identifica oportunidades de
+    inovação.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-negocio/analise-financeira" title="Análise Financeira">
-    Fornece uma análise financeira detalhada do projeto, incluindo custos, receitas projetadas e viabilidade econômica.
+    Fornece uma análise financeira detalhada do projeto, incluindo custos,
+    receitas projetadas e viabilidade econômica.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-de-risco" title="Matriz de Risco">
-    Apresenta a Matriz de Risco do projeto, identificando potenciais riscos, suas probabilidades e impactos, bem como estratégias de mitigação.
+    Apresenta a Matriz de Risco do projeto, identificando potenciais riscos,
+    suas probabilidades e impactos, bem como estratégias de mitigação.
   </Card>
 </Cards>
 
@@ -715,15 +727,20 @@ c = \pm\sqrt{a^2 + b^2}
 
 <Cards>
   <Card href="/docs/sprint-1/entendimento-do-projeto/requisitos-funcionais" title="Requisitos Funcionais">
-    Detalha as funcionalidades e comportamentos esperados do sistema, especificando como ele deve operar para atender às necessidades dos usuários e objetivos do projeto.
+    Detalha as funcionalidades e comportamentos esperados do sistema,
+    especificando como ele deve operar para atender às necessidades dos usuários
+    e objetivos do projeto.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-projeto/requisitos-nao-funcionais" title="Requisitos Não Funcionais">
-    Define os critérios de qualidade, desempenho, segurança e usabilidade que o sistema deve cumprir, garantindo uma experiência eficiente e confiável para os usuários.
+    Define os critérios de qualidade, desempenho, segurança e usabilidade que o
+    sistema deve cumprir, garantindo uma experiência eficiente e confiável para
+    os usuários.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-projeto/proposta-arquitetural" title="Proposta Arquitetural">
-    Apresenta a estrutura técnica do sistema, incluindo componentes, tecnologias e padrões de design que guiarão o desenvolvimento e integração das soluções.
+    Apresenta a estrutura técnica do sistema, incluindo componentes, tecnologias
+    e padrões de design que guiarão o desenvolvimento e integração das soluções.
   </Card>
 </Cards>
 
@@ -744,15 +761,18 @@ c = \pm\sqrt{a^2 + b^2}
 
 <Cards>
   <Card href="/docs/sprint-1/entendimento-do-usuario/personas" title="Personas">
-    Apresenta as personas desenvolvidas para o projeto, detalhando os perfis, necessidades e comportamentos dos usuários-alvo.
+    Apresenta as personas desenvolvidas para o projeto, detalhando os perfis,
+    necessidades e comportamentos dos usuários-alvo.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario" title="Mapa de Jornada do Usuário">
-    Fornece o Mapa de Jornada do Usuário, ilustrando as etapas, emoções e pontos de contato dos usuários ao interagir com o produto ou serviço.
+    Fornece o Mapa de Jornada do Usuário, ilustrando as etapas, emoções e pontos
+    de contato dos usuários ao interagir com o produto ou serviço.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-usuario/user-stories" title="User Stories">
-    Detalha as User Stories criadas para o projeto, descrevendo as funcionalidades e necessidades dos usuários de forma clara e objetiva.
+    Detalha as User Stories criadas para o projeto, descrevendo as
+    funcionalidades e necessidades dos usuários de forma clara e objetiva.
   </Card>
 </Cards>
 
@@ -1369,11 +1389,13 @@ c = \pm\sqrt{a^2 + b^2}
 
 <Cards>
   <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-1" title="Persona 1">
-    Descrição detalhada da Persona 1, incluindo perfil, necessidades e comportamentos.
+    Descrição detalhada da Persona 1, incluindo perfil, necessidades e
+    comportamentos.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-2" title="Persona 2">
-    Descrição detalhada da Persona 2, incluindo perfil, necessidades e comportamentos.
+    Descrição detalhada da Persona 2, incluindo perfil, necessidades e
+    comportamentos.
   </Card>
 </Cards>
 
