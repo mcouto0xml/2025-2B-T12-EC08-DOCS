@@ -47,22 +47,22 @@ fn exemplo() {
 <Mermaid chart="flowchart TD
   U[Usuário] --> P[Proxy Reverso]
 
-  P --> FE[React.js Frontend]
-  P --> C[ASP.NET Core]
-  P --> FA[FastAPI]
-  P --> F[Flask]
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
 
-  B[Broker MQTT] -->|MQTT| C
+B[Broker MQTT] -->|MQTT| C
 
-  C -->|Query e HTTP| PG[(PostgreSQL)]
-  C -->|HTTP| BUCKET[(MinIO DataLake)]
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
 
-  FA -->|Função Direta| ML[Módulo de Retreinamento]
-  FA -->|Função Direta| IF[Gerador de Inferências]
-  FA -->|HTTP| BUCKET
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
 
-  F -->|Query e HTTP| PG
-  F -->|HTTP| BUCKET
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
 " />
 
 ## Equações Matemáticas em LaTeX
