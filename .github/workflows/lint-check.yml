@@ -1,0 +1,56 @@
+name: Lint Check for Pull Requests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: docs/node_modules
+          key: docs-deps-${{ hashFiles('docs/bun.lock', 'docs/package.json') }}
+          restore-keys: docs-deps-
+
+      - name: Install Dependencies
+        working-directory: ./docs
+        run: bun install --frozen-lockfile
+
+      - name: Run lint:check
+        id: lint-check
+        working-directory: ./docs
+        run: bun run lint:check
+        continue-on-error: true
+
+      - name: Run lint to generate fixes
+        if: steps.lint-check.outcome == 'failure'
+        working-directory: ./docs
+        run: bun run lint
+
+      - name: Suggest changes with reviewdog
+        if: steps.lint-check.outcome == 'failure'
+        uses: reviewdog/action-suggester@v1
+        with:
+          tool_name: lint-fixes
+          level: error
+          fail_on_error: true
+
+      - name: Fail if lint check failed
+        if: steps.lint-check.outcome == 'failure'
+        run: |
+          echo "❌ Linting failed. Please review and apply the suggestions above."
+          exit 1

@@ -1,13 +1,13 @@
-import { source } from "@/lib/source";
+import { language, stemmer } from "@orama/stemmers/portuguese";
 import { createFromSource } from "fumadocs-core/search/server";
-import { stemmer, language } from "@orama/stemmers/portuguese";
+import { source } from "@/lib/source";
 
 // statically cached
 export const revalidate = false;
 export const { staticGET: GET } = createFromSource(source, {
-	tokenizer: {
-		stemming: true,
-		stemmer,
-		language,
-	},
+  tokenizer: {
+    stemming: true,
+    stemmer,
+    language,
+  },
 });
