@@ -1,0 +1,1382 @@
+# Documentação do Projeto (/docs)
+
+Bem-vindo à documentação do projeto! Aqui você encontrará informações detalhadas sobre o desenvolvimento, arquitetura, requisitos e muito mais.
+
+<Cards>
+  <Card href="/docs/sprint-1" title="Sprint 1">
+    Documentação referente à Sprint 1 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-2" title="Sprint 2">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-3" title="Sprint 3">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-4" title="Sprint 4">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-5" title="Sprint 5">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+</Cards>
+
+
+# Análise de Impacto Ético (/docs/sprint-1/analise-de-impacto-etico)
+
+
+
+# Sprint 1 (/docs/sprint-1)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-negocio" title="Entedimento do Negócio">
+    Apresenta a análise do contexto de mercado, proposta de valor e viabilidade financeira do projeto, identificando oportunidades, riscos e posicionamento estratégico.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario" title="Entendimento do Usuário">
+    Detalha a pesquisa e análise do público-alvo, incluindo definição de personas, jornadas do usuário e necessidades específicas para orientar o desenvolvimento do produto.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-projeto" title="Entendimento do Projeto">
+    Fornece uma visão geral dos objetivos, escopo e requisitos do projeto, estabelecendo as bases para o desenvolvimento e entrega bem-sucedida.
+  </Card>
+
+  <Card href="/docs/sprint-1/analise-de-impacto-etico" title="Análise de Impacto Ético">
+    Examina as implicações éticas do projeto, avaliando potenciais impactos sociais, ambientais e legais, e propondo diretrizes para garantir a responsabilidade e sustentabilidade.
+  </Card>
+</Cards>
+
+
+# Sprint 2 (/docs/sprint-2)
+
+<Cards>
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-2/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Sprint 3 (/docs/sprint-3)
+
+<Cards>
+  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-3/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Sprint 4 (/docs/sprint-4)
+
+<Cards>
+  <Card href="/docs/sprint-4/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-4/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-4/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Sprint 5 (/docs/sprint-5)
+
+<Cards>
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-5/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Análise Financeira (/docs/sprint-1/entendimento-do-negocio/analise-financeira)
+
+
+
+# Canvas Prosposta de Valor (/docs/sprint-1/entendimento-do-negocio/canvas-proposta-de-valor)
+
+
+
+# Entedimento do Negócio (/docs/sprint-1/entendimento-do-negocio)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-negocio/canvas-proposta-de-valor" title="Canvas Proposta de Valor">
+    Apresenta o Canvas de Proposta de Valor, detalhando como o produto ou serviço atende às necessidades dos clientes e se diferencia no mercado.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul" title="Matriz de Avaliação de Valor Oceano Azul">
+    Detalha a Matriz de Avaliação de Valor Oceano Azul, destacando como o projeto se posiciona em relação à concorrência e identifica oportunidades de inovação.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/analise-financeira" title="Análise Financeira">
+    Fornece uma análise financeira detalhada do projeto, incluindo custos, receitas projetadas e viabilidade econômica.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-de-risco" title="Matriz de Risco">
+    Apresenta a Matriz de Risco do projeto, identificando potenciais riscos, suas probabilidades e impactos, bem como estratégias de mitigação.
+  </Card>
+</Cards>
+
+
+# Matriz de Risco (/docs/sprint-1/entendimento-do-negocio/matriz-de-risco)
+
+
+
+# Matriz de Avaliação de Valor Oceano Azul (/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul)
+
+
+
+# Entendimento do Projeto (/docs/sprint-1/entendimento-do-projeto)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-projeto/requisitos-funcionais" title="Requisitos Funcionais">
+    Detalha as funcionalidades e comportamentos esperados do sistema, especificando como ele deve operar para atender às necessidades dos usuários e objetivos do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-projeto/requisitos-nao-funcionais" title="Requisitos Não Funcionais">
+    Define os critérios de qualidade, desempenho, segurança e usabilidade que o sistema deve cumprir, garantindo uma experiência eficiente e confiável para os usuários.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-projeto/proposta-arquitetural" title="Proposta Arquitetural">
+    Apresenta a estrutura técnica do sistema, incluindo componentes, tecnologias e padrões de design que guiarão o desenvolvimento e integração das soluções.
+  </Card>
+</Cards>
+
+
+# Proposta de Arquitetura (/docs/sprint-1/entendimento-do-projeto/proposta-de-arquitetura)
+
+
+
+# Requisitos Funcionais (/docs/sprint-1/entendimento-do-projeto/requisitos-funcionais)
+
+
+
+# Requisitos Não Funcionais (/docs/sprint-1/entendimento-do-projeto/requisitos-nao-funcionais)
+
+
+
+# Entendimento do Usuário (/docs/sprint-1/entendimento-do-usuario)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas" title="Personas">
+    Apresenta as personas desenvolvidas para o projeto, detalhando os perfis, necessidades e comportamentos dos usuários-alvo.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario" title="Mapa de Jornada do Usuário">
+    Fornece o Mapa de Jornada do Usuário, ilustrando as etapas, emoções e pontos de contato dos usuários ao interagir com o produto ou serviço.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/user-stories" title="User Stories">
+    Detalha as User Stories criadas para o projeto, descrevendo as funcionalidades e necessidades dos usuários de forma clara e objetiva.
+  </Card>
+</Cards>
+
+
+# Mapa de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
+
+
+
+# User Stories (/docs/sprint-1/entendimento-do-usuario/user-stories)
+
+
+
+# Template de Pasta (/docs/sprint-2/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-2/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Template de Pasta (/docs/sprint-3/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-3/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Template de Pasta (/docs/sprint-4/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-4/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Template de Pasta (/docs/sprint-5/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-5/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Personas (/docs/sprint-1/entendimento-do-usuario/personas)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-1" title="Persona 1">
+    Descrição detalhada da Persona 1, incluindo perfil, necessidades e comportamentos.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-2" title="Persona 2">
+    Descrição detalhada da Persona 2, incluindo perfil, necessidades e comportamentos.
+  </Card>
+</Cards>
+
+
+# Persona 1 (/docs/sprint-1/entendimento-do-usuario/personas/persona-1)
+
