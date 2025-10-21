@@ -1,0 +1,61 @@
+name: Lint Check for Pull Requests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./docs
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: docs/node_modules
+          key: docs-deps-${{ hashFiles('docs/bun.lock', 'docs/package.json') }}
+          restore-keys: docs-deps-
+
+      - name: Cache Build Folders
+        uses: actions/cache@v4
+        with:
+          path: |
+            docs/.next
+            docs/.source
+          key: docs-build-${{ hashFiles('docs/**/*', '!docs/node_modules/**', '!docs/.next/**', '!docs/.source/**') }}
+          restore-keys: docs-build-
+
+      - name: Install Dependencies
+        run: |
+          bun install --frozen-lockfile
+
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+
+      - name: Run lint and report with reviewdog
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bun run lint:check 2>&1 | \
+          reviewdog -efm="%f:%l:%c: %m" \
+                    -name="lint" \
+                    -reporter=github-pr-review \
+                    -filter-mode=nofilter \
+                    -fail-on-error=true || true
+
+          bun run lint:check
