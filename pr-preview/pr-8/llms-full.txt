@@ -700,7 +700,7 @@ para o sucesso.
 
 <img alt="Canvas da Proposta de Valor" src={__img0} placeholder="blur" />
 
-<p style={{ textAlign: 'center' }}>
+<p style={{ textAlign: "center" }}>
   Fonte: Produzida pelos Autores (2025)
 </p>
 
