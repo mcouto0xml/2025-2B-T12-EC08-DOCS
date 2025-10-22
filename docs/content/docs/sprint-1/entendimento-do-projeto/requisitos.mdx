@@ -1,0 +1,119 @@
+---
+title: Requisitos
+---
+
+# Requisitos do Sistema
+
+## Introdução
+
+&emsp;Este documento apresenta a especificação dos **Requisitos Funcionais (RF)** e **Requisitos Não Funcionais (RNF)** do sistema, de acordo com as práticas recomendadas pela **norma ISO/IEC 25010:2011**, que define os modelos de qualidade de produto de software. O objetivo é assegurar que o sistema atenda às necessidades funcionais do negócio, ao mesmo tempo em que mantenha elevados padrões de qualidade, desempenho, segurança e manutenibilidade ao longo de seu ciclo de vida.
+
+&emsp;Os requisitos aqui descritos foram organizados por **área de desenvolvimento**, de modo a garantir rastreabilidade entre os objetivos do projeto, os responsáveis técnicos e as métricas de aceitação associadas.
+
+
+## Estrutura Organizacional das Áreas de Desenvolvimento
+
+&emsp;O projeto está estruturado em cinco áreas principais de desenvolvimento, cada uma com atribuições específicas e responsabilidades técnicas relacionadas às dimensões de qualidade do produto.
+
+### 1. DevOps/UX  
+&emsp;A área de **DevOps/UX** é responsável pela infraestrutura de integração e entrega contínua (CI/CD), governança de código e pela experiência do usuário. Abrange desde o controle de versionamento e automação de pipelines até o design de interfaces e a garantia de usabilidade, acessibilidade e coerência visual.  
+&emsp;Os requisitos desta área relacionam-se principalmente às características de **Usabilidade**, **Eficiência de Execução** e **Manutenibilidade** previstas na ISO/IEC 25010.
+
+### 2. Backend  
+&emsp;A área de **Backend** implementa a lógica de negócio, a camada de comunicação entre sistemas e o controle de segurança dos dados. É responsável por autenticação, autorização, integridade das informações e desempenho da aplicação.  
+&emsp;Os requisitos desta área estão associados às dimensões de **Adequação Funcional**, **Confiabilidade**, **Segurança (Security)** e **Eficiência de Execução**.
+
+### 3. Modelo  
+&emsp;A área de **Modelo** trata do desenvolvimento e integração de modelos de **Processamento de Linguagem Natural (PLN)**, como LLMs (Large Language Models). Inclui a definição de estratégias de segurança, mitigação de vieses, governança de dados e uso de mecanismos de recuperação de contexto (RAG - *Retrieval Augmented Generation*).  
+&emsp;Os requisitos desta área estão relacionados a **Adequação Funcional**, **Confiabilidade**, **Segurança** e **Compatibilidade**.
+
+### 4. Robô  
+&emsp;A área de **Robô** abrange a integração entre o hardware e o software embarcado, incluindo controle de movimento, visão computacional e protocolos de comunicação como **ROS-2**. Foca em garantir **segurança operacional (safety)**, robustez e estabilidade da comunicação entre os módulos.  
+&emsp;Os requisitos desta área se relacionam principalmente às características de **Confiabilidade**, **Segurança**, **Eficiência de Execução** e **Portabilidade**
+
+### 5. Segurança 
+&emsp;A área de **Segurança** é responsável por garantir a segurança cibernética e operacional do sistema, atuando na prevenção de falhas, vulnerabilidades e riscos que possam comprometer pessoas, dados ou infraestrutura. Essa equipe assegura a conformidade com padrões de segurança e requisitos aqui definidos, implementa mecanismos de proteção e realiza análises contínuas de risco. Também desenvolve protocolos de segurança física e lógica, assegurando operação previsível e confiável em todas as condições. Esse time não possui requisitos específicos listados neste documento, mas atua transversalmente em todas as áreas para garantir a integridade e segurança do sistema como um todo.
+
+---
+
+## Classificação dos Requisitos
+
+Os requisitos são classificados em duas categorias:
+
+- **Requisitos Funcionais (RF):** especificam as funções e comportamentos que o sistema deve executar. Representam diretamente as operações necessárias para atender aos objetivos do negócio.
+- **Requisitos Não Funcionais (RNF):** descrevem as qualidades e restrições que o sistema deve cumprir, abordando aspectos de desempenho, segurança, confiabilidade, usabilidade, manutenibilidade, compatibilidade e portabilidade.
+
+---
+
+## Requisitos Funcionais e Não Funcionais por Área de Desenvolvimento
+
+### Área de Desenvolvimento: DevOps/UX
+ 
+&emsp;Esta área abrange a infraestrutura de desenvolvimento, automação de processos e design da experiência do usuário. Seus requisitos envolvem acessibilidade, interoperabilidade entre ambientes, eficiência operacional e qualidade da interface.
+
+| Tipo de Requisito | Área Responsável | Requisito | Critério de Aceite |
+|--------------------|------------------|------------|--------------------|
+|                    | DevOps/UX        |            |                    |
+|                    | DevOps/UX        |            |                    |
+|                    | DevOps/UX        |            |                    |
+
+---
+
+### Área de Desenvolvimento: Backend
+ 
+&emsp;A área de Backend é responsável pela lógica central do sistema, comunicação entre serviços, persistência de dados e mecanismos de autenticação e segurança. Os requisitos desta área garantem a confiabilidade das operações e o cumprimento dos parâmetros de desempenho e integridade de dados.
+
+| Tipo de Requisito | Área Responsável | Requisito | Critério de Aceite |
+|--------------------|------------------|------------|--------------------|
+|                    | Backend          |            |                    |
+|                    | Backend          |            |                    |
+|                    | Backend          |            |                    |
+
+---
+
+### Área de Desenvolvimento: Modelo
+ 
+&emsp;Responsável pela implementação de modelos de inteligência artificial, processamento de linguagem natural e integração com os demais módulos. Os requisitos desta área asseguram a precisão, consistência, ética e segurança dos modelos.
+
+| Tipo de Requisito | Área Responsável | Requisito | Critério de Aceite |
+|--------------------|------------------|------------|--------------------|
+|                    | Modelo           |            |                    |
+|                    | Modelo           |            |                    |
+|                    | Modelo           |            |                    |
+
+---
+
+### Área de Desenvolvimento: Robô
+ 
+&emsp;Abrange a camada física e lógica do robô, integrando sensores, atuadores e sistemas de controle. Os requisitos desta área garantem a operação segura, contínua e compatível com os ambientes de execução definidos, bem como a tolerância a falhas e a integridade dos processos.
+
+| Tipo de Requisito | Área Responsável | Requisito | Critério de Aceite |
+|--------------------|------------------|------------|--------------------|
+|                    | Robô             |            |                    |
+|                    | Robô             |            |                    |
+|                    | Robô             |            |                    |
+
+---
+
+## Atributos de Qualidade (ISO/IEC 25010)
+
+&emsp;Os **Requisitos Não Funcionais (RNFs)** são diretamente relacionados às oito características principais de qualidade de produto, conforme definidas pela norma **ISO/IEC 25010:2011**:
+
+| Característica de Qualidade | Subcaracterísticas |
+|------------------------------|--------------------|
+| **Adequação Funcional** | Completude funcional, Correção funcional, Apropriabilidade funcional |
+| **Eficiência de Execução** | Comportamento no tempo, Utilização de recursos, Capacidade |
+| **Compatibilidade** | Coexistência, Interoperabilidade |
+| **Usabilidade** | Adequação da reconhecibilidade, Apreensibilidade, Operacionalidade, Proteção contra erro do usuário, Estética da interface, Acessibilidade |
+| **Confiabilidade** | Maturidade, Disponibilidade, Tolerância a falhas, Recuperabilidade |
+| **Segurança (Security)** | Confidencialidade, Integridade, Não repúdio, Responsabilidade, Autenticidade |
+| **Manutenibilidade** | Modularidade, Reusabilidade, Analisabilidade, Modificabilidade, Testabilidade |
+| **Portabilidade** | Adaptabilidade, Capacidade para ser instalado, Capacidade para substituir |
+
+
+
+## Considerações Finais
+
+&emsp;A especificação dos requisitos apresentada neste documento estabelece uma base sólida para o desenvolvimento, integração e validação do sistema. Ao adotar a estrutura da **ISO/IEC 25010**, garante-se uma abordagem sistemática para mensurar a qualidade do produto em todas as suas dimensões, desde o comportamento funcional até os atributos de desempenho, segurança e manutenção.
+
+&emsp;A rastreabilidade entre áreas, tipos de requisito e critérios de aceitação assegura transparência, controle de qualidade e alinhamento entre equipes multidisciplinares, promovendo a entrega de um sistema confiável, seguro e de alta performance.
