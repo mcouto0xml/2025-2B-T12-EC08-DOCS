@@ -89,9 +89,20 @@ Os requisitos são classificados em duas categorias:
 
 | Tipo de Requisito | Área Responsável | Requisito | Critério de Aceite |
 |--------------------|------------------|------------|--------------------|
-|                    | Robô             |            |                    |
-|                    | Robô             |            |                    |
-|                    | Robô             |            |                    |
+|Funcional| Robô             |O robô deve detectar e evitar obstáculos, pessoas e objetos em tempo real.|O robô não deve colidir com nenhum objeto ou pessoa, evitando qualquer tipo de dano físico.|
+|Funcional| Robô             |O robô deve interromper o movimento imediatamente ao detectar risco iminente de colisão, perda de controle ou falha de sensor.|O robô deve parar em até 1 segundo após a detecção de risco ou falha.|
+|Funcional| Robô             |O robô deve utilizar sensores de proximidade, LiDAR e visão computacional para mapear o ambiente e ajustar sua trajetória dinamicamente.|O robô deve demonstrar capacidade de desviar de obstáculos móveis e fixos em testes controlados.|
+|Funcional| Robô             |O robô deve seguir comandos do backend via ROS-2 apenas após validação de integridade e origem da mensagem.|O robô só deve executar comandos validados com origem conhecida e integridade confirmada.|
+|Funcional| Robô             |Em caso de perda de conexão com o backend, o robô deve entrar automaticamente em modo seguro (failsafe).|O robô deve parar o movimento e aguardar reconexão ao detectar perda de sinal.|
+|Não Funcional| Robô             |O robô deve implementar protocolos de comunicação seguros entre hardware e backend, utilizando criptografia TLS 1.3 ou DDS Security (ROS-2 SROS2) para prevenir ataques Man-in-the-Middle (MITM).|Todas as mensagens entre o robô e o backend devem ser criptografadas e autenticadas.|
+|Não Funcional| Robô             |A latência máxima de comunicação entre o robô e o backend não deve ultrapassar 200 ms.|Testes de comunicação devem confirmar latência ≤ 200 ms em 95% do tempo de operação.|
+|Não Funcional| Robô             |O robô deve manter taxa mínima de disponibilidade de conexão de 99%, reconectando-se automaticamente em menos de 3 segundos após uma falha de rede.|O robô deve conseguir se reconectar sozinho após falha, dentro do tempo especificado, em 95% dos testes.|
+|Não Funcional| Robô             |A arquitetura do robô deve ser modular e redundante, permitindo que falhas em um subsistema (ex: sensor ultrassônico) não comprometam o funcionamento global.|Durante testes com falha induzida em subsistemas, o robô deve continuar operando com funções críticas.|
+|Não Funcional| Robô             |O robô deve ser fisicamente seguro, com motores limitados por torque e velocidade para evitar impacto danoso em humanos ou objetos.|Em testes de segurança, os limites de força e velocidade não devem ser ultrapassados.|
+|Não Funcional| Robô             |A pilha ROS-2 deve ser configurada com QoS adequada aos canais críticos conforme prioridade de mensagem.|A configuração deve garantir que mensagens críticas (ex: parada de emergência) tenham prioridade e baixa latência.|
+|Não Funcional| Robô             |O sistema deve ser testado em ambiente controlado para verificar tolerância a falhas de sensores, perda de rede e falhas de hardware.|O sistema deve manter operação segura e controlada mesmo com falhas simuladas em testes.|
+
+
 
 ---
 
