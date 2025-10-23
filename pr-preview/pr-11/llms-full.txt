@@ -1,0 +1,1670 @@
+# Documentação do Projeto (/docs)
+
+Bem-vindo à documentação do projeto! Aqui você encontrará informações detalhadas sobre o desenvolvimento, arquitetura, requisitos e muito mais.
+
+<Cards>
+  <Card href="/docs/sprint-1" title="Sprint 1">
+    Documentação referente à Sprint 1 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-2" title="Sprint 2">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-3" title="Sprint 3">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-4" title="Sprint 4">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-5" title="Sprint 5">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+</Cards>
+
+
+# Análise de Impacto Ético (/docs/sprint-1/analise-de-impacto-etico)
+
+
+
+# Sprint 1 (/docs/sprint-1)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-negocio" title="Entedimento do Negócio">
+    Apresenta a análise do contexto de mercado, proposta de valor e viabilidade
+    financeira do projeto, identificando oportunidades, riscos e posicionamento
+    estratégico.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario" title="Entendimento do Usuário">
+    Detalha a pesquisa e análise do público-alvo, incluindo definição de
+    personas, jornadas do usuário e necessidades específicas para orientar o
+    desenvolvimento do produto.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-projeto" title="Entendimento do Projeto">
+    Fornece uma visão geral dos objetivos, escopo e requisitos do projeto,
+    estabelecendo as bases para o desenvolvimento e entrega bem-sucedida.
+  </Card>
+
+  <Card href="/docs/sprint-1/analise-de-impacto-etico" title="Análise de Impacto Ético">
+    Examina as implicações éticas do projeto, avaliando potenciais impactos
+    sociais, ambientais e legais, e propondo diretrizes para garantir a
+    responsabilidade e sustentabilidade.
+  </Card>
+</Cards>
+
+
+# Sprint 2 (/docs/sprint-2)
+
+<Cards>
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-2/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Sprint 3 (/docs/sprint-3)
+
+<Cards>
+  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-3/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Sprint 4 (/docs/sprint-4)
+
+<Cards>
+  <Card href="/docs/sprint-4/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-4/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-4/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Sprint 5 (/docs/sprint-5)
+
+<Cards>
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-5/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Análise Financeira (/docs/sprint-1/entendimento-do-negocio/analise-financeira)
+
+
+
+# Canvas Prosposta de Valor (/docs/sprint-1/entendimento-do-negocio/canvas-proposta-de-valor)
+
+
+
+# Entedimento do Negócio (/docs/sprint-1/entendimento-do-negocio)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-negocio/canvas-proposta-de-valor" title="Canvas Proposta de Valor">
+    Apresenta o Canvas de Proposta de Valor, detalhando como o produto ou
+    serviço atende às necessidades dos clientes e se diferencia no mercado.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul" title="Matriz de Avaliação de Valor Oceano Azul">
+    Detalha a Matriz de Avaliação de Valor Oceano Azul, destacando como o
+    projeto se posiciona em relação à concorrência e identifica oportunidades de
+    inovação.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/analise-financeira" title="Análise Financeira">
+    Fornece uma análise financeira detalhada do projeto, incluindo custos,
+    receitas projetadas e viabilidade econômica.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-de-risco" title="Matriz de Risco">
+    Apresenta a Matriz de Risco do projeto, identificando potenciais riscos,
+    suas probabilidades e impactos, bem como estratégias de mitigação.
+  </Card>
+</Cards>
+
+
+# Matriz de Risco (/docs/sprint-1/entendimento-do-negocio/matriz-de-risco)
+
+
+
+# Matriz de Avaliação de Valor Oceano Azul (/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul)
+
+
+
+# Entendimento do Projeto (/docs/sprint-1/entendimento-do-projeto)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-projeto/requisitos" title="Requisitos do sistema: Funcionais e Não Funcionais">
+    Na parte de requisitos funcionais são detalhadas as funcionalidades e comportamentos esperados do sistema,
+    especificando como ele deve operar para atender às necessidades dos usuários
+    e objetivos do projeto. Já nos requisitos não funcionais são definidos os critérios de qualidade, desempenho, segurança e usabilidade que o
+    sistema deve cumprir, garantindo uma experiência eficiente e confiável para
+    os usuários.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-projeto/proposta-arquitetural" title="Proposta Arquitetural">
+    Apresenta a estrutura técnica do sistema, incluindo componentes, tecnologias
+    e padrões de design que guiarão o desenvolvimento e integração das soluções.
+  </Card>
+</Cards>
+
+
+# Proposta de Arquitetura (/docs/sprint-1/entendimento-do-projeto/proposta-de-arquitetura)
+
+
+
+# Requisitos (/docs/sprint-1/entendimento-do-projeto/requisitos)
+
+# Requisitos do Sistema
+
+ Este documento apresenta a especificação dos **Requisitos Funcionais (RF)** e **Requisitos Não Funcionais (RNF)** do sistema, de acordo com as práticas recomendadas pela **norma ISO/IEC 25010:2011**, que define os modelos de qualidade de produto de software. O objetivo é assegurar que o sistema atenda às necessidades funcionais do negócio, ao mesmo tempo em que mantenha elevados padrões de qualidade, desempenho, segurança e manutenibilidade ao longo de seu ciclo de vida.
+
+ Os requisitos aqui descritos foram organizados por **área de desenvolvimento**, de modo a garantir rastreabilidade entre os objetivos do projeto, os responsáveis técnicos e as métricas de aceitação associadas.
+
+## Estrutura Organizacional das Áreas de Desenvolvimento
+
+ O projeto está estruturado em cinco áreas principais de desenvolvimento, cada uma com atribuições específicas e responsabilidades técnicas relacionadas às dimensões de qualidade do produto.
+
+### 1. DevOps/UX
+
+ A área de **DevOps/UX** é responsável pela infraestrutura de integração e entrega contínua (CI/CD), governança de código e pela experiência do usuário. Abrange desde o controle de versionamento e automação de pipelines até o design de interfaces e a garantia de usabilidade, acessibilidade e coerência visual.\
+ Os requisitos desta área relacionam-se principalmente às características de **Usabilidade**, **Eficiência de Execução** e **Manutenibilidade** previstas na ISO/IEC 25010.
+
+### 2. Backend
+
+ A área de **Backend** implementa a lógica de negócio, a camada de comunicação entre sistemas e o controle de segurança dos dados. É responsável por autenticação, autorização, integridade das informações e desempenho da aplicação.\
+ Os requisitos desta área estão associados às dimensões de **Adequação Funcional**, **Confiabilidade**, **Segurança (Security)** e **Eficiência de Execução**.
+
+### 3. Modelo
+
+ A área de **Modelo** trata do desenvolvimento e integração de modelos de **Processamento de Linguagem Natural (PLN)**, como LLMs (Large Language Models). Inclui a definição de estratégias de segurança, mitigação de vieses, governança de dados e uso de mecanismos de recuperação de contexto (RAG - *Retrieval Augmented Generation*).\
+ Os requisitos desta área estão relacionados a **Adequação Funcional**, **Confiabilidade**, **Segurança** e **Compatibilidade**.
+
+### 4. Robô
+
+ A área de **Robô** abrange a integração entre o hardware e o software embarcado, incluindo controle de movimento, visão computacional e protocolos de comunicação como **ROS-2**. Foca em garantir **segurança operacional (safety)**, robustez e estabilidade da comunicação entre os módulos.\
+ Os requisitos desta área se relacionam principalmente às características de **Confiabilidade**, **Segurança**, **Eficiência de Execução** e **Portabilidade**
+
+### 5. Segurança
+
+ A área de **Segurança** é responsável por garantir a segurança cibernética e operacional do sistema, atuando na prevenção de falhas, vulnerabilidades e riscos que possam comprometer pessoas, dados ou infraestrutura. Essa equipe assegura a conformidade com padrões de segurança e requisitos aqui definidos, implementa mecanismos de proteção e realiza análises contínuas de risco. Também desenvolve protocolos de segurança física e lógica, assegurando operação previsível e confiável em todas as condições. Esse time não possui requisitos específicos listados neste documento, mas atua transversalmente em todas as áreas para garantir a integridade e segurança do sistema como um todo.
+
+***
+
+## Classificação dos Requisitos
+
+Os requisitos são classificados em duas categorias:
+
+* **Requisitos Funcionais (RF):** especificam as funções e comportamentos que o sistema deve executar. Representam diretamente as operações necessárias para atender aos objetivos do negócio.
+* **Requisitos Não Funcionais (RNF):** descrevem as qualidades e restrições que o sistema deve cumprir, abordando aspectos de desempenho, segurança, confiabilidade, usabilidade, manutenibilidade, compatibilidade e portabilidade.
+
+***
+
+## Requisitos Funcionais e Não Funcionais por Área de Desenvolvimento
+
+### **Área de Desenvolvimento: DevOps/UX**
+
+ Esta área abrange a infraestrutura de desenvolvimento, automação de processos e design da experiência do usuário. Seus requisitos envolvem acessibilidade, interoperabilidade entre ambientes, eficiência operacional e qualidade da interface.
+
+| Tipo de Requisito | Área Responsável | Requisito                                                                              | Critério de Aceite                                                                                           |
+| ----------------- | ---------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Funcional         | DevOps/UX        | Deve existir um botão de parada de emergência (E-Stop).                                | Botão visível na tela principal; ao clicar, envia comando STOP e exibe feedback visual de parada confirmada. |
+| Funcional         | DevOps/UX        | A interface de monitoramento deve exibir em tempo real o status de cada processo.      | Atualização de status a cada ≤ 1 s; atraso máximo ≤ 500 ms.                                                  |
+| Funcional         | DevOps/UX        | A interface deve oferecer filtros dinâmicos e busca rápida por falhas, logs e eventos. | Campo de busca funcional sem recarregar página; resultados retornam em ≤ 2 s.                                |
+| Funcional         | DevOps/UX        | O sistema deve emitir alertas e falhas por ordem de gravidade.                         | Alertas visuais e sonoros disparados em ≤ 2 s após detecção.                                                 |
+| Funcional         | DevOps/UX        | O sistema deve implementar pipeline de SCA para analisar dependências antes do deploy. | Execução automática a cada build; falha de CVE crítico bloqueia deploy.                                      |
+| Funcional         | DevOps/UX        | Registro de eventos críticos (STOP e falhas).                                          | 100% dos eventos críticos logados com timestamp e ID; perda máxima tolerada = 0.                             |
+| Funcional         | DevOps/UX        | Coleta de leads e feedback de visitantes.                                              | Formulário registra dados corretamente; taxa de falha ≤ 1%; sem travamentos.                                 |
+| Funcional         | DevOps/UX        | O sistema deve restringir o envio de perguntas por robôs de rede interna.              | Bloqueio ativo de acessos não autenticados; logs de tentativas mantidos.                                     |
+| Funcional         | DevOps/UX        | O formulário deve permanecer acessível durante o tour.                                 | Disponível do início ao fim; bloqueado após término; tempo de resposta ≤ 1 s.                                |
+| Funcional         | DevOps/UX        | GitFlow deve ser obrigatório.                                                          | Merge apenas via Pull Request aprovado por 2 revisores; push direto bloqueado.                               |
+| Funcional         | DevOps/UX        | O sistema deve ter pipeline de SAST antes do merge.                                    | PR bloqueado se vulnerabilidade crítica detectada.                                                           |
+| Funcional         | DevOps/UX        | O sistema deve fazer varredura de secrets (.env, chaves).                              | Commits bloqueados automaticamente; log de tentativas gravado.                                               |
+| Funcional         | DevOps/UX        | O sistema deve utilizar CI/CD para deploy controlado.                                  | Deploy ocorre apenas após build aprovado; rollback automático disponível.                                    |
+| Não Funcional     | DevOps/UX        | A interface deve ter feature de parada de emergência em caso de falhas ou danos.       | Ação STOP disponível em ≤ 1 s após acionamento.                                                              |
+| Não Funcional     | DevOps/UX        | A interface deve ter tempo de resposta \< 1 s em operações críticas.                   | Testes de carga mostram 95% das respostas em ≤ 1 s.                                                          |
+| Não Funcional     | DevOps/UX        | A arquitetura de DevOps deve seguir GitFlow com controles de acesso rígidos.           | Push direto na main bloqueado; revisão obrigatória por pares.                                                |
+| Não Funcional     | DevOps/UX        | O repositório deve possuir varredura automática de chaves e segredos.                  | Nenhum commit com segredos permitido; scanner executado a cada build.                                        |
+| Não Funcional     | DevOps/UX        | Interface operacional deve permanecer estável durante tours.                           | Nenhum crash; taxa de uptime ≥ 99,9%.                                                                        |
+| Não Funcional     | DevOps/UX        | Portal deve ter autenticação de dois fatores.                                          | 100% dos logins exigem token de verificação; sem bypass.                                                     |
+| Não Funcional     | DevOps/UX        | Interface deve ser acessível para pessoas com deficiência visual.                      | Ícones e labels compatíveis com leitores de tela; contraste > 7:1.                                           |
+| Não Funcional     | DevOps/UX        | Banco de dados deve ser criptografado e auditável.                                     | Logs de auditoria gerados; acesso restrito a operadores autorizados.                                         |
+
+***
+
+### **Área de Desenvolvimento: Backend**
+
+ A área de Backend é responsável pela lógica central do sistema, comunicação entre serviços, persistência de dados e mecanismos de autenticação e segurança. Os requisitos desta área garantem a confiabilidade das operações e o cumprimento dos parâmetros de desempenho e integridade de dados.
+
+| Tipo de Requisito | Área Responsável | Requisito                                                                                                                                                  | Critério de Aceite                                                                                                                       |
+| ----------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Funcional         | Backend          | O robô deve parar imediatamente (tempo máximo de resposta ≤ 1 s) após o botão de emergência ser pressionado, interrompendo todos os processos ativos.      | O backend deve receber o comando STOP e enviar confirmação ao robô em ≤ 1 s; log de parada deve registrar timestamp e origem do comando. |
+| Funcional         | Backend          | O backend deve enviar o comando de parada para o robô de forma prioritária, com confirmação de execução e redundância no canal de envio.                   | Sistema deve registrar ACK de parada em até 1 s; falhas de transmissão ≤ 1%.                                                             |
+| Funcional         | Backend          | Os endpoints de comunicação entre backend e robô devem permitir troca de comandos e status em tempo real, incluindo dados de sensores, movimento e estado. | Latência média de comunicação ≤ 200 ms; 100% das mensagens críticas entregues e confirmadas.                                             |
+| Funcional         | Backend          | As falas geradas via LLM devem ser processadas e transmitidas ao robô com tempo máximo de resposta de 1,5 s.                                               | Testes de desempenho confirmam tempo médio ≤ 1,5 s em 95% das requisições.                                                               |
+| Funcional         | Backend          | Todos os endpoints REST ou WebSocket devem exigir autenticação JWT válida antes de permitir qualquer operação de controle sobre o robô.                    | Nenhuma requisição não autenticada aceita; logs registram ID de sessão e timestamp.                                                      |
+| Funcional         | Backend          | O backend deve implementar rate limiting em todos os endpoints críticos, prevenindo abuso ou sobrecarga indevida.                                          | Limite configurado de 100 req/min por IP; logs registram violações; bloqueios aplicados automaticamente.                                 |
+| Funcional         | Backend          | O sistema deve registrar logs detalhados de todas as requisições, incluindo status, endpoint, payload e tempo de resposta.                                 | Logs armazenados com precisão de timestamp ≤ 10 ms; nenhuma requisição crítica sem registro.                                             |
+| Não Funcional     | Backend          | O backend deve manter latência máxima de 200 ms para comunicação com o robô e ≤ 500 ms para geração de resposta das falas LLM.                             | Monitoramento contínuo confirma médias dentro do limite em 95% dos testes sob carga nominal.                                             |
+| Não Funcional     | Backend          | A infraestrutura de rede deve garantir baixa perda de pacotes (≤ 1%) e tempo de reconexão inferior a 2 segundos após falha.                                | Testes de estresse validam reconexão ≤ 2 s; perda de pacotes ≤ 1% em 1.000 iterações.                                                    |
+| Não Funcional     | Backend          | O backend deve seguir padrões OWASP API Security Top 10, prevenindo vulnerabilidades como injeções, autenticação fraca e exposição indevida de dados.      | Auditoria de segurança trimestral comprova 0 vulnerabilidades críticas.                                                                  |
+| Não Funcional     | Backend          | O rate limiter deve ser configurável e adaptativo, permitindo ajustes dinâmicos de limite conforme tipo de endpoint e contexto operacional.                | Painel administrativo permite alteração de limites sem downtime; alterações registradas em log.                                          |
+| Não Funcional     | Backend          | O backend deve possuir monitoramento contínuo de desempenho e disponibilidade, com alertas em caso de falha.                                               | Alertas emitidos em ≤ 60 s após anomalia; uptime ≥ 99,9%.                                                                                |
+| Não Funcional     | Backend          | Todos os logs e métricas do backend devem ser armazenados de forma segura e criptografada, com retenção mínima de 90 dias.                                 | Dados de log armazenados com AES-256; perda máxima tolerada = 0%.                                                                        |
+
+***
+
+### **Área de Desenvolvimento: Modelo**
+
+ Responsável pela implementação de modelos de inteligência artificial, processamento de linguagem natural e integração com os demais módulos. Os requisitos desta área asseguram a precisão, consistência, ética e segurança dos modelos.
+
+| Tipo de Requisito | Área Responsável | Requisito                                                                                                                                                                                                                                                                                 | Critério de Aceite                                                                                                                                 |
+| ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Funcional         | Modelo           | O sistema deve operar com dois modelos de linguagem distintos: Modelo A (Detector) — responsável por identificar perguntas capciosas, enganosas, maliciosas ou de natureza antiética; e Modelo B (Respondente) — responsável por gerar respostas somente quando autorizado pelo Modelo A. | Os testes devem comprovar que o Modelo B apenas gera respostas após autorização explícita do Modelo A, com taxa de falsos positivos inferior a 2%. |
+| Funcional         | Modelo           | O Modelo B deve recusar a geração de respostas quando o Modelo A classificar a entrada como capciosa ou potencialmente maliciosa.                                                                                                                                                         | Durante testes de validação, o Modelo B deve bloquear 100% das tentativas de resposta em entradas classificadas como capciosas pelo Modelo A.      |
+| Funcional         | Modelo           | A comunicação entre os dois modelos deve ser interna e segura.                                                                                                                                                                                                                            | Logs de auditoria devem comprovar que toda comunicação entre os modelos ocorre via canal interno autenticado e criptografado.                      |
+| Funcional         | Modelo           | O sistema deve registrar as decisões do Modelo A (Detector) para auditoria, incluindo entradas classificadas, tempo de inferência e motivo da classificação.                                                                                                                              | Logs de auditoria devem registrar 100% das inferências, contendo data/hora, entrada, saída e justificativa.                                        |
+| Funcional         | Modelo           | O Modelo B deve produzir respostas verificáveis, parciais em relação ao Intel, evitando menções vagas, meias verdades, difamações ou menções negativas a pessoas, grupos ou instituições.                                                                                                 | As respostas devem passar por teste de conformidade ética e semântica com precisão ≥ 95% segundo checklist de validação.                           |
+| Funcional         | Modelo           | O sistema deve possuir um módulo de auditoria de geração de conteúdo, capaz de revisar periodicamente respostas e detectar possíveis desvios éticos ou factuais.                                                                                                                          | Auditorias mensais devem detectar e corrigir 100% dos desvios classificados como críticos.                                                         |
+| Funcional         | Modelo           | O sistema de dois modelos deve utilizar estratégias de inferência assíncrona, evitando bloqueios ou gargalos entre o Detector e o Respondente.                                                                                                                                            | O sistema deve processar entradas simultâneas mantendo latência total ≤ 1,5s em 95% das requisições.                                               |
+| Não Funcional     | Modelo           | A base de dados utilizada no RAG deve ser tratada e padronizada para eficiência e relevância.                                                                                                                                                                                             | Índices otimizados e consistência de dados ≥ 99%; consultas retornam em ≤ 1 s.                                                                     |
+| Não Funcional     | Modelo           | O sistema de LLMs deve operar com latência total ≤ 1,5 s, incluindo filtragem pelo Modelo A.                                                                                                                                                                                              | Testes de desempenho validam tempo médio ≤ 1,5 s em 95% das requisições.                                                                           |
+| Não Funcional     | Modelo           | Deve haver isolamento lógico e físico entre ambientes de inferência.                                                                                                                                                                                                                      | Nenhum compartilhamento de dados entre ambientes detectado; verificações semanais de segurança.                                                    |
+| Não Funcional     | Modelo           | Modelos devem ser reprodutíveis, gerando resultados consistentes sob mesmas condições.                                                                                                                                                                                                    | Diferença de saída ≤ 1% entre execuções idênticas.                                                                                                 |
+| Não Funcional     | Modelo           | Toda comunicação entre modelos, datasets e APIs deve ser criptografada (TLS 1.3+).                                                                                                                                                                                                        | Auditoria confirma 100% das conexões seguras; nenhuma requisição não criptografada.                                                                |
+| Não Funcional     | Modelo           | Métricas de desempenho e detecção de falhas devem ser monitoradas continuamente.                                                                                                                                                                                                          | Sistema de alertas ativa notificação em \< 60 s após detecção de falha.                                                                            |
+| Não Funcional     | Modelo           | O pipeline de AIOps deve registrar logs e métricas de inferência, falhas e auditorias.                                                                                                                                                                                                    | Logs armazenados com retenção mínima de 90 dias; perda máxima de eventos = 0%.                                                                     |
+
+***
+
+### **Área de Desenvolvimento: Robô**
+
+ Abrange a camada física e lógica do robô, integrando sensores, atuadores e sistemas de controle. Os requisitos desta área garantem a operação segura, contínua e compatível com os ambientes de execução definidos, bem como a tolerância a falhas e a integridade dos processos.
+
+| Tipo de Requisito | Área Responsável | Requisito                                                                                                                                                                                         | Critério de Aceite                                                                                                 |
+| ----------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Funcional         | Robô             | O robô deve detectar e evitar obstáculos, pessoas e objetos em tempo real.                                                                                                                        | O robô não deve colidir com nenhum objeto ou pessoa, evitando qualquer tipo de dano físico.                        |
+| Funcional         | Robô             | O robô deve interromper o movimento imediatamente ao detectar risco iminente de colisão, perda de controle ou falha de sensor.                                                                    | O robô deve parar em até 1 segundo após a detecção de risco ou falha.                                              |
+| Funcional         | Robô             | O robô deve utilizar sensores de proximidade, LiDAR e visão computacional para mapear o ambiente e ajustar sua trajetória dinamicamente.                                                          | O robô deve demonstrar capacidade de desviar de obstáculos móveis e fixos em testes controlados.                   |
+| Funcional         | Robô             | O robô deve seguir comandos do backend via ROS-2 apenas após validação de integridade e origem da mensagem.                                                                                       | O robô só deve executar comandos validados com origem conhecida e integridade confirmada.                          |
+| Funcional         | Robô             | Em caso de perda de conexão com o backend, o robô deve entrar automaticamente em modo seguro (failsafe).                                                                                          | O robô deve parar o movimento e aguardar reconexão ao detectar perda de sinal.                                     |
+| Não Funcional     | Robô             | O robô deve implementar protocolos de comunicação seguros entre hardware e backend, utilizando criptografia TLS 1.3 ou DDS Security (ROS-2 SROS2) para prevenir ataques Man-in-the-Middle (MITM). | Todas as mensagens entre o robô e o backend devem ser criptografadas e autenticadas.                               |
+| Não Funcional     | Robô             | A latência máxima de comunicação entre o robô e o backend não deve ultrapassar 200 ms.                                                                                                            | Testes de comunicação devem confirmar latência ≤ 200 ms em 95% do tempo de operação.                               |
+| Não Funcional     | Robô             | O robô deve manter taxa mínima de disponibilidade de conexão de 99%, reconectando-se automaticamente em menos de 3 segundos após uma falha de rede.                                               | O robô deve conseguir se reconectar sozinho após falha, dentro do tempo especificado, em 95% dos testes.           |
+| Não Funcional     | Robô             | A arquitetura do robô deve ser modular e redundante, permitindo que falhas em um subsistema (ex: sensor ultrassônico) não comprometam o funcionamento global.                                     | Durante testes com falha induzida em subsistemas, o robô deve continuar operando com funções críticas.             |
+| Não Funcional     | Robô             | O robô deve ser fisicamente seguro, com motores limitados por torque e velocidade para evitar impacto danoso em humanos ou objetos.                                                               | Em testes de segurança, os limites de força e velocidade não devem ser ultrapassados.                              |
+| Não Funcional     | Robô             | A pilha ROS-2 deve ser configurada com QoS adequada aos canais críticos conforme prioridade de mensagem.                                                                                          | A configuração deve garantir que mensagens críticas (ex: parada de emergência) tenham prioridade e baixa latência. |
+| Não Funcional     | Robô             | O sistema deve ser testado em ambiente controlado para verificar tolerância a falhas de sensores, perda de rede e falhas de hardware.                                                             | O sistema deve manter operação segura e controlada mesmo com falhas simuladas em testes.                           |
+
+***
+
+É válido relembrar que a área de desenvolvimento de segurança não possui requisitos específicos definidos pois atua diretamente em todas as áreas e requisitos aqui listados de forma a garantir a segurança integral do projeto como um todo.
+
+## Atributos de Qualidade (ISO/IEC 25010)
+
+ Os **Requisitos Não Funcionais (RNFs)** são diretamente relacionados às oito características principais de qualidade de produto, conforme definidas pela norma **ISO/IEC 25010:2011**:
+
+| Característica de Qualidade | Subcaracterísticas                                                                                                                         |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Adequação Funcional**     | Completude funcional, Correção funcional, Apropriabilidade funcional                                                                       |
+| **Eficiência de Execução**  | Comportamento no tempo, Utilização de recursos, Capacidade                                                                                 |
+| **Compatibilidade**         | Coexistência, Interoperabilidade                                                                                                           |
+| **Usabilidade**             | Adequação da reconhecibilidade, Apreensibilidade, Operacionalidade, Proteção contra erro do usuário, Estética da interface, Acessibilidade |
+| **Confiabilidade**          | Maturidade, Disponibilidade, Tolerância a falhas, Recuperabilidade                                                                         |
+| **Segurança (Security)**    | Confidencialidade, Integridade, Não repúdio, Responsabilidade, Autenticidade                                                               |
+| **Manutenibilidade**        | Modularidade, Reusabilidade, Analisabilidade, Modificabilidade, Testabilidade                                                              |
+| **Portabilidade**           | Adaptabilidade, Capacidade para ser instalado, Capacidade para substituir                                                                  |
+
+## Considerações Finais
+
+ A especificação dos requisitos apresentada neste documento estabelece uma base sólida para o desenvolvimento, integração e validação do sistema. Ao adotar a estrutura da **ISO/IEC 25010**, garante-se uma abordagem sistemática para mensurar a qualidade do produto em todas as suas dimensões, desde o comportamento funcional até os atributos de desempenho, segurança e manutenção.
+
+ A rastreabilidade entre áreas, tipos de requisito e critérios de aceitação assegura transparência, controle de qualidade e alinhamento entre equipes multidisciplinares, promovendo a entrega de um sistema confiável, seguro e de alta performance.
+
+
+# Entendimento do Usuário (/docs/sprint-1/entendimento-do-usuario)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas" title="Personas">
+    Apresenta as personas desenvolvidas para o projeto, detalhando os perfis,
+    necessidades e comportamentos dos usuários-alvo.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario" title="Mapa de Jornada do Usuário">
+    Fornece o Mapa de Jornada do Usuário, ilustrando as etapas, emoções e pontos
+    de contato dos usuários ao interagir com o produto ou serviço.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/user-stories" title="User Stories">
+    Detalha as User Stories criadas para o projeto, descrevendo as
+    funcionalidades e necessidades dos usuários de forma clara e objetiva.
+  </Card>
+</Cards>
+
+
+# Mapa de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
+
+
+
+# User Stories (/docs/sprint-1/entendimento-do-usuario/user-stories)
+
+
+
+# Template de Pasta (/docs/sprint-2/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-2/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Template de Pasta (/docs/sprint-3/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-3/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Template de Pasta (/docs/sprint-4/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-4/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Template de Pasta (/docs/sprint-5/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-5/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Personas (/docs/sprint-1/entendimento-do-usuario/personas)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato" title="Persona Candidato">
+    Descrição detalhada da Persona Candidato, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-2" title="Persona 2">
+    Descrição detalhada da Persona 2, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+</Cards>
+
+
+# Persona 1 (/docs/sprint-1/entendimento-do-usuario/personas/persona-1)
+
+
+
+# Persona Candidato (/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato)
+
+
+
+# Isabella Ricci
+
+ Isabella Ricci tem 17 anos e está concluindo o 3º ano do ensino médio em uma escola de alta performance em São Paulo. Desde o ensino fundamental, sempre demonstrou interesse por ciências e tecnologia, mas também se identifica com projetos criativos e o trabalho em equipe. Nos últimos meses, passou a pesquisar faculdades que unam inovação, propósito e prática, e o Inteli chamou sua atenção pela metodologia baseada em projetos reais e pelo foco em liderança.
+ Durante a visita ao campus, Isabella busca compreender melhor o ambiente de aprendizado, conhecer os espaços e esclarecer dúvidas sobre bolsas, processo seletivo e vida acadêmica, informações que considera importantes para tomar sua decisão sobre onde estudar. Segue abaixo o canva da persona:
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Isabella Ricci 
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Persona Candidato" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Cenários de uso do sistema
+
+ Assim que chegam ao Inteli, Isabella e seus pais são recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebem um tablet com uma aplicação onde podem registrar dúvidas durante o tour. Logo depois, o robô aparece para guiá-los pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos. Em cada ponto, o robô abre espaço para perguntas, e Isabella, junto dos pais, pode interagir pelo tablet, por texto ou por áudio.
+
+ Durante o tour, o robô coleta feedbacks sobre a experiência, que são armazenados e posteriormente visualizados no painel administrativo.
+
+## Dores e necessidades
+
+ Isabella sente insegurança em relação ao vestibular e ao processo de transição do ensino médio para o ensino superior. Ela teme não compreender completamente como funciona o processo seletivo do Inteli e tem dúvidas sobre o nível de exigência e o perfil de aluno esperado pela instituição. Essa incerteza é reforçada pelo fato de ainda não ter decidido se irá prestar o processo seletivo, o que torna a visita uma oportunidade importante para esclarecer dúvidas e reduzir barreiras emocionais na tomada de decisão. Ela deseja confirmar se o ambiente acadêmico, a metodologia de ensino e a cultura institucional realmente se alinham aos seus objetivos pessoais e à sua forma de aprendizado. Seu interesse por tecnologia e criatividade é acompanhado de uma necessidade de pertencimento e identificação com a proposta educacional.
+
+ Durante a visita, Isabella busca informações objetivas, mas também experiências que transmitam segurança e transparência. Ela valoriza interações que equilibrem clareza técnica e sensibilidade humana. O contato com o robô deve contribuir para esse processo, apresentando o Inteli de forma acessível, guiada e contextual, permitindo que Isabella enxergue com mais nitidez como o ambiente e a metodologia podem apoiar seu desenvolvimento acadêmico e pessoal.
+
+## Objetivos
+
+ O principal objetivo de Isabella ao visitar o Inteli é avaliar se deseja prestar o processo seletivo da instituição. Ela está em um momento de indecisão e busca informações que a ajudem a confirmar se o modelo de ensino, o ambiente e a proposta do curso correspondem às suas expectativas de formação.
+
+ Outro objetivo é conhecer o espaço físico e observar como os ambientes de estudo e convivência favorecem a aprendizagem e a colaboração entre os alunos. Essa dimensão visual da experiência é importante para que Isabella forme uma percepção concreta sobre o dia a dia acadêmico e a estrutura da instituição.
+
+  Ela também busca entender a metodologia de ensino baseada em projetos, compreendendo na prática como os estudantes aprendem, interagem e desenvolvem soluções reais. Esse entendimento é necessário para que ela perceba o diferencial do Inteli em relação a outras instituições de ensino superior.
+
+ Durante o tour, Isabella deseja esclarecer dúvidas sobre bolsas, rotina e oportunidades extracurriculares, como ligas estudantis e projetos paralelos. Essas informações têm um papel prático na decisão da família, especialmente no aspecto financeiro e no equilíbrio entre estudo e vivência universitária.
+
+## Conclusão
+
+ A persona **Isabella Ricci** representa o perfil de candidato em fase de descoberta, que visita o Inteli acompanhado dos pais para conhecer o campus e avaliar a possibilidade de ingressar na instituição. Sua jornada é marcada por dúvidas sobre o processo seletivo, o ambiente acadêmico e a adequação entre seu perfil e a metodologia de ensino proposta.
+
+ As dores e necessidades de Isabella revelam um equilíbrio entre fatores emocionais e racionais: ela busca informações claras, mas também experiências que transmitam segurança e identificação. O tour conduzido pelo robô tem papel fundamental nesse processo, funcionando como um canal de mediação entre o visitante e a instituição, capaz de esclarecer dúvidas e gerar percepção de acolhimento e transparência.
+
+ Seus objetivos se concentram em compreender o funcionamento do Inteli, conhecer os espaços, tirar dúvidas sobre bolsas e oportunidades, e, principalmente, confirmar se deseja participar do processo seletivo. A partir dessa experiência, espera obter elementos concretos e emocionais que a ajudem a decidir sobre seu futuro acadêmico, reforçando a importância do projeto como ponto de contato inicial entre candidatos e o Inteli.
+
+
+# Ricardo Menezes - Persona Executiva (/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva)
+
+
+
+ Abaixo, é possível ver um canva com um detalhamento acerca da persona Ricardo Menezes
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Persona Ricardo Menezes 
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Persona Executiva" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Resumo da Persona
+
+ Ricardo Menezes é um gestor de 35 anos que trabalha na Ambev, onde atua na gestão de equipes e colabora com times de tecnologia voltados à tomada de decisões estratégicas. Sua principal motivação é o curso executivo adquirido pela empresa no Inteli, do qual ele espera obter conhecimentos em dados e inteligência artificial para aprimorar suas decisões de negócio. Contudo, Ricardo chega ao Inteli com uma dor central: a desconfiança e o desconhecimento em relação à instituição e à sua metodologia de ensino baseada em cases, o que o faz questionar a real efetividade do curso. Seu objetivo primário durante a visita é entender melhor o funcionamento do curso, a história da faculdade e confirmar se o Inteli realmente emprega tecnologias inovadoras, exigindo para isso uma comunicação formal e madura, alinhada ao seu perfil corporativo. O cenário de uso do sistema envolve ser conduzido por um funcionário até a arquibancada, onde recebe um tablet para registrar dúvidas, e em seguida ser guiado pelo robô interativo em um percurso pelo térreo do campus, podendo interagir com o robô por texto ou áudio no tablet para sanar suas dúvidas logísticas e conceituais sobre a faculdade e o curso. O robô, por sua vez, coleta feedbacks de sua experiência para otimizar o processo.
+
+## Informações Demográficas
+
+| Atributo                         | Detalhe                                            |
+| :------------------------------- | :------------------------------------------------- |
+| **Idade**                        | 38 anos                                            |
+| **Gênero**                       | Masculino                                          |
+| **Profissão**                    | Gerente de Projetos Sênior na Ambev                |
+| **Formação**                     | Administração de Empresas                          |
+| **Localização**                  | São Paulo (SP)                                     |
+| **Familiaridade com Tecnologia** | Médio. usa ferramentas digitais, mas não é técnico |
+
+## Bio
+
+ Como dito anteriormente, Ricardo Menezes é um homem de 35 anos que atua como gestor de algumas equipes na Ambev, empresa líder em comércio de bebidas no Brasil. Ele se formou em administração há 12 anos e, desde então, trabalha no setor administrativo de empresas. Entrou na Ambev há 5 anos e tem atuado perto dos times de tecnologia, principalmente aqueles voltados à tomada de decisões estratégicas.
+Recentemente, a empresa adquiriu para os seus funcionários um curso executivo para os seus gestores em uma instituição chamada Inteli - Instituto de Tecnologia e Liderança. Com esse curso, Ricardo espera poder tomar melhores decisões de negócio baseando-se em dados e inteligência artificial. Entretanto, ele conhece pouco a universidade e não tem tanta confiança em relação ao método de ensino.
+
+## Cenários de Uso do Sistema
+
+ Assim que chegam ao Inteli, Rodrigo é recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebe um tablet com uma aplicação onde podem registrar dúvidas que surgirem durante o tour. Logo depois, o robô aparece para guiá-lo pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos.
+Em cada ponto, o robô abre espaço para dúvidas, e Rodrigo pode interagir pelo tablet, por texto ou por áudio, tirando dúvidas sobre os cursos executivos e o funcionamento e história da faculdade
+Durante o tour, o robô coleta feedbacks sobre a experiência do usuário e os disponibiliza para visualização no painel administrativo .
+
+## Dores e Necessidades
+
+ A principal dor de Ricardo é justamente não conhecer bem o suficiente a instituição onde ele estará fazendo esse curso executivo. Além disso, a metodologia de ensino do curso, que é baseada em cases, lhe deixa desconfiado em relação à efetividade do curso. Por fim, o que Ricardo mais quer neste cenário é entender melhor como funciona o curso, como funciona o Inteli e a sua história e também entender se essa faculdade realmente trabalha com tecnologias inovadoras. Entretanto, como alguém já mais maduro e muito acostumado com o mundo corporativo, ele prefere que seja utilizada uma linguagem mais formal na sua comunicação.
+
+## Conclusão
+
+ Embora a maioria dos visitantes do Inteli seja composta por estudantes do ensino médio, a persona Ricardo Menezes representa um público-alvo estratégico (executivos, imprensa e parceiros) cujo impacto no projeto de automatização de tours com o cão robótico é desproporcionalmente alto. Este público não busca uma experiência lúdica, mas sim a validação da credibilidade e da vanguarda tecnológica da instituição. A presença do Ricardo exige que o robô seja programado para ter uma dupla funcionalidade: além de engajar o público jovem, ele deve ser capaz de alternar para um tom de voz formal, comunicação concisa e conteúdo focado em dados estratégicos (como cases de sucesso e resultados de cursos executivos). Em suma, o Ricardo atua como o padrão de qualidade para o projeto, garantindo que a solução tecnológica não apenas cumpra seu papel operacional de guia, mas também funcione como um reforço da imagem institucional do Inteli para o seu público mais influente e decisório. Ignorar as dores e necessidades deste executivo resultaria em um robô que falharia em seu papel mais importante: endossar a sofisticação e o profissionalismo da faculdade.
