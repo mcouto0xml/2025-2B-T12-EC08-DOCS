@@ -13,6 +13,7 @@ A matriz de riscos é uma ferramenta estratégica para identificar, avaliar e pr
 A matriz utiliza uma escala de 5x5, onde:
 
 ### Probabilidade
+
 - **Muito Baixo (10%)**: Risco improvável de ocorrer
 - **Baixo (30%)**: Risco com baixa chance de ocorrência
 - **Moderado (50%)**: Risco com chance equilibrada de ocorrer ou não
@@ -20,6 +21,7 @@ A matriz utiliza uma escala de 5x5, onde:
 - **Muito Alto (90%)**: Risco extremamente provável de ocorrer
 
 ### Impacto
+
 - **Muito Baixo**: Impacto mínimo no projeto
 - **Baixo**: Pequenos ajustes necessários
 - **Moderado**: Requer revisão de planejamento e recursos
@@ -27,6 +29,7 @@ A matriz utiliza uma escala de 5x5, onde:
 - **Muito Alto**: Pode inviabilizar o projeto
 
 ### Classificação por Cor
+
 - **Verde**: Risco baixo - monitoramento básico
 - **Amarelo**: Risco médio - requer atenção e plano de mitigação
 - **Vermelho**: Risco crítico - ação imediata necessária
@@ -38,6 +41,7 @@ A matriz utiliza uma escala de 5x5, onde:
 ### CRÍTICOS (Impacto Muito Alto)
 
 #### 1. Perda de Conectividade
+
 **Categoria**: Técnico  
 **Probabilidade**: Muito Alta (90%)  
 **Impacto**: Muito Alto
@@ -46,12 +50,14 @@ A matriz utiliza uma escala de 5x5, onde:
 Falha na conexão do robô com sistemas externos (servidor, nuvem, APIs) durante a execução do tour, resultando na interrupção completa do serviço.
 
 **Consequências**:
+
 - Interrupção total da experiência do visitante
 - Perda de credibilidade institucional
 - Impossibilidade de responder perguntas via IA generativa
 - Dados não sincronizados ou perdidos
 
 **Plano de Mitigação**:
+
 - Implementar sistema de cache local com conteúdo básico do tour
 - Desenvolver modo offline com respostas pré-programadas para FAQs
 - Configurar reconexão automática com fallback
@@ -59,6 +65,7 @@ Falha na conexão do robô com sistemas externos (servidor, nuvem, APIs) durante
 - Definir protocolo de operação degradada
 
 **Plano de Contingência**:
+
 - Guia humano assume o tour imediatamente
 - Sistema de notificação automática para equipe técnica
 - Robô retorna à base de forma autônoma
@@ -66,6 +73,7 @@ Falha na conexão do robô com sistemas externos (servidor, nuvem, APIs) durante
 ---
 
 #### 2. Falha na Comunicação entre Robô e Usuário
+
 **Categoria**: Técnico/Experiência do Usuário  
 **Probabilidade**: Alto (70%)  
 **Impacto**: Muito Alto
@@ -74,12 +82,14 @@ Falha na conexão do robô com sistemas externos (servidor, nuvem, APIs) durante
 Problemas no reconhecimento de voz, processamento de linguagem natural ou na saída de áudio/visual que impedem a interação adequada com visitantes.
 
 **Consequências**:
+
 - Frustração e decepção dos visitantes
 - Experiência negativa associada ao Inteli
 - Objetivo de "encantar" não é atingido
 - Danos à imagem inovadora da instituição
 
 **Plano de Mitigação**:
+
 - Treinar modelos com diferentes sotaques e variações linguísticas
 - Implementar interface visual complementar (tablet/tela no robô)
 - Testar exaustivamente em ambientes com ruído ambiente
@@ -87,6 +97,7 @@ Problemas no reconhecimento de voz, processamento de linguagem natural ou na sa�
 - Criar biblioteca robusta de sinônimos e variações de perguntas
 
 **Plano de Contingência**:
+
 - Interface touch screen para interação manual
 - QR codes para acesso a informações em smartphones
 - Botões físicos para perguntas frequentes
@@ -94,6 +105,7 @@ Problemas no reconhecimento de voz, processamento de linguagem natural ou na sa�
 ---
 
 #### 3. Robô Machucar Alguém
+
 **Categoria**: Segurança/Legal  
 **Probabilidade**: Moderado (50%)  
 **Impacto**: Muito Alto
@@ -102,6 +114,7 @@ Problemas no reconhecimento de voz, processamento de linguagem natural ou na sa�
 Colisão ou comportamento inesperado do robô causando danos físicos a visitantes, especialmente em áreas movimentadas do campus.
 
 **Consequências**:
+
 - Lesões físicas em visitantes ou colaboradores
 - Responsabilidade legal e processos judiciais
 - Cancelamento imediato do projeto
@@ -109,6 +122,7 @@ Colisão ou comportamento inesperado do robô causando danos físicos a visitant
 - Potencial inviabilização de futuros projetos de robótica
 
 **Plano de Mitigação**:
+
 - Implementar múltiplos sensores de proximidade (LiDAR, ultrassônicos, câmeras)
 - Programar velocidade máxima segura (< 1 m/s em áreas com pessoas)
 - Criar zonas de exclusão e limites de operação
@@ -118,6 +132,7 @@ Colisão ou comportamento inesperado do robô causando danos físicos a visitant
 - Estabelecer protocolo de supervisão humana durante operação
 
 **Plano de Contingência**:
+
 - Seguro de responsabilidade civil contratado
 - Protocolo de primeiros socorros e acionamento de emergência
 - Sistema de desligamento remoto imediato
@@ -127,6 +142,7 @@ Colisão ou comportamento inesperado do robô causando danos físicos a visitant
 ### ALTOS (Impacto Alto)
 
 #### 4. Acabar a Bateria
+
 **Categoria**: Operacional  
 **Probabilidade**: Moderado (50%)  
 **Impacto**: Alto
@@ -135,12 +151,14 @@ Colisão ou comportamento inesperado do robô causando danos físicos a visitant
 Bateria do robô se esgota durante o tour, interrompendo a experiência e deixando o robô imobilizado em local inconveniente.
 
 **Consequências**:
+
 - Interrupção abrupta da experiência
 - Constrangimento institucional
 - Necessidade de resgate manual do robô
 - Visitantes sem conclusão do tour
 
 **Plano de Mitigação**:
+
 - Implementar sistema de gerenciamento inteligente de bateria
 - Monitoramento contínuo com alertas em múltiplos níveis (30%, 20%, 10%)
 - Algoritmo de retorno automático à estação de carga
@@ -149,6 +167,7 @@ Bateria do robô se esgota durante o tour, interrompendo a experiência e deixan
 - Estações de carga estrategicamente posicionadas
 
 **Plano de Contingência**:
+
 - Bateria reserva para troca rápida
 - Protocolo de conclusão abreviada do tour
 - Sistema de hibernação para preservar energia crítica
@@ -156,6 +175,7 @@ Bateria do robô se esgota durante o tour, interrompendo a experiência e deixan
 ---
 
 #### 5. Falha no Sensor Lidar
+
 **Categoria**: Técnico  
 **Probabilidade**: Moderado (30%)  
 **Impacto**: Alto
@@ -164,12 +184,14 @@ Bateria do robô se esgota durante o tour, interrompendo a experiência e deixan
 Mau funcionamento ou falha completa do sensor LiDAR responsável pelo mapeamento, localização e navegação autônoma do robô.
 
 **Consequências**:
+
 - Perda de capacidade de navegação autônoma
 - Risco aumentado de colisões
 - Impossibilidade de seguir rota planejada
 - Desativação necessária do robô
 
 **Plano de Mitigação**:
+
 - Implementar sistema de navegação redundante (câmeras, sensores ultrassônicos)
 - Manutenção preventiva regular do LiDAR
 - Monitoramento de saúde do sensor em tempo real
@@ -177,6 +199,7 @@ Mau funcionamento ou falha completa do sensor LiDAR responsável pelo mapeamento
 - Proteção física adequada contra impactos e sujeira
 
 **Plano de Contingência**:
+
 - Modo de navegação alternativo com sensores secundários
 - Controle manual remoto por operador
 - Sensor LiDAR reserva para substituição rápida
@@ -186,6 +209,7 @@ Mau funcionamento ou falha completa do sensor LiDAR responsável pelo mapeamento
 ### MODERADOS
 
 #### 6. Dificuldade na Manutenção das Informações
+
 **Categoria**: Operacional/Conteúdo  
 **Probabilidade**: Moderado (50%)  
 **Impacto**: Moderado
@@ -194,12 +218,14 @@ Mau funcionamento ou falha completa do sensor LiDAR responsável pelo mapeamento
 Complexidade para atualizar informações sobre processo seletivo, cursos, eventos e FAQ no sistema do robô, resultando em dados desatualizados.
 
 **Consequências**:
+
 - Informações incorretas fornecidas aos visitantes
 - Perda de confiança na solução
 - Retrabalho para correções
 - Possível impacto em decisões de candidatos
 
 **Plano de Mitigação**:
+
 - Desenvolver CMS (Content Management System) intuitivo
 - Integração automática com site do Inteli e bases de dados oficiais
 - Interface web para atualização sem conhecimento técnico
@@ -209,6 +235,7 @@ Complexidade para atualizar informações sobre processo seletivo, cursos, event
 - Responsáveis definidos por tipo de conteúdo
 
 **Plano de Contingência**:
+
 - Avisos de "informação sujeita a atualização"
 - Direcionamento para canais oficiais para confirmação
 - Revisão quinzenal obrigatória de conteúdo crítico
@@ -216,6 +243,7 @@ Complexidade para atualizar informações sobre processo seletivo, cursos, event
 ---
 
 #### 7. Robô Responder Algo Errado
+
 **Categoria**: IA/Conteúdo  
 **Probabilidade**: Moderado (30%)  
 **Impacto**: Moderado
@@ -224,12 +252,14 @@ Complexidade para atualizar informações sobre processo seletivo, cursos, event
 IA generativa fornece respostas incorretas, inconsistentes ou inadequadas sobre o Inteli, processo seletivo ou outros tópicos.
 
 **Consequências**:
+
 - Desinformação de potenciais candidatos
 - Decisões baseadas em informações incorretas
 - Comprometimento da credibilidade
 - Necessidade de correções posteriores
 
 **Plano de Mitigação**:
+
 - Fine-tuning do modelo com base de conhecimento validada
 - Implementar sistema de guardrails e validação de respostas
 - Limitar escopo de perguntas que o robô pode responder
@@ -239,6 +269,7 @@ IA generativa fornece respostas incorretas, inconsistentes ou inadequadas sobre 
 - Base de conhecimento RAG (Retrieval-Augmented Generation)
 
 **Plano de Contingência**:
+
 - Disclaimer em todas as respostas complexas
 - Contato direto com admissões sempre disponível
 - Formulário de feedback para reportar inconsistências
@@ -246,6 +277,7 @@ IA generativa fornece respostas incorretas, inconsistentes ou inadequadas sobre 
 ---
 
 #### 8. Resistência do Público em Interagir com o Robô
+
 **Categoria**: Adoção/Experiência do Usuário  
 **Probabilidade**: Baixo (10%)  
 **Impacto**: Moderado
@@ -254,12 +286,14 @@ IA generativa fornece respostas incorretas, inconsistentes ou inadequadas sobre 
 Visitantes podem sentir desconforto, timidez ou preferir interação humana, reduzindo a adesão ao tour robótico.
 
 **Consequências**:
+
 - Baixa taxa de utilização da solução
 - ROI do projeto comprometido
 - Necessidade de manter tours humanos em paralelo
 - Objetivo de inovação parcialmente frustrado
 
 **Plano de Mitigação**:
+
 - Design do robô amigável e não intimidador
 - Introdução por guia humano para quebrar o gelo
 - Demonstrações prévias e vídeos promocionais
@@ -268,6 +302,7 @@ Visitantes podem sentir desconforto, timidez ou preferir interação humana, red
 - Gamificação da experiência (quizzes, interações lúdicas)
 
 **Plano de Contingência**:
+
 - Tour tradicional com humano sempre disponível como opção
 - Robô como complemento, não substituto total
 
@@ -276,6 +311,7 @@ Visitantes podem sentir desconforto, timidez ou preferir interação humana, red
 ### BAIXOS
 
 #### 9. O Robô Ser Danificado por Algum Visitante
+
 **Categoria**: Segurança/Operacional  
 **Probabilidade**: Baixo (10%)  
 **Impacto**: Moderado
@@ -284,11 +320,13 @@ Visitantes podem sentir desconforto, timidez ou preferir interação humana, red
 Vandalismo, manuseio inadequado ou comportamento malicioso de visitantes causando danos ao robô.
 
 **Consequências**:
+
 - Custos de reparo ou substituição
 - Interrupção temporária do serviço
 - Necessidade de supervisão mais próxima
 
 **Plano de Mitigação**:
+
 - Supervisão discreta durante operação
 - Câmeras de monitoramento nas áreas de tour
 - Educação prévia sobre interação adequada
@@ -297,6 +335,7 @@ Vandalismo, manuseio inadequado ou comportamento malicioso de visitantes causand
 - Termo de responsabilidade para grupos
 
 **Plano de Contingência**:
+
 - Seguro contra danos
 - Peças de reposição em estoque
 - Protocolo de identificação e responsabilização
@@ -304,6 +343,7 @@ Vandalismo, manuseio inadequado ou comportamento malicioso de visitantes causand
 ---
 
 #### 10. Obstáculos Inesperados no Caminho
+
 **Categoria**: Operacional  
 **Probabilidade**: Muito Alto (90%)  
 **Impacto**: Baixo
@@ -312,11 +352,13 @@ Vandalismo, manuseio inadequado ou comportamento malicioso de visitantes causand
 Objetos temporários, pessoas, móveis ou outros obstáculos não mapeados no caminho planejado do tour.
 
 **Consequências**:
+
 - Desvios na rota planejada
 - Pequenos atrasos no tour
 - Necessidade de recalcular caminho
 
 **Plano de Mitigação**:
+
 - Sistema de desvio de obstáculos em tempo real
 - Sensores de proximidade multidirecionais
 - Algoritmos de path planning dinâmico
@@ -324,6 +366,7 @@ Objetos temporários, pessoas, móveis ou outros obstáculos não mapeados no ca
 - Comunicação verbal de obstáculos ("Com licença, por favor")
 
 **Plano de Contingência**:
+
 - Rota alternativa pré-programada
 - Capacidade de aguardar obstáculo ser removido
 - Solicitação de ajuda humana se bloqueio persistir
