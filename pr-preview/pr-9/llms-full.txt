@@ -1389,7 +1389,8 @@ c = \pm\sqrt{a^2 + b^2}
 
 <Cards>
   <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-executivo" title="Mapa de Jornada do Usuário Executivo">
-    Descrição detalhada do Mapa de Jornada do Usuário Executivo, incluindo etapas, pontos de dor e oportunidades de melhoria.
+    Descrição detalhada do Mapa de Jornada do Usuário Executivo, incluindo
+    etapas, pontos de dor e oportunidades de melhoria.
   </Card>
 </Cards>
 
@@ -1398,9 +1399,9 @@ c = \pm\sqrt{a^2 + b^2}
 
 
 
-import { Steps } from 'fumadocs-ui/components/steps';
-import { Card, Cards } from 'fumadocs-ui/components/card';
-import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps } from "fumadocs-ui/components/steps";
+import { Card, Cards } from "fumadocs-ui/components/card";
+import { Callout } from "fumadocs-ui/components/callout";
 
 ## 1. Visão Geral da Jornada
 
