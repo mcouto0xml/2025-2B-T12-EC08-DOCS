@@ -1385,11 +1385,14 @@ c = \pm\sqrt{a^2 + b^2}
 
 <Cards>
   <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-executivo" title="Mapa de Jornada do Usuário Executivo">
-    Documentação detalhada da jornada do usuário Ricardo Menezes, executivo da Ambev, durante sua primeira visita ao Inteli e o tour automatizado.
+    Documentação detalhada da jornada do usuário Ricardo Menezes, executivo da
+    Ambev, durante sua primeira visita ao Inteli e o tour automatizado.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-candidato" title="Mapa de Jornada do Usuário Candidato">
-    Documentação detalhada da jornada do usuário Isabella Ricci, estudante do 3º do ensino médio, durante sua primeira visita ao Inteli e o tour automatizado.
+    Documentação detalhada da jornada do usuário Isabella Ricci, estudante do 3º
+    do ensino médio, durante sua primeira visita ao Inteli e o tour
+    automatizado.
   </Card>
 </Cards>
 
@@ -1408,7 +1411,7 @@ import { Callout } from "fumadocs-ui/components/callout";
  Seu principal objetivo na visita é conhecer melhor o ambiente, entender a metodologia baseada em projetos e esclarecer dúvidas sobre **bolsas, processo seletivo e vida acadêmica** antes de decidir onde estudar.
 
 <p style={{ textAlign: "center" }}>
-  Figura 1 - Mapa da Jornada do Usuário: Isabella Ricci 
+  Figura 1 - Mapa da Jornada do Usuário: Isabella Ricci{" "}
 </p>
 
 <div style={{ margin: 25 }}>
@@ -1531,7 +1534,7 @@ import { Callout } from "fumadocs-ui/components/callout";
  Abaixo, está o mapa visual da jornada do usuário Ricardo Menezes. O mapa pode ser visualizado também no Miro através do [link ](https://miro.com/welcomeonboard/NFFEdGZFeWN0YTZTQ2RCM0R0a1BBMVJLMC9XTHpDTkFJS1JwRVJ0MDVna1BrSmFYamkxalN5TUppa1lmMERxT2ZnVUQrNEFjQnB5L1lPWGZCWTg4K201Uk81SWljVS9EYTZjc1dNdGQwQjdpdmRYUG56eS9wS3FWNGs0dCtIRGN3VHhHVHd5UWtSM1BidUtUYmxycDRnPT0hdjE=?share_link_id=721060916898).
 
 <p style={{ textAlign: "center" }}>
-  Figura 1 - Mapa da Jornada do Usuário: Ricardo Menezes 
+  Figura 1 - Mapa da Jornada do Usuário: Ricardo Menezes{" "}
 </p>
 
 <div style={{ margin: 25 }}>
