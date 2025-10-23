@@ -769,7 +769,7 @@ c = \pm\sqrt{a^2 + b^2}
 
 ### 3. Modelo
 
- A área de **Modelo** trata do desenvolvimento e integração de modelos de **Processamento de Linguagem Natural (PLN)**, como LLMs (Large Language Models). Inclui a definição de estratégias de segurança, mitigação de vieses, governança de dados e uso de mecanismos de recuperação de contexto (RAG - *Retrieval Augmented Generation*).\
+ A área de **Modelo** trata do desenvolvimento e integração de modelos de **Processamento de Linguagem Natural (PLN)**, como LLMs (Large Language Models). Inclui a definição de estratégias de segurança, mitigação de vieses, governança de dados e uso de mecanismos de recuperação de contexto (RAG - *Retrieval Augmented Generation*).
  Os requisitos desta área estão relacionados a **Adequação Funcional**, **Confiabilidade**, **Segurança** e **Compatibilidade**.
 
 ### 4. Robô
