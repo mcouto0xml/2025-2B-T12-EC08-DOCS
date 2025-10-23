@@ -1,12 +1,10 @@
 ---
-title: Análise de Impacto Ético
+title: Vieses e Discriminação
 ---
-
-## Vieses e Discriminação
 
 &emsp; Nessa subseção, visualiza-se os possíveis vieses e medidas discriminatórias que podem surgir involuntariamente em decorrência da implementação do sistema. São eles: o sotaque reconhecido pelo robô e a sua personalidade. Vê-se que trata-se de uma extensão da seção anterior, pois o tópico da pronúncia será abordado aqui com maior profundidade. No entanto, também discorreremos sobre a questão da própria "personalidade" do robô, compreendendo como a escolha desse fator pode excluir alguns grupos. Por fim, trata-se como mitigar esses vieses, seja no tempo presente ou em planos futuros.
 
-### Sotaque
+## Sotaque
 
 &emsp; No que tange à pronúncia reconhecida pelo robô, deve-se ter em mente que a equipe responsável pela IA pode influenciar significativemente nesta. Atualmente, essa equipe é formada por seis sudestinos e dois nordestinos, ou seja, 75% da equipe possui um sotaque similar. Consequentemente, na adoção de testes informais para o reconhecimento de voz, é provável que este sotaque seja privilegiado. O robô estará em razoável operacional quando reconhecer as vozes de seus criadores.
 
@@ -22,7 +20,7 @@ title: Análise de Impacto Ético
 
 &emsp; Nesse sentido, para mitigar o viés não intencional do sotaque sudestino por parte do algoritmo de reconhecimento de voz, propõe-se as medidas que se seguem.
 
-#### Medidas de Mitigação
+### Medidas de Mitigação
 
 &emsp; Propõe-se para resolver o viés sudestino uma avaliação formal. Trata-se de um teste de reconhecimento a partir de um dataset representativo contendo 20 frases de comando típicas ("Explique o processo seletivo do Inteli", "Quanto custa estudar aqui?", "Quais são os cursos oferecidos?") gravadas por 25 falantes diversos selecionados estrategicamente para representar diversidade demográfica: cinco falantes de cada uma das cinco macro-regiões brasileiras (Sul, Sudeste, Nordeste, Norte, Centro-Oeste) para capturar variação geográfica de sotaques; distribuição equitativa entre gêneros masculino e feminino; duas faixas etárias correspondentes ao público-alvo (14 a 16 anos, 17 a 18 anos); Cada frase deve ser gravada em ambiente natural (não estúdio) para simular condições reais de operação.
 
@@ -30,11 +28,10 @@ title: Análise de Impacto Ético
 
 &emsp; Se esse _fine-tuning_ for insuficiente, propõe-se a transparência que será detalhada na seção Transparência e Consentimento Informado.
 
-### Personalidade
+## Personalidade
 
 &emsp; Outra preocupação da equipe de Interação Humano-Máquina é a "personalidade" a ser transmitida pelo robô em suas comunicações no tour. O design de interação e escolhas de conteúdo constituem camada adicional onde viés pode ser inadvertidamente incorporado. A seleção de voz para o robô (gênero, sotaque, registro linguístico), os exemplos utilizados em explicações (que referências culturais são presumidas familiares?), as metáforas escolhidas para explicar conceitos técnicos (presumem experiência com quais tecnologias cotidianas?), e até o naming do próprio robô podem comunicar mensagens sobre quem é o "usuário default" imaginado e quem são "outros" que devem adaptar-se.
 
 &emsp; Essa preocupação, enderaçada em reunião oficial nos dias 17/10/2025 e 22/10/2025, é uma escolha que deve ser constatemente monitorada. No primeiro desses dias, estabeleceu-se não colocar no robô uma personalidade marcadamente paulistana. Em vez disso, apresentou-se a possibilidade de diminuir o grau de antropormofização, colocando no cão, suas características esperadas (ex. latidos repentinos). No segundo dia, discutiu-se a preferência pelo uso de linguagem simplificada de modo a não marcar o gênero na linguagem.
 
 &emsp; Não obstante, limitações técnicas das tecnologias atuais de reprodução de áudio sintético (como a predominância de vozes masculinas) podem limitar o escopo de ação da equipe. Involuntariamente, o robô pode, por exemplo, tomar uma voz grave por essa soar mais natural por parte da evolução dos algoritmos. Ainda assim, impactos éticos nos visitantes deve ser monitorados. Por essa razão, em vias de mitigar esse problema, **recomenda-se a implementação de um formulário ao final do tour com perguntas acerca do conforto dos usuários em sua comunicação com o cão-robô**. 
-
