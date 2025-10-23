@@ -1,0 +1,1513 @@
+# Documentação do Projeto (/docs)
+
+Bem-vindo à documentação do projeto! Aqui você encontrará informações detalhadas sobre o desenvolvimento, arquitetura, requisitos e muito mais.
+
+<Cards>
+  <Card href="/docs/sprint-1" title="Sprint 1">
+    Documentação referente à Sprint 1 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-2" title="Sprint 2">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-3" title="Sprint 3">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-4" title="Sprint 4">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-5" title="Sprint 5">
+    Documentação referente à Sprint 2 do projeto.
+  </Card>
+</Cards>
+
+
+# Análise de Impacto Ético (/docs/sprint-1/analise-de-impacto-etico)
+
+
+
+# Sprint 1 (/docs/sprint-1)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-negocio" title="Entedimento do Negócio">
+    Apresenta a análise do contexto de mercado, proposta de valor e viabilidade
+    financeira do projeto, identificando oportunidades, riscos e posicionamento
+    estratégico.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario" title="Entendimento do Usuário">
+    Detalha a pesquisa e análise do público-alvo, incluindo definição de
+    personas, jornadas do usuário e necessidades específicas para orientar o
+    desenvolvimento do produto.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-projeto" title="Entendimento do Projeto">
+    Fornece uma visão geral dos objetivos, escopo e requisitos do projeto,
+    estabelecendo as bases para o desenvolvimento e entrega bem-sucedida.
+  </Card>
+
+  <Card href="/docs/sprint-1/analise-de-impacto-etico" title="Análise de Impacto Ético">
+    Examina as implicações éticas do projeto, avaliando potenciais impactos
+    sociais, ambientais e legais, e propondo diretrizes para garantir a
+    responsabilidade e sustentabilidade.
+  </Card>
+</Cards>
+
+
+# Sprint 2 (/docs/sprint-2)
+
+<Cards>
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-2/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Sprint 3 (/docs/sprint-3)
+
+<Cards>
+  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-3/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Sprint 4 (/docs/sprint-4)
+
+<Cards>
+  <Card href="/docs/sprint-4/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-4/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-4/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Sprint 5 (/docs/sprint-5)
+
+<Cards>
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+    Modelo básico para criação de novos arquivos MDX.
+  </Card>
+
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+    Modelo de estrutura para criação de novas pastas de documentação.
+  </Card>
+</Cards>
+
+
+# Título do Documento (/docs/sprint-5/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](./template-pasta)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Análise Financeira (/docs/sprint-1/entendimento-do-negocio/analise-financeira)
+
+
+
+# Canvas Prosposta de Valor (/docs/sprint-1/entendimento-do-negocio/canvas-proposta-de-valor)
+
+
+
+# Entedimento do Negócio (/docs/sprint-1/entendimento-do-negocio)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-negocio/canvas-proposta-de-valor" title="Canvas Proposta de Valor">
+    Apresenta o Canvas de Proposta de Valor, detalhando como o produto ou
+    serviço atende às necessidades dos clientes e se diferencia no mercado.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul" title="Matriz de Avaliação de Valor Oceano Azul">
+    Detalha a Matriz de Avaliação de Valor Oceano Azul, destacando como o
+    projeto se posiciona em relação à concorrência e identifica oportunidades de
+    inovação.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/analise-financeira" title="Análise Financeira">
+    Fornece uma análise financeira detalhada do projeto, incluindo custos,
+    receitas projetadas e viabilidade econômica.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-de-risco" title="Matriz de Risco">
+    Apresenta a Matriz de Risco do projeto, identificando potenciais riscos,
+    suas probabilidades e impactos, bem como estratégias de mitigação.
+  </Card>
+</Cards>
+
+
+# Matriz de Risco (/docs/sprint-1/entendimento-do-negocio/matriz-de-risco)
+
+
+
+# Matriz de Avaliação de Valor Oceano Azul (/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul)
+
+
+
+# Entendimento do Projeto (/docs/sprint-1/entendimento-do-projeto)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-projeto/requisitos-funcionais" title="Requisitos Funcionais">
+    Detalha as funcionalidades e comportamentos esperados do sistema,
+    especificando como ele deve operar para atender às necessidades dos usuários
+    e objetivos do projeto.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-projeto/requisitos-nao-funcionais" title="Requisitos Não Funcionais">
+    Define os critérios de qualidade, desempenho, segurança e usabilidade que o
+    sistema deve cumprir, garantindo uma experiência eficiente e confiável para
+    os usuários.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-projeto/proposta-arquitetural" title="Proposta Arquitetural">
+    Apresenta a estrutura técnica do sistema, incluindo componentes, tecnologias
+    e padrões de design que guiarão o desenvolvimento e integração das soluções.
+  </Card>
+</Cards>
+
+
+# Proposta de Arquitetura (/docs/sprint-1/entendimento-do-projeto/proposta-de-arquitetura)
+
+
+
+# Requisitos Funcionais (/docs/sprint-1/entendimento-do-projeto/requisitos-funcionais)
+
+
+
+# Requisitos Não Funcionais (/docs/sprint-1/entendimento-do-projeto/requisitos-nao-funcionais)
+
+
+
+# Entendimento do Usuário (/docs/sprint-1/entendimento-do-usuario)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas" title="Personas">
+    Apresenta as personas desenvolvidas para o projeto, detalhando os perfis,
+    necessidades e comportamentos dos usuários-alvo.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario" title="Mapa de Jornada do Usuário">
+    Fornece o Mapa de Jornada do Usuário, ilustrando as etapas, emoções e pontos
+    de contato dos usuários ao interagir com o produto ou serviço.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/user-stories" title="User Stories">
+    Detalha as User Stories criadas para o projeto, descrevendo as
+    funcionalidades e necessidades dos usuários de forma clara e objetiva.
+  </Card>
+</Cards>
+
+
+# Mapa de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
+
+
+
+# User Stories (/docs/sprint-1/entendimento-do-usuario/user-stories)
+
+
+
+# Template de Pasta (/docs/sprint-2/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-2/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Template de Pasta (/docs/sprint-3/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-3/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Template de Pasta (/docs/sprint-4/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-4/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Template de Pasta (/docs/sprint-5/template-pasta)
+
+<Cards>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+</Cards>
+
+
+# Título do Documento (/docs/sprint-5/template-pasta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Equações Matemáticas em LaTeX
+
+Inline: $c = \pm\sqrt{a^2 + b^2}$
+
+```math
+c = \pm\sqrt{a^2 + b^2}
+```
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Personas (/docs/sprint-1/entendimento-do-usuario/personas)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato" title="Persona Candidato">
+    Descrição detalhada da Persona Candidato, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-2" title="Persona 2">
+    Descrição detalhada da Persona 2, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+</Cards>
+
+
+# Persona 1 (/docs/sprint-1/entendimento-do-usuario/personas/persona-1)
+
+
+
+# Persona Candidato (/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato)
+
+
+
+# Isabella Ricci
+
+ Isabella Ricci tem 17 anos e está concluindo o 3º ano do ensino médio em uma escola de alta performance em São Paulo. Desde o ensino fundamental, sempre demonstrou interesse por ciências e tecnologia, mas também se identifica com projetos criativos e o trabalho em equipe. Nos últimos meses, passou a pesquisar faculdades que unam inovação, propósito e prática, e o Inteli chamou sua atenção pela metodologia baseada em projetos reais e pelo foco em liderança.
+ Durante a visita ao campus, Isabella busca compreender melhor o ambiente de aprendizado, conhecer os espaços e esclarecer dúvidas sobre bolsas, processo seletivo e vida acadêmica, informações que considera importantes para tomar sua decisão sobre onde estudar. Segue abaixo o canva da persona:
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Isabella Ricci 
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Persona Candidato" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Cenários de uso do sistema
+
+ Assim que chegam ao Inteli, Isabella e seus pais são recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebem um tablet com uma aplicação onde podem registrar dúvidas durante o tour. Logo depois, o robô aparece para guiá-los pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos. Em cada ponto, o robô abre espaço para perguntas, e Isabella, junto dos pais, pode interagir pelo tablet, por texto ou por áudio.
+
+ Durante o tour, o robô coleta feedbacks sobre a experiência, que são armazenados e posteriormente visualizados no painel administrativo.
+
+## Dores e necessidades
+
+ Isabella sente insegurança em relação ao vestibular e ao processo de transição do ensino médio para o ensino superior. Ela teme não compreender completamente como funciona o processo seletivo do Inteli e tem dúvidas sobre o nível de exigência e o perfil de aluno esperado pela instituição. Essa incerteza é reforçada pelo fato de ainda não ter decidido se irá prestar o processo seletivo, o que torna a visita uma oportunidade importante para esclarecer dúvidas e reduzir barreiras emocionais na tomada de decisão. Ela deseja confirmar se o ambiente acadêmico, a metodologia de ensino e a cultura institucional realmente se alinham aos seus objetivos pessoais e à sua forma de aprendizado. Seu interesse por tecnologia e criatividade é acompanhado de uma necessidade de pertencimento e identificação com a proposta educacional.
+
+ Durante a visita, Isabella busca informações objetivas, mas também experiências que transmitam segurança e transparência. Ela valoriza interações que equilibrem clareza técnica e sensibilidade humana. O contato com o robô deve contribuir para esse processo, apresentando o Inteli de forma acessível, guiada e contextual, permitindo que Isabella enxergue com mais nitidez como o ambiente e a metodologia podem apoiar seu desenvolvimento acadêmico e pessoal.
+
+## Objetivos
+
+ O principal objetivo de Isabella ao visitar o Inteli é avaliar se deseja prestar o processo seletivo da instituição. Ela está em um momento de indecisão e busca informações que a ajudem a confirmar se o modelo de ensino, o ambiente e a proposta do curso correspondem às suas expectativas de formação.
+
+ Outro objetivo é conhecer o espaço físico e observar como os ambientes de estudo e convivência favorecem a aprendizagem e a colaboração entre os alunos. Essa dimensão visual da experiência é importante para que Isabella forme uma percepção concreta sobre o dia a dia acadêmico e a estrutura da instituição.
+
+  Ela também busca entender a metodologia de ensino baseada em projetos, compreendendo na prática como os estudantes aprendem, interagem e desenvolvem soluções reais. Esse entendimento é necessário para que ela perceba o diferencial do Inteli em relação a outras instituições de ensino superior.
+
+ Durante o tour, Isabella deseja esclarecer dúvidas sobre bolsas, rotina e oportunidades extracurriculares, como ligas estudantis e projetos paralelos. Essas informações têm um papel prático na decisão da família, especialmente no aspecto financeiro e no equilíbrio entre estudo e vivência universitária.
+
+## Conclusão
+
+ A persona **Isabella Ricci** representa o perfil de candidato em fase de descoberta, que visita o Inteli acompanhado dos pais para conhecer o campus e avaliar a possibilidade de ingressar na instituição. Sua jornada é marcada por dúvidas sobre o processo seletivo, o ambiente acadêmico e a adequação entre seu perfil e a metodologia de ensino proposta.
+
+ As dores e necessidades de Isabella revelam um equilíbrio entre fatores emocionais e racionais: ela busca informações claras, mas também experiências que transmitam segurança e identificação. O tour conduzido pelo robô tem papel fundamental nesse processo, funcionando como um canal de mediação entre o visitante e a instituição, capaz de esclarecer dúvidas e gerar percepção de acolhimento e transparência.
+
+ Seus objetivos se concentram em compreender o funcionamento do Inteli, conhecer os espaços, tirar dúvidas sobre bolsas e oportunidades, e, principalmente, confirmar se deseja participar do processo seletivo. A partir dessa experiência, espera obter elementos concretos e emocionais que a ajudem a decidir sobre seu futuro acadêmico, reforçando a importância do projeto como ponto de contato inicial entre candidatos e o Inteli.
+
+
+# Ricardo Menezes - Persona Executiva (/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva)
+
+
+
+ Abaixo, é possível ver um canva com um detalhamento acerca da persona Ricardo Menezes
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Persona Ricardo Menezes 
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Persona Executiva" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Resumo da Persona
+
+ Ricardo Menezes é um gestor de 35 anos que trabalha na Ambev, onde atua na gestão de equipes e colabora com times de tecnologia voltados à tomada de decisões estratégicas. Sua principal motivação é o curso executivo adquirido pela empresa no Inteli, do qual ele espera obter conhecimentos em dados e inteligência artificial para aprimorar suas decisões de negócio. Contudo, Ricardo chega ao Inteli com uma dor central: a desconfiança e o desconhecimento em relação à instituição e à sua metodologia de ensino baseada em cases, o que o faz questionar a real efetividade do curso. Seu objetivo primário durante a visita é entender melhor o funcionamento do curso, a história da faculdade e confirmar se o Inteli realmente emprega tecnologias inovadoras, exigindo para isso uma comunicação formal e madura, alinhada ao seu perfil corporativo. O cenário de uso do sistema envolve ser conduzido por um funcionário até a arquibancada, onde recebe um tablet para registrar dúvidas, e em seguida ser guiado pelo robô interativo em um percurso pelo térreo do campus, podendo interagir com o robô por texto ou áudio no tablet para sanar suas dúvidas logísticas e conceituais sobre a faculdade e o curso. O robô, por sua vez, coleta feedbacks de sua experiência para otimizar o processo.
+
+## Informações Demográficas
+
+| Atributo                         | Detalhe                                            |
+| :------------------------------- | :------------------------------------------------- |
+| **Idade**                        | 38 anos                                            |
+| **Gênero**                       | Masculino                                          |
+| **Profissão**                    | Gerente de Projetos Sênior na Ambev                |
+| **Formação**                     | Administração de Empresas                          |
+| **Localização**                  | São Paulo (SP)                                     |
+| **Familiaridade com Tecnologia** | Médio. usa ferramentas digitais, mas não é técnico |
+
+## Bio
+
+ Como dito anteriormente, Ricardo Menezes é um homem de 35 anos que atua como gestor de algumas equipes na Ambev, empresa líder em comércio de bebidas no Brasil. Ele se formou em administração há 12 anos e, desde então, trabalha no setor administrativo de empresas. Entrou na Ambev há 5 anos e tem atuado perto dos times de tecnologia, principalmente aqueles voltados à tomada de decisões estratégicas.
+Recentemente, a empresa adquiriu para os seus funcionários um curso executivo para os seus gestores em uma instituição chamada Inteli - Instituto de Tecnologia e Liderança. Com esse curso, Ricardo espera poder tomar melhores decisões de negócio baseando-se em dados e inteligência artificial. Entretanto, ele conhece pouco a universidade e não tem tanta confiança em relação ao método de ensino.
+
+## Cenários de Uso do Sistema
+
+ Assim que chegam ao Inteli, Rodrigo é recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebe um tablet com uma aplicação onde podem registrar dúvidas que surgirem durante o tour. Logo depois, o robô aparece para guiá-lo pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos.
+Em cada ponto, o robô abre espaço para dúvidas, e Rodrigo pode interagir pelo tablet, por texto ou por áudio, tirando dúvidas sobre os cursos executivos e o funcionamento e história da faculdade
+Durante o tour, o robô coleta feedbacks sobre a experiência do usuário e os disponibiliza para visualização no painel administrativo .
+
+## Dores e Necessidades
+
+ A principal dor de Ricardo é justamente não conhecer bem o suficiente a instituição onde ele estará fazendo esse curso executivo. Além disso, a metodologia de ensino do curso, que é baseada em cases, lhe deixa desconfiado em relação à efetividade do curso. Por fim, o que Ricardo mais quer neste cenário é entender melhor como funciona o curso, como funciona o Inteli e a sua história e também entender se essa faculdade realmente trabalha com tecnologias inovadoras. Entretanto, como alguém já mais maduro e muito acostumado com o mundo corporativo, ele prefere que seja utilizada uma linguagem mais formal na sua comunicação.
+
+## Conclusão
+
+ Embora a maioria dos visitantes do Inteli seja composta por estudantes do ensino médio, a persona Ricardo Menezes representa um público-alvo estratégico (executivos, imprensa e parceiros) cujo impacto no projeto de automatização de tours com o cão robótico é desproporcionalmente alto. Este público não busca uma experiência lúdica, mas sim a validação da credibilidade e da vanguarda tecnológica da instituição. A presença do Ricardo exige que o robô seja programado para ter uma dupla funcionalidade: além de engajar o público jovem, ele deve ser capaz de alternar para um tom de voz formal, comunicação concisa e conteúdo focado em dados estratégicos (como cases de sucesso e resultados de cursos executivos). Em suma, o Ricardo atua como o padrão de qualidade para o projeto, garantindo que a solução tecnológica não apenas cumpra seu papel operacional de guia, mas também funcione como um reforço da imagem institucional do Inteli para o seu público mais influente e decisório. Ignorar as dores e necessidades deste executivo resultaria em um robô que falharia em seu papel mais importante: endossar a sofisticação e o profissionalismo da faculdade.
