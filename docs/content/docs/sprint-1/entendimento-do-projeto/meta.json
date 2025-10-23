@@ -1,0 +1,9 @@
+{
+  "title": "Entedimento do Projeto",
+  "description": "Define os requisitos funcionais e não funcionais do sistema, além da proposta arquitetural que orienta o desenvolvimento técnico e integração das soluções.",
+  "pages": [
+    "requisitos-funcionais",
+    "requisitos-nao-funcionais",
+    "proposta-de-arquitetura"
+  ]
+}
