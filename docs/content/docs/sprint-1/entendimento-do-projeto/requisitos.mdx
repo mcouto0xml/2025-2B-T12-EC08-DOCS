@@ -4,34 +4,36 @@ title: Requisitos
 
 # Requisitos do Sistema
 
-## Introdução
-
 &emsp;Este documento apresenta a especificação dos **Requisitos Funcionais (RF)** e **Requisitos Não Funcionais (RNF)** do sistema, de acordo com as práticas recomendadas pela **norma ISO/IEC 25010:2011**, que define os modelos de qualidade de produto de software. O objetivo é assegurar que o sistema atenda às necessidades funcionais do negócio, ao mesmo tempo em que mantenha elevados padrões de qualidade, desempenho, segurança e manutenibilidade ao longo de seu ciclo de vida.
 
 &emsp;Os requisitos aqui descritos foram organizados por **área de desenvolvimento**, de modo a garantir rastreabilidade entre os objetivos do projeto, os responsáveis técnicos e as métricas de aceitação associadas.
-
 
 ## Estrutura Organizacional das Áreas de Desenvolvimento
 
 &emsp;O projeto está estruturado em cinco áreas principais de desenvolvimento, cada uma com atribuições específicas e responsabilidades técnicas relacionadas às dimensões de qualidade do produto.
 
-### 1. DevOps/UX  
+### 1. DevOps/UX
+
 &emsp;A área de **DevOps/UX** é responsável pela infraestrutura de integração e entrega contínua (CI/CD), governança de código e pela experiência do usuário. Abrange desde o controle de versionamento e automação de pipelines até o design de interfaces e a garantia de usabilidade, acessibilidade e coerência visual.  
 &emsp;Os requisitos desta área relacionam-se principalmente às características de **Usabilidade**, **Eficiência de Execução** e **Manutenibilidade** previstas na ISO/IEC 25010.
 
-### 2. Backend  
+### 2. Backend
+
 &emsp;A área de **Backend** implementa a lógica de negócio, a camada de comunicação entre sistemas e o controle de segurança dos dados. É responsável por autenticação, autorização, integridade das informações e desempenho da aplicação.  
 &emsp;Os requisitos desta área estão associados às dimensões de **Adequação Funcional**, **Confiabilidade**, **Segurança (Security)** e **Eficiência de Execução**.
 
-### 3. Modelo  
-&emsp;A área de **Modelo** trata do desenvolvimento e integração de modelos de **Processamento de Linguagem Natural (PLN)**, como LLMs (Large Language Models). Inclui a definição de estratégias de segurança, mitigação de vieses, governança de dados e uso de mecanismos de recuperação de contexto (RAG - *Retrieval Augmented Generation*).  
+### 3. Modelo
+
+&emsp;A área de **Modelo** trata do desenvolvimento e integração de modelos de **Processamento de Linguagem Natural (PLN)**, como LLMs (Large Language Models). Inclui a definição de estratégias de segurança, mitigação de vieses, governança de dados e uso de mecanismos de recuperação de contexto (RAG - _Retrieval Augmented Generation_).
 &emsp;Os requisitos desta área estão relacionados a **Adequação Funcional**, **Confiabilidade**, **Segurança** e **Compatibilidade**.
 
-### 4. Robô  
+### 4. Robô
+
 &emsp;A área de **Robô** abrange a integração entre o hardware e o software embarcado, incluindo controle de movimento, visão computacional e protocolos de comunicação como **ROS-2**. Foca em garantir **segurança operacional (safety)**, robustez e estabilidade da comunicação entre os módulos.  
 &emsp;Os requisitos desta área se relacionam principalmente às características de **Confiabilidade**, **Segurança**, **Eficiência de Execução** e **Portabilidade**
 
-### 5. Segurança 
+### 5. Segurança
+
 &emsp;A área de **Segurança** é responsável por garantir a segurança cibernética e operacional do sistema, atuando na prevenção de falhas, vulnerabilidades e riscos que possam comprometer pessoas, dados ou infraestrutura. Essa equipe assegura a conformidade com padrões de segurança e requisitos aqui definidos, implementa mecanismos de proteção e realiza análises contínuas de risco. Também desenvolve protocolos de segurança física e lógica, assegurando operação previsível e confiável em todas as condições. Esse time não possui requisitos específicos listados neste documento, mas atua transversalmente em todas as áreas para garantir a integridade e segurança do sistema como um todo.
 
 ---
@@ -47,81 +49,118 @@ Os requisitos são classificados em duas categorias:
 
 ## Requisitos Funcionais e Não Funcionais por Área de Desenvolvimento
 
-### Área de Desenvolvimento: DevOps/UX
- 
+### **Área de Desenvolvimento: DevOps/UX**
+
 &emsp;Esta área abrange a infraestrutura de desenvolvimento, automação de processos e design da experiência do usuário. Seus requisitos envolvem acessibilidade, interoperabilidade entre ambientes, eficiência operacional e qualidade da interface.
 
-| Tipo de Requisito | Área Responsável | Requisito | Critério de Aceite |
-|--------------------|------------------|------------|--------------------|
-|                    | DevOps/UX        |            |                    |
-|                    | DevOps/UX        |            |                    |
-|                    | DevOps/UX        |            |                    |
+| Tipo de Requisito | Área Responsável | Requisito                                                                              | Critério de Aceite                                                                                           |
+| ----------------- | ---------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Funcional         | DevOps/UX        | Deve existir um botão de parada de emergência (E-Stop).                                | Botão visível na tela principal; ao clicar, envia comando STOP e exibe feedback visual de parada confirmada. |
+| Funcional         | DevOps/UX        | A interface de monitoramento deve exibir em tempo real o status de cada processo.      | Atualização de status a cada ≤ 1 s; atraso máximo ≤ 500 ms.                                                  |
+| Funcional         | DevOps/UX        | A interface deve oferecer filtros dinâmicos e busca rápida por falhas, logs e eventos. | Campo de busca funcional sem recarregar página; resultados retornam em ≤ 2 s.                                |
+| Funcional         | DevOps/UX        | O sistema deve emitir alertas e falhas por ordem de gravidade.                         | Alertas visuais e sonoros disparados em ≤ 2 s após detecção.                                                 |
+| Funcional         | DevOps/UX        | O sistema deve implementar pipeline de SCA para analisar dependências antes do deploy. | Execução automática a cada build; falha de CVE crítico bloqueia deploy.                                      |
+| Funcional         | DevOps/UX        | Registro de eventos críticos (STOP e falhas).                                          | 100% dos eventos críticos logados com timestamp e ID; perda máxima tolerada = 0.                             |
+| Funcional         | DevOps/UX        | Coleta de leads e feedback de visitantes.                                              | Formulário registra dados corretamente; taxa de falha ≤ 1%; sem travamentos.                                 |
+| Funcional         | DevOps/UX        | O sistema deve restringir o envio de perguntas por robôs de rede interna.              | Bloqueio ativo de acessos não autenticados; logs de tentativas mantidos.                                     |
+| Funcional         | DevOps/UX        | O formulário deve permanecer acessível durante o tour.                                 | Disponível do início ao fim; bloqueado após término; tempo de resposta ≤ 1 s.                                |
+| Funcional         | DevOps/UX        | GitFlow deve ser obrigatório.                                                          | Merge apenas via Pull Request aprovado por 2 revisores; push direto bloqueado.                               |
+| Funcional         | DevOps/UX        | O sistema deve ter pipeline de SAST antes do merge.                                    | PR bloqueado se vulnerabilidade crítica detectada.                                                           |
+| Funcional         | DevOps/UX        | O sistema deve fazer varredura de secrets (.env, chaves).                              | Commits bloqueados automaticamente; log de tentativas gravado.                                               |
+| Funcional         | DevOps/UX        | O sistema deve utilizar CI/CD para deploy controlado.                                  | Deploy ocorre apenas após build aprovado; rollback automático disponível.                                    |
+| Não Funcional     | DevOps/UX        | A interface deve ter feature de parada de emergência em caso de falhas ou danos.       | Ação STOP disponível em ≤ 1 s após acionamento.                                                              |
+| Não Funcional     | DevOps/UX        | A interface deve ter tempo de resposta < 1 s em operações críticas.                    | Testes de carga mostram 95% das respostas em ≤ 1 s.                                                          |
+| Não Funcional     | DevOps/UX        | A arquitetura de DevOps deve seguir GitFlow com controles de acesso rígidos.           | Push direto na main bloqueado; revisão obrigatória por pares.                                                |
+| Não Funcional     | DevOps/UX        | O repositório deve possuir varredura automática de chaves e segredos.                  | Nenhum commit com segredos permitido; scanner executado a cada build.                                        |
+| Não Funcional     | DevOps/UX        | Interface operacional deve permanecer estável durante tours.                           | Nenhum crash; taxa de uptime ≥ 99,9%.                                                                        |
+| Não Funcional     | DevOps/UX        | Portal deve ter autenticação de dois fatores.                                          | 100% dos logins exigem token de verificação; sem bypass.                                                     |
+| Não Funcional     | DevOps/UX        | Interface deve ser acessível para pessoas com deficiência visual.                      | Ícones e labels compatíveis com leitores de tela; contraste > 7:1.                                           |
+| Não Funcional     | DevOps/UX        | Banco de dados deve ser criptografado e auditável.                                     | Logs de auditoria gerados; acesso restrito a operadores autorizados.                                         |
 
 ---
 
-### Área de Desenvolvimento: Backend
- 
+### **Área de Desenvolvimento: Backend**
+
 &emsp;A área de Backend é responsável pela lógica central do sistema, comunicação entre serviços, persistência de dados e mecanismos de autenticação e segurança. Os requisitos desta área garantem a confiabilidade das operações e o cumprimento dos parâmetros de desempenho e integridade de dados.
 
-| Tipo de Requisito | Área Responsável | Requisito | Critério de Aceite |
-|--------------------|------------------|------------|--------------------|
-|                    | Backend          |            |                    |
-|                    | Backend          |            |                    |
-|                    | Backend          |            |                    |
+| Tipo de Requisito | Área Responsável | Requisito                                                                                                                                                  | Critério de Aceite                                                                                                                       |
+| ----------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Funcional         | Backend          | O robô deve parar imediatamente (tempo máximo de resposta ≤ 1 s) após o botão de emergência ser pressionado, interrompendo todos os processos ativos.      | O backend deve receber o comando STOP e enviar confirmação ao robô em ≤ 1 s; log de parada deve registrar timestamp e origem do comando. |
+| Funcional         | Backend          | O backend deve enviar o comando de parada para o robô de forma prioritária, com confirmação de execução e redundância no canal de envio.                   | Sistema deve registrar ACK de parada em até 1 s; falhas de transmissão ≤ 1%.                                                             |
+| Funcional         | Backend          | Os endpoints de comunicação entre backend e robô devem permitir troca de comandos e status em tempo real, incluindo dados de sensores, movimento e estado. | Latência média de comunicação ≤ 200 ms; 100% das mensagens críticas entregues e confirmadas.                                             |
+| Funcional         | Backend          | As falas geradas via LLM devem ser processadas e transmitidas ao robô com tempo máximo de resposta de 1,5 s.                                               | Testes de desempenho confirmam tempo médio ≤ 1,5 s em 95% das requisições.                                                               |
+| Funcional         | Backend          | Todos os endpoints REST ou WebSocket devem exigir autenticação JWT válida antes de permitir qualquer operação de controle sobre o robô.                    | Nenhuma requisição não autenticada aceita; logs registram ID de sessão e timestamp.                                                      |
+| Funcional         | Backend          | O backend deve implementar rate limiting em todos os endpoints críticos, prevenindo abuso ou sobrecarga indevida.                                          | Limite configurado de 100 req/min por IP; logs registram violações; bloqueios aplicados automaticamente.                                 |
+| Funcional         | Backend          | O sistema deve registrar logs detalhados de todas as requisições, incluindo status, endpoint, payload e tempo de resposta.                                 | Logs armazenados com precisão de timestamp ≤ 10 ms; nenhuma requisição crítica sem registro.                                             |
+| Não Funcional     | Backend          | O backend deve manter latência máxima de 200 ms para comunicação com o robô e ≤ 500 ms para geração de resposta das falas LLM.                             | Monitoramento contínuo confirma médias dentro do limite em 95% dos testes sob carga nominal.                                             |
+| Não Funcional     | Backend          | A infraestrutura de rede deve garantir baixa perda de pacotes (≤ 1%) e tempo de reconexão inferior a 2 segundos após falha.                                | Testes de estresse validam reconexão ≤ 2 s; perda de pacotes ≤ 1% em 1.000 iterações.                                                    |
+| Não Funcional     | Backend          | O backend deve seguir padrões OWASP API Security Top 10, prevenindo vulnerabilidades como injeções, autenticação fraca e exposição indevida de dados.      | Auditoria de segurança trimestral comprova 0 vulnerabilidades críticas.                                                                  |
+| Não Funcional     | Backend          | O rate limiter deve ser configurável e adaptativo, permitindo ajustes dinâmicos de limite conforme tipo de endpoint e contexto operacional.                | Painel administrativo permite alteração de limites sem downtime; alterações registradas em log.                                          |
+| Não Funcional     | Backend          | O backend deve possuir monitoramento contínuo de desempenho e disponibilidade, com alertas em caso de falha.                                               | Alertas emitidos em ≤ 60 s após anomalia; uptime ≥ 99,9%.                                                                                |
+| Não Funcional     | Backend          | Todos os logs e métricas do backend devem ser armazenados de forma segura e criptografada, com retenção mínima de 90 dias.                                 | Dados de log armazenados com AES-256; perda máxima tolerada = 0%.                                                                        |
 
 ---
 
-### Área de Desenvolvimento: Modelo
- 
+### **Área de Desenvolvimento: Modelo**
+
 &emsp;Responsável pela implementação de modelos de inteligência artificial, processamento de linguagem natural e integração com os demais módulos. Os requisitos desta área asseguram a precisão, consistência, ética e segurança dos modelos.
 
-| Tipo de Requisito | Área Responsável | Requisito | Critério de Aceite |
-|--------------------|------------------|------------|--------------------|
-|                    | Modelo           |            |                    |
-|                    | Modelo           |            |                    |
-|                    | Modelo           |            |                    |
+| Tipo de Requisito | Área Responsável | Requisito                                                                                                                                                                                                                                                                                 | Critério de Aceite                                                                                                                                 |
+| ----------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Funcional         | Modelo           | O sistema deve operar com dois modelos de linguagem distintos: Modelo A (Detector) — responsável por identificar perguntas capciosas, enganosas, maliciosas ou de natureza antiética; e Modelo B (Respondente) — responsável por gerar respostas somente quando autorizado pelo Modelo A. | Os testes devem comprovar que o Modelo B apenas gera respostas após autorização explícita do Modelo A, com taxa de falsos positivos inferior a 2%. |
+| Funcional         | Modelo           | O Modelo B deve recusar a geração de respostas quando o Modelo A classificar a entrada como capciosa ou potencialmente maliciosa.                                                                                                                                                         | Durante testes de validação, o Modelo B deve bloquear 100% das tentativas de resposta em entradas classificadas como capciosas pelo Modelo A.      |
+| Funcional         | Modelo           | A comunicação entre os dois modelos deve ser interna e segura.                                                                                                                                                                                                                            | Logs de auditoria devem comprovar que toda comunicação entre os modelos ocorre via canal interno autenticado e criptografado.                      |
+| Funcional         | Modelo           | O sistema deve registrar as decisões do Modelo A (Detector) para auditoria, incluindo entradas classificadas, tempo de inferência e motivo da classificação.                                                                                                                              | Logs de auditoria devem registrar 100% das inferências, contendo data/hora, entrada, saída e justificativa.                                        |
+| Funcional         | Modelo           | O Modelo B deve produzir respostas verificáveis, parciais em relação ao Intel, evitando menções vagas, meias verdades, difamações ou menções negativas a pessoas, grupos ou instituições.                                                                                                 | As respostas devem passar por teste de conformidade ética e semântica com precisão ≥ 95% segundo checklist de validação.                           |
+| Funcional         | Modelo           | O sistema deve possuir um módulo de auditoria de geração de conteúdo, capaz de revisar periodicamente respostas e detectar possíveis desvios éticos ou factuais.                                                                                                                          | Auditorias mensais devem detectar e corrigir 100% dos desvios classificados como críticos.                                                         |
+| Funcional         | Modelo           | O sistema de dois modelos deve utilizar estratégias de inferência assíncrona, evitando bloqueios ou gargalos entre o Detector e o Respondente.                                                                                                                                            | O sistema deve processar entradas simultâneas mantendo latência total ≤ 1,5s em 95% das requisições.                                               |
+| Não Funcional     | Modelo           | A base de dados utilizada no RAG deve ser tratada e padronizada para eficiência e relevância.                                                                                                                                                                                             | Índices otimizados e consistência de dados ≥ 99%; consultas retornam em ≤ 1 s.                                                                     |
+| Não Funcional     | Modelo           | O sistema de LLMs deve operar com latência total ≤ 1,5 s, incluindo filtragem pelo Modelo A.                                                                                                                                                                                              | Testes de desempenho validam tempo médio ≤ 1,5 s em 95% das requisições.                                                                           |
+| Não Funcional     | Modelo           | Deve haver isolamento lógico e físico entre ambientes de inferência.                                                                                                                                                                                                                      | Nenhum compartilhamento de dados entre ambientes detectado; verificações semanais de segurança.                                                    |
+| Não Funcional     | Modelo           | Modelos devem ser reprodutíveis, gerando resultados consistentes sob mesmas condições.                                                                                                                                                                                                    | Diferença de saída ≤ 1% entre execuções idênticas.                                                                                                 |
+| Não Funcional     | Modelo           | Toda comunicação entre modelos, datasets e APIs deve ser criptografada (TLS 1.3+).                                                                                                                                                                                                        | Auditoria confirma 100% das conexões seguras; nenhuma requisição não criptografada.                                                                |
+| Não Funcional     | Modelo           | Métricas de desempenho e detecção de falhas devem ser monitoradas continuamente.                                                                                                                                                                                                          | Sistema de alertas ativa notificação em < 60 s após detecção de falha.                                                                             |
+| Não Funcional     | Modelo           | O pipeline de AIOps deve registrar logs e métricas de inferência, falhas e auditorias.                                                                                                                                                                                                    | Logs armazenados com retenção mínima de 90 dias; perda máxima de eventos = 0%.                                                                     |
 
 ---
 
-### Área de Desenvolvimento: Robô
- 
+### **Área de Desenvolvimento: Robô**
+
 &emsp;Abrange a camada física e lógica do robô, integrando sensores, atuadores e sistemas de controle. Os requisitos desta área garantem a operação segura, contínua e compatível com os ambientes de execução definidos, bem como a tolerância a falhas e a integridade dos processos.
 
-| Tipo de Requisito | Área Responsável | Requisito | Critério de Aceite |
-|--------------------|------------------|------------|--------------------|
-|Funcional| Robô             |O robô deve detectar e evitar obstáculos, pessoas e objetos em tempo real.|O robô não deve colidir com nenhum objeto ou pessoa, evitando qualquer tipo de dano físico.|
-|Funcional| Robô             |O robô deve interromper o movimento imediatamente ao detectar risco iminente de colisão, perda de controle ou falha de sensor.|O robô deve parar em até 1 segundo após a detecção de risco ou falha.|
-|Funcional| Robô             |O robô deve utilizar sensores de proximidade, LiDAR e visão computacional para mapear o ambiente e ajustar sua trajetória dinamicamente.|O robô deve demonstrar capacidade de desviar de obstáculos móveis e fixos em testes controlados.|
-|Funcional| Robô             |O robô deve seguir comandos do backend via ROS-2 apenas após validação de integridade e origem da mensagem.|O robô só deve executar comandos validados com origem conhecida e integridade confirmada.|
-|Funcional| Robô             |Em caso de perda de conexão com o backend, o robô deve entrar automaticamente em modo seguro (failsafe).|O robô deve parar o movimento e aguardar reconexão ao detectar perda de sinal.|
-|Não Funcional| Robô             |O robô deve implementar protocolos de comunicação seguros entre hardware e backend, utilizando criptografia TLS 1.3 ou DDS Security (ROS-2 SROS2) para prevenir ataques Man-in-the-Middle (MITM).|Todas as mensagens entre o robô e o backend devem ser criptografadas e autenticadas.|
-|Não Funcional| Robô             |A latência máxima de comunicação entre o robô e o backend não deve ultrapassar 200 ms.|Testes de comunicação devem confirmar latência ≤ 200 ms em 95% do tempo de operação.|
-|Não Funcional| Robô             |O robô deve manter taxa mínima de disponibilidade de conexão de 99%, reconectando-se automaticamente em menos de 3 segundos após uma falha de rede.|O robô deve conseguir se reconectar sozinho após falha, dentro do tempo especificado, em 95% dos testes.|
-|Não Funcional| Robô             |A arquitetura do robô deve ser modular e redundante, permitindo que falhas em um subsistema (ex: sensor ultrassônico) não comprometam o funcionamento global.|Durante testes com falha induzida em subsistemas, o robô deve continuar operando com funções críticas.|
-|Não Funcional| Robô             |O robô deve ser fisicamente seguro, com motores limitados por torque e velocidade para evitar impacto danoso em humanos ou objetos.|Em testes de segurança, os limites de força e velocidade não devem ser ultrapassados.|
-|Não Funcional| Robô             |A pilha ROS-2 deve ser configurada com QoS adequada aos canais críticos conforme prioridade de mensagem.|A configuração deve garantir que mensagens críticas (ex: parada de emergência) tenham prioridade e baixa latência.|
-|Não Funcional| Robô             |O sistema deve ser testado em ambiente controlado para verificar tolerância a falhas de sensores, perda de rede e falhas de hardware.|O sistema deve manter operação segura e controlada mesmo com falhas simuladas em testes.|
-
-
+| Tipo de Requisito | Área Responsável | Requisito                                                                                                                                                                                         | Critério de Aceite                                                                                                 |
+| ----------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Funcional         | Robô             | O robô deve detectar e evitar obstáculos, pessoas e objetos em tempo real.                                                                                                                        | O robô não deve colidir com nenhum objeto ou pessoa, evitando qualquer tipo de dano físico.                        |
+| Funcional         | Robô             | O robô deve interromper o movimento imediatamente ao detectar risco iminente de colisão, perda de controle ou falha de sensor.                                                                    | O robô deve parar em até 1 segundo após a detecção de risco ou falha.                                              |
+| Funcional         | Robô             | O robô deve utilizar sensores de proximidade, LiDAR e visão computacional para mapear o ambiente e ajustar sua trajetória dinamicamente.                                                          | O robô deve demonstrar capacidade de desviar de obstáculos móveis e fixos em testes controlados.                   |
+| Funcional         | Robô             | O robô deve seguir comandos do backend via ROS-2 apenas após validação de integridade e origem da mensagem.                                                                                       | O robô só deve executar comandos validados com origem conhecida e integridade confirmada.                          |
+| Funcional         | Robô             | Em caso de perda de conexão com o backend, o robô deve entrar automaticamente em modo seguro (failsafe).                                                                                          | O robô deve parar o movimento e aguardar reconexão ao detectar perda de sinal.                                     |
+| Não Funcional     | Robô             | O robô deve implementar protocolos de comunicação seguros entre hardware e backend, utilizando criptografia TLS 1.3 ou DDS Security (ROS-2 SROS2) para prevenir ataques Man-in-the-Middle (MITM). | Todas as mensagens entre o robô e o backend devem ser criptografadas e autenticadas.                               |
+| Não Funcional     | Robô             | A latência máxima de comunicação entre o robô e o backend não deve ultrapassar 200 ms.                                                                                                            | Testes de comunicação devem confirmar latência ≤ 200 ms em 95% do tempo de operação.                               |
+| Não Funcional     | Robô             | O robô deve manter taxa mínima de disponibilidade de conexão de 99%, reconectando-se automaticamente em menos de 3 segundos após uma falha de rede.                                               | O robô deve conseguir se reconectar sozinho após falha, dentro do tempo especificado, em 95% dos testes.           |
+| Não Funcional     | Robô             | A arquitetura do robô deve ser modular e redundante, permitindo que falhas em um subsistema (ex: sensor ultrassônico) não comprometam o funcionamento global.                                     | Durante testes com falha induzida em subsistemas, o robô deve continuar operando com funções críticas.             |
+| Não Funcional     | Robô             | O robô deve ser fisicamente seguro, com motores limitados por torque e velocidade para evitar impacto danoso em humanos ou objetos.                                                               | Em testes de segurança, os limites de força e velocidade não devem ser ultrapassados.                              |
+| Não Funcional     | Robô             | A pilha ROS-2 deve ser configurada com QoS adequada aos canais críticos conforme prioridade de mensagem.                                                                                          | A configuração deve garantir que mensagens críticas (ex: parada de emergência) tenham prioridade e baixa latência. |
+| Não Funcional     | Robô             | O sistema deve ser testado em ambiente controlado para verificar tolerância a falhas de sensores, perda de rede e falhas de hardware.                                                             | O sistema deve manter operação segura e controlada mesmo com falhas simuladas em testes.                           |
 
 ---
+
+É válido relembrar que a área de desenvolvimento de segurança não possui requisitos específicos definidos pois atua diretamente em todas as áreas e requisitos aqui listados de forma a garantir a segurança integral do projeto como um todo.
 
 ## Atributos de Qualidade (ISO/IEC 25010)
 
 &emsp;Os **Requisitos Não Funcionais (RNFs)** são diretamente relacionados às oito características principais de qualidade de produto, conforme definidas pela norma **ISO/IEC 25010:2011**:
 
-| Característica de Qualidade | Subcaracterísticas |
-|------------------------------|--------------------|
-| **Adequação Funcional** | Completude funcional, Correção funcional, Apropriabilidade funcional |
-| **Eficiência de Execução** | Comportamento no tempo, Utilização de recursos, Capacidade |
-| **Compatibilidade** | Coexistência, Interoperabilidade |
-| **Usabilidade** | Adequação da reconhecibilidade, Apreensibilidade, Operacionalidade, Proteção contra erro do usuário, Estética da interface, Acessibilidade |
-| **Confiabilidade** | Maturidade, Disponibilidade, Tolerância a falhas, Recuperabilidade |
-| **Segurança (Security)** | Confidencialidade, Integridade, Não repúdio, Responsabilidade, Autenticidade |
-| **Manutenibilidade** | Modularidade, Reusabilidade, Analisabilidade, Modificabilidade, Testabilidade |
-| **Portabilidade** | Adaptabilidade, Capacidade para ser instalado, Capacidade para substituir |
-
-
+| Característica de Qualidade | Subcaracterísticas                                                                                                                         |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Adequação Funcional**     | Completude funcional, Correção funcional, Apropriabilidade funcional                                                                       |
+| **Eficiência de Execução**  | Comportamento no tempo, Utilização de recursos, Capacidade                                                                                 |
+| **Compatibilidade**         | Coexistência, Interoperabilidade                                                                                                           |
+| **Usabilidade**             | Adequação da reconhecibilidade, Apreensibilidade, Operacionalidade, Proteção contra erro do usuário, Estética da interface, Acessibilidade |
+| **Confiabilidade**          | Maturidade, Disponibilidade, Tolerância a falhas, Recuperabilidade                                                                         |
+| **Segurança (Security)**    | Confidencialidade, Integridade, Não repúdio, Responsabilidade, Autenticidade                                                               |
+| **Manutenibilidade**        | Modularidade, Reusabilidade, Analisabilidade, Modificabilidade, Testabilidade                                                              |
+| **Portabilidade**           | Adaptabilidade, Capacidade para ser instalado, Capacidade para substituir                                                                  |
 
 ## Considerações Finais
 
