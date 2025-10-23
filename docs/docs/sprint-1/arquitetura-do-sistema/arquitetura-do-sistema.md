@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+title: "Arquitetura do Sistema"
+---
+
 A arquitetura do sistema consiste em um conjunto de módulos e serviços que orquestram a comunicação entre o robô, o banco de dados, os serviços de back-end (LLM API e API) e as interfaces de usuário (front-end) para visitantes e administradores. O sistema foi projetado para operar um robô de serviço autônomo com IA generativa, programado para realizar tours interativas de apresentação do campus do Inteli.
 
 ## Diagrama de arquitetura do sistema
@@ -50,3 +55,7 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
   - **Controle emergencial do robô**: Interface que permite aos administradores (equipe Inteli) intervir e controlar o robô em situações de emergência, comunicando-se com o serviço de Controle do robô.
   - **Dashboard com analytics e logs**: Interface de visualização que apresenta as métricas e análises geradas pelo serviço de Analytics e Métricas, e os logs do sistema, auxiliando no monitoramento da plataforma e do robô.
   - **Cadastro e Login**: Interface para autenticação de usuários administradores, interagindo com o serviço de Sistema de usuários.
+
+### Robô de Serviço Autônomo (Unitree Go2 Edu)
+
+O objetivo principal do projeto é o desenvolvimento e programação de um robô de serviço autônomo, sendo a base robótica um cão robô (Unitree Go2 Edu). O robô será programado para realizar tours interativas enquanto percorre o campus do Inteli em uma rota pré-definida junto a um grupo de visitantes. Além disso, o robô terá a capacidade de interagir com os visitantes, como tirar dúvidas.
