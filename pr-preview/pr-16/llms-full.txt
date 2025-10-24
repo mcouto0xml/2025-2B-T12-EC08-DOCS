@@ -1479,7 +1479,7 @@ A equipe deve manter comunicação transparente sobre riscos identificados e tra
 
         <td>
           Dado que há estudantes visitando o campus, quando o robô iniciar o
-          tour, deve cumprimenta-lo de forma receptiva e utilizar linguagem
+          tour, deve cumprimentá-lo de forma receptiva e utilizar uma linguagem
           acessível e simpática.
         </td>
       </tr>
@@ -1880,7 +1880,7 @@ A equipe deve manter comunicação transparente sobre riscos identificados e tra
 
         <td>
           "Como staff, quero receber notificações chamativas caso o robô
-          apresente algum tipo de problema no meio do tour, para que eu possa
+          apresente algum tipo de problema durante o tour, para que eu possa
           fazer uma intervenção rápida."
         </td>
 
