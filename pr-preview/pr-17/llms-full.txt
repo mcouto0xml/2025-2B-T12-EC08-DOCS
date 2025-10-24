@@ -1428,20 +1428,28 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
 
 * **Tradução em tempo real**: Módulo responsável por traduzir a fala do robô, a fala não será necessariamente traduzida em tempo real, o ideal é, após a idealização e definição da resposta, ela ser traduzida para outros idiomas, e apenas mostrar o texto ao mesmo tempo que o robô fala no idioma definido como principal. Conecta-se à LLM API de Tradução e ao Banco de dados sequencial.
 
-* **Modelo de Síntese de Voz**: Módulo responsável por sintetizar textos para áudio que serão passados para a fala do robô, utilizando uma LLM open source pré-definida.
+* **Módulo de TTS (Text-to-Speech)**: Módulo responsável por sintetizar textos para áudio que serão passados para a fala do robô.
+
+* **Modelo de Validação**: Módulo responsável por validar a resposta dos outros modelos, garantindo que a resposta seja coerente e relevante, além de lidar com erros de sintaxe e semântica e garantir que a resposta esteja dentro do contexto da pergunta. Este modelo está atrelado ao contexto de segurança. Conecta-se a LLM API e aos outros modelos.
+
+### Banco de dados
+
+* **Banco de dados vetorial**: Módulo responsável por armazenar documentos e suas representações vetoriais, dos quais serão utilizados como contexto para os modelos.
+
+* **Banco de dados sequencial**: Módulo responsável por armazenar informações sequenciais, como perguntas dos visitantes e logs de atividades.
 
 ### Back-end
 
 #### LLM API
 
 * **Perguntas e Respostas**: Recebe do front-end a seção em que a dúvida surgiu, junto com o texto transcrito da dúvida (Formulário de perguntas), e envia o contexto para o modelo de perguntas e respostas para processar as dúvidas e gerar respostas, das quais são enviadas para o Modelo de Tradução e para o modelo de Síntese de Voz e retorna a tradução para o front-end e a resposta para o modelo de síntese de voz.
+* **Serviço de documentos**: Recebe do front-end os documentos que serão utilizados como contexto para os modelos, e armazena no banco de dados vetorial. Conecta-se ao banco de dados vetorial
 
 #### API
 
-* **Logs da plataforma**: Serviço que coleta e armazena logs da plataforma de front-end, interage com o Banco de dados sequencial.
+* **Logs**: Serviço que coleta e armazena logs de todas as partes do sistema, incluindo um registro das requisições para o back-end, requisições, dados passados e dados recebidos de cada modelo, além do registro das alterações feitas pelo modelo de validação. Além disso, também recebe os logs de todas as ações do robô e das rotinas de visitantes, junto as interações do front-end. Interage com o Banco de dados sequencial.
 * **Seção**: Serviço que gerencia o avanço entre as diferentes seções do tour, recebendo comandos da Interação para avançar seções do front-end (Visitante) e comunicando-se com o Robô.
 * **Controle do robô**: Serviço essencial que envia comandos de controle ao Robô, recebendo instruções do front-end (Controle emergencial do robô) e do serviço de Seção.
-* **Logs do robô**: Serviço que recebe e armazena logs específicos da operação e navegação do Robô, possivelmente utilizados para monitoramento e análise de desempenho. Interage com o Banco de dados sequencial.
 * **Analytics e Métricas**: Serviço que processa os logs da plataforma e do robô para gerar métricas e análises de desempenho e uso, as quais são visualizadas no Dashboard com analytics e logs do front-end (Administrador). Interage com o Banco de dados sequencial.
 * **Sistema de usuários**: Serviço responsável pelo gerenciamento de usuários, incluindo as funcionalidades de Cadastro e Login do front-end (Administrador).
 
@@ -1458,10 +1466,15 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
 * **Controle emergencial do robô**: Interface que permite aos administradores (equipe Inteli) intervir e controlar o robô em situações de emergência, comunicando-se com o serviço de Controle do robô.
 * **Dashboard com analytics e logs**: Interface de visualização que apresenta as métricas e análises geradas pelo serviço de Analytics e Métricas, e os logs do sistema, auxiliando no monitoramento da plataforma e do robô.
 * **Cadastro e Login**: Interface para autenticação de usuários administradores, interagindo com o serviço de Sistema de usuários.
+* **Cadastro de Documentos**: Interface para o cadastro de documentos que serão utilizados como contexto para as LLMs, interagindo com o serviço de Serviço de documentos.
 
-### Robô de Serviço Autônomo (Unitree Go2 Edu)
+### Robô de Serviço Autônomo
 
 O objetivo principal do projeto é o desenvolvimento e programação de um robô de serviço autônomo, sendo a base robótica um cão robô (Unitree Go2 Edu). O robô será programado para realizar tours interativas enquanto percorre o campus do Inteli em uma rota pré-definida junto a um grupo de visitantes. Além disso, o robô terá a capacidade de interagir com os visitantes, como tirar dúvidas.
+
+## Conclusão
+
+Por fim, é válido destacar que o projeto proposto é uma iniciativa inovadora que busca combinar tecnologia e interação humana para melhorar a experiência de visitantes no campus do Inteli. A integração de um cachorro robô autônomo com recursos de inteligência artificial e aprendizado de máquina promete proporcionar uma experiência única e personalizada aos visitantes. Além de coletar dados que podem se tornar valiosos para o desenvolvimento futuro do projeto e para auxiliar o time de Growth do Inteli.
 
 
 # Requisitos Funcionais (/docs/sprint-1/entendimento-do-projeto/requisitos-funcionais)
