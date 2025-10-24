@@ -714,8 +714,9 @@ c = \pm\sqrt{a^2 + b^2}
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-de-oportunidades" title="Matriz de Oportunidades">
-    Apresenta a Matriz de Oportunidades do projeto, identificando potenciais oportunidades,
-    suas probabilidades e impactos, bem como estratégias de implementação.
+    Apresenta a Matriz de Oportunidades do projeto, identificando potenciais
+    oportunidades, suas probabilidades e impactos, bem como estratégias de
+    implementação.
   </Card>
 </Cards>
 
