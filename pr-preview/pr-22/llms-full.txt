@@ -154,9 +154,10 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
   </Card>
 
   <Card href="/docs/sprint-1/exploracao-robo" title="Exploração do Robô">
-    Documenta a fase inicial de testes e investigações técnicas do robô Unitree Go2,
-    incluindo limitações físicas, análise de firmware, uso do SDK e experimentos
-    práticos realizados no campus para validar a viabilidade do tour autônomo.
+    Documenta a fase inicial de testes e investigações técnicas do robô Unitree
+    Go2, incluindo limitações físicas, análise de firmware, uso do SDK e
+    experimentos práticos realizados no campus para validar a viabilidade do
+    tour autônomo.
   </Card>
 </Cards>
 
