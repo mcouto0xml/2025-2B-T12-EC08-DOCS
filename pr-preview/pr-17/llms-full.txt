@@ -1413,7 +1413,7 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
     </strong>
   </p>
 
-  <img src={"/sprint-1/Arquitetura do Sistema/diagrama-arquitetura-sistema.png"} alt="Diagrama de Arquitetura do Sistema" title="Diagrama de Arquitetura do Sistema" style={{ maxWidth: "100%", height: "auto" }} />
+  <img src={"/sprint-1/proposta-de-arquitetura/diagrama-arquitetura-sistema.png"} alt="Diagrama de Arquitetura do Sistema" title="Diagrama de Arquitetura do Sistema" style={{ maxWidth: "100%", height: "auto" }} />
 
   <p>
     Fonte: Elaborado pelos autores (2025)
