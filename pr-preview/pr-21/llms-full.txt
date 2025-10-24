@@ -1377,13 +1377,6 @@ A equipe deve manter comunicação transparente sobre riscos identificados e tra
 
 
 
-***
-
-sidebar\_position: 2
-title: Matriz de avaliação de valor Oceano Azul
-
-***
-
  A Matriz de Avaliação de Valor, também conhecida como Matriz Oceano Azul, é uma ferramenta estratégica que tem como base o conceito desenvolvido por W. Chan Kim e Renée Mauborgne no livro *A Estratégia do Oceano Azul*.
 
  Seu principal objetivo é auxiliar organizações a criarem novos espaços de mercado, tornando a concorrência irrelevante e proporcionando maior valor ao cliente. Por meio da matriz, é possível visualizar e comparar atributos considerados importantes pelos consumidores, identificando oportunidades para reduzir, eliminar, aumentar ou criar características que diferenciem a solução proposta das demais disponíveis no mercado.
