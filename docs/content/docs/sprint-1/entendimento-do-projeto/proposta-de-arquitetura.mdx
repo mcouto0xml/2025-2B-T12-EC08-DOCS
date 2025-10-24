@@ -8,12 +8,12 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
 ## Diagrama de arquitetura do sistema
 
 <div style={{ textAlign: 'center' }}>
-  <p><strong>Figura 1 - Diagrama de Arquitetura do Sistema</strong></p>
-  <img
-    src={'/sprint-1/Arquitetura do Sistema/diagrama-arquitetura-sistema.png'}
-    alt="Diagrama de Arquitetura do Sistema"
-    title="Diagrama de Arquitetura do Sistema"
-    style={{ maxWidth: '100%', height: 'auto' }}
+  <p><strong>Figura 1 - Diagrama de Arquitetura do Sistema</strong></p>
+  <img
+    src={'/sprint-1/Arquitetura do Sistema/diagrama-arquitetura-sistema.png'}
+    alt="Diagrama de Arquitetura do Sistema"
+    title="Diagrama de Arquitetura do Sistema"
+    style={{ maxWidth: '100%', height: 'auto' }}
    />
 	 <p>Fonte: Elaborado pelos autores (2025)</p>
 </div>
@@ -22,40 +22,40 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
 
 ### Modelo
 
-  - **Perguntas e respostas (chatbot)**: O modelo de perguntas e respostas deve ser um modelo com capacidade de tirar dúvidas sobre o processo de seleção, o programa de bolsas e o dia a dia no Campus, utilizando uma LLM open source pré-definida. O projeto não contempla o treinamento de modelos de processamento de linguagem natural, mas sim o uso de modelos pré-treinados.
+- **Perguntas e respostas (chatbot)**: O modelo de perguntas e respostas deve ser um modelo com capacidade de tirar dúvidas sobre o processo de seleção, o programa de bolsas e o dia a dia no Campus, utilizando uma LLM open source pré-definida. O projeto não contempla o treinamento de modelos de processamento de linguagem natural, mas sim o uso de modelos pré-treinados.
 
-  - **Tradução em tempo real**: Módulo responsável por traduzir a fala do robô, a fala não será necessariamente traduzida em tempo real, o ideal é, após a idealização e definição da resposta, ela ser traduzida para outros idiomas, e apenas mostrar o texto ao mesmo tempo que o robô fala no idioma definido como principal. Conecta-se à LLM API de Tradução e ao Banco de dados sequencial.
+- **Tradução em tempo real**: Módulo responsável por traduzir a fala do robô, a fala não será necessariamente traduzida em tempo real, o ideal é, após a idealização e definição da resposta, ela ser traduzida para outros idiomas, e apenas mostrar o texto ao mesmo tempo que o robô fala no idioma definido como principal. Conecta-se à LLM API de Tradução e ao Banco de dados sequencial.
   
-  - **Modelo de Síntese de Voz**: Módulo responsável por sintetizar textos para áudio que serão passados para a fala do robô, utilizando uma LLM open source pré-definida.
+- **Modelo de Síntese de Voz**: Módulo responsável por sintetizar textos para áudio que serão passados para a fala do robô, utilizando uma LLM open source pré-definida.
 
 ### Back-end
 
 #### LLM API
 
-  - **Perguntas e Respostas**: Recebe do front-end a seção em que a dúvida surgiu, junto com o texto transcrito da dúvida (Formulário de perguntas), e envia o contexto para o modelo de perguntas e respostas para processar as dúvidas e gerar respostas, das quais são enviadas para o Modelo de Tradução e para o modelo de Síntese de Voz e retorna a tradução para o front-end e a resposta para o modelo de síntese de voz.
+- **Perguntas e Respostas**: Recebe do front-end a seção em que a dúvida surgiu, junto com o texto transcrito da dúvida (Formulário de perguntas), e envia o contexto para o modelo de perguntas e respostas para processar as dúvidas e gerar respostas, das quais são enviadas para o Modelo de Tradução e para o modelo de Síntese de Voz e retorna a tradução para o front-end e a resposta para o modelo de síntese de voz.
 
 #### API
 
-  - **Logs da plataforma**: Serviço que coleta e armazena logs da plataforma de front-end, interage com o Banco de dados sequencial.
-  - **Seção**: Serviço que gerencia o avanço entre as diferentes seções do tour, recebendo comandos da Interação para avançar seções do front-end (Visitante) e comunicando-se com o Robô.
-  - **Controle do robô**: Serviço essencial que envia comandos de controle ao Robô, recebendo instruções do front-end (Controle emergencial do robô) e do serviço de Seção.
-  - **Logs do robô**: Serviço que recebe e armazena logs específicos da operação e navegação do Robô, possivelmente utilizados para monitoramento e análise de desempenho. Interage com o Banco de dados sequencial.
-  - **Analytics e Métricas**: Serviço que processa os logs da plataforma e do robô para gerar métricas e análises de desempenho e uso, as quais são visualizadas no Dashboard com analytics e logs do front-end (Administrador). Interage com o Banco de dados sequencial.
-  - **Sistema de usuários**: Serviço responsável pelo gerenciamento de usuários, incluindo as funcionalidades de Cadastro e Login do front-end (Administrador).
+- **Logs da plataforma**: Serviço que coleta e armazena logs da plataforma de front-end, interage com o Banco de dados sequencial.
+- **Seção**: Serviço que gerencia o avanço entre as diferentes seções do tour, recebendo comandos da Interação para avançar seções do front-end (Visitante) e comunicando-se com o Robô.
+- **Controle do robô**: Serviço essencial que envia comandos de controle ao Robô, recebendo instruções do front-end (Controle emergencial do robô) e do serviço de Seção.
+- **Logs do robô**: Serviço que recebe e armazena logs específicos da operação e navegação do Robô, possivelmente utilizados para monitoramento e análise de desempenho. Interage com o Banco de dados sequencial.
+- **Analytics e Métricas**: Serviço que processa os logs da plataforma e do robô para gerar métricas e análises de desempenho e uso, as quais são visualizadas no Dashboard com analytics e logs do front-end (Administrador). Interage com o Banco de dados sequencial.
+- **Sistema de usuários**: Serviço responsável pelo gerenciamento de usuários, incluindo as funcionalidades de Cadastro e Login do front-end (Administrador).
 
 ### Front-end
 
 #### Visitante
 
-  - **Formulário de perguntas**: Interface onde os visitantes podem inserir dúvidas e perguntas, das quais são enviadas o modelo de Perguntas e Respostas (Chatbot).
-  - **Transcrição da fala do robô**: Interface que exibe a transcrição do que o robô está falando, proporcionando uma experiência interativa e acessível.
-  - **Interação para avançar seções**: Interface que permite aos visitantes sinalizar ou comandar o avanço para a próxima etapa do tour, comunicando-se com o serviço de Seção da API, da qual se comunica com o robô, permitindo que ele passe para a próxima seção.
+- **Formulário de perguntas**: Interface onde os visitantes podem inserir dúvidas e perguntas, das quais são enviadas o modelo de Perguntas e Respostas (Chatbot).
+- **Transcrição da fala do robô**: Interface que exibe a transcrição do que o robô está falando, proporcionando uma experiência interativa e acessível.
+- **Interação para avançar seções**: Interface que permite aos visitantes sinalizar ou comandar o avanço para a próxima etapa do tour, comunicando-se com o serviço de Seção da API, da qual se comunica com o robô, permitindo que ele passe para a próxima seção.
 
 #### Administrador
 
-  - **Controle emergencial do robô**: Interface que permite aos administradores (equipe Inteli) intervir e controlar o robô em situações de emergência, comunicando-se com o serviço de Controle do robô.
-  - **Dashboard com analytics e logs**: Interface de visualização que apresenta as métricas e análises geradas pelo serviço de Analytics e Métricas, e os logs do sistema, auxiliando no monitoramento da plataforma e do robô.
-  - **Cadastro e Login**: Interface para autenticação de usuários administradores, interagindo com o serviço de Sistema de usuários.
+- **Controle emergencial do robô**: Interface que permite aos administradores (equipe Inteli) intervir e controlar o robô em situações de emergência, comunicando-se com o serviço de Controle do robô.
+- **Dashboard com analytics e logs**: Interface de visualização que apresenta as métricas e análises geradas pelo serviço de Analytics e Métricas, e os logs do sistema, auxiliando no monitoramento da plataforma e do robô.
+- **Cadastro e Login**: Interface para autenticação de usuários administradores, interagindo com o serviço de Sistema de usuários.
 
 ### Robô de Serviço Autônomo (Unitree Go2 Edu)
 
