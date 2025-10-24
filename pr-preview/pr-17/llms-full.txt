@@ -54,11 +54,6 @@ Bem-vindo à documentação do projeto! Aqui você encontrará informações det
     sociais, ambientais e legais, e propondo diretrizes para garantir a
     responsabilidade e sustentabilidade.
   </Card>
-
-  <Card href="/docs/sprint-1/arquitetura-do-sistema" title="Arquitetura do Sistema">
-    Descreve a estrutura e organização do sistema, incluindo componentes,
-    tecnologias e padrões utilizados, garantindo escalabilidade, manutenibilidade e sustentabilidade.
-  </Card>
 </Cards>
 
 
@@ -724,6 +719,389 @@ c = \pm\sqrt{a^2 + b^2}
 
 
 
+## Introdução
+
+A matriz de riscos é uma ferramenta estratégica para identificar, avaliar e priorizar os riscos potenciais que podem impactar o projeto de desenvolvimento do robô para tours interativas no campus do Inteli. Esta análise classifica os riscos em duas dimensões: **Probabilidade** (chance de ocorrência) e **Impacto** (severidade das consequências), permitindo que a equipe concentre esforços nos riscos mais críticos.
+
+<img alt="Matriz de Riscos" src={__img0} placeholder="blur" />
+
+## Metodologia
+
+A matriz utiliza uma escala de 5x5, onde:
+
+### Probabilidade
+
+* **Muito Baixo (10%)**: Risco improvável de ocorrer
+* **Baixo (30%)**: Risco com baixa chance de ocorrência
+* **Moderado (50%)**: Risco com chance equilibrada de ocorrer ou não
+* **Alto (70%)**: Risco provável de ocorrer
+* **Muito Alto (90%)**: Risco extremamente provável de ocorrer
+
+### Impacto
+
+* **Muito Baixo**: Impacto mínimo no projeto
+* **Baixo**: Pequenos ajustes necessários
+* **Moderado**: Requer revisão de planejamento e recursos
+* **Alto**: Compromete entregas e objetivos principais
+* **Muito Alto**: Pode inviabilizar o projeto
+
+### Classificação por Cor
+
+* **Verde**: Risco baixo - monitoramento básico
+* **Amarelo**: Risco médio - requer atenção e plano de mitigação
+* **Vermelho**: Risco crítico - ação imediata necessária
+
+***
+
+## Riscos Identificados
+
+### CRÍTICOS (Impacto Muito Alto)
+
+#### 1. Perda de Conectividade
+
+**Categoria**: Técnico\
+**Probabilidade**: Muito Alta (90%)\
+**Impacto**: Muito Alto
+
+**Descrição**:\
+Falha na conexão do robô com sistemas externos (servidor, nuvem, APIs) durante a execução do tour, resultando na interrupção completa do serviço.
+
+**Consequências**:
+
+* Interrupção total da experiência do visitante
+* Perda de credibilidade institucional
+* Impossibilidade de responder perguntas via IA generativa
+* Dados não sincronizados ou perdidos
+
+**Plano de Mitigação**:
+
+* Implementar sistema de cache local com conteúdo básico do tour
+* Desenvolver modo offline com respostas pré-programadas para FAQs
+* Configurar reconexão automática com fallback
+* Estabelecer monitoramento em tempo real da qualidade da conexão
+* Definir protocolo de operação degradada
+
+**Plano de Contingência**:
+
+* Guia humano assume o tour imediatamente
+* Sistema de notificação automática para equipe técnica
+* Robô retorna à base de forma autônoma
+
+***
+
+#### 2. Falha na Comunicação entre Robô e Usuário
+
+**Categoria**: Técnico/Experiência do Usuário\
+**Probabilidade**: Alto (70%)\
+**Impacto**: Muito Alto
+
+**Descrição**:\
+Problemas no reconhecimento de voz, processamento de linguagem natural ou na saída de áudio/visual que impedem a interação adequada com visitantes.
+
+**Consequências**:
+
+* Frustração e decepção dos visitantes
+* Experiência negativa associada ao Inteli
+* Objetivo de "encantar" não é atingido
+* Danos à imagem inovadora da instituição
+
+**Plano de Mitigação**:
+
+* Treinar modelos com diferentes sotaques e variações linguísticas
+* Implementar interface visual complementar (tablet/tela no robô)
+* Testar exaustivamente em ambientes com ruído ambiente
+* Desenvolver sistema multimodal (voz + touch + gestos)
+* Criar biblioteca robusta de sinônimos e variações de perguntas
+
+**Plano de Contingência**:
+
+* Interface touch screen para interação manual
+* QR codes para acesso a informações em smartphones
+* Botões físicos para perguntas frequentes
+
+***
+
+#### 3. Robô Machucar Alguém
+
+**Categoria**: Segurança/Legal\
+**Probabilidade**: Moderado (50%)\
+**Impacto**: Muito Alto
+
+**Descrição**:\
+Colisão ou comportamento inesperado do robô causando danos físicos a visitantes, especialmente em áreas movimentadas do campus.
+
+**Consequências**:
+
+* Lesões físicas em visitantes ou colaboradores
+* Responsabilidade legal e processos judiciais
+* Cancelamento imediato do projeto
+* Impacto negativo severo na reputação institucional
+* Potencial inviabilização de futuros projetos de robótica
+
+**Plano de Mitigação**:
+
+* Implementar múltiplos sensores de proximidade (LiDAR, ultrassônicos, câmeras)
+* Programar velocidade máxima segura (\< 1 m/s em áreas com pessoas)
+* Criar zonas de exclusão e limites de operação
+* Implementar botão de emergência físico
+* Sistema de parada de emergência automática
+* Realizar testes de segurança extensivos antes do deployment
+* Estabelecer protocolo de supervisão humana durante operação
+
+**Plano de Contingência**:
+
+* Seguro de responsabilidade civil contratado
+* Protocolo de primeiros socorros e acionamento de emergência
+* Sistema de desligamento remoto imediato
+
+***
+
+### ALTOS (Impacto Alto)
+
+#### 4. Acabar a Bateria
+
+**Categoria**: Operacional\
+**Probabilidade**: Moderado (50%)\
+**Impacto**: Alto
+
+**Descrição**:\
+Bateria do robô se esgota durante o tour, interrompendo a experiência e deixando o robô imobilizado em local inconveniente.
+
+**Consequências**:
+
+* Interrupção abrupta da experiência
+* Constrangimento institucional
+* Necessidade de resgate manual do robô
+* Visitantes sem conclusão do tour
+
+**Plano de Mitigação**:
+
+* Implementar sistema de gerenciamento inteligente de bateria
+* Monitoramento contínuo com alertas em múltiplos níveis (30%, 20%, 10%)
+* Algoritmo de retorno automático à estação de carga
+* Cálculo preditivo de autonomia baseado em uso real
+* Definir duração máxima de tour considerando margem de segurança
+* Estações de carga estrategicamente posicionadas
+
+**Plano de Contingência**:
+
+* Bateria reserva para troca rápida
+* Protocolo de conclusão abreviada do tour
+* Sistema de hibernação para preservar energia crítica
+
+***
+
+#### 5. Falha no Sensor Lidar
+
+**Categoria**: Técnico\
+**Probabilidade**: Moderado (30%)\
+**Impacto**: Alto
+
+**Descrição**:\
+Mau funcionamento ou falha completa do sensor LiDAR responsável pelo mapeamento, localização e navegação autônoma do robô.
+
+**Consequências**:
+
+* Perda de capacidade de navegação autônoma
+* Risco aumentado de colisões
+* Impossibilidade de seguir rota planejada
+* Desativação necessária do robô
+
+**Plano de Mitigação**:
+
+* Implementar sistema de navegação redundante (câmeras, sensores ultrassônicos)
+* Manutenção preventiva regular do LiDAR
+* Monitoramento de saúde do sensor em tempo real
+* Calibração periódica automática
+* Proteção física adequada contra impactos e sujeira
+
+**Plano de Contingência**:
+
+* Modo de navegação alternativo com sensores secundários
+* Controle manual remoto por operador
+* Sensor LiDAR reserva para substituição rápida
+
+***
+
+### MODERADOS
+
+#### 6. Dificuldade na Manutenção das Informações
+
+**Categoria**: Operacional/Conteúdo\
+**Probabilidade**: Moderado (50%)\
+**Impacto**: Moderado
+
+**Descrição**:\
+Complexidade para atualizar informações sobre processo seletivo, cursos, eventos e FAQ no sistema do robô, resultando em dados desatualizados.
+
+**Consequências**:
+
+* Informações incorretas fornecidas aos visitantes
+* Perda de confiança na solução
+* Retrabalho para correções
+* Possível impacto em decisões de candidatos
+
+**Plano de Mitigação**:
+
+* Desenvolver CMS (Content Management System) intuitivo
+* Integração automática com site do Inteli e bases de dados oficiais
+* Interface web para atualização sem conhecimento técnico
+* Versionamento e histórico de mudanças
+* Validação de conteúdo antes da publicação
+* Processo documentado de atualização
+* Responsáveis definidos por tipo de conteúdo
+
+**Plano de Contingência**:
+
+* Avisos de "informação sujeita a atualização"
+* Direcionamento para canais oficiais para confirmação
+* Revisão quinzenal obrigatória de conteúdo crítico
+
+***
+
+#### 7. Robô Responder Algo Errado
+
+**Categoria**: IA/Conteúdo\
+**Probabilidade**: Moderado (30%)\
+**Impacto**: Moderado
+
+**Descrição**:\
+IA generativa fornece respostas incorretas, inconsistentes ou inadequadas sobre o Inteli, processo seletivo ou outros tópicos.
+
+**Consequências**:
+
+* Desinformação de potenciais candidatos
+* Decisões baseadas em informações incorretas
+* Comprometimento da credibilidade
+* Necessidade de correções posteriores
+
+**Plano de Mitigação**:
+
+* Fine-tuning do modelo com base de conhecimento validada
+* Implementar sistema de guardrails e validação de respostas
+* Limitar escopo de perguntas que o robô pode responder
+* Sistema de confidence score - encaminhar para humano se baixo
+* Logs de todas as interações para auditoria
+* Revisão periódica de conversas para identificar erros
+* Base de conhecimento RAG (Retrieval-Augmented Generation)
+
+**Plano de Contingência**:
+
+* Disclaimer em todas as respostas complexas
+* Contato direto com admissões sempre disponível
+* Formulário de feedback para reportar inconsistências
+
+***
+
+#### 8. Resistência do Público em Interagir com o Robô
+
+**Categoria**: Adoção/Experiência do Usuário\
+**Probabilidade**: Baixo (10%)\
+**Impacto**: Moderado
+
+**Descrição**:\
+Visitantes podem sentir desconforto, timidez ou preferir interação humana, reduzindo a adesão ao tour robótico.
+
+**Consequências**:
+
+* Baixa taxa de utilização da solução
+* ROI do projeto comprometido
+* Necessidade de manter tours humanos em paralelo
+* Objetivo de inovação parcialmente frustrado
+
+**Plano de Mitigação**:
+
+* Design do robô amigável e não intimidador
+* Introdução por guia humano para quebrar o gelo
+* Demonstrações prévias e vídeos promocionais
+* Opção de tour híbrido (robô + acompanhamento humano)
+* Coleta de feedback e iteração baseada em UX
+* Gamificação da experiência (quizzes, interações lúdicas)
+
+**Plano de Contingência**:
+
+* Tour tradicional com humano sempre disponível como opção
+* Robô como complemento, não substituto total
+
+***
+
+### BAIXOS
+
+#### 9. O Robô Ser Danificado por Algum Visitante
+
+**Categoria**: Segurança/Operacional\
+**Probabilidade**: Baixo (10%)\
+**Impacto**: Moderado
+
+**Descrição**:\
+Vandalismo, manuseio inadequado ou comportamento malicioso de visitantes causando danos ao robô.
+
+**Consequências**:
+
+* Custos de reparo ou substituição
+* Interrupção temporária do serviço
+* Necessidade de supervisão mais próxima
+
+**Plano de Mitigação**:
+
+* Supervisão discreta durante operação
+* Câmeras de monitoramento nas áreas de tour
+* Educação prévia sobre interação adequada
+* Construção robusta e materiais resistentes
+* Sensores de toque para detectar manuseio inadequado
+* Termo de responsabilidade para grupos
+
+**Plano de Contingência**:
+
+* Seguro contra danos
+* Peças de reposição em estoque
+* Protocolo de identificação e responsabilização
+
+***
+
+#### 10. Obstáculos Inesperados no Caminho
+
+**Categoria**: Operacional\
+**Probabilidade**: Muito Alto (90%)\
+**Impacto**: Baixo
+
+**Descrição**:\
+Objetos temporários, pessoas, móveis ou outros obstáculos não mapeados no caminho planejado do tour.
+
+**Consequências**:
+
+* Desvios na rota planejada
+* Pequenos atrasos no tour
+* Necessidade de recalcular caminho
+
+**Plano de Mitigação**:
+
+* Sistema de desvio de obstáculos em tempo real
+* Sensores de proximidade multidirecionais
+* Algoritmos de path planning dinâmico
+* Mapeamento atualizado regularmente
+* Comunicação verbal de obstáculos ("Com licença, por favor")
+
+**Plano de Contingência**:
+
+* Rota alternativa pré-programada
+* Capacidade de aguardar obstáculo ser removido
+* Solicitação de ajuda humana se bloqueio persistir
+
+***
+
+## Considerações Finais
+
+Esta matriz de riscos é um documento vivo que deve ser atualizado continuamente ao longo do projeto. A identificação proativa e gestão adequada destes riscos é fundamental para:
+
+* Garantir a segurança de todos os envolvidos
+* Assegurar a qualidade da experiência dos visitantes
+* Proteger o investimento e a reputação institucional
+* Viabilizar o sucesso do projeto de inovação
+
+A equipe deve manter comunicação transparente sobre riscos identificados e trabalhar colaborativamente na implementação das estratégias de mitigação definidas.
+
+
 # Matriz de Avaliação de Valor Oceano Azul (/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul)
 
 
@@ -743,9 +1121,9 @@ c = \pm\sqrt{a^2 + b^2}
     os usuários.
   </Card>
 
-  <Card href="/docs/sprint-1/entendimento-do-projeto/proposta-arquitetural" title="Proposta Arquitetural">
-    Apresenta a estrutura técnica do sistema, incluindo componentes, tecnologias
-    e padrões de design que guiarão o desenvolvimento e integração das soluções.
+  <Card href="/docs/sprint-1/entendimento-do-projeto/proposta-de-arquitetura" title="Proposta de Arquitetura">
+    Descreve a estrutura e organização do sistema, incluindo componentes,
+    tecnologias e padrões utilizados, garantindo escalabilidade, manutenibilidade e sustentabilidade.
   </Card>
 </Cards>
 
@@ -838,10 +1216,6 @@ O objetivo principal do projeto é o desenvolvimento e programação de um robô
     funcionalidades e necessidades dos usuários de forma clara e objetiva.
   </Card>
 </Cards>
-
-
-# Mapa de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
-
 
 
 # User Stories (/docs/sprint-1/entendimento-do-usuario/user-stories)
@@ -1446,6 +1820,263 @@ c = \pm\sqrt{a^2 + b^2}
     <File name="meta.json" />
   </Folder>
 </Files>
+
+
+# Mapas de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-executivo" title="Mapa de Jornada do Usuário Executivo">
+    Documentação detalhada da jornada do usuário Ricardo Menezes, executivo da
+    Ambev, durante sua primeira visita ao Inteli e o tour automatizado.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-candidato" title="Mapa de Jornada do Usuário Candidato">
+    Documentação detalhada da jornada do usuário Isabella Ricci, estudante do 3º
+    do ensino médio, durante sua primeira visita ao Inteli e o tour
+    automatizado.
+  </Card>
+</Cards>
+
+
+# Jornada do Usuário - Isabella Ricci (Estudante de ensino médio) (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-candidato)
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+import { Card, Cards } from "fumadocs-ui/components/card";
+import { Callout } from "fumadocs-ui/components/callout";
+
+## 1. Visão Geral da Jornada
+
+ A jornada do usuário de **Isabella Ricci**, uma estudante de 17 anos no último ano do ensino médio, foi mapeada para compreender sua experiência durante a **visita ao Inteli**. Isabella demonstra forte interesse por inovação, tecnologia e projetos colaborativos, buscando uma instituição que una propósito, prática e aprendizado real.\
+ Seu principal objetivo na visita é conhecer melhor o ambiente, entender a metodologia baseada em projetos e esclarecer dúvidas sobre **bolsas, processo seletivo e vida acadêmica** antes de decidir onde estudar.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Mapa da Jornada do Usuário: Isabella Ricci{" "}
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Mapa da Jornada do Usuário Isabella Ricci" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+ O mapa da jornada mostra as três fases principais da experiência de Isabella: **Chegada ao Inteli**, **Realização do Tour** e **Tirada de Dúvidas**, destacando suas atividades, necessidades, emoções e oportunidades de melhoria da experiência com o robô-guia.
+
+## 2. Detalhamento das Fases da Jornada
+
+<Steps>
+  ### Fase 1: Chegada ao Inteli
+
+  **Atividades:**
+
+  * Isabella chega ao Inteli com seus pais e é recebida pela equipe de recepção.
+  * Recebe um tablet para registrar suas dúvidas durante o tour.
+  * O robô é apresentado e inicia o percurso pelos primeiros pontos do campus.
+
+  **Necessidades:**
+
+  * Compreender melhor como o Inteli e sua metodologia funcionam.
+  * Conhecer o campus da faculdade e o ambiente de aprendizado.
+
+  **Emoções:**
+
+  * 😃 Ansiosa para entender como o Inteli funciona.
+  * 😯 Impressionada ao descobrir que o tour é guiado por um robô desenvolvido pelos próprios alunos.
+
+  **Oportunidade:**
+
+  * Mostrar como o Inteli funciona para mais uma estudante que pode divulgar a experiência para outros.
+
+  ### Fase 2: Realização do Tour
+
+  **Atividades:**
+
+  * Isabella acompanha o robô pelos pontos do campus.
+  * O robô explica a metodologia de ensino, os projetos e o processo seletivo.
+  * Ela anota suas dúvidas no tablet a cada ponto de parada o robô tira essas dúvidas.
+
+  **Necessidades:**
+
+  * Entender de fato como a metodologia e o processo seletivo funcionam.
+  * Conhecer melhor o campus e a estrutura da faculdade.
+
+  **Emoções:**
+
+  * 🤔 Ansiosa para compreender se a metodologia faz sentido para ela.
+  * 😄 Animada ao perceber que o aprendizado por projetos é prático e colaborativo.
+
+  **Oportunidades:**
+
+  * Conseguir impressionar o lead (Isabella) para aumentar seu interesse no Inteli.
+
+  ### Fase 3: Tirada de Dúvidas Finais
+
+  **Atividades:**
+
+  * Isabella tem suas dúvidas finais respondidas pelo robô no final do tour.
+  * Após o encerramento, reflete sobre a experiência e considera o ingresso no Inteli.
+
+  **Necessidades:**
+
+  * Sanar todas as dúvidas da Isabella.
+  * Decidir se prestará o processo seletivo no próximo ano.
+
+  **Emoções:**
+
+  * 😊 Confiante e feliz por ter tido suas dúvidas esclarecidas.
+  * 😃 Ansiosa para participar do processo seletivo e estudar no Inteli.
+
+  **Oportunidades:**
+
+  * Levar Isabella ao fundo do funil de conversão de leads.
+  * Gerar insights a partir das informações coletadas durante a visita.
+</Steps>
+
+## 3. Análise Detalhada dos Elementos da Jornada
+
+### 3.1. Necessidades Principais
+
+| Necessidade                               | Impacto no Tour Automatizado                                                     | Oportunidade de Conteúdo                                    |
+| :---------------------------------------- | :------------------------------------------------------------------------------- | :---------------------------------------------------------- |
+| **Compreender a metodologia do Inteli**   | Exige uma explicação clara e prática da aprendizagem baseada em projetos.        | Mostrar vídeos e exemplos de projetos reais de alunos.      |
+| **Entender o processo seletivo e bolsas** | Deve incluir informações acessíveis e precisas sobre critérios, etapas e prazos. | Oferecer acesso direto a links e formulários de inscrição.  |
+| **Conhecer o campus e o ambiente**        | Importante que o tour destaque o ecossistema de inovação.                        | Enfatizar a infraestrutura moderna e o clima de comunidade. |
+
+### 3.2. Oportunidades Estratégicas
+
+* Personalizar o tour para o perfil de estudante do ensino médio, reforçando a **proximidade e acolhimento**.
+* Destacar a **autoria estudantil** do robô e dos projetos para aumentar o encantamento.
+* Inserir **momentos interativos** que envolvam o visitante (ex: quizzes ou feedback instantâneo).
+* Criar um fluxo de **follow-up automatizado**, enviando informações adicionais sobre o processo seletivo após o tour.
+
+## 4. Conclusão
+
+ A jornada de Isabella Ricci demonstra como a visita guiada por robô pode ser uma experiência **imersiva e inspiradora** para estudantes do ensino médio. Ao combinar tecnologia, interatividade e informação prática, o tour não apenas apresenta o Inteli, mas **desperta o desejo de pertencer** à comunidade acadêmica.\
+ Com uma condução empática e com exemplos reais, o robô pode transformar o interesse inicial de Isabella em uma **decisão consciente de se candidatar ao Inteli**.
+
+
+# Jornada do Usuário - Ricardo Menezes (Executivo Ambev) (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-executivo)
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+import { Card, Cards } from "fumadocs-ui/components/card";
+import { Callout } from "fumadocs-ui/components/callout";
+
+## 1. Visão Geral da Jornada
+
+ A jornada do usuário de **Ricardo Menezes**, um executivo da Ambev que fará um curso executivo no Inteli, foi mapeada para garantir que a experiência de primeiro contato com a instituição atenda às suas necessidades de **validação, credibilidade e informação estratégica**. O objetivo principal é transformar a desconfiança inicial em **confiança e empolgação** em relação à qualidade do curso e à vanguidez tecnológica da faculdade.
+
+ Abaixo, está o mapa visual da jornada do usuário Ricardo Menezes. O mapa pode ser visualizado também no Miro através do [link ](https://miro.com/welcomeonboard/NFFEdGZFeWN0YTZTQ2RCM0R0a1BBMVJLMC9XTHpDTkFJS1JwRVJ0MDVna1BrSmFYamkxalN5TUppa1lmMERxT2ZnVUQrNEFjQnB5L1lPWGZCWTg4K201Uk81SWljVS9EYTZjc1dNdGQwQjdpdmRYUG56eS9wS3FWNGs0dCtIRGN3VHhHVHd5UWtSM1BidUtUYmxycDRnPT0hdjE=?share_link_id=721060916898).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Mapa da Jornada do Usuário: Ricardo Menezes{" "}
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Mapa da Jornada do Usuário Ricardo Menezes" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+ O mapa da jornada é uma ferramenta essencial para visualizar a experiência de Ricardo, destacando os pontos de contato críticos, as emoções em cada fase e as oportunidades de intervenção do robô-guia para superar as dores do usuário.
+
+## 2. Detalhamento das Fases da Jornada
+
+ A jornada é dividida em três fases principais, focadas na recepção, na imersão e no esclarecimento final de dúvidas.
+
+<Steps>
+  ### Fase 1: Chegada ao Inteli
+
+  **Atividade:** Ricardo chega ao Inteli e é recebido na recepção. É informado que fará um tour automatizado por um robô desenvolvido pelos alunos.
+
+  **Necessidades:**
+
+  * Entender melhor a **história e o funcionamento** da universidade.
+  * Confirmar se a faculdade de tecnologia é, de fato, **referência** nos assuntos que ensina.
+
+  **Emoções:**
+
+  * **Receoso** por ter que fazer um tour guiado por um robô 😟.
+  * **Surpreso** ao ver que foram os alunos da faculdade que programaram esse robô 😮.
+
+  **Oportunidade:**
+
+  * A surpresa inicial com a autoria do robô (alunos) deve ser explorada para **validar a excelência técnica** da instituição logo no início.
+
+  ### Fase 2: Realização do Tour
+
+  **Atividade:** Ricardo acompanha o robô em pontos específicos do andar térreo. O robô para e fala sobre o dia a dia no Inteli, os cursos executivos, casos de sucesso e a história da universidade.
+
+  **Necessidades:**
+
+  * Absorver o máximo de informações do robô.
+  * Entender melhor como os **cursos executivos funcionam** e quais são seus **resultados**.
+  * Aprender sobre **outros projetos** que os alunos fizeram.
+
+  **Emoções:**
+
+  * **Empolgação** por ver que o instituto pode oferecer cursos executivos que impulsionam sua carreira executiva 😉.
+  * **Confiante**, agora que sabe sobre as qualidades da universidade que estará lhe oferecendo o curso executivo 😀.
+
+  **Oportunidades:**
+
+  * Falar sobre a **metodologia baseada em cases** que é utilizada nos cursos executivos.
+  * Citar **outras empresas e executivos de sucesso** que fizeram os cursos executivos.
+  * Apresentar **exemplos de cases** desenvolvidos durante os cursos executivos.
+
+  ### Fase 3: Tirada de Dúvidas
+
+  **Atividade:** Ricardo preenche um formulário com suas dúvidas. O robô lê as perguntas e tira todas as dúvidas restantes.
+
+  **Necessidades:**
+
+  * **Responder a perguntas** que ficaram em aberto durante a execução do tour.
+
+  **Emoções:**
+
+  * **Ainda mais surpreso** ao perceber que toda essa experiência de tour foi desenvolvida por alunos em apenas 10 semanas 🤯.
+
+  **Oportunidade:**
+
+  * A fase final de Q\&A (Perguntas e Respostas) deve ser um momento de **reforço da credibilidade**. A capacidade do robô de responder a dúvidas complexas, aliada à informação de que o projeto foi desenvolvido em 10 semanas, solidifica a imagem do Inteli como uma instituição de **alta performance e inovação**.
+</Steps>
+
+## 3. Análise Detalhada dos Elementos da Jornada
+
+### 3.1. Necessidades Estratégicas
+
+ As necessidades de Ricardo não são apenas logísticas, mas sim **estratégicas e de validação de investimento**. Ele precisa de informações que justifiquem o tempo e o recurso investido pela Ambev no curso.
+
+| Necessidade                                            | Impacto no Projeto do Robô                                                                                       | Oportunidade de Conteúdo                                                      |
+| :----------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------- |
+| **Entender a história e o funcionamento do Inteli**    | Requer um módulo de conteúdo institucional formal e conciso.                                                     | Foco nos **fundadores, missão e visão** de inovação.                          |
+| **Validar a faculdade como referência em tecnologia**  | Exige a apresentação de **evidências concretas** e cases de sucesso.                                             | Mencionar parcerias estratégicas e o **desempenho dos alunos** no mercado.    |
+| **Compreender os cursos executivos e seus resultados** | Demanda dados sobre a **metodologia**, o corpo docente e o **ROI** (Retorno sobre o Investimento) do curso.      | Apresentar métricas de sucesso de ex-alunos e a **metodologia *case-based***. |
+| **Absorver o máximo de informações**                   | Necessidade de uma comunicação clara, madura e com a **opção de aprofundamento** (como o formulário de dúvidas). | Oferecer acesso a materiais complementares após o tour.                       |
+
+### 3.2. Oportunidades de Conteúdo e Intervenção
+
+ As oportunidades identificadas são cruciais para que o robô atue como um **agente de convencimento e credibilidade**.
+
+* Explicar como a aprendizagem por projetos e casos reais (case-based) torna o conhecimento mais aplicável e relevante para executivos como Ricardo.
+* Citar nominalmente outras empresas e executivos de prestígio que já realizaram os cursos, utilizando o **endosso social** para construir confiança.
+* Mostrar resultados tangíveis dos cursos, como projetos de IA ou Data Science que geraram **valor real** para as empresas dos alunos.
+
+## 4. Conclusão
+
+ A jornada de Ricardo Menezes é um excelente exemplo de como a **tecnologia (o robô-guia)** pode ser utilizada não apenas para automação, mas como uma **ferramenta estratégica de marketing e validação institucional**. O sucesso da experiência depende da capacidade do robô de alternar de um tom lúdico (para o público jovem) para um **tom formal, baseado em dados e resultados** (para executivos).
+
+ Ao endereçar a desconfiança inicial com a **surpresa da autoria estudantil** e finalizar com a **confiança nos resultados e na metodologia**, o Inteli garante que Ricardo saia do tour não apenas informado, mas **convencido da excelência e da vanguarda** da instituição que sediará seu desenvolvimento executivo.
 
 
 # Personas (/docs/sprint-1/entendimento-do-usuario/personas)
