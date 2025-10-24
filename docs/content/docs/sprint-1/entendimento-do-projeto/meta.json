@@ -4,6 +4,7 @@
   "pages": [
     "requisitos-funcionais",
     "requisitos-nao-funcionais",
-    "proposta-de-arquitetura"
+    "proposta-de-arquitetura",
+    "nistcsf"
   ]
 }
