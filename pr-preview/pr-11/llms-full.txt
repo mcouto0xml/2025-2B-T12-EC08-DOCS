@@ -57,20 +57,20 @@ Bem-vindo à documentação do projeto! Aqui você encontrará informações det
 </Cards>
 
 
-# Sprint 2 (/docs/sprint-2)
+# Sprint 3 (/docs/sprint-3)
 
 <Cards>
-  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
     Modelo básico para criação de novos arquivos MDX.
   </Card>
 
-  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 </Cards>
 
 
-# Título do Documento (/docs/sprint-2/template)
+# Título do Documento (/docs/sprint-3/template)
 
 
 
@@ -213,20 +213,20 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
-# Sprint 3 (/docs/sprint-3)
+# Sprint 2 (/docs/sprint-2)
 
 <Cards>
-  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
     Modelo básico para criação de novos arquivos MDX.
   </Card>
 
-  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 </Cards>
 
 
-# Título do Documento (/docs/sprint-3/template)
+# Título do Documento (/docs/sprint-2/template)
 
 
 
@@ -2694,7 +2694,7 @@ Os requisitos são classificados em duas categorias:
       </td>
 
       <td>
-        A pilha ROS-2 (se for utilizado ROS-2) deve ser configurada com QoS
+        A pilha ROS 2 (se for utilizado ROS 2) deve ser configurada com QoS
         adequada aos canais críticos conforme prioridade de mensagem.
       </td>
 
@@ -2895,14 +2895,14 @@ Os requisitos são classificados em duas categorias:
 
 
 
-# Template de Pasta (/docs/sprint-2/template-pasta)
+# Template de Pasta (/docs/sprint-3/template-pasta)
 
 <Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
 </Cards>
 
 
-# Título do Documento (/docs/sprint-2/template-pasta/template)
+# Título do Documento (/docs/sprint-3/template-pasta/template)
 
 
 
@@ -3045,14 +3045,14 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
-# Template de Pasta (/docs/sprint-3/template-pasta)
+# Template de Pasta (/docs/sprint-2/template-pasta)
 
 <Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
 </Cards>
 
 
-# Título do Documento (/docs/sprint-3/template-pasta/template)
+# Título do Documento (/docs/sprint-2/template-pasta/template)
 
 
 
