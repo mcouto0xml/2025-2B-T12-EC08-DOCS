@@ -1,10 +1,11 @@
 ---
-title: 'NIST CSF: Robô de Serviço Autônomo com IA'
-description: 'Uma análise inicial e sugestões de cibersegurança para o projeto do robô de tours do Inteli.'
+title: "NIST CSF: Robô de Serviço Autônomo com IA"
+description: "Uma análise inicial e sugestões de cibersegurança para o projeto do robô de tours do Inteli."
 ---
 
 # NIST Cybersecurity Framework (CSF)
 ## Projeto: Robô de serviço autônomo com IA generativa
+
 
 ### O que é o NIST CSF?
 
@@ -28,25 +29,25 @@ A função "Identificar" ajuda a entender o que precisa ser protegido. Nesta fas
 
 Os principais ativos que parecem compor o projeto são:
 
-* **Hardware:**
-    * A própria base robótica (inicialmente em escala reduzida).
-    * Qualquer hardware externo que possa ser usado para processamento.
-    * A infraestrutura de rede do campus (Wi-Fi) que o robô usará.
-* **Software:**
-    * O código de navegação e controle do robô.
-    * A integração com a IA generativa (usando modelos pré-treinados).
-* **Dados:**
-    * O mapa e os scripts do tour pré-definido.
-    * As fontes de informação para o chatbot (FAQs, conteúdo do site, etc.).
-    * Logs das interações dos visitantes com o robô.
+- **Hardware:**
+  - A própria base robótica (inicialmente em escala reduzida).
+  - Qualquer hardware externo que possa ser usado para processamento.
+  - A infraestrutura de rede do campus (Wi-Fi) que o robô usará.
+- **Software:**
+  - O código de navegação e controle do robô.
+  - A integração com a IA generativa (usando modelos pré-treinados).
+- **Dados:**
+  - O mapa e os scripts do tour pré-definido.
+  - As fontes de informação para o chatbot (FAQs, conteúdo do site, etc.).
+  - Logs das interações dos visitantes com o robô.
 
 ### Avaliação de Risco (ID.RA)
 
 Com base nos ativos, podemos antecipar alguns riscos potenciais a serem considerados:
 
-* **Risco de Acesso:** A possibilidade de alguém não autorizado tentar controlar o robô.
-* **Risco de Imagem:** A possibilidade de a IA ser manipulada (ex: "prompt injection") para gerar respostas inadequadas, o que afetaria o objetivo de "encantar" os visitantes.
-* **Risco Operacional:** Interrupções no serviço (ex: rede offline) que parem o tour.
+- **Risco de Acesso:** A possibilidade de alguém não autorizado tentar controlar o robô.
+- **Risco de Imagem:** A possibilidade de a IA ser manipulada (ex: "prompt injection") para gerar respostas inadequadas, o que afetaria o objetivo de "encantar" os visitantes.
+- **Risco Operacional:** Interrupções no serviço (ex: rede offline) que parem o tour.
 
 ---
 
@@ -56,16 +57,16 @@ A função "Proteger" foca em sugestões de salvaguardas simples para reduzir os
 
 ### Controle de Acesso (PR.AC)
 
-* **Acesso Administrativo:** Recomenda-se que qualquer painel de controle ou acesso para manutenção do robô seja protegido (ex: uma senha simples).
-* **Rede:** Uma ideia a se explorar seria isolar a comunicação do robô em uma rede separada, se a infraestrutura do campus permitir isso sem complexidade.
+- **Acesso Administrativo:** Recomenda-se que qualquer painel de controle ou acesso para manutenção do robô seja protegido (ex: uma senha simples).
+- **Rede:** Uma ideia a se explorar seria isolar a comunicação do robô em uma rede separada, se a infraestrutura do campus permitir isso sem complexidade.
 
 ### Segurança de Dados (PR.DS)
 
-* **Comunicação:** Se o robô se comunicar com serviços externos (como a API de IA), seria ideal que essa comunicação fosse criptografada (ex: HTTPS) para proteger os dados em trânsito.
+- **Comunicação:** Se o robô se comunicar com serviços externos (como a API de IA), seria ideal que essa comunicação fosse criptografada (ex: HTTPS) para proteger os dados em trânsito.
 
 ### Tecnologias de Proteção (PR.PT)
 
-* **Filtragem de IA:** Para mitigar o risco de respostas inadequadas, poderíamos explorar filtros simples nas perguntas enviadas à IA, bloqueando termos problemáticos.
+- **Filtragem de IA:** Para mitigar o risco de respostas inadequadas, poderíamos explorar filtros simples nas perguntas enviadas à IA, bloqueando termos problemáticos.
 
 ---
 
@@ -75,8 +76,8 @@ A função "Detectar" é sobre como perceberíamos se algo estivesse errado.
 
 ### Anomalias e Eventos (DE.AE)
 
-* **Monitoramento Básico:** Uma abordagem simples seria revisar periodicamente os logs de interação da IA. Isso ajudaria a identificar se os visitantes estão tentando ativamente fazer o robô gerar respostas ruins.
-* **Alertas:** Em vez de alertas em tempo real, poderíamos focar em monitorar a "saúde" básica do robô (ex: status da bateria, conexão de rede).
+- **Monitoramento Básico:** Uma abordagem simples seria revisar periodicamente os logs de interação da IA. Isso ajudaria a identificar se os visitantes estão tentando ativamente fazer o robô gerar respostas ruins.
+- **Alertas:** Em vez de alertas em tempo real, poderíamos focar em monitorar a "saúde" básica do robô (ex: status da bateria, conexão de rede).
 
 ---
 
@@ -86,12 +87,12 @@ A função "Responder" pensa no que faríamos caso um incidente de segurança oc
 
 ### Planejamento de Resposta (RS.RP)
 
-* **Plano de Intervenção:** A resposta mais simples para a maioria dos incidentes (ex: robô travado, IA gerando respostas ofensivas) seria ter um procedimento de "parada de emergência".
-* **Comunicação:** Definir quem do time (ex: Professor Orientador) deve ser avisado se algo der errado durante um tour.
+- **Plano de Intervenção:** A resposta mais simples para a maioria dos incidentes (ex: robô travado, IA gerando respostas ofensivas) seria ter um procedimento de "parada de emergência".
+- **Comunicação:** Definir quem do time (ex: Professor Orientador) deve ser avisado se algo der errado durante um tour.
 
 ### Análise e Mitigação (RS.AN / RS.MI)
 
-* Após um incidente, a equipe analisaria o que aconteceu (ex: qual pergunta causou a falha) e consideraria ajustes simples para evitar que aconteça novamente.
+- Após um incidente, a equipe analisaria o que aconteceu (ex: qual pergunta causou a falha) e consideraria ajustes simples para evitar que aconteça novamente.
 
 ---
 
@@ -101,8 +102,8 @@ A função "Recuperar" trata de como voltar ao normal após uma falha.
 
 ### Planejamento de Recuperação (RC.RP)
 
-* **Restauração:** Manter uma cópia segura da última versão funcional do código e dos scripts do tour em um repositório. Isso facilitaria a restauração do robô para um estado conhecido.
+- **Restauração:** Manter uma cópia segura da última versão funcional do código e dos scripts do tour em um repositório. Isso facilitaria a restauração do robô para um estado conhecido.
 
 ### Melhorias (RC.IM)
 
-* Qualquer aprendizado com incidentes reais seria usado para reavaliar estas sugestões e melhorar a robustez do robô em futuras interações.
+- Qualquer aprendizado com incidentes reais seria usado para reavaliar estas sugestões e melhorar a robustez do robô em futuras interações.
