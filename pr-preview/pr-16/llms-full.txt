@@ -1447,31 +1447,129 @@ A equipe deve manter comunicação transparente sobre riscos identificados e tra
   Tabela 1 - User Stories da Persona Estudante
 </p>
 
-\| ID | User Story | Critérios de Aceite | | --- | ----------- |
-\------------------ | | US1 | “Como estudante, quero que o robô me receba de
-forma amigável, usando uma linguagem acessível, para que eu me sinta bem-vinda e
-menos ansiosa com o ambiente universitário.” | Dado que há estudantes visitando
-o campus, quando o robô iniciar o tour, deve cumprimenta-lo de forma receptiva e
-utilizar linguagem acessível e simpática. | | US2 | “Como estudante, quero que o
-robô explique de maneira prática como funcionam os projetos reais e o
-aprendizado baseado em desafios, para entender como é estudar no Inteli.” | Dado
-que o tour está em andamento, quando o robô apresentar o método de ensino, deve
-dar exemplos de projetos reais de forma clara. | | US3 | “Como estudante, quero
-que o robô me mostre salas colaborativas e áreas de convivência, explicando como
-esses espaços contribuem para o aprendizado prático.” | Dado que o robô segue o
-roteiro de visita, quando ele chegar a cada ponto, deve apresentar as áreas e
-explicar suas funções. | | US4 | “Como estudante, quero poder perguntar sobre
-bolsas, processo seletivo e rotina acadêmica, e receber respostas simples e
-claras, para entender como posso ingressar e me adaptar ao Inteli.” | Dado que o
-robô possui módulo de interação, quando eu fizer uma pergunta sobre a
-instituição, devo receber respostas curtas e claras. | | US5 | “Como estudante,
-quero que o robô fale e exiba mensagens na tela, para que eu possa acompanhar
-com acessibilidade e clareza.” | Dado que há comunicação por voz e tela, quando
-o robô interagir, então as falas devem ser acompanhadas de legendas ou textos
-equivalentes. | | US6 | “Como estudante, quero que o robô avise de forma leve e
-interativa quando for se mover, para que o tour pareça divertido, seguro e
-tecnológico.” | Dado que o robô está prestes a se mover, quando iniciar o
-deslocamento, então deve sinalizar de forma sonora e visual. |
+<div style={{ overflowX: "auto" }}>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User Story
+        </th>
+
+        <th>
+          Critérios de Aceite
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          US1
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô me receba de forma amigável, usando
+          uma linguagem acessível, para que eu me sinta bem-vinda e menos
+          ansiosa com o ambiente universitário."
+        </td>
+
+        <td>
+          Dado que há estudantes visitando o campus, quando o robô iniciar o
+          tour, deve cumprimenta-lo de forma receptiva e utilizar linguagem
+          acessível e simpática.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US2
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô explique de maneira prática como
+          funcionam os projetos reais e o aprendizado baseado em desafios, para
+          entender como é estudar no Inteli."
+        </td>
+
+        <td>
+          Dado que o tour está em andamento, quando o robô apresentar o método
+          de ensino, deve dar exemplos de projetos reais de forma clara.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US3
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô me mostre salas colaborativas e
+          áreas de convivência, explicando como esses espaços contribuem para o
+          aprendizado prático."
+        </td>
+
+        <td>
+          Dado que o robô segue o roteiro de visita, quando ele chegar a cada
+          ponto, deve apresentar as áreas e explicar suas funções.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US4
+        </td>
+
+        <td>
+          "Como estudante, quero poder perguntar sobre bolsas, processo seletivo
+          e rotina acadêmica, e receber respostas simples e claras, para
+          entender como posso ingressar e me adaptar ao Inteli."
+        </td>
+
+        <td>
+          Dado que o robô possui módulo de interação, quando eu fizer uma
+          pergunta sobre a instituição, devo receber respostas curtas e claras.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US5
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô fale e exiba mensagens na tela, para
+          que eu possa acompanhar com acessibilidade e clareza."
+        </td>
+
+        <td>
+          Dado que há comunicação por voz e tela, quando o robô interagir, então
+          as falas devem ser acompanhadas de legendas ou textos equivalentes.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US6
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô avise de forma leve e interativa
+          quando for se mover, para que o tour pareça divertido, seguro e
+          tecnológico."
+        </td>
+
+        <td>
+          Dado que o robô está prestes a se mover, quando iniciar o
+          deslocamento, então deve sinalizar de forma sonora e visual.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <p style={{ textAlign: "center" }}>
   Fonte: Os autores (2025)
@@ -1485,31 +1583,131 @@ deslocamento, então deve sinalizar de forma sonora e visual. |
   Tabela 2 - User Stories da Persona Executivo
 </p>
 
-\| ID | User Story | Critérios de Aceite | | --- | ----------- |
-\------------------ | | US1 | “Como executivo, quero que o robô me receba de
-forma profissional, para que o tour pareça relevante e respeitoso.” | Dado que
-há uma visita executiva, quando o robô for iniciado, então deve cumprimentar com
-formalidade. | | US2 | “Como executivo, quero que o robô explique de forma
-objetiva e baseada em resultados como a metodologia do Inteli é aplicada para
-formar líderes tecnológicos.” | Dado que o tour está em andamento, quando o robô
-apresentar o modelo educacional, deve destacar resultados e aplicações
-corporativas dos projetos desenvolvidos. | | US3 | “Como executivo, quero que o
-robô destaque os laboratórios, hubs de inovação e ambientes colaborativos,
-mostrando como o espaço estimula colaboração e tomada de decisão.” | Dado que o
-robô segue o roteiro de visita, quando apresentar os ambientes, deve enfatizar
-aspectos de inovação e colaboração. | | US4 | “Como executivo, quero poder
-perguntar sobre parcerias empresariais, metodologia e resultados de egressos,
-recebendo respostas rápidas e diretas.” | Dado que o robô possui sistema de
-diálogo, quando eu fizer perguntas sobre o Inteli, devo receber respostas curtas
-e objetivas. | | US5 | “Como executivo, quero que o robô comunique informações
-por voz e texto de maneira formal e concisa, reforçando o caráter tecnológico e
-inclusivo da instituição.” | Dado que o robô possui múltiplos canais de
-comunicação, quando transmitir informações, deve fazê-lo com tom formal e
-linguagem técnica. | | US6 | “Como executivo, quero que o robô sinalize seus
-movimentos com previsibilidade e linguagem técnica, para transmitir organização
-e segurança no percurso.” | Dado que o robô irá se mover, quando iniciar o
-deslocamento, deve emitir alertas visuais e sonoros que indiquem a direção e o
-propósito do movimento. |
+<div style={{ overflowX: "auto" }}>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User Story
+        </th>
+
+        <th>
+          Critérios de Aceite
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          US1
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô me receba de forma profissional,
+          para que o tour pareça relevante e respeitoso."
+        </td>
+
+        <td>
+          Dado que há uma visita executiva, quando o robô for iniciado, então
+          deve cumprimentar com formalidade.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US2
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô explique de forma objetiva e baseada
+          em resultados como a metodologia do Inteli é aplicada para formar
+          líderes tecnológicos."
+        </td>
+
+        <td>
+          Dado que o tour está em andamento, quando o robô apresentar o modelo
+          educacional, deve destacar resultados e aplicações corporativas dos
+          projetos desenvolvidos.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US3
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô destaque os laboratórios, hubs de
+          inovação e ambientes colaborativos, mostrando como o espaço estimula
+          colaboração e tomada de decisão."
+        </td>
+
+        <td>
+          Dado que o robô segue o roteiro de visita, quando apresentar os
+          ambientes, deve enfatizar aspectos de inovação e colaboração.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US4
+        </td>
+
+        <td>
+          "Como executivo, quero poder perguntar sobre parcerias empresariais,
+          metodologia e resultados de egressos, recebendo respostas rápidas e
+          diretas."
+        </td>
+
+        <td>
+          Dado que o robô possui sistema de diálogo, quando eu fizer perguntas
+          sobre o Inteli, devo receber respostas curtas e objetivas.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US5
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô comunique informações por voz e
+          texto de maneira formal e concisa, reforçando o caráter tecnológico e
+          inclusivo da instituição."
+        </td>
+
+        <td>
+          Dado que o robô possui múltiplos canais de comunicação, quando
+          transmitir informações, deve fazê-lo com tom formal e linguagem
+          técnica.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US6
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô sinalize seus movimentos com
+          previsibilidade e linguagem técnica, para transmitir organização e
+          segurança no percurso."
+        </td>
+
+        <td>
+          Dado que o robô irá se mover, quando iniciar o deslocamento, deve
+          emitir alertas visuais e sonoros que indiquem a direção e o propósito
+          do movimento.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <p style={{ textAlign: "center" }}>
   Fonte: Os autores (2025)
@@ -1523,45 +1721,195 @@ propósito do movimento. |
   Tabela 3 - User Stories da Persona Staff Inteli
 </p>
 
-\| ID | User Story | Critérios de Aceite | | --- | ----------- |
-\------------------ | | US1 | “Como membro do time de admissões, quero que o robô
-realize tours com um roteiro padronizado, para garantir consistência nas
-visitas.” | Dado que o robô está operando, quando um tour for iniciado, ele deve
-seguir o roteiro previamente definido. | | US2 | “Como funcionário, quero
-definir e ajustar o roteiro do tour pelo aplicativo de suporte, para manter o
-conteúdo atualizado conforme mudanças no campus ou no edital do processo
-seletivo.” | Dado que há atualizações no campus, quando eu acessar o aplicativo
-de suporte, devo conseguir editar o roteiro e salvar alterações. | | US3 | “Como
-equipe de admissões, quero que o robô registre dados das perguntas realizadas
-durante o tour para nutrir leads posteriormente e adaptar o roteiro.” | Dado que
-o tour está em andamento, quando visitantes fizerem perguntas, as interações
-devem ser registradas no sistema. | | US4 | “Como staff, quero receber alertas
-no app em caso de falhas ou emergências, para poder agir rapidamente se o robô
-parar ou houver problemas de percurso.” | Dado que há uma falha ou interrupção,
-quando o robô detectar o evento, deve enviar uma notificação imediata ao app de
-suporte. | | US5 | “Como equipe, quero coletar o nível de satisfação dos
-visitantes após o tour, para medir a qualidade da experiência.” | Dado que o
-tour foi concluído, quando a visita terminar, o sistema deve solicitar e
-armazenar feedbacks. | | US6 | “Como staff, quero que o robô siga uma rota
-pré-definida com pontos de parada, para garantir um tour seguro, completo e
-coerente.” | Dado que o roteiro foi definido, quando o robô executar o tour,
-deve percorrer todos os pontos conforme a sequência programada. | | US7 | “Como
-membro do time de admissões, quero que o sistema tenha um chatbot treinado para
-responder perguntas sobre a faculdade e o processo seletivo, para oferecer uma
-visita clara e completa.” | Dado que há um módulo de IA, quando visitantes
-fizerem perguntas, o chatbot deve responder com informações institucionais
-corretas e dentro das diretrizes de comunicação. | | US8 | “Como staff, quero
-limitar respostas e temas específicos, para garantir conformidade com a
-linguagem e restrições de um tour.” | Dado que o chatbot está ativo, quando for
-configurado, deve restringir temas e termos não permitidos. | | US9 | “Como
-staff, quero receber notificações chamativas caso o robô apresente algum tipo de
-problema no meio do tour, para que eu possa fazer uma intervenção rápida.” |
-Dado que há falhas de operação, quando o robô detectar o problema, deve enviar
-alertas visuais e sonoros ao app do staff. | | US10 | “Como membro do time de
-admissões, quero visualizar relatórios de tours realizados (como número de
-visitantes, tempo e feedbacks), para analisar desempenho e otimizar futuras
-visitas.” | Dado que há dados armazenados no sistema, quando eu acessar o painel
-de relatórios, devo visualizar métricas e histórico das visitas realizadas. |
+<div style={{ overflowX: "auto" }}>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User Story
+        </th>
+
+        <th>
+          Critérios de Aceite
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          US1
+        </td>
+
+        <td>
+          "Como membro do time de admissões, quero que o robô realize tours com
+          um roteiro padronizado, para garantir consistência nas visitas."
+        </td>
+
+        <td>
+          Dado que o robô está operando, quando um tour for iniciado, ele deve
+          seguir o roteiro previamente definido.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US2
+        </td>
+
+        <td>
+          "Como funcionário, quero definir e ajustar o roteiro do tour pelo
+          aplicativo de suporte, para manter o conteúdo atualizado conforme
+          mudanças no campus ou no edital do processo seletivo."
+        </td>
+
+        <td>
+          Dado que há atualizações no campus, quando eu acessar o aplicativo de
+          suporte, devo conseguir editar o roteiro e salvar alterações.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US3
+        </td>
+
+        <td>
+          "Como equipe de admissões, quero que o robô registre dados das
+          perguntas realizadas durante o tour para nutrir leads posteriormente e
+          adaptar o roteiro."
+        </td>
+
+        <td>
+          Dado que o tour está em andamento, quando visitantes fizerem
+          perguntas, as interações devem ser registradas no sistema.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US4
+        </td>
+
+        <td>
+          "Como staff, quero receber alertas no app em caso de falhas ou
+          emergências, para poder agir rapidamente se o robô parar ou houver
+          problemas de percurso."
+        </td>
+
+        <td>
+          Dado que há uma falha ou interrupção, quando o robô detectar o evento,
+          deve enviar uma notificação imediata ao app de suporte.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US5
+        </td>
+
+        <td>
+          "Como equipe, quero coletar o nível de satisfação dos visitantes após
+          o tour, para medir a qualidade da experiência."
+        </td>
+
+        <td>
+          Dado que o tour foi concluído, quando a visita terminar, o sistema
+          deve solicitar e armazenar feedbacks.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US6
+        </td>
+
+        <td>
+          "Como staff, quero que o robô siga uma rota pré-definida com pontos de
+          parada, para garantir um tour seguro, completo e coerente."
+        </td>
+
+        <td>
+          Dado que o roteiro foi definido, quando o robô executar o tour, deve
+          percorrer todos os pontos conforme a sequência programada.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US7
+        </td>
+
+        <td>
+          "Como membro do time de admissões, quero que o sistema tenha um
+          chatbot treinado para responder perguntas sobre a faculdade e o
+          processo seletivo, para oferecer uma visita clara e completa."
+        </td>
+
+        <td>
+          Dado que há um módulo de IA, quando visitantes fizerem perguntas, o
+          chatbot deve responder com informações institucionais corretas e
+          dentro das diretrizes de comunicação.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US8
+        </td>
+
+        <td>
+          "Como staff, quero limitar respostas e temas específicos, para
+          garantir conformidade com a linguagem e restrições de um tour."
+        </td>
+
+        <td>
+          Dado que o chatbot está ativo, quando for configurado, deve restringir
+          temas e termos não permitidos.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US9
+        </td>
+
+        <td>
+          "Como staff, quero receber notificações chamativas caso o robô
+          apresente algum tipo de problema no meio do tour, para que eu possa
+          fazer uma intervenção rápida."
+        </td>
+
+        <td>
+          Dado que há falhas de operação, quando o robô detectar o problema,
+          deve enviar alertas visuais e sonoros ao app do staff.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US10
+        </td>
+
+        <td>
+          "Como membro do time de admissões, quero visualizar relatórios de
+          tours realizados (como número de visitantes, tempo e feedbacks), para
+          analisar desempenho e otimizar futuras visitas."
+        </td>
+
+        <td>
+          Dado que há dados armazenados no sistema, quando eu acessar o painel
+          de relatórios, devo visualizar métricas e histórico das visitas
+          realizadas.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <p style={{ textAlign: "center" }}>
   Fonte: Os autores (2025)
