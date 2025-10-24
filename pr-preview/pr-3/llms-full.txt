@@ -57,20 +57,20 @@ Bem-vindo à documentação do projeto! Aqui você encontrará informações det
 </Cards>
 
 
-# Sprint 3 (/docs/sprint-3)
+# Sprint 2 (/docs/sprint-2)
 
 <Cards>
-  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
     Modelo básico para criação de novos arquivos MDX.
   </Card>
 
-  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 </Cards>
 
 
-# Título do Documento (/docs/sprint-3/template)
+# Título do Documento (/docs/sprint-2/template)
 
 
 
@@ -213,20 +213,20 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
-# Sprint 2 (/docs/sprint-2)
+# Sprint 3 (/docs/sprint-3)
 
 <Cards>
-  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
     Modelo básico para criação de novos arquivos MDX.
   </Card>
 
-  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 </Cards>
 
 
-# Título do Documento (/docs/sprint-2/template)
+# Título do Documento (/docs/sprint-3/template)
 
 
 
@@ -712,7 +712,278 @@ c = \pm\sqrt{a^2 + b^2}
     Apresenta a Matriz de Risco do projeto, identificando potenciais riscos,
     suas probabilidades e impactos, bem como estratégias de mitigação.
   </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/matriz-de-oportunidades" title="Matriz de Oportunidades">
+    Apresenta a Matriz de Oportunidades do projeto, identificando potenciais
+    oportunidades, suas probabilidades e impactos, bem como estratégias de
+    implementação.
+  </Card>
 </Cards>
+
+
+# Matriz de Oportunidades (/docs/sprint-1/entendimento-do-negocio/matriz-de-oportunidades)
+
+
+
+## Introdução
+
+A matriz de oportunidades é uma ferramenta estratégica utilizada para identificar, avaliar e priorizar **potenciais ganhos e melhorias** que podem ser alcançados no projeto do **robô para tours interativos no campus do Inteli**. Assim como a matriz de riscos, ela considera duas dimensões principais — **Probabilidade** (chance de ocorrência) e **Impacto** (nível de benefício gerado) — permitindo à equipe concentrar esforços nas oportunidades mais promissoras e de maior valor agregado para o projeto e para a instituição.
+
+<img alt="Matriz de Oportunidades" src={__img0} placeholder="blur" />
+
+***
+
+## Metodologia
+
+A matriz utiliza uma **escala 5x5**, classificando as oportunidades de acordo com o potencial de impacto e a probabilidade de concretização.
+
+### Probabilidade
+
+* **Muito Baixo (10%)**: Pouco provável de ocorrer
+* **Baixo (30%)**: Oportunidade possível, mas depende de fatores externos
+* **Moderado (50%)**: Oportunidade com chances equilibradas de acontecer
+* **Alto (70%)**: Oportunidade com alta chance de concretização
+* **Muito Alto (90%)**: Oportunidade quase certa de ocorrer
+
+### Impacto
+
+* **Muito Baixo**: Benefício limitado para o projeto
+* **Baixo**: Melhoria pontual ou localizada
+* **Moderado**: Melhoria perceptível na experiência ou nos processos
+* **Alto**: Avanço significativo em desempenho, visibilidade ou eficiência
+* **Muito Alto**: Transformação estrutural, grande diferencial competitivo
+
+### Classificação por Cor
+
+* **Verde**: Oportunidade altamente vantajosa e viável – prioridade de execução
+* **Amarelo**: Oportunidade relevante – requer planejamento e análise de viabilidade
+* **Vermelho**: Oportunidade de baixo retorno ou difícil implementação – monitorar
+
+***
+
+## Oportunidades Identificadas
+
+### MUITO ALTAS (Impacto Muito Alto)
+
+#### 1. Coleta de Leads para Qualidade de Informações
+
+**Categoria**: Estratégica / Marketing\
+**Probabilidade**: Muito Alta (90%)\
+**Impacto**: Muito Alto
+
+**Descrição**:
+
+Implementar a coleta de leads durante o tour robótico, registrando informações básicas de visitantes (nome, e-mail, interesse em cursos) de forma consentida. Essa base pode aprimorar o relacionamento com potenciais candidatos e ampliar o alcance do Inteli.
+
+**Benefícios Esperados**:
+
+* Geração de banco de dados qualificado de visitantes
+* Melhoria nas campanhas de comunicação e captação
+* Acompanhamento de jornada do candidato (visitante → inscrito → aluno)
+* Suporte estratégico às áreas de marketing e admissões
+
+**Plano de Ação**:
+
+* Integrar formulário digital com o robô e banco de dados institucional
+* Garantir conformidade com a LGPD
+* Utilizar prompts amigáveis para incentivo à coleta de informações
+
+***
+
+#### 2. Integração com Projetos Acadêmicos
+
+**Categoria**: Acadêmica / Inovação\
+**Probabilidade**: Muito Alta (90%)\
+**Impacto**: Alto
+
+**Descrição**:
+
+Aproveitar o robô como plataforma viva de experimentação e integração entre diferentes disciplinas, turmas e projetos do Inteli, fortalecendo o ecossistema de inovação interna.
+
+**Benefícios Esperados**:
+
+* Engajamento de alunos e professores em melhorias contínuas
+* Desenvolvimento interdisciplinar (IA, design, robótica, UX)
+* Fomento à cultura de pesquisa aplicada
+* Fortalecimento da imagem do Inteli como laboratório de inovação
+
+**Plano de Ação**:
+
+* Garantir a participação dos alunos nas áreas de desenvolvimento do projeto
+* Estabelecer relação do projeto com as disciplinas
+* Documentar casos de uso e resultados acadêmicos
+
+***
+
+### ALTAS (Impacto Alto)
+
+#### 3. Melhoria da Experiência do Visitante
+
+**Categoria**: Experiência do Usuário\
+**Probabilidade**: Muito Alta (90%)\
+**Impacto**: Moderado
+
+**Descrição**:
+
+Utilizar o robô para proporcionar uma experiência imersiva, personalizada e interativa para os visitantes do campus, destacando o caráter tecnológico e inovador do Inteli.
+
+**Benefícios Esperados**:
+
+* Aumento da satisfação dos visitantes
+* Experiência diferenciada, inovadora e memorável
+* Reforço da percepção de inovação da instituição
+* Potencial de viralização em redes sociais
+
+**Plano de Ação**:
+
+* Implementar elementos de interação humano-robô
+* Adicionar personalização baseada em perfil (ex: estudante, executivo, etc)
+* Criar narrativa guiada durante o tour
+* Coletar feedback de visitantes para melhoria contínua
+
+***
+
+#### 4. Uso do Cão Robô em Eventos Externos
+
+**Categoria**: Divulgação / Extensão\
+**Probabilidade**: Moderada (50%)\
+**Impacto**: Muito Alto
+
+**Descrição**:
+
+Participação do robô em eventos externos (feiras, congressos, escolas, empresas) para demonstrar o potencial tecnológico do Inteli e atrair novos públicos.
+
+**Benefícios Esperados**:
+
+* Expansão da visibilidade institucional
+* Captação de novos alunos e parcerias
+* Fortalecimento da marca e da presença em eventos de tecnologia
+* Diferenciação frente a outras instituições
+
+**Plano de Ação**:
+
+* Criar roteiro adaptável para apresentações externas
+* Estabelecer logística de transporte e suporte técnico
+* Garantir conexão segura e modo offline para demonstrações
+* Registrar métricas de engajamento e conversão
+
+***
+
+#### 5. Visibilidade da Faculdade
+
+**Categoria**: Comunicação / Branding\
+**Probabilidade**: Moderado (50%)\
+**Impacto**: Alto
+
+**Descrição**:
+
+A presença do robô no campus, interagindo com visitantes e alunos, reforça a imagem do Inteli como referência em tecnologia e inovação educacional.
+
+**Benefícios Esperados**:
+
+* Fortalecimento da marca institucional
+* Maior interesse da mídia e imprensa
+* Aumento de busca orgânica sobre o Inteli
+* Potencial de uso em campanhas publicitárias
+
+**Plano de Ação**:
+
+* Criar identidade visual para o robô
+* Incluir o robô em tours internos e eventos externos
+* Produzir conteúdo audiovisual sobre as interações
+* Estabelecer presença digital do robô em redes sociais
+
+***
+
+### MODERADAS
+
+#### 6. Expansão do Tour para Ambientes Virtuais
+
+**Categoria**: Tecnológica / Experiencial\
+**Probabilidade**: Baixa (30%)\
+**Impacto**: Moderado
+
+**Descrição**:
+
+Desenvolver uma versão virtual ou híbrida do tour, permitindo que visitantes explorem o campus remotamente com o auxílio do robô ou de um ambiente 3D interativo.
+
+**Benefícios Esperados**:
+
+* Inclusão de visitantes de outras regiões
+* Acesso remoto para escolas parceiras e eventos online
+* Fortalecimento da presença digital do Inteli
+* Possibilidade de integração com realidade virtual
+
+**Plano de Ação**:
+
+* Criar tour virtual sincronizado com informações do robô
+* Mapear o campus em alta definição
+* Disponibilizar versão em site institucional
+
+***
+
+#### 7. Uso do Cão Robô em Outros Pavimentos do Campus
+
+**Categoria**: Operacional / Logística\
+**Probabilidade**: Muito Baixa (10%)\
+**Impacto**: Muito Alto
+
+**Descrição**:
+
+Expandir a operação do robô para diferentes andares e ambientes do campus, ampliando a área de cobertura e interação.
+
+**Benefícios Esperados**:
+
+* Maior autonomia operacional
+* Interações mais completas e representativas do espaço
+* Potencial para tours segmentados (ex: laboratórios, biblioteca, ateliê)
+
+**Plano de Ação**:
+
+* Adaptação de infraestrutura (rampas, escadas, etc)
+* Definição de protocolos de deslocamento entre pavimentos
+* Testes de navegação em outros pavimentos
+
+***
+
+### BAIXAS
+
+#### 8. Personalização por Perfil de Visitante
+
+**Categoria**: IA / Experiência do Usuário\
+**Probabilidade**: Muito Baixa (10%)\
+**Impacto**: Moderado
+
+**Descrição**:
+
+Desenvolver um sistema de personalização dinâmica, ajustando o conteúdo do tour conforme o tipo de visitante (ex: candidato, parceiro, imprensa).
+
+**Benefícios Esperados**:
+
+* Experiência altamente relevante e direcionada
+* Aumento do engajamento durante o tour
+* Feedback mais positivo e maior taxa de conversão
+
+**Plano de Ação**:
+
+* Implementar reconhecimento de perfil via QR code ou login prévio
+* Criar roteiros e mensagens específicas para cada público
+* Treinar IA generativa para ajustar linguagem e foco temático
+* Coletar métricas de engajamento por perfil
+
+***
+
+## Considerações Finais
+
+A **matriz de oportunidades** oferece uma visão clara sobre os caminhos de evolução do projeto e seu potencial de impacto dentro e fora do campus do Inteli.\
+Ao identificar, priorizar e estruturar essas oportunidades, a equipe pode:
+
+* Ampliar o valor percebido do projeto
+* Fortalecer a imagem institucional de inovação
+* Engajar alunos, visitantes e parceiros
+* Maximizar o retorno sobre o investimento e a experiência proporcionada
+
+Assim como a matriz de riscos, este documento deve ser continuamente atualizado, permitindo que **novas oportunidades** sejam mapeadas e incorporadas de forma estratégica ao longo do ciclo de vida do projeto.
 
 
 # Matriz de Risco (/docs/sprint-1/entendimento-do-negocio/matriz-de-risco)
@@ -1106,6 +1377,30 @@ A equipe deve manter comunicação transparente sobre riscos identificados e tra
 
 
 
+# Entendimento do Usuário (/docs/sprint-1/entendimento-do-usuario)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas" title="Personas">
+    Apresenta as personas desenvolvidas para o projeto, detalhando os perfis,
+    necessidades e comportamentos dos usuários-alvo.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario" title="Mapa de Jornada do Usuário">
+    Fornece o Mapa de Jornada do Usuário, ilustrando as etapas, emoções e pontos
+    de contato dos usuários ao interagir com o produto ou serviço.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/user-stories" title="User Stories">
+    Detalha as User Stories criadas para o projeto, descrevendo as
+    funcionalidades e necessidades dos usuários de forma clara e objetiva.
+  </Card>
+</Cards>
+
+
+# User Stories (/docs/sprint-1/entendimento-do-usuario/user-stories)
+
+
+
 # Entendimento do Projeto (/docs/sprint-1/entendimento-do-projeto)
 
 <Cards>
@@ -1140,38 +1435,14 @@ A equipe deve manter comunicação transparente sobre riscos identificados e tra
 
 
 
-# Entendimento do Usuário (/docs/sprint-1/entendimento-do-usuario)
+# Template de Pasta (/docs/sprint-2/template-pasta)
 
 <Cards>
-  <Card href="/docs/sprint-1/entendimento-do-usuario/personas" title="Personas">
-    Apresenta as personas desenvolvidas para o projeto, detalhando os perfis,
-    necessidades e comportamentos dos usuários-alvo.
-  </Card>
-
-  <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario" title="Mapa de Jornada do Usuário">
-    Fornece o Mapa de Jornada do Usuário, ilustrando as etapas, emoções e pontos
-    de contato dos usuários ao interagir com o produto ou serviço.
-  </Card>
-
-  <Card href="/docs/sprint-1/entendimento-do-usuario/user-stories" title="User Stories">
-    Detalha as User Stories criadas para o projeto, descrevendo as
-    funcionalidades e necessidades dos usuários de forma clara e objetiva.
-  </Card>
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
 </Cards>
 
 
-# User Stories (/docs/sprint-1/entendimento-do-usuario/user-stories)
-
-
-
-# Template de Pasta (/docs/sprint-3/template-pasta)
-
-<Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
-</Cards>
-
-
-# Título do Documento (/docs/sprint-3/template-pasta/template)
+# Título do Documento (/docs/sprint-2/template-pasta/template)
 
 
 
@@ -1314,14 +1585,14 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
-# Template de Pasta (/docs/sprint-2/template-pasta)
+# Template de Pasta (/docs/sprint-3/template-pasta)
 
 <Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
 </Cards>
 
 
-# Título do Documento (/docs/sprint-2/template-pasta/template)
+# Título do Documento (/docs/sprint-3/template-pasta/template)
 
 
 
@@ -1764,6 +2035,134 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
+# Personas (/docs/sprint-1/entendimento-do-usuario/personas)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato" title="Persona Candidato">
+    Descrição detalhada da Persona Candidato, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-2" title="Persona 2">
+    Descrição detalhada da Persona 2, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+</Cards>
+
+
+# Persona 1 (/docs/sprint-1/entendimento-do-usuario/personas/persona-1)
+
+
+
+# Persona Candidato (/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato)
+
+
+
+# Isabella Ricci
+
+ Isabella Ricci tem 17 anos e está concluindo o 3º ano do ensino médio em uma escola de alta performance em São Paulo. Desde o ensino fundamental, sempre demonstrou interesse por ciências e tecnologia, mas também se identifica com projetos criativos e o trabalho em equipe. Nos últimos meses, passou a pesquisar faculdades que unam inovação, propósito e prática, e o Inteli chamou sua atenção pela metodologia baseada em projetos reais e pelo foco em liderança.
+ Durante a visita ao campus, Isabella busca compreender melhor o ambiente de aprendizado, conhecer os espaços e esclarecer dúvidas sobre bolsas, processo seletivo e vida acadêmica, informações que considera importantes para tomar sua decisão sobre onde estudar. Segue abaixo o canva da persona:
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Isabella Ricci 
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Persona Candidato" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Cenários de uso do sistema
+
+ Assim que chegam ao Inteli, Isabella e seus pais são recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebem um tablet com uma aplicação onde podem registrar dúvidas durante o tour. Logo depois, o robô aparece para guiá-los pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos. Em cada ponto, o robô abre espaço para perguntas, e Isabella, junto dos pais, pode interagir pelo tablet, por texto ou por áudio.
+
+ Durante o tour, o robô coleta feedbacks sobre a experiência, que são armazenados e posteriormente visualizados no painel administrativo.
+
+## Dores e necessidades
+
+ Isabella sente insegurança em relação ao vestibular e ao processo de transição do ensino médio para o ensino superior. Ela teme não compreender completamente como funciona o processo seletivo do Inteli e tem dúvidas sobre o nível de exigência e o perfil de aluno esperado pela instituição. Essa incerteza é reforçada pelo fato de ainda não ter decidido se irá prestar o processo seletivo, o que torna a visita uma oportunidade importante para esclarecer dúvidas e reduzir barreiras emocionais na tomada de decisão. Ela deseja confirmar se o ambiente acadêmico, a metodologia de ensino e a cultura institucional realmente se alinham aos seus objetivos pessoais e à sua forma de aprendizado. Seu interesse por tecnologia e criatividade é acompanhado de uma necessidade de pertencimento e identificação com a proposta educacional.
+
+ Durante a visita, Isabella busca informações objetivas, mas também experiências que transmitam segurança e transparência. Ela valoriza interações que equilibrem clareza técnica e sensibilidade humana. O contato com o robô deve contribuir para esse processo, apresentando o Inteli de forma acessível, guiada e contextual, permitindo que Isabella enxergue com mais nitidez como o ambiente e a metodologia podem apoiar seu desenvolvimento acadêmico e pessoal.
+
+## Objetivos
+
+ O principal objetivo de Isabella ao visitar o Inteli é avaliar se deseja prestar o processo seletivo da instituição. Ela está em um momento de indecisão e busca informações que a ajudem a confirmar se o modelo de ensino, o ambiente e a proposta do curso correspondem às suas expectativas de formação.
+
+ Outro objetivo é conhecer o espaço físico e observar como os ambientes de estudo e convivência favorecem a aprendizagem e a colaboração entre os alunos. Essa dimensão visual da experiência é importante para que Isabella forme uma percepção concreta sobre o dia a dia acadêmico e a estrutura da instituição.
+
+  Ela também busca entender a metodologia de ensino baseada em projetos, compreendendo na prática como os estudantes aprendem, interagem e desenvolvem soluções reais. Esse entendimento é necessário para que ela perceba o diferencial do Inteli em relação a outras instituições de ensino superior.
+
+ Durante o tour, Isabella deseja esclarecer dúvidas sobre bolsas, rotina e oportunidades extracurriculares, como ligas estudantis e projetos paralelos. Essas informações têm um papel prático na decisão da família, especialmente no aspecto financeiro e no equilíbrio entre estudo e vivência universitária.
+
+## Conclusão
+
+ A persona **Isabella Ricci** representa o perfil de candidato em fase de descoberta, que visita o Inteli acompanhado dos pais para conhecer o campus e avaliar a possibilidade de ingressar na instituição. Sua jornada é marcada por dúvidas sobre o processo seletivo, o ambiente acadêmico e a adequação entre seu perfil e a metodologia de ensino proposta.
+
+ As dores e necessidades de Isabella revelam um equilíbrio entre fatores emocionais e racionais: ela busca informações claras, mas também experiências que transmitam segurança e identificação. O tour conduzido pelo robô tem papel fundamental nesse processo, funcionando como um canal de mediação entre o visitante e a instituição, capaz de esclarecer dúvidas e gerar percepção de acolhimento e transparência.
+
+ Seus objetivos se concentram em compreender o funcionamento do Inteli, conhecer os espaços, tirar dúvidas sobre bolsas e oportunidades, e, principalmente, confirmar se deseja participar do processo seletivo. A partir dessa experiência, espera obter elementos concretos e emocionais que a ajudem a decidir sobre seu futuro acadêmico, reforçando a importância do projeto como ponto de contato inicial entre candidatos e o Inteli.
+
+
+# Ricardo Menezes - Persona Executiva (/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva)
+
+
+
+ Abaixo, é possível ver um canva com um detalhamento acerca da persona Ricardo Menezes
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Persona Ricardo Menezes 
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Persona Executiva" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Resumo da Persona
+
+ Ricardo Menezes é um gestor de 35 anos que trabalha na Ambev, onde atua na gestão de equipes e colabora com times de tecnologia voltados à tomada de decisões estratégicas. Sua principal motivação é o curso executivo adquirido pela empresa no Inteli, do qual ele espera obter conhecimentos em dados e inteligência artificial para aprimorar suas decisões de negócio. Contudo, Ricardo chega ao Inteli com uma dor central: a desconfiança e o desconhecimento em relação à instituição e à sua metodologia de ensino baseada em cases, o que o faz questionar a real efetividade do curso. Seu objetivo primário durante a visita é entender melhor o funcionamento do curso, a história da faculdade e confirmar se o Inteli realmente emprega tecnologias inovadoras, exigindo para isso uma comunicação formal e madura, alinhada ao seu perfil corporativo. O cenário de uso do sistema envolve ser conduzido por um funcionário até a arquibancada, onde recebe um tablet para registrar dúvidas, e em seguida ser guiado pelo robô interativo em um percurso pelo térreo do campus, podendo interagir com o robô por texto ou áudio no tablet para sanar suas dúvidas logísticas e conceituais sobre a faculdade e o curso. O robô, por sua vez, coleta feedbacks de sua experiência para otimizar o processo.
+
+## Informações Demográficas
+
+| Atributo                         | Detalhe                                            |
+| :------------------------------- | :------------------------------------------------- |
+| **Idade**                        | 38 anos                                            |
+| **Gênero**                       | Masculino                                          |
+| **Profissão**                    | Gerente de Projetos Sênior na Ambev                |
+| **Formação**                     | Administração de Empresas                          |
+| **Localização**                  | São Paulo (SP)                                     |
+| **Familiaridade com Tecnologia** | Médio. usa ferramentas digitais, mas não é técnico |
+
+## Bio
+
+ Como dito anteriormente, Ricardo Menezes é um homem de 35 anos que atua como gestor de algumas equipes na Ambev, empresa líder em comércio de bebidas no Brasil. Ele se formou em administração há 12 anos e, desde então, trabalha no setor administrativo de empresas. Entrou na Ambev há 5 anos e tem atuado perto dos times de tecnologia, principalmente aqueles voltados à tomada de decisões estratégicas.
+Recentemente, a empresa adquiriu para os seus funcionários um curso executivo para os seus gestores em uma instituição chamada Inteli - Instituto de Tecnologia e Liderança. Com esse curso, Ricardo espera poder tomar melhores decisões de negócio baseando-se em dados e inteligência artificial. Entretanto, ele conhece pouco a universidade e não tem tanta confiança em relação ao método de ensino.
+
+## Cenários de Uso do Sistema
+
+ Assim que chegam ao Inteli, Rodrigo é recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebe um tablet com uma aplicação onde podem registrar dúvidas que surgirem durante o tour. Logo depois, o robô aparece para guiá-lo pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos.
+Em cada ponto, o robô abre espaço para dúvidas, e Rodrigo pode interagir pelo tablet, por texto ou por áudio, tirando dúvidas sobre os cursos executivos e o funcionamento e história da faculdade
+Durante o tour, o robô coleta feedbacks sobre a experiência do usuário e os disponibiliza para visualização no painel administrativo .
+
+## Dores e Necessidades
+
+ A principal dor de Ricardo é justamente não conhecer bem o suficiente a instituição onde ele estará fazendo esse curso executivo. Além disso, a metodologia de ensino do curso, que é baseada em cases, lhe deixa desconfiado em relação à efetividade do curso. Por fim, o que Ricardo mais quer neste cenário é entender melhor como funciona o curso, como funciona o Inteli e a sua história e também entender se essa faculdade realmente trabalha com tecnologias inovadoras. Entretanto, como alguém já mais maduro e muito acostumado com o mundo corporativo, ele prefere que seja utilizada uma linguagem mais formal na sua comunicação.
+
+## Conclusão
+
+ Embora a maioria dos visitantes do Inteli seja composta por estudantes do ensino médio, a persona Ricardo Menezes representa um público-alvo estratégico (executivos, imprensa e parceiros) cujo impacto no projeto de automatização de tours com o cão robótico é desproporcionalmente alto. Este público não busca uma experiência lúdica, mas sim a validação da credibilidade e da vanguarda tecnológica da instituição. A presença do Ricardo exige que o robô seja programado para ter uma dupla funcionalidade: além de engajar o público jovem, ele deve ser capaz de alternar para um tom de voz formal, comunicação concisa e conteúdo focado em dados estratégicos (como cases de sucesso e resultados de cursos executivos). Em suma, o Ricardo atua como o padrão de qualidade para o projeto, garantindo que a solução tecnológica não apenas cumpra seu papel operacional de guia, mas também funcione como um reforço da imagem institucional do Inteli para o seu público mais influente e decisório. Ignorar as dores e necessidades deste executivo resultaria em um robô que falharia em seu papel mais importante: endossar a sofisticação e o profissionalismo da faculdade.
+
+
 # Mapas de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
 
 <Cards>
@@ -2019,131 +2418,3 @@ import { Callout } from "fumadocs-ui/components/callout";
  A jornada de Ricardo Menezes é um excelente exemplo de como a **tecnologia (o robô-guia)** pode ser utilizada não apenas para automação, mas como uma **ferramenta estratégica de marketing e validação institucional**. O sucesso da experiência depende da capacidade do robô de alternar de um tom lúdico (para o público jovem) para um **tom formal, baseado em dados e resultados** (para executivos).
 
  Ao endereçar a desconfiança inicial com a **surpresa da autoria estudantil** e finalizar com a **confiança nos resultados e na metodologia**, o Inteli garante que Ricardo saia do tour não apenas informado, mas **convencido da excelência e da vanguarda** da instituição que sediará seu desenvolvimento executivo.
-
-
-# Personas (/docs/sprint-1/entendimento-do-usuario/personas)
-
-<Cards>
-  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato" title="Persona Candidato">
-    Descrição detalhada da Persona Candidato, incluindo perfil, necessidades e
-    comportamentos.
-  </Card>
-
-  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-2" title="Persona 2">
-    Descrição detalhada da Persona 2, incluindo perfil, necessidades e
-    comportamentos.
-  </Card>
-</Cards>
-
-
-# Persona 1 (/docs/sprint-1/entendimento-do-usuario/personas/persona-1)
-
-
-
-# Persona Candidato (/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato)
-
-
-
-# Isabella Ricci
-
- Isabella Ricci tem 17 anos e está concluindo o 3º ano do ensino médio em uma escola de alta performance em São Paulo. Desde o ensino fundamental, sempre demonstrou interesse por ciências e tecnologia, mas também se identifica com projetos criativos e o trabalho em equipe. Nos últimos meses, passou a pesquisar faculdades que unam inovação, propósito e prática, e o Inteli chamou sua atenção pela metodologia baseada em projetos reais e pelo foco em liderança.
- Durante a visita ao campus, Isabella busca compreender melhor o ambiente de aprendizado, conhecer os espaços e esclarecer dúvidas sobre bolsas, processo seletivo e vida acadêmica, informações que considera importantes para tomar sua decisão sobre onde estudar. Segue abaixo o canva da persona:
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Isabella Ricci 
-</p>
-
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img alt="Persona Candidato" src={__img0} placeholder="blur" />
-  </div>
-</div>
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-## Cenários de uso do sistema
-
- Assim que chegam ao Inteli, Isabella e seus pais são recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebem um tablet com uma aplicação onde podem registrar dúvidas durante o tour. Logo depois, o robô aparece para guiá-los pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos. Em cada ponto, o robô abre espaço para perguntas, e Isabella, junto dos pais, pode interagir pelo tablet, por texto ou por áudio.
-
- Durante o tour, o robô coleta feedbacks sobre a experiência, que são armazenados e posteriormente visualizados no painel administrativo.
-
-## Dores e necessidades
-
- Isabella sente insegurança em relação ao vestibular e ao processo de transição do ensino médio para o ensino superior. Ela teme não compreender completamente como funciona o processo seletivo do Inteli e tem dúvidas sobre o nível de exigência e o perfil de aluno esperado pela instituição. Essa incerteza é reforçada pelo fato de ainda não ter decidido se irá prestar o processo seletivo, o que torna a visita uma oportunidade importante para esclarecer dúvidas e reduzir barreiras emocionais na tomada de decisão. Ela deseja confirmar se o ambiente acadêmico, a metodologia de ensino e a cultura institucional realmente se alinham aos seus objetivos pessoais e à sua forma de aprendizado. Seu interesse por tecnologia e criatividade é acompanhado de uma necessidade de pertencimento e identificação com a proposta educacional.
-
- Durante a visita, Isabella busca informações objetivas, mas também experiências que transmitam segurança e transparência. Ela valoriza interações que equilibrem clareza técnica e sensibilidade humana. O contato com o robô deve contribuir para esse processo, apresentando o Inteli de forma acessível, guiada e contextual, permitindo que Isabella enxergue com mais nitidez como o ambiente e a metodologia podem apoiar seu desenvolvimento acadêmico e pessoal.
-
-## Objetivos
-
- O principal objetivo de Isabella ao visitar o Inteli é avaliar se deseja prestar o processo seletivo da instituição. Ela está em um momento de indecisão e busca informações que a ajudem a confirmar se o modelo de ensino, o ambiente e a proposta do curso correspondem às suas expectativas de formação.
-
- Outro objetivo é conhecer o espaço físico e observar como os ambientes de estudo e convivência favorecem a aprendizagem e a colaboração entre os alunos. Essa dimensão visual da experiência é importante para que Isabella forme uma percepção concreta sobre o dia a dia acadêmico e a estrutura da instituição.
-
-  Ela também busca entender a metodologia de ensino baseada em projetos, compreendendo na prática como os estudantes aprendem, interagem e desenvolvem soluções reais. Esse entendimento é necessário para que ela perceba o diferencial do Inteli em relação a outras instituições de ensino superior.
-
- Durante o tour, Isabella deseja esclarecer dúvidas sobre bolsas, rotina e oportunidades extracurriculares, como ligas estudantis e projetos paralelos. Essas informações têm um papel prático na decisão da família, especialmente no aspecto financeiro e no equilíbrio entre estudo e vivência universitária.
-
-## Conclusão
-
- A persona **Isabella Ricci** representa o perfil de candidato em fase de descoberta, que visita o Inteli acompanhado dos pais para conhecer o campus e avaliar a possibilidade de ingressar na instituição. Sua jornada é marcada por dúvidas sobre o processo seletivo, o ambiente acadêmico e a adequação entre seu perfil e a metodologia de ensino proposta.
-
- As dores e necessidades de Isabella revelam um equilíbrio entre fatores emocionais e racionais: ela busca informações claras, mas também experiências que transmitam segurança e identificação. O tour conduzido pelo robô tem papel fundamental nesse processo, funcionando como um canal de mediação entre o visitante e a instituição, capaz de esclarecer dúvidas e gerar percepção de acolhimento e transparência.
-
- Seus objetivos se concentram em compreender o funcionamento do Inteli, conhecer os espaços, tirar dúvidas sobre bolsas e oportunidades, e, principalmente, confirmar se deseja participar do processo seletivo. A partir dessa experiência, espera obter elementos concretos e emocionais que a ajudem a decidir sobre seu futuro acadêmico, reforçando a importância do projeto como ponto de contato inicial entre candidatos e o Inteli.
-
-
-# Ricardo Menezes - Persona Executiva (/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva)
-
-
-
- Abaixo, é possível ver um canva com um detalhamento acerca da persona Ricardo Menezes
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Persona Ricardo Menezes 
-</p>
-
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img alt="Persona Executiva" src={__img0} placeholder="blur" />
-  </div>
-</div>
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-## Resumo da Persona
-
- Ricardo Menezes é um gestor de 35 anos que trabalha na Ambev, onde atua na gestão de equipes e colabora com times de tecnologia voltados à tomada de decisões estratégicas. Sua principal motivação é o curso executivo adquirido pela empresa no Inteli, do qual ele espera obter conhecimentos em dados e inteligência artificial para aprimorar suas decisões de negócio. Contudo, Ricardo chega ao Inteli com uma dor central: a desconfiança e o desconhecimento em relação à instituição e à sua metodologia de ensino baseada em cases, o que o faz questionar a real efetividade do curso. Seu objetivo primário durante a visita é entender melhor o funcionamento do curso, a história da faculdade e confirmar se o Inteli realmente emprega tecnologias inovadoras, exigindo para isso uma comunicação formal e madura, alinhada ao seu perfil corporativo. O cenário de uso do sistema envolve ser conduzido por um funcionário até a arquibancada, onde recebe um tablet para registrar dúvidas, e em seguida ser guiado pelo robô interativo em um percurso pelo térreo do campus, podendo interagir com o robô por texto ou áudio no tablet para sanar suas dúvidas logísticas e conceituais sobre a faculdade e o curso. O robô, por sua vez, coleta feedbacks de sua experiência para otimizar o processo.
-
-## Informações Demográficas
-
-| Atributo                         | Detalhe                                            |
-| :------------------------------- | :------------------------------------------------- |
-| **Idade**                        | 38 anos                                            |
-| **Gênero**                       | Masculino                                          |
-| **Profissão**                    | Gerente de Projetos Sênior na Ambev                |
-| **Formação**                     | Administração de Empresas                          |
-| **Localização**                  | São Paulo (SP)                                     |
-| **Familiaridade com Tecnologia** | Médio. usa ferramentas digitais, mas não é técnico |
-
-## Bio
-
- Como dito anteriormente, Ricardo Menezes é um homem de 35 anos que atua como gestor de algumas equipes na Ambev, empresa líder em comércio de bebidas no Brasil. Ele se formou em administração há 12 anos e, desde então, trabalha no setor administrativo de empresas. Entrou na Ambev há 5 anos e tem atuado perto dos times de tecnologia, principalmente aqueles voltados à tomada de decisões estratégicas.
-Recentemente, a empresa adquiriu para os seus funcionários um curso executivo para os seus gestores em uma instituição chamada Inteli - Instituto de Tecnologia e Liderança. Com esse curso, Ricardo espera poder tomar melhores decisões de negócio baseando-se em dados e inteligência artificial. Entretanto, ele conhece pouco a universidade e não tem tanta confiança em relação ao método de ensino.
-
-## Cenários de Uso do Sistema
-
- Assim que chegam ao Inteli, Rodrigo é recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebe um tablet com uma aplicação onde podem registrar dúvidas que surgirem durante o tour. Logo depois, o robô aparece para guiá-lo pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos.
-Em cada ponto, o robô abre espaço para dúvidas, e Rodrigo pode interagir pelo tablet, por texto ou por áudio, tirando dúvidas sobre os cursos executivos e o funcionamento e história da faculdade
-Durante o tour, o robô coleta feedbacks sobre a experiência do usuário e os disponibiliza para visualização no painel administrativo .
-
-## Dores e Necessidades
-
- A principal dor de Ricardo é justamente não conhecer bem o suficiente a instituição onde ele estará fazendo esse curso executivo. Além disso, a metodologia de ensino do curso, que é baseada em cases, lhe deixa desconfiado em relação à efetividade do curso. Por fim, o que Ricardo mais quer neste cenário é entender melhor como funciona o curso, como funciona o Inteli e a sua história e também entender se essa faculdade realmente trabalha com tecnologias inovadoras. Entretanto, como alguém já mais maduro e muito acostumado com o mundo corporativo, ele prefere que seja utilizada uma linguagem mais formal na sua comunicação.
-
-## Conclusão
-
- Embora a maioria dos visitantes do Inteli seja composta por estudantes do ensino médio, a persona Ricardo Menezes representa um público-alvo estratégico (executivos, imprensa e parceiros) cujo impacto no projeto de automatização de tours com o cão robótico é desproporcionalmente alto. Este público não busca uma experiência lúdica, mas sim a validação da credibilidade e da vanguarda tecnológica da instituição. A presença do Ricardo exige que o robô seja programado para ter uma dupla funcionalidade: além de engajar o público jovem, ele deve ser capaz de alternar para um tom de voz formal, comunicação concisa e conteúdo focado em dados estratégicos (como cases de sucesso e resultados de cursos executivos). Em suma, o Ricardo atua como o padrão de qualidade para o projeto, garantindo que a solução tecnológica não apenas cumpra seu papel operacional de guia, mas também funcione como um reforço da imagem institucional do Inteli para o seu público mais influente e decisório. Ignorar as dores e necessidades deste executivo resultaria em um robô que falharia em seu papel mais importante: endossar a sofisticação e o profissionalismo da faculdade.
