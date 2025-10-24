@@ -1381,6 +1381,8 @@ A equipe deve manter comunicação transparente sobre riscos identificados e tra
 
  Seu principal objetivo é auxiliar organizações a criarem novos espaços de mercado, tornando a concorrência irrelevante e proporcionando maior valor ao cliente. Por meio da matriz, é possível visualizar e comparar atributos considerados importantes pelos consumidores, identificando oportunidades para reduzir, eliminar, aumentar ou criar características que diferenciem a solução proposta das demais disponíveis no mercado.
 
+***
+
 ## Contextualização da Análise
 
  O projeto tem como objetivo programar um robô de serviço autônomo, utilizando inteligência artificial generativa, para realizar tours interativos de apresentação do campus do Inteli. A proposta é que o robô seja capaz de se locomover de forma autônoma por rotas pré-definidas, apresentando informações sobre o ambiente e interagindo com os visitantes de maneira dinâmica e natural.
@@ -1389,41 +1391,431 @@ A equipe deve manter comunicação transparente sobre riscos identificados e tra
 
 Foram selecionadas duas empresas de destaque nesse setor:
 
-* **Boston Dynamics**: reconhecida mundialmente pelo desenvolvimento de robôs móveis avançados, como o modelo Spot, amplamente utilizado em inspeção, monitoramento e coleta de dados em ambientes industriais e corporativos.
+* **Boston Dynamics**: Reconhecida mundialmente pelo desenvolvimento de robôs móveis avançados, como o modelo Spot, amplamente utilizado em inspeção, monitoramento e coleta de dados em ambientes industriais e corporativos.
 
-* **SoftBank Robotics**: fabricante de robôs humanóides como o Pepper e o Whiz, voltados para ambientes de atendimento, varejo e educação, com foco em interação social e suporte informativo.
+* **SoftBank Robotics**: Fabricante de robôs humanóides como o Pepper e o Whiz, voltados para ambientes de atendimento, varejo e educação, com foco em interação social e suporte informativo.
 
  Esses concorrentes representam diferentes abordagens em robótica autônoma, enquanto a Boston Dynamics foca em desempenho técnico e mobilidade, a SoftBank prioriza interação e presença social. Essa análise permite identificar como o projeto pode se posicionar estrategicamente entre essas abordagens, equilibrando tecnologia, acessibilidade e engajamento.
+
+***
 
 ## Definição de atributos
 
  Com base nos requisitos essenciais do projeto, definimos os seguintes atributos para a análise comparativa com concorrentes que oferecem robôs autônomos:
 
-| Nº | **Atributo**                                  | **Descrição**                                                                                                                                                     |
-| -- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1  | **Preço**                                     | Custo total de aquisição, operação e manutenção do robô.                                                                                                          |
-| 2  | **Autonomia e Desempenho Técnico**            | Capacidade do robô de executar suas funções e percursos de forma eficiente, mesmo com acompanhamento, priorizando confiabilidade e consistência.                  |
-| 3  | **Segurança Operacional**                     | Grau de controle, confiabilidade e previsibilidade durante o funcionamento, incluindo sistemas redundantes e operação transparente.                               |
-| 4  | **Interatividade**                            | Habilidade do robô em se comunicar, transmitir informações corretas e compreensíveis, responder perguntas e fornecer feedback sonoro.                             |
-| 5  | **Acessibilidade e Inclusão**                 | Recursos que tornam a experiência compreensível e inclusiva para todos os visitantes, como linguagem simplificada, transcrição em tempo real e feedbacks sonoros. |
-| 6  | **Padronização e Linearidade da Experiência** | Experiência sempre segue o mesmo roteiro, com checkpoints definidos e execução contínua.                                                                          |
-| 7  | **Geração de Relatórios e Dados**             | Capacidade de coletar informações sobre a interação, permitindo **acompanhamento com os visitantes** e análise de desempenho da experiência.                      |
-| 8  | **Cativação e Envolvimento do Usuário**       | Nível de interesse e engajamento que o robô desperta durante a interação, tornando a experiência convincente.                                                     |
+<p style={{ textAlign: "center" }}>
+  Tabela 1 - Atributos
+</p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>
+        Nº
+      </th>
+
+      <th>
+        <strong>Atributo</strong>
+      </th>
+
+      <th>
+        <strong>Descrição</strong>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        1
+      </td>
+
+      <td>
+        <strong>Preço</strong>
+      </td>
+
+      <td>
+        Custo total de aquisição, operação e manutenção do robô.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        2
+      </td>
+
+      <td>
+        <strong>Autonomia e Desempenho Técnico</strong>
+      </td>
+
+      <td>
+        Capacidade do robô de executar suas funções e percursos de forma eficiente, mesmo com acompanhamento, priorizando confiabilidade e consistência.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        3
+      </td>
+
+      <td>
+        <strong>Segurança Operacional</strong>
+      </td>
+
+      <td>
+        Grau de controle, confiabilidade e previsibilidade durante o funcionamento, incluindo sistemas redundantes e operação transparente.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        4
+      </td>
+
+      <td>
+        <strong>Interatividade</strong>
+      </td>
+
+      <td>
+        Habilidade do robô em se comunicar, transmitir informações corretas e compreensíveis, responder perguntas e fornecer feedback sonoro.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        5
+      </td>
+
+      <td>
+        <strong>Acessibilidade e Inclusão</strong>
+      </td>
+
+      <td>
+        Recursos que tornam a experiência compreensível e inclusiva para todos os visitantes, como linguagem simplificada, transcrição em tempo real e feedbacks sonoros.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        6
+      </td>
+
+      <td>
+        <strong>Padronização e Linearidade da Experiência</strong>
+      </td>
+
+      <td>
+        Experiência sempre segue o mesmo roteiro, com checkpoints definidos e execução contínua.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        7
+      </td>
+
+      <td>
+        <strong>Geração de Relatórios e Dados</strong>
+      </td>
+
+      <td>
+        Capacidade de coletar informações sobre a interação, permitindo 
+
+        <strong>acompanhamento com os visitantes</strong>
+
+         e análise de desempenho da experiência.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        8
+      </td>
+
+      <td>
+        <strong>Cativação e Envolvimento do Usuário</strong>
+      </td>
+
+      <td>
+        Nível de interesse e engajamento que o robô desperta durante a interação, tornando a experiência convincente.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ***
 
 ## Matriz Comparativa com Concorrentes e ERAC
 
-| **Atributos**                                 | **Nosso Projeto** | **Boston Dynamics** | **SoftBank Robotics** | **Reduzir** | **Eliminar** | **Aumentar** | **Criar** |
-| --------------------------------------------- | ----------------- | ------------------- | --------------------- | ----------- | ------------ | ------------ | --------- |
-| **Preço**                                     | 9                 | 4                   | 6                     |             | X            |              |           |
-| **Autonomia e Desempenho Técnico**            | 6                 | 10                  | 5                     | X           |              |              |           |
-| **Segurança Operacional**                     | 8                 | 8                   | 6                     |             |              | X            |           |
-| **Interatividade**                            | 10                | 6                   | 8                     |             |              | X            |           |
-| **Acessibilidade e Inclusão**                 | 10                | 2                   | 6                     |             |              | X            |           |
-| **Padronização e Linearidade da Experiência** | 10                | 6                   | 5                     |             |              |              | X         |
-| **Geração de Relatórios e Dados**             | 10                | 2                   | 5                     |             |              |              | X         |
-| **Cativação e Envolvimento do Usuário**       | 8                 | 7                   | 7                     |             |              | X            |           |
+ Após a definição dos atributos, realizamos a matriz comparativa, que tem como objetivo analisar e comparar nosso projeto em relação aos concorrentes.
+
+<p style={{ textAlign: "center" }}>
+  Tabela 2 - Avaliação dos Atributos
+</p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>
+        <strong>Atributos</strong>
+      </th>
+
+      <th>
+        <strong>Nosso Projeto</strong>
+      </th>
+
+      <th>
+        <strong>Boston Dynamics</strong>
+      </th>
+
+      <th>
+        <strong>SoftBank Robotics</strong>
+      </th>
+
+      <th>
+        <strong>Reduzir</strong>
+      </th>
+
+      <th>
+        <strong>Eliminar</strong>
+      </th>
+
+      <th>
+        <strong>Aumentar</strong>
+      </th>
+
+      <th>
+        <strong>Criar</strong>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <strong>Preço</strong>
+      </td>
+
+      <td>
+        9
+      </td>
+
+      <td>
+        4
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Autonomia e Desempenho Técnico</strong>
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        5
+      </td>
+
+      <td>
+        X
+      </td>
+
+      <td />
+
+      <td />
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Segurança Operacional</strong>
+      </td>
+
+      <td>
+        8
+      </td>
+
+      <td>
+        8
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Interatividade</strong>
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td>
+        8
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Acessibilidade e Inclusão</strong>
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        2
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Padronização e Linearidade da Experiência</strong>
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td>
+        5
+      </td>
+
+      <td />
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Geração de Relatórios e Dados</strong>
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        2
+      </td>
+
+      <td>
+        5
+      </td>
+
+      <td />
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Cativação e Envolvimento do Usuário</strong>
+      </td>
+
+      <td>
+        8
+      </td>
+
+      <td>
+        7
+      </td>
+
+      <td>
+        7
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+    </tr>
+  </tbody>
+</table>
 
 ### Justificativas dos Atributos
 
