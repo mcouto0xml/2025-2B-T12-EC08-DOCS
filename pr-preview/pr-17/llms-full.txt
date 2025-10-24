@@ -768,14 +768,15 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
 
 * **Perguntas e respostas (chatbot)**: O modelo de perguntas e respostas deve ser um modelo com capacidade de tirar dúvidas sobre o processo de seleção, o programa de bolsas e o dia a dia no Campus, utilizando uma LLM open source pré-definida. O projeto não contempla o treinamento de modelos de processamento de linguagem natural, mas sim o uso de modelos pré-treinados.
 
-* **Transcrição em tempo real**: Módulo responsável por transcrever a fala do robô, a fala não será necessariamente transcrita em tempo real, o ideal é, após a idealização e definição da resposta, ela ser traduzida para outros idiomas, e apenas mostrar o texto ao mesmo tempo que o robô fala no idioma definido como principal. Conecta-se à LLM API de Transcrição e ao Banco de dados sequencial.
+* **Tradução em tempo real**: Módulo responsável por traduzir a fala do robô, a fala não será necessariamente traduzida em tempo real, o ideal é, após a idealização e definição da resposta, ela ser traduzida para outros idiomas, e apenas mostrar o texto ao mesmo tempo que o robô fala no idioma definido como principal. Conecta-se à LLM API de Tradução e ao Banco de dados sequencial.
+
+* **Modelo de Síntese de Voz**: Módulo responsável por sintetizar textos para áudio que serão passados para a fala do robô, utilizando uma LLM open source pré-definida.
 
 ### Back-end
 
 #### LLM API
 
-* **Perguntas**: Recebe a transcrição do front-end (Transcrição da fala do robô) e a entrada do front-end (Formulário de perguntas), e envia o contexto para o modelo de perguntas e respostas para processar as dúvidas e gerar respostas.
-* **Transcrição**: Recebe as falas do robô, sejam respostas para perguntas ou falas do roteiro, envia para o modelo de módulo de Transcrição em tempo real e os envia para o módulo de Transcrição do Back-end (LLM API) e para o Banco de dados sequencial.
+* **Perguntas e Respostas**: Recebe do front-end a seção em que a dúvida surgiu, junto com o texto transcrito da dúvida (Formulário de perguntas), e envia o contexto para o modelo de perguntas e respostas para processar as dúvidas e gerar respostas, das quais são enviadas para o Modelo de Tradução e para o modelo de Síntese de Voz e retorna a tradução para o front-end e a resposta para o modelo de síntese de voz.
 
 #### API
 
