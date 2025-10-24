@@ -1415,11 +1415,15 @@ Foram selecionadas duas empresas de destaque nesse setor:
       </th>
 
       <th>
-        <strong>Atributo</strong>
+        <strong>
+          Atributo
+        </strong>
       </th>
 
       <th>
-        <strong>Descrição</strong>
+        <strong>
+          Descrição
+        </strong>
       </th>
     </tr>
   </thead>
@@ -1431,7 +1435,9 @@ Foram selecionadas duas empresas de destaque nesse setor:
       </td>
 
       <td>
-        <strong>Preço</strong>
+        <strong>
+          Preço
+        </strong>
       </td>
 
       <td>
@@ -1445,11 +1451,15 @@ Foram selecionadas duas empresas de destaque nesse setor:
       </td>
 
       <td>
-        <strong>Autonomia e Desempenho Técnico</strong>
+        <strong>
+          Autonomia e Desempenho Técnico
+        </strong>
       </td>
 
       <td>
-        Capacidade do robô de executar suas funções e percursos de forma eficiente, mesmo com acompanhamento, priorizando confiabilidade e consistência.
+        Capacidade do robô de executar suas funções e percursos de forma
+        eficiente, mesmo com acompanhamento, priorizando confiabilidade e
+        consistência.
       </td>
     </tr>
 
@@ -1459,11 +1469,14 @@ Foram selecionadas duas empresas de destaque nesse setor:
       </td>
 
       <td>
-        <strong>Segurança Operacional</strong>
+        <strong>
+          Segurança Operacional
+        </strong>
       </td>
 
       <td>
-        Grau de controle, confiabilidade e previsibilidade durante o funcionamento, incluindo sistemas redundantes e operação transparente.
+        Grau de controle, confiabilidade e previsibilidade durante o
+        funcionamento, incluindo sistemas redundantes e operação transparente.
       </td>
     </tr>
 
@@ -1473,11 +1486,14 @@ Foram selecionadas duas empresas de destaque nesse setor:
       </td>
 
       <td>
-        <strong>Interatividade</strong>
+        <strong>
+          Interatividade
+        </strong>
       </td>
 
       <td>
-        Habilidade do robô em se comunicar, transmitir informações corretas e compreensíveis, responder perguntas e fornecer feedback sonoro.
+        Habilidade do robô em se comunicar, transmitir informações corretas e
+        compreensíveis, responder perguntas e fornecer feedback sonoro.
       </td>
     </tr>
 
@@ -1487,11 +1503,15 @@ Foram selecionadas duas empresas de destaque nesse setor:
       </td>
 
       <td>
-        <strong>Acessibilidade e Inclusão</strong>
+        <strong>
+          Acessibilidade e Inclusão
+        </strong>
       </td>
 
       <td>
-        Recursos que tornam a experiência compreensível e inclusiva para todos os visitantes, como linguagem simplificada, transcrição em tempo real e feedbacks sonoros.
+        Recursos que tornam a experiência compreensível e inclusiva para todos
+        os visitantes, como linguagem simplificada, transcrição em tempo real e
+        feedbacks sonoros.
       </td>
     </tr>
 
@@ -1501,11 +1521,14 @@ Foram selecionadas duas empresas de destaque nesse setor:
       </td>
 
       <td>
-        <strong>Padronização e Linearidade da Experiência</strong>
+        <strong>
+          Padronização e Linearidade da Experiência
+        </strong>
       </td>
 
       <td>
-        Experiência sempre segue o mesmo roteiro, com checkpoints definidos e execução contínua.
+        Experiência sempre segue o mesmo roteiro, com checkpoints definidos e
+        execução contínua.
       </td>
     </tr>
 
@@ -1515,15 +1538,15 @@ Foram selecionadas duas empresas de destaque nesse setor:
       </td>
 
       <td>
-        <strong>Geração de Relatórios e Dados</strong>
+        <strong>
+          Geração de Relatórios e Dados
+        </strong>
       </td>
 
       <td>
-        Capacidade de coletar informações sobre a interação, permitindo 
-
-        <strong>acompanhamento com os visitantes</strong>
-
-         e análise de desempenho da experiência.
+        Capacidade de coletar informações sobre a interação, permitindo{" "}
+        <strong>acompanhamento com os visitantes</strong> e análise de
+        desempenho da experiência.
       </td>
     </tr>
 
@@ -1533,11 +1556,14 @@ Foram selecionadas duas empresas de destaque nesse setor:
       </td>
 
       <td>
-        <strong>Cativação e Envolvimento do Usuário</strong>
+        <strong>
+          Cativação e Envolvimento do Usuário
+        </strong>
       </td>
 
       <td>
-        Nível de interesse e engajamento que o robô desperta durante a interação, tornando a experiência convincente.
+        Nível de interesse e engajamento que o robô desperta durante a
+        interação, tornando a experiência convincente.
       </td>
     </tr>
   </tbody>
@@ -1557,35 +1583,51 @@ Foram selecionadas duas empresas de destaque nesse setor:
   <thead>
     <tr>
       <th>
-        <strong>Atributos</strong>
+        <strong>
+          Atributos
+        </strong>
       </th>
 
       <th>
-        <strong>Nosso Projeto</strong>
+        <strong>
+          Nosso Projeto
+        </strong>
       </th>
 
       <th>
-        <strong>Boston Dynamics</strong>
+        <strong>
+          Boston Dynamics
+        </strong>
       </th>
 
       <th>
-        <strong>SoftBank Robotics</strong>
+        <strong>
+          SoftBank Robotics
+        </strong>
       </th>
 
       <th>
-        <strong>Reduzir</strong>
+        <strong>
+          Reduzir
+        </strong>
       </th>
 
       <th>
-        <strong>Eliminar</strong>
+        <strong>
+          Eliminar
+        </strong>
       </th>
 
       <th>
-        <strong>Aumentar</strong>
+        <strong>
+          Aumentar
+        </strong>
       </th>
 
       <th>
-        <strong>Criar</strong>
+        <strong>
+          Criar
+        </strong>
       </th>
     </tr>
   </thead>
@@ -1593,7 +1635,9 @@ Foram selecionadas duas empresas de destaque nesse setor:
   <tbody>
     <tr>
       <td>
-        <strong>Preço</strong>
+        <strong>
+          Preço
+        </strong>
       </td>
 
       <td>
@@ -1621,7 +1665,9 @@ Foram selecionadas duas empresas de destaque nesse setor:
 
     <tr>
       <td>
-        <strong>Autonomia e Desempenho Técnico</strong>
+        <strong>
+          Autonomia e Desempenho Técnico
+        </strong>
       </td>
 
       <td>
@@ -1649,7 +1695,9 @@ Foram selecionadas duas empresas de destaque nesse setor:
 
     <tr>
       <td>
-        <strong>Segurança Operacional</strong>
+        <strong>
+          Segurança Operacional
+        </strong>
       </td>
 
       <td>
@@ -1677,7 +1725,9 @@ Foram selecionadas duas empresas de destaque nesse setor:
 
     <tr>
       <td>
-        <strong>Interatividade</strong>
+        <strong>
+          Interatividade
+        </strong>
       </td>
 
       <td>
@@ -1705,7 +1755,9 @@ Foram selecionadas duas empresas de destaque nesse setor:
 
     <tr>
       <td>
-        <strong>Acessibilidade e Inclusão</strong>
+        <strong>
+          Acessibilidade e Inclusão
+        </strong>
       </td>
 
       <td>
@@ -1733,7 +1785,9 @@ Foram selecionadas duas empresas de destaque nesse setor:
 
     <tr>
       <td>
-        <strong>Padronização e Linearidade da Experiência</strong>
+        <strong>
+          Padronização e Linearidade da Experiência
+        </strong>
       </td>
 
       <td>
@@ -1761,7 +1815,9 @@ Foram selecionadas duas empresas de destaque nesse setor:
 
     <tr>
       <td>
-        <strong>Geração de Relatórios e Dados</strong>
+        <strong>
+          Geração de Relatórios e Dados
+        </strong>
       </td>
 
       <td>
@@ -1789,7 +1845,9 @@ Foram selecionadas duas empresas de destaque nesse setor:
 
     <tr>
       <td>
-        <strong>Cativação e Envolvimento do Usuário</strong>
+        <strong>
+          Cativação e Envolvimento do Usuário
+        </strong>
       </td>
 
       <td>
@@ -1892,7 +1950,12 @@ Foram selecionadas duas empresas de destaque nesse setor:
 
 <div style={{ margin: 25 }}>
   <div style={{ textAlign: "center" }}>
-        <img alt="Matriz de avaliação de valor Oceano Azul" src={__img0} placeholder="blur" />
+        <img
+          alt="Matriz de avaliação de valor Oceano
+    Azul"
+          src={__img0}
+          placeholder="blur"
+        />
   </div>
 </div>
 
