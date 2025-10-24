@@ -7,15 +7,17 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
 
 ## Diagrama de arquitetura do sistema
 
-<div style={{ textAlign: 'center' }}>
-  <p><strong>Figura 1 - Diagrama de Arquitetura do Sistema</strong></p>
+<div style={{ textAlign: "center" }}>
+  <p>
+    <strong>Figura 1 - Diagrama de Arquitetura do Sistema</strong>
+  </p>
   <img
-    src={'/sprint-1/Arquitetura do Sistema/diagrama-arquitetura-sistema.png'}
+    src={"/sprint-1/Arquitetura do Sistema/diagrama-arquitetura-sistema.png"}
     alt="Diagrama de Arquitetura do Sistema"
     title="Diagrama de Arquitetura do Sistema"
-    style={{ maxWidth: '100%', height: 'auto' }}
-   />
-	 <p>Fonte: Elaborado pelos autores (2025)</p>
+    style={{ maxWidth: "100%", height: "auto" }}
+  />
+  <p>Fonte: Elaborado pelos autores (2025)</p>
 </div>
 
 ## Descrição da arquitetura do sistema
@@ -25,7 +27,6 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
 - **Perguntas e respostas (chatbot)**: O modelo de perguntas e respostas deve ser um modelo com capacidade de tirar dúvidas sobre o processo de seleção, o programa de bolsas e o dia a dia no Campus, utilizando uma LLM open source pré-definida. O projeto não contempla o treinamento de modelos de processamento de linguagem natural, mas sim o uso de modelos pré-treinados.
 
 - **Tradução em tempo real**: Módulo responsável por traduzir a fala do robô, a fala não será necessariamente traduzida em tempo real, o ideal é, após a idealização e definição da resposta, ela ser traduzida para outros idiomas, e apenas mostrar o texto ao mesmo tempo que o robô fala no idioma definido como principal. Conecta-se à LLM API de Tradução e ao Banco de dados sequencial.
-  
 - **Modelo de Síntese de Voz**: Módulo responsável por sintetizar textos para áudio que serão passados para a fala do robô, utilizando uma LLM open source pré-definida.
 
 ### Back-end
