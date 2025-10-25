@@ -38,7 +38,7 @@ Onde estamos hoje. Globalmente, a base instalada e o know-how vêm da automaçã
 
 ## TAM — Total Addressable Market (RaaS)
 
-**Introdução.** Abrange todos os locais compatíveis com funções de recepção/atendimento onde robôs profissionais podem operar com IA generativa em regime de assinatura (RaaS).
+Abrange todos os locais compatíveis com funções de recepção/atendimento onde robôs profissionais podem operar com IA generativa em regime de assinatura (RaaS).
 
 **Desenvolvimento:**
 
@@ -60,7 +60,7 @@ O **TAM** confirma amplitude e capilaridade para assinatura RaaS, com hospitalid
 
 ## SAM — Serviceable Available Market (RaaS)
 
-**Introdução.** Filtra o TAM para usos explícitos de recepção/guia/tour (locais com balcões de informação e atendimento ao público).
+Filtra o TAM para usos explícitos de recepção/guia/tour (locais com balcões de informação e atendimento ao público).
 
 **Desenvolvimento:**
 - **Incluídos:** hotéis/pousadas, shoppings, aeroportos, museus/atrações (subconjunto Ibram/FVA: 997), universidades.
@@ -74,7 +74,7 @@ O **SAM** concentra ativos de alto fluxo e operação padronizada, contexto idea
 
 ## SOM — Serviceable Obtainable Market (RaaS; mercado inicial estratégico em faculdades de tecnologia privadas)
 
-**Introdução.** Nicho hiperfocado para prova de valor e escala operacional, maximizando aderência tecnológica e ciclo de decisão corporativo (B2B).
+Nicho hiperfocado para prova de valor e escala operacional, maximizando aderência tecnológica e ciclo de decisão corporativo (B2B).
 
 **Desenvolvimento (base e rampa):**
 - **Base de sites:** Instituições de Ensino Superior (IES) com cursos de TI (922) × 76,5% privadas ⇒ ≈ 705 (1 robô/campus).
