@@ -1,0 +1,58 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # manual trigger
+
+concurrency:
+  group: pages-deployment
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy Documentation
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./docs
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: docs/node_modules
+          key: docs-deps-${{ hashFiles('docs/bun.lock', 'docs/package.json') }}
+          restore-keys: docs-deps-
+
+      - name: Cache Build Folders
+        uses: actions/cache@v4
+        with:
+          path: |
+            docs/.next
+            docs/.source
+          key: docs-build-${{ hashFiles('docs/**/*', '!docs/node_modules/**', '!docs/.next/**', '!docs/.source/**') }}
+          restore-keys: docs-build-
+
+      - name: Install and Build
+        run: |
+          bun install --frozen-lockfile
+          NEXT_PUBLIC_BASE_PATH="/2025-2B-T12-EC08-DOCS" bun run build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ./docs/out
+          branch: gh-pages
+          clean-exclude: pr-preview
+          force: false
