@@ -1,0 +1,10 @@
+{
+  "title": "Análise de Impacto Ético",
+  "description": "Apresenta a análise de impacto ético em cinco dimensões: Responsabilidade Social, Equidade e Justiça, Vieses e Discriminação, Transparência e Consentimento Informado e Privacidade e Proteção de dados",
+  "pages": [
+    "responsabilidade-social",
+    "equidade-justica",
+    "vieses",
+    "transparencia"
+  ]
+}

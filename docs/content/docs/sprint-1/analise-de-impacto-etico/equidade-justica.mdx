@@ -1,0 +1,62 @@
+---
+title: "Equidade e Justiça"
+---
+
+&emsp;Esta seção aborda as considerações de equidade e justiça essenciais para o projeto, garantindo que a interação com o robô seja inclusiva e não crie ou perpetue barreiras para grupos marginalizados. As barreiras de acessibilidade para pessoas com deficiências são consideradas o conjunto mais crítico de considerações, pois podem levar à exclusão total de certos visitantes, contradizendo os objetivos de divulgação científica e acessibilidade do Inteli.
+
+## Barreiras de Acessibilidade (PCD)
+
+&emsp;A acessibilidade é um pilar da equidade e um requisito legal. A Lei Brasileira de Inclusão (LBI, Lei 13.146 de 2015) e a norma técnica ABNT NBR 9050:2020 operacionalizam esses princípios, exigindo a aplicação do "Design Universal". De particular relevância é o "princípio de dois sentidos", que determina que informações essenciais devem ser fornecidas em pelo menos duas modalidades sensoriais (visual, sonora e/ou tátil) para garantir a compreensão.
+
+### Deficiência Visual
+
+&emsp;Para visitantes cegos ou com baixa visão, um robô que se baseia em interação visual representa uma barreira significativa. Mais criticamente, o robô, por operar de forma relativamente silenciosa, constitui um risco de segurança e colisão.   Recomendações: A acessibilidade adequada exige um sistema de narração com áudio espacializado para indicar a localização do robô, controles de volume claros e, crucialmente, a inclusão de um auxiliar humano para certificar-se de que o robô não irá colidir com pessoas com deficiência.
+
+### Deficiência Auditiva
+
+&emsp;Para visitantes surdos ou com perda auditiva, um robô que se comunica primariamente por voz "efetivamente silencia" o participante. A dependência de comandos de voz ou respostas auditivas sem alternativa visual viola o "princípio de dois sentidos".   Recomendações: A solução requer um display visual posicionado em altura acessível (conforme NBR 9050), que apresente todo o conteúdo falado em texto sincronizado. Este texto deve ter alto contraste, tamanho de fonte adequado e ser apresentado em linguagem clara.
+
+### Deficiência de Mobilidade
+
+&emsp;Visitantes com mobilidade reduzida (usuários de cadeira de rodas, próteses, muletas, ou com dificuldade de locomoção) enfrentam uma barreira significativa relacionada à velocidade. O robô pode atingir picos de velocidade de até 5 m/s, o que é muito superior à velocidade de caminhada confortável ou segura para muitos indivíduos.
+
+**Recomendações:** Em conformidade com a NBR 9050, o sistema deve permitir que o usuário tenha controle total sobre o ritmo do tour. Isso inclui funções de pausar e retomar a qualquer momento e um controle de velocidade ajustável, que idealmente deve operar na faixa de velocidade de caminhada humana (entre 0,3 m/s e 1,2 m/s).
+
+<Callout title="Nota Adicional" type="tip">
+  {" "}
+  A análise de equidade também deve considerar deficiências cognitivas. Para
+  estes visitantes, recomenda-se o uso de interfaces radicalmente simplificadas,
+  linguagem literal (evitando ambiguidades) e um comportamento previsível do
+  robô para evitar sobrecarga sensorial.{" "}
+</Callout>
+
+## Inclusão Digital e Viés Sociocultural
+
+&emsp;A equidade transcende a acessibilidade física, englobando barreiras digitais e culturais que podem ser mais sutis, mas igualmente excludentes.
+
+## Elitização e Alfabetização Digital
+
+&emsp;A interação com tecnologias avançadas não é universal. A exclusão digital pode manifestar-se de várias formas:
+
+- **Intimidação**: Visitantes com menor familiaridade tecnológica podem sentir-se intimidados ou desconfortáveis ao interagir vocalmente com uma máquina.
+
+- **Terminologia**: O uso de jargões técnicos pelo robô pode ser "completamente opaco" para alunos de escolas com menos recursos, criando uma barreira de compreensão.
+
+- **Estilos de Comunicação**: A necessidade de usar comandos diretos e assertivos pode ser culturalmente desconfortável para jovens de backgrounds específicos, que podem ter estilos de comunicação mais indiretos.
+
+- **Alfabetização Mínima**: O próprio ato de "fazer perguntas a um robô" exige uma alfabetização digital e uma confiança que não podem ser presumidas como universais.
+
+## Viés de Reconhecimento de Fala (Sotaques)
+
+&emsp;Este é um dos riscos mais críticos de exclusão social. Sistemas de Reconhecimento Automático de Fala (ASR) são notórios por apresentarem taxas de erro sistematicamente maiores para sotaques não-padrão.
+
+<Callout title="Risco Crítico: Exclusão Simbólica" type="danger">
+  {" "}
+  O sistema de ASR, treinado majoritariamente com o "padrão paulistano", pode
+  falhar repetidamente ao processar sotaques nordestinos, nortistas, do interior
+  rural, ou de falantes não-nativos e adolescentes (gírias). Cada falha
+  ("Desculpe, não entendi") não é meramente um inconveniente técnico, mas uma
+  comunicação simbólica de "você não pertence aqui". Isso pode desestimular
+  ativamente jovens de backgrounds marginalizados de se engajarem com a
+  tecnologia e com o próprio Inteli.{" "}
+</Callout>

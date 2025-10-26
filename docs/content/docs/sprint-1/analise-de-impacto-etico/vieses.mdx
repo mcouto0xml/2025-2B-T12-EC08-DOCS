@@ -1,0 +1,45 @@
+---
+title: Vieses e Discriminação
+---
+
+&emsp; Nessa subseção, visualiza-se os possíveis vieses e medidas discriminatórias que podem surgir involuntariamente em decorrência da implementação do sistema. São eles: o sotaque reconhecido pelo robô e a sua personalidade. Vê-se que trata-se de uma extensão da seção anterior, pois o tópico da pronúncia será abordado aqui com maior profundidade. No entanto, também discorreremos sobre a questão da própria "personalidade" do robô, compreendendo como a escolha desse fator pode excluir alguns grupos. Por fim, trata-se como mitigar esses vieses, seja no tempo presente ou em planos futuros.
+
+## Sotaque
+
+&emsp; No que tange à pronúncia reconhecida pelo robô, deve-se ter em mente que a equipe responsável pela IA pode influenciar significativemente nesta. Atualmente, essa equipe é formada por seis sudestinos e dois nordestinos, ou seja, 75% da equipe possui um sotaque similar. Consequentemente, na adoção de testes informais para o reconhecimento de voz, é provável que este sotaque seja privilegiado. O robô estará em razoável operacional quando reconhecer as vozes de seus criadores.
+
+&emsp; Em um sentido a situação supracitada não é problemática. A composição dos membros do time de IA corresponde com a atual situação do Inteli. Entre os bolsistas (aproximadamente, 50% do público total), mais de 60% dos alunos são sudestinos (Inteli, 2024). Portanto, mesmo testes informais deverão condizer com o público alvo _de facto_ da instituição. Em outro sentido, porém, essa situação é problemática em dois aspectos: crescimento e acolhimento.
+
+&emsp; O primeiro problema diz respeito ao principal _stakeholder_ do projeto: a área de _growth_. Como mostrado durante a apresentação executiva, essa equipe do Inteli não prezou fazer o Inteli conhecido em São Paulo apenas, mas nos estados fora da região sudeste. Um exemplo dessa iniciativa é a “Estação Inteli” que entre agosto e outubro, passou por escolas de 11 cidades em 8 estados, incluindo Goiânia, Belo Horizonte, Salvador e Fortaleza com o objetivo de "aproximar o processo seletivo" (Cervi, 2025).
+
+&emsp; O segundo problema diz respeito a postura de acolhimento enunciada pela instituição. Segundo o Livro do Inteli, a instituição preza por uma postura acolhedora, cuja definição dada pelo livro é que " Uma postura acolhedora significa estar atento e predisposto à diversidade cultural, racial e étnica, escapando de lógicas binárias e lineares, e deve ser institucionalizada como política, praticada por todos, desde o time de gestão, o professor, até o funcionário da administração" (Inteli, 2025, p. 109).
+
+&emsp; Vê-se por esses dois fatores que o robô-guia desenvolvido deve ser aberto em sua comunicação à diversidade cultural brasileira. Isso não significa, em primeiro momento, que sua personalidade deve ser volátil a ponto de abranger todas as regiões do Brasil. Também não significa que um modo de voz diferente deve ser aplicado para cada interlocutor. Essas definições, mesmo que decladaramente inclusivas não necessariamente refletirão o acolhimento do robô senão for resolvido um problema mais básico: os numerosos erros de algoritmos de reconhecimento de voz quando confrotados com sotaques (Mu et al., 2021).
+
+&emsp; As consequências deste viés não-mitigado em contexto educacional são profundas e duradouras. Quando estudantes de grupos marginalizados experimentam falhas repetidas de reconhecimento de voz necessitando múltiplas tentativas de reformulação enquanto observam colegas de backgrounds privilegiados serem compreendidos imediatamente, a mensagem implícita comunicada é "este sistema não foi feito para pessoas como você". Esta experiência microagressiva repetida contribui para fenômeno bem documentado de "belonging uncertainty" onde indivíduos de grupos sub-representados questionam se pertencem genuinamente a campos técnicos, resultando em taxas mais altas de attrition de mulheres e minorias raciais de pipelines STEM (Zander e Ertl, 2023).
+
+&emsp; Nesse sentido, para mitigar o viés não intencional do sotaque sudestino por parte do algoritmo de reconhecimento de voz, propõe-se as medidas que se seguem.
+
+### Medidas de Mitigação
+
+&emsp; Propõe-se para resolver o viés sudestino uma avaliação formal. Trata-se de um teste de reconhecimento a partir de um dataset representativo contendo 20 frases de comando típicas ("Explique o processo seletivo do Inteli", "Quanto custa estudar aqui?", "Quais são os cursos oferecidos?") gravadas por 25 falantes diversos selecionados estrategicamente para representar diversidade demográfica: cinco falantes de cada uma das cinco macro-regiões brasileiras (Sul, Sudeste, Nordeste, Norte, Centro-Oeste) para capturar variação geográfica de sotaques; distribuição equitativa entre gêneros masculino e feminino; duas faixas etárias correspondentes ao público-alvo (14 a 16 anos, 17 a 18 anos); Cada frase deve ser gravada em ambiente natural (não estúdio) para simular condições reais de operação.
+
+&emsp; A métrica primária de avaliação é Word Error Rate calculada como número de palavras incorretamente reconhecidas dividido por número total de palavras, com threshold de aceitabilidade estabelecido em WER inferior a 15% para todos os subgrupos - conforme expertise dos autores. Ademais, deve-se também calcular disparidade máxima definida como diferença absoluta entre o grupo com menor WER e grupo com maior WER, com threshold de aceitabilidade estabelecido em diferença inferior a 5 pontos percentuais. Se algum subgrupo exceder threshold de 15% WER, ou se disparidade entre grupos exceder 5%, fine-tuning adicional utilizando dados brasileiros diversos é obrigatório antes de deployment.
+
+&emsp; Se esse _fine-tuning_ for insuficiente, propõe-se a transparência que será detalhada na seção Transparência e Consentimento Informado.
+
+## Personalidade
+
+&emsp; Outra preocupação da equipe de Interação Humano-Máquina é a "personalidade" a ser transmitida pelo robô em suas comunicações no tour. O design de interação e escolhas de conteúdo constituem camada adicional onde viés pode ser inadvertidamente incorporado. A seleção de voz para o robô (gênero, sotaque, registro linguístico), os exemplos utilizados em explicações (que referências culturais são presumidas familiares?), as metáforas escolhidas para explicar conceitos técnicos (presumem experiência com quais tecnologias cotidianas?), e até o naming do próprio robô podem comunicar mensagens sobre quem é o "usuário default" imaginado e quem são "outros" que devem adaptar-se.
+
+&emsp; Essa preocupação, enderaçada em reunião oficial nos dias 17/10/2025 e 22/10/2025, é uma escolha que deve ser constatemente monitorada. No primeiro desses dias, estabeleceu-se não colocar no robô uma personalidade marcadamente paulistana. Em vez disso, apresentou-se a possibilidade de diminuir o grau de antropormofização, colocando no cão, suas características esperadas (ex. latidos repentinos). No segundo dia, discutiu-se a preferência pelo uso de linguagem simplificada de modo a não marcar o gênero na linguagem.
+
+&emsp; Não obstante, limitações técnicas das tecnologias atuais de reprodução de áudio sintético (como a predominância de vozes masculinas) podem limitar o escopo de ação da equipe. Involuntariamente, o robô pode, por exemplo, tomar uma voz grave por essa soar mais natural por parte da evolução dos algoritmos. Ainda assim, impactos éticos nos visitantes deve ser monitorados. Por essa razão, em vias de mitigar esse problema, **recomenda-se a implementação de um formulário ao final do tour com perguntas acerca do conforto dos usuários em sua comunicação com o cão-robô**.
+
+## Bibliografia
+
+*CERVI, A. Inteli lança “Estação Inteli” para levar experiência prática e inovação a estudantes do ensino médio. Live Marketing, 25 out. 2025.
+*INTELI. Inteli : Instituto de Tecnologia e Liderança : história, construção e metodologia. [s.l.] Inteli, 2025. p. 109
+*INTELI. Relatório Anual. [s.l.] Inteli, 2024. Disponível em: https://www.inteli.edu.br/wp-content/uploads/2024/08/RELATORIO-ANUAL-2024-22082024-FINAL-DIGITAL.pdf. Acesso em: 26 out. 2025.
+*MU, B. et al. Mixture of LoRA Experts With Multi-Modal and Multi-Granularity LLM Generative Error Correction for Accented Speech Recognition. IEEE Transactions on Audio, Speech and Language Processing, v. 33, p. 2973–2985, 2025.
+\*ZANDER, L.; ERTL, B. Female Students’ Belonging Uncertainty in Higher Education STEM Environments. Routledge eBooks, p. 67–78, 16 out. 2023.
