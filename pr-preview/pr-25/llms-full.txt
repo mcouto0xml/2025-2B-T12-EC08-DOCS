@@ -730,7 +730,7 @@ c = \pm\sqrt{a^2 + b^2}
 
 # Análise de Impacto Ético (/docs/sprint-1/analise-de-impacto-etico)
 
-Impactos Éticos e Sociais: Robô de Serviço Autônomo Unitree Go2 no Inteli\*\*
+Impactos Éticos e Sociais: Robô de Serviço Autônomo Unitree Go2 no Inteli.
 
 ## **Introdução**
 
