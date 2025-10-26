@@ -1,0 +1,99 @@
+---
+sidebar_position: 5
+title: TAM SAM SOM
+---
+
+# Análise de Mercado – TAM, SAM e SOM
+
+Para compreender o potencial de crescimento e alcance de uma solução, é essencial analisar o tamanho e a estrutura do mercado em que ela se insere. As métricas TAM (Total Addressable Market), SAM (Serviceable Available Market) e SOM (Serviceable Obtainable Market) são amplamente utilizadas para estimar, respectivamente, o mercado total, o mercado atendível e o mercado efetivamente alcançável por uma empresa ou produto.
+
+Essa análise fornece uma visão quantitativa e estratégica da oportunidade de negócio, permitindo identificar os segmentos prioritários de atuação e definir estratégias realistas de penetração de mercado. Além disso, ela serve como base para decisões de investimento, posicionamento competitivo e planejamento de expansão, conectando o potencial econômico do mercado com a proposta de valor da solução estudada.
+
+A compreensão clara desses três níveis de mercado é fundamental para avaliar a viabilidade comercial, dimensionar o impacto financeiro esperado e orientar a alocação eficiente de recursos em iniciativas de inovação ou novos produtos.
+
+## Tese de Mercado
+
+A convergência entre robótica autônoma e IA generativa está elevando a capacidade de percepção, planejamento e interação por linguagem natural, abrindo aplicações de serviço (recepção, guia, suporte de 1º nível, logística indoor) muito além do chão de fábrica. O apetite de capital confirma a tendência: em 2024, startups de robótica captaram US$ 6,1 bi, alta sobre 2023, com destaque para teses alavancadas por IA generativa.
+
+No recorte de humanoides, a projeção da Goldman Sachs aponta um mercado de US$ 38 bilhões até 2035, com ~1,4 milhão de unidades, trajetória sustentada por queda de custos e maturação de modelos de IA. Grandes techs também movem peças: Meta estruturou um grupo dedicado a robôs humanoides com IA dentro do Reality Labs, sinalizando ambição de longo prazo em hardware e software de embodied AI.
+
+Onde estamos hoje. Globalmente, a base instalada e o know-how vêm da automação industrial, ainda concentrada em tarefas repetitivas, perigosas ou de alta precisão; a IFR (International Federation of Robotics) registra >4 milhões de robôs operando em fábricas e novas instalações acima de meio milhão/ano. Em paralelo, os robôs de serviço crescem de forma consistente (limpeza, logística, saúde), preparando terreno para funções interativas, exatamente onde a IA generativa amplia o escopo: entendimento de intenção, roteiros conversacionais e adaptação em tempo real.
+
+# Análise de Mercado — TAM, SAM e SOM (Brasil)
+
+## Modelo de negócio: RaaS (Robotics-as-a-Service) para recepção/guia/atendimento de 1º nível com IA generativa
+
+**Escopo (IN):** robôs de serviço profissionais (IFR — International Federation of Robotics) com IA generativa para recepção, guia/tour e atendimento de 1º nível em ambientes com fluxo de visitantes (campus universitários, hotéis, shopping centers, aeroportos, museus/atrações). 
+
+**Fora do escopo (OUT):** robôs industriais de linha, drones/outdoor e soluções puramente de software. 
+
+**Método:** cálculo detalhado site por site (cenário base: 1 robô/site; ativos grandes: 2–3). Deduplicação entre bases quando houver sobreposição (ex.: campus dentro de shopping). 
+
+**Premissas de precificação RaaS (para todos os cálculos abaixo):** Setup único de R$ 178 mil/robô + mensalidade R$ 49 mil/robô por 36 meses → **ARR**/robô = R$ 588 mil/ano[2] e **TCV**/robô (36m) = R$ 1,942 mi[1].
+
+:::note[Termos financeiros]
+- **TCV** (Total Contract Value): valor total do contrato ao longo do período contratado — aqui usado como referência para 36 meses.
+- **ARR** (Annual Recurring Revenue): receita recorrente anual.
+:::
+
+## TAM — Total Addressable Market (RaaS)
+
+Abrange todos os locais compatíveis com funções de recepção/atendimento onde robôs profissionais podem operar com IA generativa em regime de assinatura (RaaS).
+
+**Desenvolvimento:**
+
+| Segmento | Quantidade |
+|----------|------------|
+| Hospitais | 6.518 |
+| Meios de hospedagem (Cadastur) | ~18.000 |
+| Shopping centers (Abrasce) | 648 |
+| Aeroportos (ANAC) | 180 |
+| IES (INEP/Semesp) | ~2.580 |
+| **Total** | **28.000 sites** |
+
+  - **Valor RaaS (1×):** **ARR** ≈ R$ 16,51 bi/ano; Setup ≈ R$ 5,00 bi; **TCV** (36m) ≈ R$ 54,54 bi.
+- **Faixa hubs (2–3×):** **ARR** ≈ R$ 33,0–49,5 bi/ano.
+
+O **TAM** confirma amplitude e capilaridade para assinatura RaaS, com hospitalidade e educação como vetores expressivos de captura de valor recorrente.
+
+---
+
+## SAM — Serviceable Available Market (RaaS)
+
+Filtra o TAM para usos explícitos de recepção/guia/tour (locais com balcões de informação e atendimento ao público).
+
+**Desenvolvimento:**
+- **Incluídos:** hotéis/pousadas, shoppings, aeroportos, museus/atrações (subconjunto Ibram/FVA: 997), universidades.
+- **Total (cenário base):** 22.565 sites (1 robô/site).
+  - **Valor RaaS (1×):** **ARR** ≈ R$ 13,27 bi/ano; Setup ≈ R$ 4,02 bi; **TCV** (36m) ≈ R$ 43,82 bi.
+- **Faixa hubs (2–3×):** **ARR** ≈ R$ 26,5–39,8 bi/ano.
+
+O **SAM** concentra ativos de alto fluxo e operação padronizada, contexto ideal para assinatura recorrente com SLAs e integrações (CRM/ticket/elevadores).
+
+---
+
+## SOM — Serviceable Obtainable Market (RaaS; mercado inicial estratégico em faculdades de tecnologia privadas)
+
+Nicho hiperfocado para prova de valor e escala operacional, maximizando aderência tecnológica e ciclo de decisão corporativo (B2B).
+
+**Desenvolvimento (base e rampa):**
+- **Base de sites:** Instituições de Ensino Superior (IES) com cursos de TI (922) × 76,5% privadas ⇒ ≈ 705 (1 robô/campus).
+ - **Valor RaaS (pleno 1×):** **ARR** ≈ R$ 414,5 mi/ano; Setup ≈ R$ 125,5 mi; **TCV** (36m) ≈ R$ 1,369 bi.
+- **Rampa de adoção (crescimento gradual ao longo de 12–36 meses; novos robôs/ano):**
+  - Ano 1: 21 robôs → **ARR** ≈ R$ 12,35 mi/ano, Setup ≈ R$ 3,74 mi, **TCV** (coorte[3] — valor do grupo de implantação) ≈ R$ 40,78 mi.
+  - Ano 2: 56 robôs → **ARR** ≈ R$ 32,93 mi/ano, Setup ≈ R$ 9,97 mi, **TCV** (coorte — valor do grupo de implantação) ≈ R$ 108,75 mi.
+  - Ano 3: 106 robôs → **ARR** ≈ R$ 62,33 mi/ano, Setup ≈ R$ 18,87 mi, **TCV** (coorte — valor do grupo de implantação) ≈ R$ 205,85 mi.
+
+[3] Coorte = grupo de implantação (lote de instalações implantadas na mesma janela de tempo).
+
+- *Run-rate (base instalada ao fim de cada ano):* *77 robôs (Ano 2)* ⇒ *≈ R$ 45,28 mi/ano; **183 robôs (Ano 3)* ⇒ *≈ R$ 107,60 mi/ano*.
+- *Governança operacional:* SOM anual deve respeitar *capacidade de implantação/suporte* (k projetos/mês ⇒ *12k/ano) e **lead time* de hardware.
+
+O *SOM RaaS* reduz risco comercial, acelera aprendizado de implantação e cria *referências replicáveis* para expandir, posteriormente, aos demais “baldes” do *SAM*.
+
+
+## Conclusão
+
+RaaS viabiliza captura de valor recorrente com SLAs (acordos de nível de serviço) e integrações, sustentando viabilidade econômica clara por cliente. O funil **TAM** → **SAM** → **SOM** em RaaS mostra endereço total robusto (**ARR** ≈ R$ 16,5 bi/ano no TAM) e priorização acionável no **SAM** (**ARR** ≈ R$ 13,3 bi/ano).
+
+O mercado inicial estratégico de ~705 campi permite crescimento gradual e controlado (**ARR** ≈ R$ 12,3 → 32,9 → 62,3 mi/ano por grupo de implantação). Esse recorte equilibra tamanho de oportunidade e executabilidade, ancorando o plano comercial e o dimensionamento de operações.

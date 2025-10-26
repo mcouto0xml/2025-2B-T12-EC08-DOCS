@@ -1,0 +1,862 @@
+---
+title: Requisitos
+---
+
+# Requisitos do Sistema
+
+&emsp;Este documento apresenta a especificação dos **Requisitos Funcionais (RF)** e **Requisitos Não Funcionais (RNF)** do sistema, de acordo com as práticas recomendadas pela **norma ISO/IEC 25010:2011**, que define os modelos de qualidade de produto de software. O objetivo é assegurar que o sistema atenda às necessidades funcionais do negócio, ao mesmo tempo em que mantenha elevados padrões de qualidade, desempenho, segurança e manutenibilidade ao longo de seu ciclo de vida.
+
+&emsp;Os requisitos aqui descritos foram organizados por **área de desenvolvimento**, de modo a garantir rastreabilidade entre os objetivos do projeto, os responsáveis técnicos e as métricas de aceitação associadas.
+
+## Estrutura Organizacional das Áreas de Desenvolvimento
+
+&emsp;O projeto está estruturado em cinco áreas principais de desenvolvimento, cada uma com atribuições específicas e responsabilidades técnicas relacionadas às dimensões de qualidade do produto.
+
+### 1. DevOps/UX
+
+&emsp;A área de **DevOps/UX** é responsável pela infraestrutura de integração e entrega contínua (CI/CD), governança de código e pela experiência do usuário. Abrange desde o controle de versionamento e automação de pipelines até o design de interfaces e a garantia de usabilidade, acessibilidade e coerência visual.
+&emsp;Os requisitos desta área relacionam-se principalmente às características de **Usabilidade**, **Eficiência de Execução** e **Manutenibilidade** previstas na ISO/IEC 25010.
+
+### 2. Backend
+
+&emsp;A área de **Backend** implementa a lógica de negócio, a camada de comunicação entre sistemas e o controle de segurança dos dados. É responsável por autenticação, autorização, integridade das informações e desempenho da aplicação.
+&emsp;Os requisitos desta área estão associados às dimensões de **Adequação Funcional**, **Confiabilidade**, **Segurança (Security)** e **Eficiência de Execução**.
+
+### 3. Modelo
+
+&emsp;A área de **Modelo** trata do desenvolvimento e integração de modelos de **Processamento de Linguagem Natural (PLN)**, como LLMs (Large Language Models). Inclui a definição de estratégias de segurança, mitigação de vieses, governança de dados e uso de mecanismos de recuperação de contexto (RAG - _Retrieval Augmented Generation_).
+&emsp;Os requisitos desta área estão relacionados a **Adequação Funcional**, **Confiabilidade**, **Segurança** e **Compatibilidade**.
+
+### 4. Robô
+
+&emsp;A área de **Robô** abrange a integração entre o hardware e o software embarcado, incluindo controle de movimento, visão computacional e protocolos de comunicação como **WebRTC**. Foca em garantir **segurança operacional (safety)**, robustez e estabilidade da comunicação entre os módulos.
+&emsp;Os requisitos desta área se relacionam principalmente às características de **Confiabilidade**, **Segurança**, **Eficiência de Execução** e **Portabilidade**
+
+### 5. Segurança
+
+&emsp;A área de **Segurança** é responsável por garantir a segurança cibernética e operacional do sistema, atuando na prevenção de falhas, vulnerabilidades e riscos que possam comprometer pessoas, dados ou infraestrutura. Essa equipe assegura a conformidade com padrões de segurança e requisitos aqui definidos, implementa mecanismos de proteção e realiza análises contínuas de risco. Também desenvolve protocolos de segurança física e lógica, assegurando operação previsível e confiável em todas as condições. Esse time não possui requisitos específicos listados neste documento, mas atua transversalmente em todas as áreas para garantir a integridade e segurança do sistema como um todo.
+
+---
+
+## Classificação dos Requisitos
+
+Os requisitos são classificados em duas categorias:
+
+- **Requisitos Funcionais (RF):** especificam as funções e comportamentos que o sistema deve executar. Representam diretamente as operações necessárias para atender aos objetivos do negócio.
+- **Requisitos Não Funcionais (RNF):** descrevem as qualidades e restrições que o sistema deve cumprir, abordando aspectos de desempenho, segurança, confiabilidade, usabilidade, manutenibilidade, compatibilidade e portabilidade.
+
+---
+
+## Requisitos Funcionais e Não Funcionais por Área de Desenvolvimento
+
+### **Área de Desenvolvimento: DevOps/UX**
+
+&emsp;Esta área abrange a infraestrutura de desenvolvimento, automação de processos e design da experiência do usuário. Seus requisitos envolvem acessibilidade, interoperabilidade entre ambientes, eficiência operacional e qualidade da interface.
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo de Requisito</th>
+      <th>Área Responsável</th>
+      <th>Requisito</th>
+      <th>Critério de Aceite</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF01-UX</td>
+      <td>DevOps/UX</td>
+      <td>Deve existir um botão de parada de emergência (E-Stop).</td>
+      <td>
+        Botão visível na tela principal; ao clicar, envia comando STOP e exibe
+        feedback visual de parada confirmada.
+      </td>
+    </tr>
+    <tr>
+      <td>RF02-UX</td>
+      <td>DevOps/UX</td>
+      <td>
+        A interface de monitoramento deve exibir em tempo real o status de cada
+        processo.
+      </td>
+      <td>Atualização de status a cada ≤ 1 s; atraso máximo ≤ 500 ms.</td>
+    </tr>
+    <tr>
+      <td>RF03-UX</td>
+      <td>DevOps/UX</td>
+      <td>
+        A interface deve oferecer filtros dinâmicos e busca rápida por falhas,
+        logs e eventos.
+      </td>
+      <td>
+        Campo de busca funcional sem recarregar página; resultados retornam em ≤
+        2 s.
+      </td>
+    </tr>
+    <tr>
+      <td>RF04-UX</td>
+      <td>DevOps/UX</td>
+      <td>O sistema deve emitir alertas e falhas por ordem de gravidade.</td>
+      <td>Alertas visuais e sonoros disparados em ≤ 2 s após detecção.</td>
+    </tr>
+    <tr>
+      <td>RF05-DO</td>
+      <td>DevOps/UX</td>
+      <td>
+        O sistema deve implementar pipeline de SCA para analisar dependências
+        antes do deploy.
+      </td>
+      <td>
+        Execução automática a cada build; falha de CVE crítico bloqueia deploy.
+      </td>
+    </tr>
+    <tr>
+      <td>RF06-DO</td>
+      <td>DevOps/UX</td>
+      <td>Registro de eventos críticos (STOP e falhas).</td>
+      <td>
+        100% dos eventos críticos logados com timestamp e ID; perda máxima
+        tolerada = 1 evento.
+      </td>
+    </tr>
+    <tr>
+      <td>RF07-DO</td>
+      <td>DevOps/UX</td>
+      <td>Coleta de leads e feedback de visitantes.</td>
+      <td>
+        Formulário registra dados corretamente; taxa de falha ≤ 1%; sem
+        travamentos.
+      </td>
+    </tr>
+    <tr>
+      <td>RF08-DO</td>
+      <td>DevOps/UX</td>
+      <td>
+        O sistema deve restringir o envio de perguntas por robôs de rede
+        interna.
+      </td>
+      <td>
+        Bloqueio ativo de acessos não autenticados; logs de tentativas mantidos.
+      </td>
+    </tr>
+    <tr>
+      <td>RF09-UX</td>
+      <td>DevOps/UX</td>
+      <td>O formulário deve permanecer acessível durante o tour.</td>
+      <td>
+        Disponível do início ao fim; bloqueado após término; tempo de resposta ≤
+        1 s.
+      </td>
+    </tr>
+    <tr>
+      <td>RF10-DO</td>
+      <td>DevOps/UX</td>
+      <td>GitFlow deve ser obrigatório.</td>
+      <td>
+        Merge apenas via Pull Request aprovado por 2 revisores; push direto
+        bloqueado.
+      </td>
+    </tr>
+    <tr>
+      <td>RF11-DO</td>
+      <td>DevOps/UX</td>
+      <td>O sistema deve ter pipeline de SAST antes do merge.</td>
+      <td>PR bloqueado se vulnerabilidade crítica detectada.</td>
+    </tr>
+    <tr>
+      <td>RF12-DO</td>
+      <td>DevOps/UX</td>
+      <td>O sistema deve fazer varredura de secrets (.env, chaves).</td>
+      <td>Commits bloqueados automaticamente; log de tentativas gravado.</td>
+    </tr>
+    <tr>
+      <td>RF13-DO</td>
+      <td>DevOps/UX</td>
+      <td>O sistema deve utilizar CI/CD para deploy controlado.</td>
+      <td>
+        Deploy ocorre apenas após build aprovado; rollback automático
+        disponível.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF01-UX</td>
+      <td>DevOps/UX</td>
+      <td>
+        A interface deve ter feature de parada de emergência em caso de falhas
+        ou danos.
+      </td>
+      <td>Ação STOP disponível em ≤ 1 s após acionamento.</td>
+    </tr>
+    <tr>
+      <td>RNF02-UX</td>
+      <td>DevOps/UX</td>
+      <td>
+        A interface deve ter tempo de resposta &lt; 1 s em operações críticas.
+      </td>
+      <td>Testes de carga mostram 95% das respostas em ≤ 1 s.</td>
+    </tr>
+    <tr>
+      <td>RNF03-DO</td>
+      <td>DevOps/UX</td>
+      <td>
+        A arquitetura de DevOps deve seguir GitFlow com controles de acesso
+        rígidos.
+      </td>
+      <td>Push direto na main bloqueado; revisão obrigatória por pares.</td>
+    </tr>
+    <tr>
+      <td>RNF04-DO</td>
+      <td>DevOps/UX</td>
+      <td>
+        O repositório deve possuir varredura automática de chaves e segredos.
+      </td>
+      <td>
+        Nenhum commit com segredos permitido; scanner executado a cada build.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF05-UX</td>
+      <td>DevOps/UX</td>
+      <td>Interface operacional deve permanecer estável durante tours.</td>
+      <td>Nenhum crash; taxa de uptime ≥ 99,9%.</td>
+    </tr>
+    <tr>
+      <td>RNF06-UX</td>
+      <td>DevOps/UX</td>
+      <td>Portal deve ter autenticação de dois fatores.</td>
+      <td>100% dos logins exigem token de verificação; sem bypass.</td>
+    </tr>
+    <tr>
+      <td>RNF07-UX</td>
+      <td>DevOps/UX</td>
+      <td>Interface deve ser acessível para pessoas com deficiência visual.</td>
+      <td>
+        Ícones e labels compatíveis com leitores de tela; contraste &gt; 7:1.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF08-DO</td>
+      <td>DevOps/UX</td>
+      <td>Banco de dados deve ser criptografado e auditável.</td>
+      <td>
+        Logs de auditoria gerados; acesso restrito a operadores autorizados.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### **Área de Desenvolvimento: Backend**
+
+&emsp;A área de Backend é responsável pela lógica central do sistema, comunicação entre serviços, persistência de dados e mecanismos de autenticação e segurança. Os requisitos desta área garantem a confiabilidade das operações e o cumprimento dos parâmetros de desempenho e integridade de dados.
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo de Requisito</th>
+      <th>Área Responsável</th>
+      <th>Requisito</th>
+      <th>Critério de Aceite</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF01-BE</td>
+      <td>Backend</td>
+      <td>
+        O robô deve parar imediatamente (tempo máximo de resposta ≤ 1 s) após o
+        botão de emergência ser pressionado, interrompendo todos os processos
+        ativos.
+      </td>
+      <td>
+        O backend deve receber o comando STOP e enviar confirmação ao robô em ≤
+        1 s; log de parada deve registrar timestamp e origem do comando.
+      </td>
+    </tr>
+    <tr>
+      <td>RF02-BE</td>
+      <td>Backend</td>
+      <td>
+        O backend deve enviar o comando de parada para o robô de forma
+        prioritária, com confirmação de execução e redundância no canal de
+        envio.
+      </td>
+      <td>
+        Sistema deve registrar ACK de parada em até 1 s; falhas de transmissão ≤
+        1%.
+      </td>
+    </tr>
+    <tr>
+      <td>RF03-BE</td>
+      <td>Backend</td>
+      <td>
+        Os endpoints de comunicação entre backend e robô devem permitir troca de
+        comandos e status em tempo real, incluindo dados de sensores, movimento
+        e estado.
+      </td>
+      <td>
+        Latência média de comunicação ≤ 200 ms; 100% das mensagens críticas
+        entregues e confirmadas.
+      </td>
+    </tr>
+    <tr>
+      <td>RF04-BE</td>
+      <td>Backend</td>
+      <td>
+        As falas geradas via LLM devem ser processadas e transmitidas ao robô
+        com tempo máximo de resposta de 1,5 s.
+      </td>
+      <td>
+        Testes de desempenho confirmam tempo médio ≤ 1,5 s em 95% das
+        requisições.
+      </td>
+    </tr>
+    <tr>
+      <td>RF05-BE</td>
+      <td>Backend</td>
+      <td>
+        Todos os endpoints REST ou WebSocket devem exigir autenticação JWT
+        válida antes de permitir qualquer operação de controle sobre o robô.
+      </td>
+      <td>
+        Nenhuma requisição não autenticada aceita; logs registram ID de sessão e
+        timestamp.
+      </td>
+    </tr>
+    <tr>
+      <td>RF06-BE</td>
+      <td>Backend</td>
+      <td>
+        O backend deve implementar rate limiting em todos os endpoints críticos,
+        prevenindo abuso ou sobrecarga indevida.
+      </td>
+      <td>
+        Limite configurado de 100 req/min por IP; logs registram violações;
+        bloqueios aplicados automaticamente.
+      </td>
+    </tr>
+    <tr>
+      <td>RF07-BE</td>
+      <td>Backend</td>
+      <td>
+        O sistema deve registrar logs detalhados de todas as requisições,
+        incluindo status, endpoint, payload e tempo de resposta.
+      </td>
+      <td>
+        Logs armazenados com precisão de timestamp ≤ 10 ms; nenhuma requisição
+        crítica sem registro.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF01-BE</td>
+      <td>Backend</td>
+      <td>
+        O backend deve manter latência máxima de 200 ms para comunicação com o
+        robô e ≤ 500 ms para geração de resposta das falas LLM.
+      </td>
+      <td>
+        Monitoramento contínuo confirma médias dentro do limite em 95% dos
+        testes sob carga nominal.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF02-BE</td>
+      <td>Backend</td>
+      <td>
+        A infraestrutura de rede deve garantir baixa perda de pacotes (≤ 1%) e
+        tempo de reconexão inferior a 2 segundos após falha.
+      </td>
+      <td>
+        Testes de estresse validam reconexão ≤ 2 s; perda de pacotes ≤ 1% em
+        1.000 iterações.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF03-BE</td>
+      <td>Backend</td>
+      <td>
+        O backend deve seguir padrões OWASP API Security Top 10, prevenindo
+        vulnerabilidades como injeções, autenticação fraca e exposição indevida
+        de dados.
+      </td>
+      <td>
+        Auditoria de segurança trimestral comprova 0 vulnerabilidades críticas.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF04-BE</td>
+      <td>Backend</td>
+      <td>
+        O rate limiter deve ser configurável e adaptativo, permitindo ajustes
+        dinâmicos de limite conforme tipo de endpoint e contexto operacional.
+      </td>
+      <td>
+        Painel administrativo permite alteração de limites sem downtime;
+        alterações registradas em log.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF05-BE</td>
+      <td>Backend</td>
+      <td>
+        O backend deve possuir monitoramento contínuo de desempenho e
+        disponibilidade, com alertas em caso de falha.
+      </td>
+      <td>Alertas emitidos em ≤ 60 s após anomalia; uptime ≥ 99,9%.</td>
+    </tr>
+    <tr>
+      <td>RNF06-BE</td>
+      <td>Backend</td>
+      <td>
+        Todos os logs e métricas do backend devem ser armazenados de forma
+        segura e criptografada, com retenção mínima de 90 dias.
+      </td>
+      <td>Dados de log armazenados com AES-256; perda máxima tolerada = 0%.</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### **Área de Desenvolvimento: Modelo**
+
+&emsp;Responsável pela implementação de modelos de inteligência artificial, processamento de linguagem natural e integração com os demais módulos. Os requisitos desta área asseguram a precisão, consistência, ética e segurança dos modelos.
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo de Requisito</th>
+      <th>Área Responsável</th>
+      <th>Requisito</th>
+      <th>Critério de Aceite</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF01-MOD</td>
+      <td>Modelo</td>
+      <td>
+        O sistema deve operar com dois modelos de linguagem distintos: Modelo A
+        (Detector) — responsável por identificar perguntas capciosas, enganosas,
+        maliciosas ou de natureza antiética; e Modelo B (Respondente) —
+        responsável por gerar respostas somente quando autorizado pelo Modelo A.
+      </td>
+      <td>
+        Os testes devem comprovar que o Modelo B apenas gera respostas após
+        autorização explícita do Modelo A, com taxa de falsos positivos inferior
+        a 2%.
+      </td>
+    </tr>
+    <tr>
+      <td>RF02-MOD</td>
+      <td>Modelo</td>
+      <td>
+        O Modelo B deve recusar a geração de respostas quando o Modelo A
+        classificar a entrada como capciosa ou potencialmente maliciosa.
+      </td>
+      <td>
+        Durante testes de validação, o Modelo B deve bloquear 100% das
+        tentativas de resposta em entradas classificadas como capciosas pelo
+        Modelo A.
+      </td>
+    </tr>
+    <tr>
+      <td>RF03-MOD</td>
+      <td>Modelo</td>
+      <td>A comunicação entre os dois modelos deve ser interna e segura.</td>
+      <td>
+        Logs de auditoria devem comprovar que toda comunicação entre os modelos
+        ocorre via canal interno autenticado e criptografado.
+      </td>
+    </tr>
+    <tr>
+      <td>RF04-MOD</td>
+      <td>Modelo</td>
+      <td>
+        O sistema deve registrar as decisões do Modelo A (Detector) para
+        auditoria, incluindo entradas classificadas, tempo de inferência e
+        motivo da classificação.
+      </td>
+      <td>
+        Logs de auditoria devem registrar 100% das inferências, contendo
+        data/hora, entrada, saída e justificativa.
+      </td>
+    </tr>
+    <tr>
+      <td>RF05-MOD</td>
+      <td>Modelo</td>
+      <td>
+        O Modelo B deve produzir respostas verificáveis, parciais em relação ao
+        Inteli, evitando menções vagas, meias verdades, difamações ou menções
+        negativas a pessoas, grupos ou instituições.
+      </td>
+      <td>
+        As respostas devem passar por teste de conformidade ética e semântica
+        com precisão ≥ 95% segundo checklist de validação.
+      </td>
+    </tr>
+    <tr>
+      <td>RF06-MOD</td>
+      <td>Modelo</td>
+      <td>
+        O sistema deve possuir um módulo de auditoria de geração de conteúdo,
+        capaz de revisar periodicamente respostas e detectar possíveis desvios
+        éticos ou factuais.
+      </td>
+      <td>
+        Auditorias mensais devem detectar e corrigir 100% dos desvios
+        classificados como críticos.
+      </td>
+    </tr>
+    <tr>
+      <td>RF07-MOD</td>
+      <td>Modelo</td>
+      <td>
+        O sistema de dois modelos deve utilizar estratégias de inferência
+        assíncrona, evitando bloqueios ou gargalos entre o Detector e o
+        Respondente.
+      </td>
+      <td>
+        O sistema deve processar entradas simultâneas mantendo latência total ≤
+        1,5s em 95% das requisições.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF01-MOD</td>
+      <td>Modelo</td>
+      <td>
+        A base de dados utilizada no RAG deve ser tratada e padronizada para
+        eficiência e relevância.
+      </td>
+      <td>
+        Índices otimizados e consistência de dados ≥ 99%; consultas retornam em
+        ≤ 1 s.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF02-MOD</td>
+      <td>Modelo</td>
+      <td>
+        O sistema de LLMs deve operar com latência total ≤ 1,5 s, incluindo
+        filtragem pelo Modelo A.
+      </td>
+      <td>
+        Testes de desempenho validam tempo médio ≤ 1,5 s em 95% das requisições.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF03-MOD</td>
+      <td>Modelo</td>
+      <td>
+        Deve haver isolamento lógico e físico entre ambientes de inferência.
+      </td>
+      <td>
+        Nenhum compartilhamento de dados entre ambientes detectado; verificações
+        semanais de segurança.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF04-MOD</td>
+      <td>Modelo</td>
+      <td>
+        Modelos devem ser reprodutíveis, gerando resultados consistentes sob
+        mesmas condições.
+      </td>
+      <td>Diferença de saída ≤ 1% entre execuções idênticas.</td>
+    </tr>
+    <tr>
+      <td>RNF05-MOD</td>
+      <td>Modelo</td>
+      <td>
+        Métricas de desempenho e detecção de falhas devem ser monitoradas
+        continuamente.
+      </td>
+      <td>
+        Sistema de alertas ativa notificação em &lt; 60 s após detecção de
+        falha.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF06-MOD</td>
+      <td>Modelo</td>
+      <td>
+        O pipeline de AIOps deve registrar logs e métricas de inferência, falhas
+        e auditorias.
+      </td>
+      <td>
+        Logs armazenados com retenção mínima de 90 dias; perda máxima de eventos
+        = 0%.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### **Área de Desenvolvimento: Robô**
+
+&emsp;Abrange a camada física e lógica do robô, integrando sensores, atuadores e sistemas de controle. Os requisitos desta área garantem a operação segura, contínua e compatível com os ambientes de execução definidos, bem como a tolerância a falhas e a integridade dos processos.
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo de Requisito</th>
+      <th>Área Responsável</th>
+      <th>Requisito</th>
+      <th>Critério de Aceite</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RF01-ROB</td>
+      <td>Robô</td>
+      <td>
+        O robô deve detectar e evitar obstáculos, pessoas e objetos em tempo
+        real.
+      </td>
+      <td>
+        O robô não deve colidir com nenhum objeto ou pessoa, evitando qualquer
+        tipo de dano físico.
+      </td>
+    </tr>
+    <tr>
+      <td>RF02-ROB</td>
+      <td>Robô</td>
+      <td>
+        O robô deve interromper o movimento imediatamente ao detectar risco
+        iminente de colisão, perda de controle ou falha de sensor.
+      </td>
+      <td>
+        O robô deve parar em até 1 segundo após a detecção de risco ou falha.
+      </td>
+    </tr>
+    <tr>
+      <td>RF03-ROB</td>
+      <td>Robô</td>
+      <td>
+        O robô deve utilizar sensores de proximidade, LiDAR e visão
+        computacional para mapear o ambiente e ajustar sua trajetória
+        dinamicamente.
+      </td>
+      <td>
+        O robô deve demonstrar capacidade de desviar de obstáculos móveis e
+        fixos em testes controlados.
+      </td>
+    </tr>
+    <tr>
+      <td>RF04-ROB</td>
+      <td>Robô</td>
+      <td>
+        O robô deve seguir comandos do backend via WebRTC apenas após validação
+        de integridade e origem da mensagem.
+      </td>
+      <td>
+        O robô só deve executar comandos validados com origem conhecida e
+        integridade confirmada.
+      </td>
+    </tr>
+    <tr>
+      <td>RF05-ROB</td>
+      <td>Robô</td>
+      <td>
+        Em caso de perda de conexão com o backend, o robô deve entrar
+        automaticamente em modo seguro (failsafe).
+      </td>
+      <td>
+        O robô deve parar o movimento e aguardar reconexão ao detectar perda de
+        sinal.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF01-ROB</td>
+      <td>Robô</td>
+      <td>
+        O robô deve implementar protocolos de comunicação seguros entre hardware
+        e backend, utilizando criptografia DTLS (Data transfer layer security)
+        para prevenir ataques Man-in-the-Middle (MITM).
+      </td>
+      <td>
+        Todas as mensagens entre o robô e o backend devem ser criptografadas e
+        autenticadas.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF02-ROB</td>
+      <td>Robô</td>
+      <td>
+        A latência máxima de comunicação entre o robô e o backend não deve
+        ultrapassar 200 ms.
+      </td>
+      <td>
+        Testes de comunicação devem confirmar latência ≤ 200 ms em 95% do tempo
+        de operação.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF03-ROB</td>
+      <td>Robô</td>
+      <td>
+        O robô deve manter taxa mínima de disponibilidade de conexão de 99%,
+        reconectando-se automaticamente em menos de 3 segundos após uma falha de
+        rede.
+      </td>
+      <td>
+        O robô deve conseguir se reconectar sozinho após falha, dentro do tempo
+        especificado, em 95% dos testes.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF04-ROB</td>
+      <td>Robô</td>
+      <td>
+        A arquitetura do robô deve ser modular e redundante, permitindo que
+        falhas em um subsistema (ex: sensor ultrassônico) não comprometam o
+        funcionamento global.
+      </td>
+      <td>
+        Durante testes com falha induzida em subsistemas, o robô deve continuar
+        operando com funções críticas.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF05-ROB</td>
+      <td>Robô</td>
+      <td>
+        O robô deve ser fisicamente seguro, com motores limitados por torque e
+        velocidade para evitar impacto danoso em humanos ou objetos.
+      </td>
+      <td>
+        Em testes de segurança, os limites de força e velocidade não devem ser
+        ultrapassados.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF06-ROB</td>
+      <td>Robô</td>
+      <td>
+        A pilha ROS 2 (se for utilizado ROS 2) deve ser configurada com QoS
+        adequada aos canais críticos conforme prioridade de mensagem.
+      </td>
+      <td>
+        A configuração deve garantir que mensagens críticas (ex: parada de
+        emergência) tenham prioridade e baixa latência.
+      </td>
+    </tr>
+    <tr>
+      <td>RNF07-ROB</td>
+      <td>Robô</td>
+      <td>
+        O sistema deve ser testado em ambiente controlado para verificar
+        tolerância a falhas de sensores, perda de rede e falhas de hardware.
+      </td>
+      <td>
+        O sistema deve manter operação segura e controlada mesmo com falhas
+        simuladas em testes.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+É válido relembrar que a área de desenvolvimento de segurança não possui requisitos específicos definidos pois atua diretamente em todas as áreas e requisitos aqui listados de forma a garantir a segurança integral do projeto como um todo.
+
+## Atributos de Qualidade (ISO/IEC 25010)
+
+&emsp;Os **Requisitos Não Funcionais (RNFs)** são diretamente relacionados às oito características principais de qualidade de produto, conforme definidas pela norma **ISO/IEC 25010:2011**:
+
+<table>
+  <thead>
+    <tr>
+      <th>Característica de Qualidade</th>
+      <th>Subcaracterísticas</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Adequação Funcional</strong>
+      </td>
+      <td>
+        Completude funcional, Correção funcional, Apropriabilidade funcional
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Eficiência de Execução</strong>
+      </td>
+      <td>Comportamento no tempo, Utilização de recursos, Capacidade</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Compatibilidade</strong>
+      </td>
+      <td>Coexistência, Interoperabilidade</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Usabilidade</strong>
+      </td>
+      <td>
+        Adequação da reconhecibilidade, Apreensibilidade, Operacionalidade,
+        Proteção contra erro do usuário, Estética da interface, Acessibilidade
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Confiabilidade</strong>
+      </td>
+      <td>
+        Maturidade, Disponibilidade, Tolerância a falhas, Recuperabilidade
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Segurança (Security)</strong>
+      </td>
+      <td>
+        Confidencialidade, Integridade, Não repúdio, Responsabilidade,
+        Autenticidade
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Manutenibilidade</strong>
+      </td>
+      <td>
+        Modularidade, Reusabilidade, Analisabilidade, Modificabilidade,
+        Testabilidade
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Portabilidade</strong>
+      </td>
+      <td>
+        Adaptabilidade, Capacidade para ser instalado, Capacidade para
+        substituir
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Considerações Finais
+
+&emsp;A especificação dos requisitos apresentada neste documento estabelece uma base sólida para o desenvolvimento, integração e validação do sistema. Ao adotar a estrutura da **ISO/IEC 25010**, garante-se uma abordagem sistemática para mensurar a qualidade do produto em todas as suas dimensões, desde o comportamento funcional até os atributos de desempenho, segurança e manutenção.
+
+&emsp;A rastreabilidade entre áreas, tipos de requisito e critérios de aceitação assegura transparência, controle de qualidade e alinhamento entre equipes multidisciplinares, promovendo a entrega de um sistema confiável, seguro e de alta performance.
+
+## Bibliografia
+
+- BRIASMITATMS. Código de Conduta ISO/IEC 27018 para Proteção de Dados Pessoais na Nuvem - Microsoft Compliance. Disponível em: https://learn.microsoft.com/pt-br/compliance/regulatory/offering-iso-27018
+  . Acesso em: 20 out. 2025.
+
+- COMPARATIVA, U. Frameworks de Segurança. [s.l: s.n.], 2023. Disponível em: https://clavis.com.br/wp-content/uploads/2023/05/ebook-frameworks.pdf
+  . Acesso em: 21 out. 2025.
+
+- NIST. Framework de Segurança da Informação. Disponível em: https://documentacao.senior.com.br/seguranca-da-informacao/frameworks/nist.htm
+  . Acesso em: 22 out. 2025.
+
+- SETIC-UFSC. Proteção de Dados Pessoais – UFSC. Disponível em: https://lgpd.ufsc.br/duvidas-frequentes/
+  . Acesso em: 22 out. 2025.
