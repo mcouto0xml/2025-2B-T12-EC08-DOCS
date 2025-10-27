@@ -158,20 +158,20 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
 </Cards>
 
 
-# Sprint 2 (/docs/sprint-2)
+# Sprint 3 (/docs/sprint-3)
 
 <Cards>
-  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
     Modelo básico para criação de novos arquivos MDX.
   </Card>
 
-  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 </Cards>
 
 
-# Título do Documento (/docs/sprint-2/template)
+# Título do Documento (/docs/sprint-3/template)
 
 
 
@@ -314,20 +314,20 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
-# Sprint 3 (/docs/sprint-3)
+# Sprint 2 (/docs/sprint-2)
 
 <Cards>
-  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
     Modelo básico para criação de novos arquivos MDX.
   </Card>
 
-  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 </Cards>
 
 
-# Título do Documento (/docs/sprint-3/template)
+# Título do Documento (/docs/sprint-2/template)
 
 
 
@@ -1054,7 +1054,9 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 # Privacidade e Proteção de Dados (/docs/sprint-1/analise-impacto-etico/privacidade_e_protecao_de_dados)
 
 <Callout title="Aviso" type="warning">
-  Essa etapa compete ao parceiro de projeto, sendo delineado, nessa subseção, apenas recomendações por parte dos desenvolvedores de acordo com a Lei Geral de Proteção de Dados (2018) e as capacidades técnicas do robô.
+  Essa etapa compete ao parceiro de projeto, sendo delineado, nessa subseção,
+  apenas recomendações por parte dos desenvolvedores de acordo com a Lei Geral
+  de Proteção de Dados (2018) e as capacidades técnicas do robô.
 </Callout>
 
   Esta seção detalha como a privacidade dos visitantes será resguardada durante os tours com o cão-robô em ambiente educacional. O contexto é particularmente sensível: envolve dados potenciais de natureza biométrica (imagem e voz), um público majoritariamente composto por adolescentes e tecnologias emergentes de IA generativa. Por isso, recomenda-se uma abordagem responsável, documentada e transparente, compatível com a LGPD, a orientação da ANPD e as limitações técnicas do sistema.
@@ -1079,7 +1081,13 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 * Segurança e auditoria: registros mínimos para investigação de incidentes, com escopo reduzido e prazo curto.
 
 <Callout title="Nota sobre vídeo ao vivo" type="info">
-  Atualmente, o robô possui câmera HD com transmissão para o aplicativo do fornecedor. Conforme discutido, entende-se que: (i) a imagem não é guardada pelo sistema; (ii) é acessível apenas por pessoas na mesma rede e no app do fornecedor; (iii) o acesso exige chave criptográfica no app; (iv) o uso visa exclusivamente melhorar a navegação. Essa configuração reduz risco, mas não o elimina. Decisões finais devem ser formalizadas pelo parceiro, com assunção de impacto residual.
+  Atualmente, o robô possui câmera HD com transmissão para o aplicativo do
+  fornecedor. Conforme discutido, entende-se que: (i) a imagem não é guardada
+  pelo sistema; (ii) é acessível apenas por pessoas na mesma rede e no app do
+  fornecedor; (iii) o acesso exige chave criptográfica no app; (iv) o uso visa
+  exclusivamente melhorar a navegação. Essa configuração reduz risco, mas não o
+  elimina. Decisões finais devem ser formalizadas pelo parceiro, com assunção de
+  impacto residual.
 </Callout>
 
 ## Riscos e ameaças à privacidade
@@ -4866,14 +4874,14 @@ Os requisitos são classificados em duas categorias:
  As User Stories desenvolvidas a partir das diferentes personas (Estudante, Executivo e Staff Inteli) traduzem as expectativas de cada público em requisitos práticos para o robô-guia. Enquanto os visitantes buscam acolhimento, clareza e interação tecnológica, o staff visa padronização, controle e análise de desempenho. Assim, o sistema integra tecnologia, experiência do usuário e eficiência operacional, refletindo os valores de inovação e hospitalidade do Inteli.
 
 
-# Template de Pasta (/docs/sprint-2/template-pasta)
+# Template de Pasta (/docs/sprint-3/template-pasta)
 
 <Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
 </Cards>
 
 
-# Título do Documento (/docs/sprint-2/template-pasta/template)
+# Título do Documento (/docs/sprint-3/template-pasta/template)
 
 
 
@@ -5016,14 +5024,14 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
-# Template de Pasta (/docs/sprint-3/template-pasta)
+# Template de Pasta (/docs/sprint-2/template-pasta)
 
 <Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
 </Cards>
 
 
-# Título do Documento (/docs/sprint-3/template-pasta/template)
+# Título do Documento (/docs/sprint-2/template-pasta/template)
 
 
 
