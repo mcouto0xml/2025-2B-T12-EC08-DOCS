@@ -3809,11 +3809,10 @@ Onde estamos hoje. Globalmente, a base instalada e o know-how vêm da automaçã
 
 **Premissas de precificação RaaS (para todos os cálculos abaixo):** Setup único de R$ 178 mil/robô + mensalidade R$ 49 mil/robô por 36 meses → **ARR**/robô = R$ 588 mil/ano\[2] e **TCV**/robô (36m) = R$ 1,942 mi\[1].
 
-:::note\[Termos financeiros]
-
-* **TCV** (Total Contract Value): valor total do contrato ao longo do período contratado — aqui usado como referência para 36 meses.
-* **ARR** (Annual Recurring Revenue): receita recorrente anual.
-  :::
+<Callout type="info" title="Termos financeiros">
+  * **TCV** (Total Contract Value): valor total do contrato ao longo do período contratado — aqui usado como referência para 36 meses.
+  * **ARR** (Annual Recurring Revenue): receita recorrente anual.
+</Callout>
 
 ## TAM — Total Addressable Market (RaaS)
 
