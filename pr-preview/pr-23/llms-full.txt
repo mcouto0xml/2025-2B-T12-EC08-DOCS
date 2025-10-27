@@ -25,14 +25,108 @@ Bem-vindo à documentação do projeto! Aqui você encontrará informações det
 </Cards>
 
 
-# Análise de Impacto Ético (/docs/sprint-1/analise-de-impacto-etico)
+# Exploração Inicial do Robô (/docs/sprint-1/exploracao-robo)
 
+## Introdução
+
+Esta documentação apresenta os resultados da primeira fase de exploração do robô **Unitree Go2**, conduzida com o objetivo de avaliar sua viabilidade técnica e operacional para uso em tours autônomos no campus do **Inteli**.
+
+Nesta etapa, foram realizados testes físicos, verificações de limitações mecânicas e de firmware, além de uma análise inicial das ferramentas de desenvolvimento disponíveis, com foco em compreender os desafios e oportunidades para as próximas sprints do projeto.
+
+***
+
+## Testes Iniciais e Viabilidade Física
+
+O primeiro conjunto de testes buscou avaliar a capacidade do robô de operar em ambientes com variação de altura e restrição de espaço, como **escadas e elevadores**.
+
+Após consulta ao manual técnico da Unitree, identificou-se que o robô consegue subir **degraus de até 16 cm**, enquanto todas as escadas do campus possuem degraus acima desse limite.\
+Assim, o uso de escadas foi considerado **inviável**.
+
+Quanto ao **elevador**, verificou-se que o robô **não pode permanecer em espaços menores que 2m x 2m** e **precisa manter conexão constante com a internet**. Como os elevadores do campus não atendem a essas condições, o uso também foi considerado **inadequado**.
+
+Dessa forma, concluiu-se que o **trajeto ideal** para o tour deve ocorrer **exclusivamente em um pavimento**.
+
+***
+
+## Descoberta sobre Firmware e Suporte ao ROS2
+
+Buscando compreender os primeiros passos de configuração e controle do robô, a equipe consultou um professor orientador e um aluno veterano com experiência prévia no mesmo equipamento.
+
+Durante essas consultas, foi identificado que o **firmware do robô havia sido atualizado para a versão 1.1.11**, o que resultou na **perda do suporte oficial ao ROS2** — ferramenta essencial para navegação autônoma e integração com pacotes como o **Nav2**.
+
+Essa descoberta impactou diretamente o planejamento técnico, tornando necessário adotar uma **abordagem via SDK** ao invés de utilizar o ecossistema ROS2.
+
+***
+
+## Tentativas com o SDK Oficial da Unitree
+
+Como alternativa, a equipe iniciou os testes utilizando o **SDK oficial da Unitree**, disponível em:
+
+[https://github.com/unitreerobotics/unitree\_sdk2](https://github.com/unitreerobotics/unitree_sdk2)
+
+Durante os experimentos, foi possível controlar **movimentos básicos por juntas**, como o comando para o robô se levantar (pré-programado no SDK).\
+Porém, ao tentar utilizar o módulo **Sport Client**, responsável pelas movimentações autônomas e trajetórias pré-definidas, o sistema **não funcionou corretamente**.
+
+O Sport Client podia ser ativado pelo aplicativo conectado no tablet, mas **desligava automaticamente após alguns segundos**, impossibilitando seu uso.
+
+A documentação oficial do SDK é bastante limitada, com poucas referências disponíveis:
+
+[https://support.unitree.com/home/en/developer/Application\_development](https://support.unitree.com/home/en/developer/Application_development)
+
+Dessa forma, a equipe iniciou uma análise linha a linha dos códigos do repositório oficial, buscando compreender sua estrutura e identificar possíveis adaptações. Até o momento, **não foi possível realizar modificações bem-sucedidas**.
+
+***
+
+## Testes Práticos no Campus
+
+Em paralelo aos testes de software, foram realizados experimentos práticos com o **controle remoto do robô**, no **térreo do campus do Inteli**, espaço considerado mais adequado para o tour.
+
+### Observações de campo
+
+* O robô consegue **passar pela catraca** se ela estiver aberta.\
+  Quando fechada, **a altura do acrílico precisa ser reduzida** em alguns centímetros para permitir sua passagem.
+* O robô **detecta as paredes de vidro** do **Espaço Multiuso 01** e consegue se desviar delas adequadamente.
+* Ele **passa pela primeira porta do auditório**, mas **a segunda é estreita**, o que pode causar dificuldade.
+* O **corredor das salinhas** é acessível, mas exige atenção por ter **grande fluxo de pessoas**.
+
+Esses resultados demonstram que o robô possui boa percepção ambiental, mas a **navegação autônoma** ainda depende de validações futuras, especialmente quando o sistema estiver processando **múltiplas requisições** simultâneas.
+
+***
+
+## Pesquisas Paralelas e Próximos Passos
+
+Com as limitações identificadas no SDK e firmware, a equipe iniciou a busca por **soluções alternativas e comunitárias** que possam restaurar ou complementar as funcionalidades desejadas.
+
+### Repositórios em análise
+
+* [https://github.com/legion1581/unitree\_webrtc\_connect/tree/2.x.x](https://github.com/legion1581/unitree_webrtc_connect/tree/2.x.x)
+* [https://github.com/abizovnuralem/go2\_ros2\_sdk](https://github.com/abizovnuralem/go2_ros2_sdk)
+* [https://github.com/jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+A equipe também ingressou na comunidade da **Unitree Robotics no Discord**, utilizada como canal para **troca de informações técnicas** e **suporte entre desenvolvedores**:
+
+[https://discord.gg/wmGmmgDd9](https://discord.gg/wmGmmgDd9)
+
+***
+
+## Considerações Finais
+
+A fase de exploração inicial permitiu compreender as **limitações físicas e técnicas** do robô Unitree Go2, os impactos da **atualização de firmware**, e a necessidade de buscar soluções alternativas ao SDK oficial.
+
+Esta etapa foi essencial para **definir o escopo técnico** e direcionar as próximas sprints, que terão como foco:
+
+1. Testar repositórios alternativos de controle remoto e ROS2 adaptado.
+2. Garantir comunicação estável e segura com o robô.
+3. Iniciar o desenvolvimento de **trajetórias controladas por waypoints**.
+
+O objetivo desses avanços é **implementar um caminho de waypoints no térreo** do campus para **validar a viabilidade da rota planejada** utilizando esse método.\
+Essa validação será o ponto de partida para a criação de um sistema de **navegação autônoma segura e reprodutível** em ambiente real.
 
 
 # Sprint 1 (/docs/sprint-1)
 
 <Cards>
-  <Card href="/docs/sprint-1/entendimento-do-negocio" title="Entedimento do Negócio">
+  <Card href="/docs/sprint-1/entendimento-do-negocio" title="Entendimento do Negócio">
     Apresenta a análise do contexto de mercado, proposta de valor e viabilidade
     financeira do projeto, identificando oportunidades, riscos e posicionamento
     estratégico.
@@ -53,6 +147,13 @@ Bem-vindo à documentação do projeto! Aqui você encontrará informações det
     Examina as implicações éticas do projeto, avaliando potenciais impactos
     sociais, ambientais e legais, e propondo diretrizes para garantir a
     responsabilidade e sustentabilidade.
+  </Card>
+
+  <Card href="/docs/sprint-1/exploracao-robo" title="Exploração do Robô">
+    Documenta a fase inicial de testes e investigações técnicas do robô Unitree
+    Go2, incluindo limitações físicas, análise de firmware, uso do SDK e
+    experimentos práticos realizados no campus para validar a viabilidade do
+    tour autônomo.
   </Card>
 </Cards>
 
@@ -681,12 +782,494 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
-# Análise Financeira (/docs/sprint-1/entendimento-do-negocio/analise-financeira)
+# Equidade e Justiça (/docs/sprint-1/analise-de-impacto-etico/equidade-justica)
+
+ Esta seção aborda as considerações de equidade e justiça essenciais para o projeto, garantindo que a interação com o robô seja inclusiva e não crie ou perpetue barreiras para grupos marginalizados. As barreiras de acessibilidade para pessoas com deficiências são consideradas o conjunto mais crítico de considerações, pois podem levar à exclusão total de certos visitantes, contradizendo os objetivos de divulgação científica e acessibilidade do Inteli.
+
+## Barreiras de Acessibilidade (PCD)
+
+ A acessibilidade é um pilar da equidade e um requisito legal. A Lei Brasileira de Inclusão (LBI, Lei 13.146 de 2015) e a norma técnica ABNT NBR 9050:2020 operacionalizam esses princípios, exigindo a aplicação do "Design Universal". De particular relevância é o "princípio de dois sentidos", que determina que informações essenciais devem ser fornecidas em pelo menos duas modalidades sensoriais (visual, sonora e/ou tátil) para garantir a compreensão.
+
+### Deficiência Visual
+
+ Para visitantes cegos ou com baixa visão, um robô que se baseia em interação visual representa uma barreira significativa. Mais criticamente, o robô, por operar de forma relativamente silenciosa, constitui um risco de segurança e colisão.   Recomendações: A acessibilidade adequada exige um sistema de narração com áudio espacializado para indicar a localização do robô, controles de volume claros e, crucialmente, a inclusão de um auxiliar humano para certificar-se de que o robô não irá colidir com pessoas com deficiência.
+
+### Deficiência Auditiva
+
+ Para visitantes surdos ou com perda auditiva, um robô que se comunica primariamente por voz "efetivamente silencia" o participante. A dependência de comandos de voz ou respostas auditivas sem alternativa visual viola o "princípio de dois sentidos".   Recomendações: A solução requer um display visual posicionado em altura acessível (conforme NBR 9050), que apresente todo o conteúdo falado em texto sincronizado. Este texto deve ter alto contraste, tamanho de fonte adequado e ser apresentado em linguagem clara.
+
+### Deficiência de Mobilidade
+
+ Visitantes com mobilidade reduzida (usuários de cadeira de rodas, próteses, muletas, ou com dificuldade de locomoção) enfrentam uma barreira significativa relacionada à velocidade. O robô pode atingir picos de velocidade de até 5 m/s, o que é muito superior à velocidade de caminhada confortável ou segura para muitos indivíduos.
+
+**Recomendações:** Em conformidade com a NBR 9050, o sistema deve permitir que o usuário tenha controle total sobre o ritmo do tour. Isso inclui funções de pausar e retomar a qualquer momento e um controle de velocidade ajustável, que idealmente deve operar na faixa de velocidade de caminhada humana (entre 0,3 m/s e 1,2 m/s).
+
+<Callout title="Nota Adicional" type="tip">
+  {" "}
+
+  A análise de equidade também deve considerar deficiências cognitivas. Para
+  estes visitantes, recomenda-se o uso de interfaces radicalmente simplificadas,
+  linguagem literal (evitando ambiguidades) e um comportamento previsível do
+  robô para evitar sobrecarga sensorial.{" "}
+</Callout>
+
+## Inclusão Digital e Viés Sociocultural
+
+ A equidade transcende a acessibilidade física, englobando barreiras digitais e culturais que podem ser mais sutis, mas igualmente excludentes.
+
+## Elitização e Alfabetização Digital
+
+ A interação com tecnologias avançadas não é universal. A exclusão digital pode manifestar-se de várias formas:
+
+* **Intimidação**: Visitantes com menor familiaridade tecnológica podem sentir-se intimidados ou desconfortáveis ao interagir vocalmente com uma máquina.
+
+* **Terminologia**: O uso de jargões técnicos pelo robô pode ser "completamente opaco" para alunos de escolas com menos recursos, criando uma barreira de compreensão.
+
+* **Estilos de Comunicação**: A necessidade de usar comandos diretos e assertivos pode ser culturalmente desconfortável para jovens de backgrounds específicos, que podem ter estilos de comunicação mais indiretos.
+
+* **Alfabetização Mínima**: O próprio ato de "fazer perguntas a um robô" exige uma alfabetização digital e uma confiança que não podem ser presumidas como universais.
+
+## Viés de Reconhecimento de Fala (Sotaques)
+
+ Este é um dos riscos mais críticos de exclusão social. Sistemas de Reconhecimento Automático de Fala (ASR) são notórios por apresentarem taxas de erro sistematicamente maiores para sotaques não-padrão.
+
+<Callout title="Risco Crítico: Exclusão Simbólica" type="danger">
+  {" "}
+
+  O sistema de ASR, treinado majoritariamente com o "padrão paulistano", pode
+  falhar repetidamente ao processar sotaques nordestinos, nortistas, do interior
+  rural, ou de falantes não-nativos e adolescentes (gírias). Cada falha
+  ("Desculpe, não entendi") não é meramente um inconveniente técnico, mas uma
+  comunicação simbólica de "você não pertence aqui". Isso pode desestimular
+  ativamente jovens de backgrounds marginalizados de se engajarem com a
+  tecnologia e com o próprio Inteli.{" "}
+</Callout>
+
+
+# Análise de Impacto Ético (/docs/sprint-1/analise-de-impacto-etico)
+
+Impactos Éticos e Sociais: Robô de Serviço Autônomo Unitree Go2 no Inteli.
+
+## **Introdução**
+
+O presente documento apresenta uma análise abrangente dos impactos éticos e sociais da implementação de um robô quadrúpede Unitree Go2 equipado com inteligência artificial generativa para realização de tours educacionais no campus do Instituto de Tecnologia e Liderança. O projeto visa automatizar a apresentação do campus para estudantes de ensino médio, proporcionando uma experiência interativa e inovadora. Esta análise examina dimensões críticas como equidade e justiça, responsabilidade social, viés e discriminação, entre outras.
+
+<Cards>
+  <Card href="/docs/sprint-1/analise-de-impacto-etico/responsabilidade-social" title="Responsabilidade Social">
+    Apresenta a seção sobre responsabilidade social.
+  </Card>
+
+  <Card href="/docs/sprint-1/analise-de-impacto-etico/equidade-justica" title="Equidade e Justiça">
+    Detalha a seção sobre equidade e justiça.
+  </Card>
+
+  <Card href="/docs/sprint-1/analise-de-impacto-etico/transparencia" title="Transparência">
+    Fornece uma análise sobre a transparência.
+  </Card>
+
+  <Card href="/docs/sprint-1/analise-de-impacto-etico/vieses" title="Viéses">
+    Apresenta a documentação sobre vieses.
+  </Card>
+</Cards>
+
+## **Conclusão**
+
+A análise conclui que o projeto possui um potencial significativo de impacto educacional positivo, alinhando-se às ODS 4 e 9. Contudo, para mitigar os riscos substanciais identificados, o projeto exige uma "implementação rigorosa de salvaguardas éticas, conformidade regulatória com a LGPD e Lei Brasileira de Inclusão, e compromisso institucional com equidade e transparência radical".
+
+
+# Responsabilidade Social (/docs/sprint-1/analise-de-impacto-etico/responsabilidade-social)
+
+ Esta seção examina o alinhamento do projeto com os Objetivos de Desenvolvimento Sustentável (ODS) da ONU, analisando os impactos sociais positivos e negativos previstos. É fundamental reconhecer que, embora o projeto promova a inovação, ele também gera impactos complexos. Um impacto negativo notável é a dependência de tecnologia importada; o robô Unitree Go2 é fabricado na China, fazendo com que o investimento financeiro flua para fora do Brasil, em vez de fomentar a indústria de robótica doméstica.
+
+## Promoção de Objetivos de Desenvolvimento Sustentável
+
+ O projeto demonstra um forte alinhamento com ODS focadas em inovação e educação, posicionando a instituição como um polo de desenvolvimento tecnológico.
+
+### ODS 9: Indústria, Inovação e Infraestrutura
+
+ O projeto contribui diretamente para a ODS 9. Ele estabelece o Inteli como um centro de excelência em robótica de serviço e cria um testbed (ambiente de testes) para pesquisa aplicada em interação humano-robô (IHR) e mitigação de viés algorítmico. No contexto brasileiro, que historicamente possui uma baixa densidade de robôs (10 por 10.000 trabalhadores contra a média global de 74), a exposição de milhares de estudantes à robótica avançada contribui para a normalização da tecnologia. Além disso, fomenta a construção de um pipeline de talentos em engenharia e computação.
+
+### ODS 4: Educação de Qualidade
+
+ O projeto também se alinha à ODS 4, com um impacto educacional positivo que pode se estender além dos tours diretos.
+
+<Callout title="Dica" type="tip">
+  {" "}
+
+  A disponibilização de materiais educacionais open-source derivados do projeto
+  (como documentação técnica, templates de políticas de privacidade e análises
+  éticas) permite que outras instituições de ensino brasileiras se beneficiem do
+  investimento e aprendizado gerados pelo Inteli.{" "}
+</Callout>
+
+## Riscos aos Objetivos de Desenvolvimento Sustentável
+
+ Embora promova a ODS 4 (Educação), o projeto pode, paradoxalmente, ferir metas de equidade se não for implementado com o devido cuidado.
+
+### ODS 4.5: Eliminação de Disparidades na Educação
+
+ A meta 4.5 da ODS 4 foca especificamente na eliminação de disparidades e na garantia de acesso igualitário à educação. A introdução de tecnologia avançada pode inadvertidamente prejudicar este objetivo.
+
+<Callout title="Risco Crítico: Ampliação de Lacunas Educacionais" type="danger">
+  {" "}
+
+    Se não houver uma mediação humana cuidadosa e um design
+  intencionalmente inclusivo (conforme detalhado na seção de Equidade e
+  Justiça), o robô pode tornar-se mais uma tecnologia que amplia, ao invés de
+  reduzir, os gaps educacionais existentes. A falha em garantir acessibilidade e
+  mitigar vieses (como o de sotaque) pode reforçar barreiras para alunos de
+  backgrounds marginalizados.{" "}
+</Callout>
+
+
+# Transparência e Consentimento Informado (/docs/sprint-1/analise-de-impacto-etico/transparencia)
 
 
 
-# Canvas Prosposta de Valor (/docs/sprint-1/entendimento-do-negocio/canvas-proposta-de-valor)
+<Callout title="Aviso" type="warning">
+  Essa etapa compete ao parceiro de projeto, sendo delineado, nessa subseção,
+  apenas recomendações por parte dos desenvolvedores de acordo com a Lei Geral
+  de Proteção de Dados (2018) e as capacidades técnicas do robô.
+</Callout>
 
+  Essa seção apresenta evidências de como todas as partes envolvidas devem ter acesso claro às informações relevantes. Além disso, apresenta como o consentimento é deve ser obtido de maneira adequada. Para esse fim contempla-se os seguintes stakeholders, não exaustivamente:
+
+* Desenvolvedores;
+* Visitantes do Inteli;
+* Pais dos visitantes;
+* Docentes e discentes do Inteli;
+* Governo;
+
+## Transparência
+
+  A transparência constitui não apenas princípio ético fundamental mas requisito legal explícito da LGPD conforme Artigo 6 inciso VI, estabelecendo que o tratamento de dados deve garantir aos titulares informações claras, precisas e facilmente acessíveis sobre realização do tratamento e respectivos agentes (Brasil, 2018). Em contexto de tecnologias de inteligência artificial aplicadas a populações vulneráveis como menores de idade, a transparência transcende conformidade regulatória para tornar-se condição sine qua non de legitimidade social do projeto. Por essa razão, a implementação deve adotar uma abordagem de transparência em três camadas: técnica, processual e comunitária; reconhecendo que diferentes stakeholders têm necessidades informacionais distintas e que informação deve ser não apenas disponibilizada mas ativamente comunicada de formas apropriadas e compreensíveis.
+
+  A transparência técnica demanda documentação pública abrangente das capacidades e limitações do robô Unitree Go2. Esta documentação deve especificar claramente quais sensores estão instalados no equipamento (câmeras HD e de profundidade, LiDAR, microfones, GPS), quais desses sensores estão ativos durante os tours e sob quais circunstâncias específicas, qual processamento ocorre localmente versus em servidores remotos, e quais integrações com serviços externos de inteligência artificial são utilizadas.
+
+  Além disso, a explicação de como a IA generativa funciona deve ser acessível a leigos, evitando abstrações técnicas enquanto mantém precisão factual, esclarecendo que o sistema é baseado em modelos de linguagem de grande escala treinados em textos da internet que identificam padrões estatísticos para gerar respostas coerentes mas não "pensam" ou "compreendem" no sentido humano. As fontes de dados utilizadas no treinamento desses modelos devem ser divulgadas na medida do possível, reconhecendo limitações de propriedade intelectual de fornecedores terceiros mas comprometendo-se com máxima abertura dentro dessas restrições.
+
+<Callout title="Dica" type="tip">
+  Esse repositório é benéfico no sentido de disponibilizar maior transparência.
+  Por meio dele, pais, visitantes e até desenvolvedores podem aprender
+  informações mais específicas do projeto de modo a fomentar a ciência como
+  declarado na seção de Responsabilidade Social.
+</Callout>
+
+  Ademais, a divulgação honesta de limitações conhecidas deve ocorrer de acordo com os testes, conforme apresentado na seção anterior. Caso não passe na avaliação formal, o cão-robô ou o guia deve proativamente comunicar que o reconhecimento de voz apresenta maior taxa de erro para sotaques regionais específicos comparado a sotaque paulistano padrão, que o sistema pode não compreender adequadamente gírias ou expressões idiomáticas regionais e que a inteligência artificial pode ocasionalmente gerar respostas incorretas ou *nonsensical* devido à natureza probabilística de sua operação. Esta honestidade sobre imperfeição estabelece expectativas realistas e constrói confiança através de candor ao invés de marketing hiperbólico.
+
+  A transparência processual é fortemente recomendada, mesmo não competendo à equipe de desenvolvimento responsável pela Prova de Conceito. Ela requer publicação da Política de Privacidade específica do projeto em linguagem clara e acessível, evitando jargão jurídico enquanto mantém precisão legal, com disponibilização tanto em formato textual completo quanto em resumos visuais usando infográficos e ícones para comunicação rápida de pontos-chave. Nesses sentido, recomenda-se também a transparência comunitária. Esta vai além de documentação passiva para engajamento ativo com stakeholders. Apresentações abertas para comunidade do Inteli incluindo alunos atuais, pais de potenciais candidatos, professores e funcionários devem ser realizadas antes do deployment completo, oferecendo demonstrações ao vivo do robô, oportunidade para perguntas sem restrições, e coleta de feedback que genuinamente influencia decisões de projeto.
+
+## Consentimento Informado
+
+  O consentimento informado dos visitantes também ocorrerá em camadas, de modo a reconhecer que decisões sobre privacidade não são eventos únicos mas processos contínuos que requerem reafirmação periódica e granularidade de escolha. Todas essas etapas, porém, **são recomendativas e dependem da aplicação e integração delas, por parte do parceiro, ao seu sistema de tour.**
+
+  A primeira camada deve ocorrer previamente ao agendamento do tour quando visitantes acessam o site do Inteli - A Figura 1 apresenta essa tela. Neste momento, haverá um aviso destacado sobre utilização de robô autônomo. Inclui-se, então, um link proeminente para página dedicada descrevendo o projeto em profundidade técnica apropriada, vídeo curto de dois a três minutos mostrando o robô em ação durante tour real e explicando de forma acessível como funciona, e seção de perguntas frequentes respondendo questões comuns sobre privacidade, segurança, acessibilidade e opções de participação.
+
+<div style={{ textAlign: "center" }}>
+  <sup>
+    Figura 1: Agende uma Visita - Inteli
+  </sup>
+</div>
+
+<img alt="Agende Sua Visita" src={__img0} placeholder="blur" />
+
+<div style={{ textAlign: "center" }}>
+  <sub style={{ textAlign: "center" }}>
+    Fonte: Produzida pelos Autores (2025).{" "}
+  </sub>
+</div>
+
+  A segunda camada consiste em consentimento parental formal necessário para visitantes menores de 18 anos, implementado através de formulário online específico enviado aos responsáveis legais após agendamento do tour. Este formulário deve começar com identificação inequívoca do responsável legal coletando nome completo, CPF, email e telefone de contato, e relação legal com o menor (pai, mãe, tutor judicial), seguida de verificação robusta de identidade através de validação de CPF em bases públicas da Receita Federal.
+
+  A explicação sobre tratamento de dados deve utilizar linguagem absolutamente clara e direta, estruturada em perguntas e respostas curtas:
+
+* **Quais informações serão coletadas sobre meu filho?**: seguido de lista específica (transcrição da interação visitante-robô, registro das respostas fornecidas pelo robô, localização dentro do campus durante o tour);
+* **Por quanto tempo essas informações serão mantidas?**: com resposta precisa sobre períodos de retenção diferenciados por tipo de dado;
+* **Quem terá acesso a essas informações?**: especificando equipes autorizadas;
+* **Como essas informações estão protegidas?**: descrevendo medidas de segurança em termos compreensíveis.
+
+  O direito de revogação do consentimento deve ser tão simples quanto sua concessão original, implementado através de link em todos os emails enviados aos participantes levando a formulário web de uma página que solicita apenas confirmação de identidade e motivo opcional para revogação (útil para melhoria mas não obrigatório). O processamento da revogação deve ser automatizado com confirmação imediata de recebimento e deleção de dados completamente finalizada dentro de 48 horas, seguida de email de confirmação com certificado de deleção especificando quais dados foram removidos e timestamp da operação.
+
+  Deve haver também a possibilidade de solicitação de download de cópia completa dos dados em formato estruturado (portabilidade conforme Artigo 18 da LGPD), correção de qualquer informação incorreta associada ao cadastro, solicitação de anonimização que mantém dados para finalidades estatísticas mas remove qualquer possibilidade de reidentificação, e solicitação de deleção completa e irrevogável de todos os dados.
+
+  Uma observação acerca do consentimento é a autorização do uso de imagens dos estudantes. Hoje em dia, o robô possui uma câmera HD, cuja imagem é transmitida para o aplicativo do drone. Em 22/10/2025, discutiu-se acerca da segurança desse dado e apreendeu-se o seguinte:
+
+* A imagem do visitante é coletada, mas não guardada por parte do sistema;
+* A imagem é acessível apenas por pessoas na mesma rede e no aplicativo do fornecedor;
+* A imagem é acessível apenas por meio de chave criptográfica presente no aplicativo;
+* A imagem é usada apenas para melhor navegação do robô.
+
+  Sendo assim, reconhece-se que a imagem apesar de potencialmente gravosa à reputação da instituição tem uma probabilidade muito baixa de ser vazada. Portanto, fica à critério do parceiro incluir isso na lista de dados coletados, cabendo ao próprio arcar com potenciais impactos dessa decisão.
+
+# Bibliografia
+
+\*BRASIL. LEI No 13.709, DE 14 DE AGOSTO DE 2018. Disponível em: [https://www.planalto.gov.br/ccivil\_03/\_ato2015-2018/2018/lei/l13709.htm](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm).
+
+
+# Vieses e Discriminação (/docs/sprint-1/analise-de-impacto-etico/vieses)
+
+  Nessa subseção, visualiza-se os possíveis vieses e medidas discriminatórias que podem surgir involuntariamente em decorrência da implementação do sistema. São eles: o sotaque reconhecido pelo robô e a sua personalidade. Vê-se que trata-se de uma extensão da seção anterior, pois o tópico da pronúncia será abordado aqui com maior profundidade. No entanto, também discorreremos sobre a questão da própria "personalidade" do robô, compreendendo como a escolha desse fator pode excluir alguns grupos. Por fim, trata-se como mitigar esses vieses, seja no tempo presente ou em planos futuros.
+
+## Sotaque
+
+  No que tange à pronúncia reconhecida pelo robô, deve-se ter em mente que a equipe responsável pela IA pode influenciar significativemente nesta. Atualmente, essa equipe é formada por seis sudestinos e dois nordestinos, ou seja, 75% da equipe possui um sotaque similar. Consequentemente, na adoção de testes informais para o reconhecimento de voz, é provável que este sotaque seja privilegiado. O robô estará em razoável operacional quando reconhecer as vozes de seus criadores.
+
+  Em um sentido a situação supracitada não é problemática. A composição dos membros do time de IA corresponde com a atual situação do Inteli. Entre os bolsistas (aproximadamente, 50% do público total), mais de 60% dos alunos são sudestinos (Inteli, 2024). Portanto, mesmo testes informais deverão condizer com o público alvo *de facto* da instituição. Em outro sentido, porém, essa situação é problemática em dois aspectos: crescimento e acolhimento.
+
+  O primeiro problema diz respeito ao principal *stakeholder* do projeto: a área de *growth*. Como mostrado durante a apresentação executiva, essa equipe do Inteli não prezou fazer o Inteli conhecido em São Paulo apenas, mas nos estados fora da região sudeste. Um exemplo dessa iniciativa é a “Estação Inteli” que entre agosto e outubro, passou por escolas de 11 cidades em 8 estados, incluindo Goiânia, Belo Horizonte, Salvador e Fortaleza com o objetivo de "aproximar o processo seletivo" (Cervi, 2025).
+
+  O segundo problema diz respeito a postura de acolhimento enunciada pela instituição. Segundo o Livro do Inteli, a instituição preza por uma postura acolhedora, cuja definição dada pelo livro é que " Uma postura acolhedora significa estar atento e predisposto à diversidade cultural, racial e étnica, escapando de lógicas binárias e lineares, e deve ser institucionalizada como política, praticada por todos, desde o time de gestão, o professor, até o funcionário da administração" (Inteli, 2025, p. 109).
+
+  Vê-se por esses dois fatores que o robô-guia desenvolvido deve ser aberto em sua comunicação à diversidade cultural brasileira. Isso não significa, em primeiro momento, que sua personalidade deve ser volátil a ponto de abranger todas as regiões do Brasil. Também não significa que um modo de voz diferente deve ser aplicado para cada interlocutor. Essas definições, mesmo que decladaramente inclusivas não necessariamente refletirão o acolhimento do robô senão for resolvido um problema mais básico: os numerosos erros de algoritmos de reconhecimento de voz quando confrotados com sotaques (Mu et al., 2021).
+
+  As consequências deste viés não-mitigado em contexto educacional são profundas e duradouras. Quando estudantes de grupos marginalizados experimentam falhas repetidas de reconhecimento de voz necessitando múltiplas tentativas de reformulação enquanto observam colegas de backgrounds privilegiados serem compreendidos imediatamente, a mensagem implícita comunicada é "este sistema não foi feito para pessoas como você". Esta experiência microagressiva repetida contribui para fenômeno bem documentado de "belonging uncertainty" onde indivíduos de grupos sub-representados questionam se pertencem genuinamente a campos técnicos, resultando em taxas mais altas de attrition de mulheres e minorias raciais de pipelines STEM (Zander e Ertl, 2023).
+
+  Nesse sentido, para mitigar o viés não intencional do sotaque sudestino por parte do algoritmo de reconhecimento de voz, propõe-se as medidas que se seguem.
+
+### Medidas de Mitigação
+
+  Propõe-se para resolver o viés sudestino uma avaliação formal. Trata-se de um teste de reconhecimento a partir de um dataset representativo contendo 20 frases de comando típicas ("Explique o processo seletivo do Inteli", "Quanto custa estudar aqui?", "Quais são os cursos oferecidos?") gravadas por 25 falantes diversos selecionados estrategicamente para representar diversidade demográfica: cinco falantes de cada uma das cinco macro-regiões brasileiras (Sul, Sudeste, Nordeste, Norte, Centro-Oeste) para capturar variação geográfica de sotaques; distribuição equitativa entre gêneros masculino e feminino; duas faixas etárias correspondentes ao público-alvo (14 a 16 anos, 17 a 18 anos); Cada frase deve ser gravada em ambiente natural (não estúdio) para simular condições reais de operação.
+
+  A métrica primária de avaliação é Word Error Rate calculada como número de palavras incorretamente reconhecidas dividido por número total de palavras, com threshold de aceitabilidade estabelecido em WER inferior a 15% para todos os subgrupos - conforme expertise dos autores. Ademais, deve-se também calcular disparidade máxima definida como diferença absoluta entre o grupo com menor WER e grupo com maior WER, com threshold de aceitabilidade estabelecido em diferença inferior a 5 pontos percentuais. Se algum subgrupo exceder threshold de 15% WER, ou se disparidade entre grupos exceder 5%, fine-tuning adicional utilizando dados brasileiros diversos é obrigatório antes de deployment.
+
+  Se esse *fine-tuning* for insuficiente, propõe-se a transparência que será detalhada na seção Transparência e Consentimento Informado.
+
+## Personalidade
+
+  Outra preocupação da equipe de Interação Humano-Máquina é a "personalidade" a ser transmitida pelo robô em suas comunicações no tour. O design de interação e escolhas de conteúdo constituem camada adicional onde viés pode ser inadvertidamente incorporado. A seleção de voz para o robô (gênero, sotaque, registro linguístico), os exemplos utilizados em explicações (que referências culturais são presumidas familiares?), as metáforas escolhidas para explicar conceitos técnicos (presumem experiência com quais tecnologias cotidianas?), e até o naming do próprio robô podem comunicar mensagens sobre quem é o "usuário default" imaginado e quem são "outros" que devem adaptar-se.
+
+  Essa preocupação, enderaçada em reunião oficial nos dias 17/10/2025 e 22/10/2025, é uma escolha que deve ser constatemente monitorada. No primeiro desses dias, estabeleceu-se não colocar no robô uma personalidade marcadamente paulistana. Em vez disso, apresentou-se a possibilidade de diminuir o grau de antropormofização, colocando no cão, suas características esperadas (ex. latidos repentinos). No segundo dia, discutiu-se a preferência pelo uso de linguagem simplificada de modo a não marcar o gênero na linguagem.
+
+  Não obstante, limitações técnicas das tecnologias atuais de reprodução de áudio sintético (como a predominância de vozes masculinas) podem limitar o escopo de ação da equipe. Involuntariamente, o robô pode, por exemplo, tomar uma voz grave por essa soar mais natural por parte da evolução dos algoritmos. Ainda assim, impactos éticos nos visitantes deve ser monitorados. Por essa razão, em vias de mitigar esse problema, **recomenda-se a implementação de um formulário ao final do tour com perguntas acerca do conforto dos usuários em sua comunicação com o cão-robô**.
+
+## Bibliografia
+
+\*CERVI, A. Inteli lança “Estação Inteli” para levar experiência prática e inovação a estudantes do ensino médio. Live Marketing, 25 out. 2025.
+\*INTELI. Inteli : Instituto de Tecnologia e Liderança : história, construção e metodologia. \[s.l.] Inteli, 2025. p. 109
+\*INTELI. Relatório Anual. \[s.l.] Inteli, 2024. Disponível em: [https://www.inteli.edu.br/wp-content/uploads/2024/08/RELATORIO-ANUAL-2024-22082024-FINAL-DIGITAL.pdf](https://www.inteli.edu.br/wp-content/uploads/2024/08/RELATORIO-ANUAL-2024-22082024-FINAL-DIGITAL.pdf). Acesso em: 26 out. 2025.
+\*MU, B. et al. Mixture of LoRA Experts With Multi-Modal and Multi-Granularity LLM Generative Error Correction for Accented Speech Recognition. IEEE Transactions on Audio, Speech and Language Processing, v. 33, p. 2973–2985, 2025.
+\*ZANDER, L.; ERTL, B. Female Students’ Belonging Uncertainty in Higher Education STEM Environments. Routledge eBooks, p. 67–78, 16 out. 2023.
+
+
+# Análise financeira (/docs/sprint-1/entendimento-do-negocio/analise-financeira)
+
+# Introdução
+
+  A análise financeira tem como principal função quantificar custos, despesas e preço total do projeto desenvolvido, considerando equipe técnica e ferramentas específicas para a finalização e manutenção do projeto contratado \[1]. A planilha da análise financeira desenvolvida para o projeto pode ser encontrada neste [documento](https://docs.google.com/spreadsheets/d/1Rfc-X_f0lI5Y1oXJLWrr4Uq6wzQ6qkgw_KJwlaRfr2g/edit?usp=sharing).
+
+  No contexto de desenvolvimento do projeto, a análise financeira foi dividida em duas etapas: a análise de **Desenvolvimento Inicial (2.5 meses)**, que inclui os valores do protótipo e das primeiras entregas, e a análise de **Manutenção (12 meses)**, que diz respeito ao desenvolvimento efetivo do produto e seu suporte no ambiente do cliente. O projeto total tem uma duração de 14.5 meses. Abaixo encontram-se os detalhes financeiros das duas etapas.
+
+## 1.1 Investimento Inicial
+
+  O investimento inicial engloba todos os gastos não recorrentes necessários para iniciar o projeto e adquirir os ativos de longo prazo. Isso inclui custos de setup da empresa, contratação inicial da equipe e a aquisição de equipamentos essenciais, como notebooks e hardware específico para testes e desenvolvimento.
+
+| Item                           | Quantidade | Valor Unitário (R\$) |  Valor Base (R\$)  | Tributações (R\$) |     Total (R\$)    |
+| :----------------------------- | :--------: | :------------------: | :----------------: | :---------------: | :----------------: |
+| Setup Inicial                  |      1     |     R\$ 5.000,00     |    R\$ 5.000,00    |    R\$ 1.450,00   |    R\$ 6.450,00    |
+| Contratação de Funcionários    |      4     |     R\$ 3.500,00     |    R\$ 14.000,00   |    R\$ 4.060,00   |    R\$ 18.060,00   |
+| Notebooks para desenvolvedores |     15     |     R\$ 5.400,00     |    R\$ 81.000,00   |      R\$ 0,00     |    R\$ 81.000,00   |
+| Tablet                         |      1     |     R\$ 2.500,00     |    R\$ 2.500,00    |      R\$ 0,00     |    R\$ 2.500,00    |
+| Cachorro Robô                  |      1     |    R\$ 155.966,44    |   R\$ 155.966,44   |      R\$ 0,00     |   R\$ 155.966,44   |
+| **TOTAL GERAL**                |            |                      | **R\$ 258.466,44** |  **R\$ 5.510,00** | **R\$ 263.976,44** |
+
+## 1.2 Desenvolvimento Inicial
+
+  Esta fase inicial, com duração de **2.5 meses**, é focada no desenvolvimento da Prova de Conceito (PoC) e na preparação da arquitetura. Os recursos financeiros nesta etapa são destinados para cobrir o custo da equipe técnica necessária para a prototipação e a aquisição de licenças e infraestrutura de hardware e software que viabilizarão tanto os testes iniciais quanto a posterior Manutenção do projeto.
+
+| Item                       | Quantidade | Valor Unitário (R\$) |  Valor Base (R\$) | Tributações (R\$) |     Total (R\$)    |
+| :------------------------- | :--------: | :------------------: | :---------------: | :---------------: | :----------------: |
+| Desenvolvedores Backend    |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00    |
+| Engenheiros de Dados       |      2     |     R\$ 5.000,00     |   R\$ 10.000,00   |    R\$ 4.500,00   |    R\$ 14.500,00   |
+| Eng. de Robótica/Embarcado |      3     |     R\$ 5.000,00     |   R\$ 15.000,00   |    R\$ 6.750,00   |    R\$ 21.750,00   |
+| Eng. de Backend/Cloud      |      3     |     R\$ 5.000,00     |   R\$ 15.000,00   |    R\$ 6.750,00   |    R\$ 21.750,00   |
+| Especialista em IA/MLOps   |      3     |     R\$ 5.000,00     |   R\$ 15.000,00   |    R\$ 6.750,00   |    R\$ 21.750,00   |
+| Designer/Dev. Frontend     |      2     |     R\$ 5.000,00     |   R\$ 10.000,00   |    R\$ 4.500,00   |    R\$ 14.500,00   |
+| Gerente de Projeto (PM)    |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00    |
+| Infraestrutura Cloud       |      4     |      R\$ 700,00      |    R\$ 2.800,00   |     R\$ 756,00    |    R\$ 3.556,00    |
+| Armazenamento              |     200    |       R\$ 0,10       |     R\$ 20,00     |      R\$ 5,40     |      R\$ 25,40     |
+| Monitoramento e Logs       |      1     |      R\$ 500,00      |     R\$ 500,00    |     R\$ 135,00    |     R\$ 635,00     |
+| Conectividade e APIs       |      4     |       R\$ 18,00      |     R\$ 72,00     |     R\$ 19,44     |      R\$ 91,44     |
+| **TOTAL GERAL**            |            |                      | **R\$ 78.392,00** | **R\$ 34.665,84** | **R\$ 113.057,84** |
+
+***
+
+### 1.3 Manutenção
+
+  Esta fase tem uma duração de **12 meses** e é dedicada à Manutenção da solução implementada. Os recursos financeiros nesta etapa cobrem os custos operacionais e recorrentes necessários para garantir a estabilidade, o desempenho contínuo e a evolução sustentável da solução. O orçamento inclui uma equipe de suporte dedicada e o custo de manutenção da infraestrutura de alto desempenho (Cloud, Armazenamento, Monitoramento e Segurança).
+
+| Item                         | Quantidade | Valor Unitário (R\$) |  Valor Base (R\$) | Tributações (R\$) |    Total (R\$)    |
+| :--------------------------- | :--------: | :------------------: | :---------------: | :---------------: | :---------------: |
+| Eng. de Robótica (Apoio)     |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00   |
+| Eng. de Backend (Suporte)    |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00   |
+| Especialista em IA (Suporte) |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00   |
+| Gerente de Projeto (Acomp.)  |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00   |
+| **Subtotal Equipe**          |    **4**   |                      | **R\$ 20.000,00** |  **R\$ 9.000,00** | **R\$ 29.000,00** |
+| Infraestrutura Cloud         |     20     |      R\$ 700,00      |   R\$ 14.000,00   |    R\$ 3.780,00   |   R\$ 17.780,00   |
+| Armazenamento                |    2000    |       R\$ 2,25       |    R\$ 4.500,00   |    R\$ 1.215,00   |    R\$ 5.715,00   |
+| Monitoramento e Logs         |      1     |     R\$ 2.500,00     |    R\$ 2.500,00   |     R\$ 675,00    |    R\$ 3.175,00   |
+| Conectividade e APIs         |      6     |       R\$ 18,00      |     R\$ 108,00    |     R\$ 29,16     |     R\$ 137,16    |
+| Segurança                    |      1     |     R\$ 2.200,00     |    R\$ 2.200,00   |     R\$ 594,00    |    R\$ 2.794,00   |
+| **Subtotal Infraestrutura**  |            |                      | **R\$ 23.308,00** |  **R\$ 6.293,16** | **R\$ 29.601,16** |
+| **TOTAL GERAL**              |            |   **R\$ 25.420,25**  | **R\$ 43.308,00** | **R\$ 15.293,16** | **R\$ 58.601,16** |
+
+### 1.4 Despesas Mensais
+
+  Além dos custos operacionais, toda operação envolve despesas recorrentes necessárias para a manutenção administrativa e legal do projeto. Essas despesas incluem serviços contábeis, jurídicos, seguros, infraestrutura básica de escritório e conectividade. Embora não estejam diretamente vinculadas à produção, são essenciais para garantir o funcionamento contínuo e o cumprimento das obrigações legais da PoC ou do projeto implementado. A seguir, detalham-se os valores estimados para cada categoria de despesa.
+
+| Item               | Quantidade | Valor Unitário (R\$) | Valor Base (R\$) | Tributações (R\$) |    Total (R\$)   |
+| :----------------- | :--------: | :------------------: | :--------------: | :---------------: | :--------------: |
+| Contabilidade      |      1     |      R\$ 800,00      |    R\$ 800,00    |     R\$ 232,00    |   R\$ 1.032,00   |
+| Jurídico           |      1     |      R\$ 600,00      |    R\$ 600,00    |     R\$ 174,00    |    R\$ 774,00    |
+| Escritório Virtual |      1     |      R\$ 350,00      |    R\$ 350,00    |     R\$ 101,50    |    R\$ 451,50    |
+| Internet           |      1     |      R\$ 400,00      |    R\$ 400,00    |     R\$ 116,00    |    R\$ 516,00    |
+| Seguro Empresarial |      1     |      R\$ 300,00      |    R\$ 300,00    |     R\$ 87,00     |    R\$ 387,00    |
+| **TOTAL GERAL**    |            |   **R\$ 2.450,00**   | **R\$ 2.450,00** |   **R\$ 710,50**  | **R\$ 3.160,50** |
+
+***
+
+### Sumário Financeiro do Projeto
+
+  O valor total a ser orçado foi cuidadosamente distribuído para cobrir todas as fases do projeto, desde a aquisição de ativos até os custos operacionais recorrentes e as despesas administrativas.
+
+| Etapa                               |         Valor        |
+| :---------------------------------- | :------------------: |
+| Investimento Inicial                |    R\$ 263.976,44    |
+| Desenvolvimento Inicial (2,5 meses) |    R\$ 282.644,60    |
+| Manutenção (12 meses)               |    R\$ 703.213,92    |
+| Despesas (14,5 meses)               |     R\$ 45.827,25    |
+| **Subtotal (Custos e Despesas)**    | **R\$ 1.295.662,21** |
+
+### Margem de Lucro e Valor Final
+
+### Estrutura de Precificação e Lucro
+
+* **Margem de Lucro (20%):** A margem de lucro de 20% é aplicada sobre o valor total. Este percentual cobre riscos e garante a sustentabilidade da empresa para investimento contínuo em melhorias e inovação.
+
+|                           |         Valor        |
+| :------------------------ | :------------------: |
+| Total (Custos e Despesas) |   R\$ 1.295.662,21   |
+| Margem de Lucro           |    R\$ 259.132,44    |
+| **VALOR FINAL TOTAL**     | **R\$ 1.554.794,65** |
+
+***
+
+### Acordo de pagamento
+
+  Usualmente, o pagamento do valor orçado para o desenvolvimento e implantação do projeto é realizado por etapas. Desta forma, o parceiro ao invés de pagarem o valor total de uma só vez, realiza o pagamento com base em diferentes marcos de desenvolvimento do projeto. Uma estrutura de pagamento comum é apresentada abaixo:
+
+1. **Pagamento inicial (sinal ou adiantamento):** Uma porcentagem do valor total é paga no início do projeto (geralmente entre 10% e 30%). Esse valor serve para cobrir os custos iniciais e formalizar o compromisso da empresa contratada.
+
+2. **Pagamento por etapas:** O valor restante é dividido em parcelas, que são pagas quando etapas específicas e pré-definidas do projeto são concluídas. Por exemplo:
+       - Entrega da primeira versão de um software;
+       - Conclusão da fase de desenvolvimento do projeto;
+       - Conclusão da fase de testes do projeto.
+
+3. **Pagamento final:** A última parcela, portanto, é paga somente após a entrega completa e a aprovação final do projeto pela empresa cliente.
+
+## Conclusão
+
+  A análise financeira do projeto demonstra um planejamento de custos rigoroso e uma precificação estratégica que reflete a duração de 14.5 meses do projeto. O valor total de **R\$ 1.554.794,65** é distribuído entre a fase de Desenvolvimento Inicial e a fase de Manutenção. Este orçamento garante a remuneração de profissionais qualificados, a cobertura de infraestrutura e a sustentabilidade do projeto, fornecendo um produto de alto valor e longo prazo.
+
+***
+
+## Referências
+
+1. Sebrae. *Como fazer uma análise financeira da sua empresa*. Disponível em: [https://sebrae.com.br/sites/PortalSebrae/ufs/pr/artigos/como-fazer-uma-analise-financeira,d6b1288acc58d510VgnVCM1000004c00210aRCRD](https://sebrae.com.br/sites/PortalSebrae/ufs/pr/artigos/como-fazer-uma-analise-financeira,d6b1288acc58d510VgnVCM1000004c00210aRCRD). Acesso em: 3 set. 2025.
+
+2. Postman. *Pricing*. Disponível em: [https://www.postman.com/pricing/](https://www.postman.com/pricing/).
+
+3. Datadog. *Pricing*. Disponível em: [https://www.datadoghq.com/pricing/](https://www.datadoghq.com/pricing/).
+
+4. GitHub. *Pricing*. Disponível em: [https://github.com/pricing](https://github.com/pricing).
+
+5. AWS. *EC2 Pricing*. Disponível em: [https://aws.amazon.com/ec2/pricing/on-demand/](https://aws.amazon.com/ec2/pricing/on-demand/).
+
+6. Glassdoor. *Salários de DevOps (Brasil)*. Disponível em: [https://www.glassdoor.com.br/Sal%C3%A1rios/devops-sal%C3%A1rio-SRCH\_KO0,6.htm](https://www.glassdoor.com.br/Sal%C3%A1rios/devops-sal%C3%A1rio-SRCH_KO0,6.htm).
+
+7. Glassdoor. *Salário médio de desenvolvedor em São Paulo*. Disponível em: [https://www.glassdoor.com.br/Salários/desenvolvedor-salário-SRCH\_KO0,13.htm](https://www.glassdoor.com.br/Salários/desenvolvedor-salário-SRCH_KO0,13.htm).
+
+8. Contabilidade.com. *Quanto custa a contabilidade online em 2025*. Disponível em: [https://contabilidade.com/blog/quanto-custa-a-contabilidade-online-em-2025-guia-de-precos-e-o-que-esta-incluso/](https://contabilidade.com/blog/quanto-custa-a-contabilidade-online-em-2025-guia-de-precos-e-o-que-esta-incluso/).
+
+9. Coworking Brasil. *Escritório virtual*. Disponível em: [https://coworkingbrasil.org/escritorio-virtual/](https://coworkingbrasil.org/escritorio-virtual/).
+
+
+# Canvas Proposta de Valor (/docs/sprint-1/entendimento-do-negocio/canvas-proposta-de-valor)
+
+
+
+  O **Canvas da Proposta de Valor** é uma ferramenta estratégica fundamental para assegurar o alinhamento entre as necessidades dos clientes e a oferta de valor de uma organização.
+Ele permite uma compreensão aprofundada dos segmentos de clientes, suas tarefas, dores e ganhos, bem como a forma pela qual os produtos e serviços propostos atuam como criadores
+de ganho e analgésicos. Assim, em um mercado saturado de produtos e serviços disponíveis, compreender profundamente o que os clientes realmente desejam e necessitam tornou-se fundamental
+para o sucesso.
+
+<p style={{ textAlign: "center" }}>
+  Canvas Proposta de Valor
+</p>
+
+<img alt="Canvas da Proposta de Valor" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Produzida pelos Autores (2025)
+</p>
+
+## Segmentos do Cliente
+
+  O segmento do cliente descreve de forma detalhada as tarefas, dores e ganhos dos segmentos que a solução pretende atender. Nesse sentido, as tarefas representam as atividades que
+os clientes precisam realizar no seu dia a dia ou os problemas que buscam resolver. As dores correspondem aos obstáculos, dificuldades ou frustrações enfrentadas durante essas tarefas,
+enquanto os ganhos refletem os benefícios, resultados positivos ou melhorias que o cliente espera alcançar. Por fim, compreender profundamente esses elementos permite direcionar esforços para
+atender às reais necessidades do público e gerar maior valor percebido.
+
+**Tarefas**
+
+* **Obter informações claras e personalizadas:** Esclarecer dúvidas sobre o processo seletivo, bolsas e a vida no campus.
+
+* **Conhecer o campus e compreender o ambiente de aprendizado:** Conhecer as instalações e formato de sala diferenciado.
+
+* **Entender a metodologia e cursos:** Compreender como o Inteli ensina, o foco em projetos reais e os diferenciais dos cursos.
+
+**Dores**
+
+* **Ausência de pessoas no topo do funil de vendas:** Dificuldade em engajar visitantes e gerar interesse inicial de forma escalável.
+* **Dificuldade em transmitir a identidade do Inteli:** Desafio em construir uma narrativa clara e cativante que destaque a trajetória, a metodologia e os diferenciais, promovendo maior reconhecimento e engajamento com a marca.
+* **Falta de "wow factor" na experiência do visitante:** Visitas tradicionais podem não gerar o impacto e a memorabilidade desejados.
+* **Time de admissões sobrecarregado:** Alto volume de visitas pode sobrecarregar a equipe, impactando a qualidade do atendimento e a eficiência operacional.
+
+**Ganhos**
+
+* **Informações completas sobre o Inteli:** Obter respostas para perguntas específicas sobre os cursos, metodologia e o processo de seletivo.
+* **Experiência imersiva e memorável:** Um tour que se destaca e deixa uma impressão duradoura.
+* **Respostas personalizadas e aprofundadas:** Acesso a informações detalhadas e adaptadas aos interesses de cada visitante.
+* **Clareza sobre cursos, bolsas e diferenciais:** Compreensão facilitada dos aspectos únicos da instituição.
+
+## Proposta de Valor
+
+  A proposta de valor apresenta os produtos e serviços da solução e explica de que forma eles resolvem os principais problemas dos clientes, reduzindo suas dores com os analgésicos, e também como contribuem para melhorar seus resultados e gerar novas oportunidades com os criadores de ganho. Em resumo, mostra os benefícios que a empresa oferece e deixa claro o motivo pelo qual o cliente deve escolher essa solução em vez das demais disponíveis no mercado.
+
+**Produtos e Serviços**
+
+* **Robô de serviço autônomo com IA generativa:** O core da solução, responsável por conduzir os tours e interagir com os visitantes de forma inteligente.
+* **Interface de controle e monitoramento para o time de admissões:** Uma ferramenta que permite à equipe gerenciar, acompanhar e, eventualmente, intervir nas interações do robô, garantindo a qualidade e o direcionamento das informações.
+* **Sistema de navegação autônoma para percorrer o campus:** A tecnologia que habilita o robô a se deslocar de forma independente e segura pelas instalações da faculdade.
+
+**Analgésicos**
+
+* **Reduz a sobrecarga do time de admissões:** O robô assume parte dos tours e das interações iniciais, liberando a equipe para focar em tarefas mais estratégicas e personalizadas.
+* **Transforma visita tradicional em experiência única:** A presença e interação com o robô elevam a visita de um evento protocolar para uma experiência inovadora e memorável, combatendo a falta de "wow factor".
+* **Visitantes podem fazer perguntas, interagir e direcionar parte da conversa:** A IA generativa permite um diálogo dinâmico, superando a rigidez de tours guiados e a ausência de respostas imediatas para dúvidas específicas.
+* **Combina movimento, tecnologia e diálogo para manter atenção constante:** A natureza interativa e tecnológica do robô garante o engajamento contínuo dos visitantes, superando a dificuldade em transmitir a cultura inovadora de forma prática e mantendo o interesse ao longo do tour.
+
+**Criadores de Ganho**
+
+* **Cria um diferencial competitivo nas visitas em relação a outras universidades:** A inovação do robô posiciona o Inteli à frente de outras instituições, atraindo mais atenção e interesse.
+* **Promove engajamento nas redes sociais e boca a boca positivo:** A experiência única com o robô gera conteúdo compartilhável e recomendações espontâneas.
+* **Reforça a identidade do Inteli como instituição de ponta em IA e robótica:** O projeto demonstra na prática a excelência e o foco do Inteli em tecnologia avançada.
+* **Mantém os visitantes envolvidos e curiosos durante todo o tour:** A interação constante e a capacidade de resposta do robô garantem uma experiência dinâmica e enriquecedora.
+
+  Por fim, o projeto eleva a experiência dos visitantes ao proporcionar um tour interativo, imersivo e personalizado, enquanto otimiza o trabalho do time de admissões por meio da automação parcial das visitas. Ao mesmo tempo, a implementação do robô autônomo reforça a imagem do Inteli como uma instituição de ponta, evidenciando seu compromisso com a inovação, a aplicação prática do conhecimento e a formação tecnológica baseada em projetos reais e impactantes.
+
+### Referências
+
+Osterwalder, A., Pigneur, Y., Bernarda, G., & Smith, A. (2014). Value Proposition Design: How to Create Products and Services Customers Want. John Wiley & Sons.
 
 
 # Entedimento do Negócio (/docs/sprint-1/entendimento-do-negocio)
@@ -1373,8 +1956,622 @@ Esta matriz de riscos é um documento vivo que deve ser atualizado continuamente
 A equipe deve manter comunicação transparente sobre riscos identificados e trabalhar colaborativamente na implementação das estratégias de mitigação definidas.
 
 
-# Matriz de Avaliação de Valor Oceano Azul (/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul)
+# Matriz de avaliação de valor Oceano Azul (/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul)
 
+
+
+ A Matriz de Avaliação de Valor, também conhecida como Matriz Oceano Azul, é uma ferramenta estratégica que tem como base o conceito desenvolvido por W. Chan Kim e Renée Mauborgne no livro *A Estratégia do Oceano Azul*.
+
+ Seu principal objetivo é auxiliar organizações a criarem novos espaços de mercado, tornando a concorrência irrelevante e proporcionando maior valor ao cliente. Por meio da matriz, é possível visualizar e comparar atributos considerados importantes pelos consumidores, identificando oportunidades para reduzir, eliminar, aumentar ou criar características que diferenciem a solução proposta das demais disponíveis no mercado.
+
+***
+
+## Contextualização da Análise
+
+ O projeto tem como objetivo programar um robô de serviço autônomo, utilizando inteligência artificial generativa, para realizar tours interativos de apresentação do campus do Inteli. A proposta é que o robô seja capaz de se locomover de forma autônoma por rotas pré-definidas, apresentando informações sobre o ambiente e interagindo com os visitantes de maneira dinâmica e natural.
+
+ Para compreender o posicionamento competitivo dessa solução e identificar oportunidades de diferenciação, foi realizada uma análise de mercado no segmento de robôs autônomos. O foco da análise é comparar o projeto com empresas que já desenvolvem robôs inteligentes e móveis, capazes de executar tarefas de forma autônoma em diferentes contextos.
+
+Foram selecionadas duas empresas de destaque nesse setor:
+
+* **Boston Dynamics**: Reconhecida mundialmente pelo desenvolvimento de robôs móveis avançados, como o modelo Spot, amplamente utilizado em inspeção, monitoramento e coleta de dados em ambientes industriais e corporativos.
+
+* **SoftBank Robotics**: Fabricante de robôs humanóides como o Pepper e o Whiz, voltados para ambientes de atendimento, varejo e educação, com foco em interação social e suporte informativo.
+
+ Esses concorrentes representam diferentes abordagens em robótica autônoma, enquanto a Boston Dynamics foca em desempenho técnico e mobilidade, a SoftBank prioriza interação e presença social. Essa análise permite identificar como o projeto pode se posicionar estrategicamente entre essas abordagens, equilibrando tecnologia, acessibilidade e engajamento.
+
+***
+
+## Definição de atributos
+
+ Com base nos requisitos essenciais do projeto, definimos os seguintes atributos para a análise comparativa com concorrentes que oferecem robôs autônomos:
+
+<p style={{ textAlign: "center" }}>
+  Tabela 1 - Atributos
+</p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>
+        Nº
+      </th>
+
+      <th>
+        <strong>
+          Atributo
+        </strong>
+      </th>
+
+      <th>
+        <strong>
+          Descrição
+        </strong>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        1
+      </td>
+
+      <td>
+        <strong>
+          Preço
+        </strong>
+      </td>
+
+      <td>
+        Custo total de aquisição, operação e manutenção do robô.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        2
+      </td>
+
+      <td>
+        <strong>
+          Autonomia e Desempenho Técnico
+        </strong>
+      </td>
+
+      <td>
+        Capacidade do robô de executar suas funções e percursos de forma
+        eficiente, mesmo com acompanhamento, priorizando confiabilidade e
+        consistência.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        3
+      </td>
+
+      <td>
+        <strong>
+          Segurança Operacional
+        </strong>
+      </td>
+
+      <td>
+        Grau de controle, confiabilidade e previsibilidade durante o
+        funcionamento, incluindo sistemas redundantes e operação transparente.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        4
+      </td>
+
+      <td>
+        <strong>
+          Interatividade
+        </strong>
+      </td>
+
+      <td>
+        Habilidade do robô em se comunicar, transmitir informações corretas e
+        compreensíveis, responder perguntas e fornecer feedback sonoro.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        5
+      </td>
+
+      <td>
+        <strong>
+          Acessibilidade e Inclusão
+        </strong>
+      </td>
+
+      <td>
+        Recursos que tornam a experiência compreensível e inclusiva para todos
+        os visitantes, como linguagem simplificada, transcrição em tempo real e
+        feedbacks sonoros.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        6
+      </td>
+
+      <td>
+        <strong>
+          Padronização e Linearidade da Experiência
+        </strong>
+      </td>
+
+      <td>
+        Experiência sempre segue o mesmo roteiro, com checkpoints definidos e
+        execução contínua.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        7
+      </td>
+
+      <td>
+        <strong>
+          Geração de Relatórios e Dados
+        </strong>
+      </td>
+
+      <td>
+        Capacidade de coletar informações sobre a interação, permitindo{" "}
+        <strong>acompanhamento com os visitantes</strong> e análise de
+        desempenho da experiência.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        8
+      </td>
+
+      <td>
+        <strong>
+          Cativação e Envolvimento do Usuário
+        </strong>
+      </td>
+
+      <td>
+        Nível de interesse e engajamento que o robô desperta durante a
+        interação, tornando a experiência convincente.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+***
+
+## Matriz Comparativa com Concorrentes e ERAC
+
+ Após a definição dos atributos, realizamos a matriz comparativa, que tem como objetivo analisar e comparar nosso projeto em relação aos concorrentes.
+
+<p style={{ textAlign: "center" }}>
+  Tabela 2 - Avaliação dos Atributos
+</p>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>
+        <strong>
+          Atributos
+        </strong>
+      </th>
+
+      <th>
+        <strong>
+          Nosso Projeto
+        </strong>
+      </th>
+
+      <th>
+        <strong>
+          Boston Dynamics
+        </strong>
+      </th>
+
+      <th>
+        <strong>
+          SoftBank Robotics
+        </strong>
+      </th>
+
+      <th>
+        <strong>
+          Reduzir
+        </strong>
+      </th>
+
+      <th>
+        <strong>
+          Eliminar
+        </strong>
+      </th>
+
+      <th>
+        <strong>
+          Aumentar
+        </strong>
+      </th>
+
+      <th>
+        <strong>
+          Criar
+        </strong>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <strong>
+          Preço
+        </strong>
+      </td>
+
+      <td>
+        9
+      </td>
+
+      <td>
+        4
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Autonomia e Desempenho Técnico
+        </strong>
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        5
+      </td>
+
+      <td>
+        X
+      </td>
+
+      <td />
+
+      <td />
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Segurança Operacional
+        </strong>
+      </td>
+
+      <td>
+        8
+      </td>
+
+      <td>
+        8
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Interatividade
+        </strong>
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td>
+        8
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Acessibilidade e Inclusão
+        </strong>
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        2
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Padronização e Linearidade da Experiência
+        </strong>
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td>
+        5
+      </td>
+
+      <td />
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Geração de Relatórios e Dados
+        </strong>
+      </td>
+
+      <td>
+        10
+      </td>
+
+      <td>
+        2
+      </td>
+
+      <td>
+        5
+      </td>
+
+      <td />
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Cativação e Envolvimento do Usuário
+        </strong>
+      </td>
+
+      <td>
+        8
+      </td>
+
+      <td>
+        7
+      </td>
+
+      <td>
+        7
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        X
+      </td>
+
+      <td />
+    </tr>
+  </tbody>
+</table>
+
+### Justificativas dos Atributos
+
+* **Preço**
+  * Nosso Projeto (9): Custo acessível, considerando hardware, software, infraestrutura de IA e manutenção estimada em R\$ 1.554.794,65.
+  * Boston Dynamics (4): Robôs avançados com alto custo de aquisição e manutenção.
+  * SoftBank Robotics (6): Robôs humanoides com preço menor que Boston Dynamics, mas ainda relevante.
+
+***
+
+* **Autonomia e Desempenho Técnico**
+  * Nosso Projeto (6): Necessita de tutor presente para supervisão, mas percorre rotas consistentes e confiáveis.
+  * Boston Dynamics (10): Alta autonomia e desempenho técnico avançado.
+  * SoftBank Robotics (5): Mobilidade limitada, dependente de ambientes controlados.
+
+***
+
+* **Segurança Operacional**
+  * Nosso Projeto (8): Sistemas redundantes e supervisão humana garantem segurança durante os tours.
+  * Boston Dynamics (8): Robôs seguros, focados em operações industriais e técnicas.
+  * SoftBank Robotics (6): Segurança adequada, mas projetado para interação social e não mobilidade em rotas.
+
+***
+
+* **Interatividade**
+  * Nosso Projeto (10): IA generativa permite comunicação natural e respostas em tempo real.
+  * Boston Dynamics (6): Interação limitada, mais demonstrativa do que interativa.
+  * SoftBank Robotics (8): Foco em interação humana, mas menos flexível que IA generativa.
+
+***
+
+* **Acessibilidade e Inclusão**
+  * Nosso Projeto (10): Linguagem simplificada, transcrição em tempo real e feedbacks auditivos.
+  * Boston Dynamics (2): Sem recursos para acessibilidade ou inclusão do usuário.
+  * SoftBank Robotics (6): Interação inclusiva básica, mas limitada ao design humanoide.
+
+***
+
+* **Padronização e Linearidade da Experiência**
+  * Nosso Projeto (10): Tours seguem roteiro fixo com checkpoints, garantindo consistência.
+  * Boston Dynamics (6): Operações variáveis, não voltadas a experiências educativas padronizadas.
+  * SoftBank Robotics (5): Linearidade limitada, mais voltado à interação pontual.
+
+***
+
+* **Geração de Relatórios e Dados**
+  * Nosso Projeto (10): Coleta e organiza informações sobre visitantes, permitindo análise de leads e perfil dos interessados.
+  * Boston Dynamics (2): Coleta apenas dados sensoriais e técnicos, sem análise de visitantes.
+  * SoftBank Robotics (5): Capta dados básicos de interação, mas não detalha perfis ou leads.
+
+***
+
+* **Cativação e Envolvimento do Usuário**
+  * Nosso Projeto (8): Experiência planejada com narrativa e interação para engajamento do visitante.
+  * Boston Dynamics (7): Impressiona visualmente, mas experiência interativa limitada.
+  * SoftBank Robotics (7): Interação social interessante, mas engajamento reduzido em mobilidade.
+
+***
+
+* **Reduzir:** Autonomia completa do robô, priorizando supervisão humana para segurança e controle.
+* **Eliminar:** Custos excessivos com hardware avançado que não agregam valor direto à experiência do visitante.
+* **Aumentar:** Segurança, interatividade, acessibilidade e cativação, para criar uma experiência de tour mais envolvente.
+* **Criar:** Padronização e linearidade da experiência, além da coleta e organização de dados sobre visitantes para análise de leads.
+
+***
+
+## Visualização Comparativa dos Atributos
+
+ O gráfico a seguir apresenta uma comparação visual dos atributos do nosso projeto em relação aos concorrentes. Cada linha representa um robô, permitindo observar rapidamente os pontos fortes e oportunidades de melhoria.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Gráfico da Matriz de avaliação de valor Oceano Azul
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img
+          alt="Matriz de avaliação de valor Oceano
+    Azul"
+          src={__img0}
+          placeholder="blur"
+        />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Análise Estratégica ERAC
+
+* **Reduzir:** Autonomia completa do robô, priorizando supervisão humana para segurança e controle.
+* **Eliminar:** Custos excessivos com hardware avançado que não agregam valor direto à experiência do visitante.
+* **Aumentar:** Segurança, interatividade, acessibilidade e cativação, para criar uma experiência de tour mais envolvente.
+* **Criar:** Padronização e linearidade da experiência, além da coleta e organização de dados sobre visitantes para análise de leads.
+
+***
+
+## Conclusão
+
+ A análise de valor realizada por meio da Matriz Oceano Azul evidenciou os diferenciais estratégicos do nosso robô de serviço autônomo em relação aos concorrentes do mercado. O projeto se destaca principalmente em **interatividade, acessibilidade, padronização da experiência e geração de dados sobre visitantes**, atributos essenciais para criar uma experiência consistente, inclusiva e engajante.
+
+ Além disso, as ações estratégicas identificadas na análise ERAC, como reduzir autonomia plena, eliminar custos desnecessários, aumentar atributos de engajamento e criar novos mecanismos de padronização e coleta de dados, reforçam a capacidade do projeto de oferecer valor diferenciado. Dessa forma, o robô proposto posiciona-se como uma ferramenta inovadora para **atração de leads e apresentação institucional**, destacando-se no mercado de robôs autônomos voltados à interação e experiência do usuário.
+
+***
+
+## Referências
+
+KIM, W. Chan; MAUBORGNE, Renée. *A Estratégia do Oceano Azul: Como criar novos mercados e tornar a concorrência irrelevante*. Rio de Janeiro: Elsevier, 2015.
+
+BOSTON DYNAMICS. *Spot Robot*. Disponível em: [https://www.bostondynamics.com/spot](https://www.bostondynamics.com/spot). Acesso em: 24 out. 2025.
+
+SOFTBANK ROBOTICS. *Pepper Robot*. Disponível em: [https://www.softbankrobotics.com/aboutus/](https://www.softbankrobotics.com/aboutus/). Acesso em: 24 out. 2025.
 
 
 # NIST CSF: Robô de Serviço Autônomo com IA (/docs/sprint-1/entendimento-do-projeto/documentacao-nist)
@@ -1383,9 +2580,9 @@ A equipe deve manter comunicação transparente sobre riscos identificados e tra
 
 ### O que é o NIST CSF?
 
-O NIST Cybersecurity Framework (CSF) é um conjunto de diretrizes e boas práticas, desenvolvido pelo Instituto Nacional de Padrões e Tecnologia dos EUA, para ajudar organizações a gerenciar e reduzir riscos de cibersegurança. Ele não é uma lei, mas sim um framework voluntário.
+O NIST Cybersecurity Framework (NIST CSF) é um conjunto de padrões, diretrizes e práticas recomendadas, desenvolvido pelo Instituto Nacional de Padrões e Tecnologia dos EUA (NIST), uma agência não reguladora que promove a inovação por meio do avanço da ciência, padrões e tecnologia de medição.
 
-Ele é organizado em cinco "Funções" principais, que representam os pilares de uma estratégia de segurança: **Identificar, Proteger, Detectar, Responder e Recuperar**.
+O NIST CSF ajuda as organizações a melhorar seu gerenciamento de riscos de segurança cibernética e reduzir vulnerabilidades. Trata-se de um framework voluntário (não um instrumento legal), estruturado em cinco funções principais: **Identificar, Proteger, Detectar, Responder e Recuperar**.
 
 ### Sobre este Documento
 
@@ -1397,7 +2594,9 @@ Os códigos nos títulos (ex: `ID.AM`) são os **Identificadores de Categoria** 
 
 ## 1. Identificar (Identify)
 
-A função "Identificar" ajuda a entender o que precisa ser protegido. Nesta fase inicial, podemos mapear os seguintes pontos:
+Para se proteger contra ataques cibernéticos, a equipe de segurança cibernética precisa de um entendimento completo de quais são os ativos e recursos mais importantes da organização. A função de identificação ajuda a entender o que precisa ser protegido e inclui categorias como gerenciamento de ativos, ambiente de negócios, governança, avaliação de riscos, estratégia de gerenciamento de riscos e gerenciamento de riscos da cadeia de suprimentos.
+
+Nesta fase inicial, podemos mapear os seguintes pontos:
 
 ### Gerenciamento de Ativos (ID.AM)
 
@@ -1432,7 +2631,7 @@ Com base nos ativos, podemos antecipar alguns riscos potenciais a serem consider
 
 ## 2. Proteger (Protect)
 
-A função "Proteger" foca em sugestões de salvaguardas simples para reduzir os riscos identificados.
+A função de proteção abrange grande parte dos controles de segurança técnica e física para desenvolver e implementar salvaguardas apropriadas e proteger a infraestrutura crítica. Essas categorias são Gerenciamento de identidade e controle de acesso, Conscientização e treinamento, Segurança de dados, Processos e procedimentos de proteção de informações, Manutenção e Tecnologia de proteção.
 
 ### Controle de Acesso (PR.AC)
 
@@ -1445,13 +2644,13 @@ A função "Proteger" foca em sugestões de salvaguardas simples para reduzir os
 
 ### Tecnologias de Proteção (PR.PT)
 
-* **Filtragem de IA:** Para mitigar o risco de respostas inadequadas, poderíamos explorar filtros simples nas perguntas enviadas à IA, bloqueando termos problemáticos.
+* **Filtragem de IA:** Para mitigar o risco de respostas inadequadas, poderíamos explorar filtros simples nas perguntas sentadas à IA, bloqueando termos problemáticos.
 
 ***
 
 ## 3. Detectar (Detect)
 
-A função "Detectar" é sobre como perceberíamos se algo estivesse errado.
+A função de detecção implementa medidas que alertam uma organização sobre ataques cibernéticos. As categorias de detecção incluem anomalias e eventos, monitoramento contínuo de segurança e processos de detecção.
 
 ### Anomalias e Eventos (DE.AE)
 
@@ -1462,7 +2661,7 @@ A função "Detectar" é sobre como perceberíamos se algo estivesse errado.
 
 ## 4. Responder (Respond)
 
-A função "Responder" pensa no que faríamos caso um incidente de segurança ocorresse.
+As categorias de funções de resposta garantem a resposta adequada a ataques cibernéticos e outros eventos de segurança cibernética. As categorias específicas incluem Planejamento de resposta, Comunicações, Análise, Mitigação e Melhorias.
 
 ### Planejamento de Resposta (RS.RP)
 
@@ -1477,7 +2676,7 @@ A função "Responder" pensa no que faríamos caso um incidente de segurança oc
 
 ## 5. Recuperar (Recover)
 
-A função "Recuperar" trata de como voltar ao normal após uma falha.
+As atividades de recuperação implementam planos de resiliência cibernética e garantem a continuidade dos negócios em caso de ataque cibernético, violação de segurança ou outro evento de segurança cibernética. As funções de recuperação são melhorias de planejamento de recuperação e comunicações.
 
 ### Planejamento de Recuperação (RC.RP)
 
@@ -1486,6 +2685,13 @@ A função "Recuperar" trata de como voltar ao normal após uma falha.
 ### Melhorias (RC.IM)
 
 * Qualquer aprendizado com incidentes reais seria usado para reavaliar estas sugestões e melhorar a robustez do robô em futuras interações.
+
+***
+
+## Referências
+
+* [IBM Think: O que é o NIST Cybersecurity Framework?](https://www.ibm.com/br-pt/think/topics/nist)
+* [NIST IR 8183r2 (PDF): Cybersecurity Framework (CSF) Manufacturing Profile](https://nvlpubs.nist.gov/nistpubs/ir/2025/NIST.IR.8183r2.ipd.pdf)
 
 
 # Entendimento do Projeto (/docs/sprint-1/entendimento-do-projeto)
@@ -1500,9 +2706,10 @@ A função "Recuperar" trata de como voltar ao normal após uma falha.
     uma experiência eficiente e confiável para os usuários.
   </Card>
 
-  <Card href="/docs/sprint-1/entendimento-do-projeto/proposta-arquitetural" title="Proposta Arquitetural">
-    Apresenta a estrutura técnica do sistema, incluindo componentes, tecnologias
-    e padrões de design que guiarão o desenvolvimento e integração das soluções.
+  <Card href="/docs/sprint-1/entendimento-do-projeto/proposta-de-arquitetura" title="Proposta de Arquitetura">
+    Descreve a estrutura e organização do sistema, incluindo componentes,
+    tecnologias e padrões utilizados, garantindo escalabilidade,
+    manutenibilidade e sustentabilidade.
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-projeto/nist-csf" title="Framework NIST CSF">
@@ -1512,8 +2719,83 @@ A função "Recuperar" trata de como voltar ao normal após uma falha.
 </Cards>
 
 
-# Proposta de Arquitetura (/docs/sprint-1/entendimento-do-projeto/proposta-de-arquitetura)
+# Proposta de Arquitetura do Sistema (/docs/sprint-1/entendimento-do-projeto/proposta-de-arquitetura)
 
+
+
+A arquitetura do sistema consiste em um conjunto de módulos e serviços que orquestram a comunicação entre o robô, o banco de dados, os serviços de back-end (LLM API e API) e as interfaces de usuário (front-end) para visitantes e administradores. O sistema foi projetado para operar um robô de serviço autônomo com IA generativa, programado para realizar tours interativas de apresentação do campus do Inteli.
+
+## Diagrama de arquitetura do sistema
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Diagrama de Arquitetura do Sistema
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Arquitetura do Sistema" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Descrição da arquitetura do sistema
+
+### Modelo
+
+* **Perguntas e respostas (chatbot)**: O modelo de perguntas e respostas deve ser um modelo com capacidade de tirar dúvidas sobre o processo de seleção, o programa de bolsas e o dia a dia no Campus, utilizando uma LLM open source pré-definida. O projeto não contempla o treinamento de modelos de processamento de linguagem natural, mas sim o uso de modelos pré-treinados.
+
+* **Tradução em tempo real**: Módulo responsável por traduzir a fala do robô, a tradução deve ocorrer após a definição da resposta no idioma principal, exibindo o texto traduzido para outros idiomas simultaneamente à fala do robô no idioma principal. Conecta-se à LLM API de Tradução e ao Banco de dados sequencial.
+
+* **Módulo de TTS (Text-to-Speech)**: Módulo responsável por sintetizar textos para áudio que serão passados para a fala do robô.
+
+* **Modelo de Validação**: Módulo responsável por validar a resposta dos outros modelos, garantindo que a resposta seja coerente e relevante, além de lidar com erros de sintaxe e semântica e garantir que a resposta esteja dentro do contexto da pergunta. Este modelo está atrelado ao contexto de segurança. Conecta-se a LLM API e aos outros modelos.
+
+### Banco de dados
+
+* **Banco de dados vetorial**: Módulo responsável por armazenar documentos e suas representações vetoriais, dos quais serão utilizados como contexto para os modelos.
+
+* **Banco de dados sequencial**: Módulo responsável por armazenar informações sequenciais, como perguntas dos visitantes e logs de atividades.
+
+### Back-end
+
+#### LLM API
+
+* **Perguntas e Respostas**: Recebe do front-end a seção em que a dúvida surgiu, junto com o texto transcrito da dúvida (Formulário de perguntas), e envia o contexto para o modelo de perguntas e respostas para processar as dúvidas e gerar respostas, das quais são enviadas para o Modelo de Tradução e para o modelo de Síntese de Voz e retorna a tradução para o front-end e a resposta para o modelo de síntese de voz.
+* **Serviço de documentos**: Recebe do front-end os documentos que serão utilizados como contexto para os modelos, e armazena no banco de dados vetorial. Conecta-se ao banco de dados vetorial
+
+#### API
+
+* **Logs**: Serviço que coleta e armazena logs de todas as partes do sistema, incluindo um registro das requisições para o back-end, requisições, dados passados e dados recebidos de cada modelo, além do registro das alterações feitas pelo modelo de validação. Além disso, também recebe os logs de todas as ações do robô e das rotinas de visitantes, junto as interações do front-end. Interage com o Banco de dados sequencial.
+* **Seção**: Serviço que gerencia o avanço entre as diferentes seções do tour, recebendo comandos da Interação para avançar seções do front-end (Visitante) e comunicando-se com o Robô.
+* **Controle do robô**: Serviço essencial que envia comandos de controle ao Robô, recebendo instruções do front-end (Controle emergencial do robô) e do serviço de Seção.
+* **Analytics e Métricas**: Serviço que processa os logs da plataforma e do robô para gerar métricas e análises de desempenho e uso, as quais são visualizadas no Dashboard com analytics e logs do front-end (Administrador). Interage com o Banco de dados sequencial.
+* **Sistema de usuários**: Serviço responsável pelo gerenciamento de usuários, incluindo as funcionalidades de Cadastro e Login do front-end (Administrador).
+
+### Front-end
+
+#### Visitante
+
+* **Formulário de perguntas**: Interface onde os visitantes podem inserir dúvidas e perguntas, das quais são enviadas o modelo de Perguntas e Respostas (Chatbot).
+* **Transcrição da fala do robô**: Interface que exibe a transcrição do que o robô está falando, proporcionando uma experiência interativa e acessível.
+* **Interação para avançar seções**: Interface que permite aos visitantes sinalizar ou comandar o avanço para a próxima etapa do tour, comunicando-se com o serviço de Seção da API, da qual se comunica com o robô, permitindo que ele passe para a próxima seção.
+
+#### Administrador
+
+* **Controle emergencial do robô**: Interface que permite aos administradores (equipe Inteli) intervir e controlar o robô em situações de emergência, comunicando-se com o serviço de Controle do robô.
+* **Dashboard com analytics e logs**: Interface de visualização que apresenta as métricas e análises geradas pelo serviço de Analytics e Métricas, e os logs do sistema, auxiliando no monitoramento da plataforma e do robô.
+* **Cadastro e Login**: Interface para autenticação de usuários administradores, interagindo com o serviço de Sistema de usuários.
+* **Cadastro de Documentos**: Interface para o cadastro de documentos que serão utilizados como contexto para as LLMs, interagindo com o serviço de Serviço de documentos.
+
+### Robô de Serviço Autônomo
+
+O objetivo principal do projeto é o desenvolvimento e programação de um robô de serviço autônomo, sendo a base robótica um cão robô (Unitree Go2 Edu). O robô será programado para realizar tours interativas enquanto percorre o campus do Inteli em uma rota pré-definida junto a um grupo de visitantes. Além disso, o robô terá a capacidade de interagir com os visitantes, como tirar dúvidas.
+
+## Conclusão
+
+Por fim, é válido destacar que o projeto proposto é uma iniciativa inovadora que busca combinar tecnologia e interação humana para melhorar a experiência de visitantes no campus do Inteli. A integração de um cachorro robô autônomo com recursos de inteligência artificial e aprendizado de máquina promete proporcionar uma experiência única e personalizada aos visitantes. Além de coletar dados que podem se tornar valiosos para o desenvolvimento futuro do projeto e para auxiliar o time de Growth do Inteli.
 
 
 # Requisitos (/docs/sprint-1/entendimento-do-projeto/requisitos)
@@ -3009,6 +4291,493 @@ Os requisitos são classificados em duas categorias:
 
 # User Stories (/docs/sprint-1/entendimento-do-usuario/user-stories)
 
+## Conceito
+
+ As *User Stories* são uma técnica amplamente utilizada em metodologias ágeis para capturar as necessidades dos usuários de forma simples, objetiva e orientada ao valor. Elas são descritas a partir da perspectiva do usuário final, permitindo que o time de desenvolvimento compreenda claramente o que deve ser entregue, por que é importante e qual resultado se espera alcançar.
+
+ No contexto do projeto, as User Stories foram criadas a partir de diferentes perfis de visitantes e do staff do Inteli, garantindo que a experiência de uso do robô atenda tanto aos objetivos institucionais quanto à experiência do público durante as visitas guiadas. Essa abordagem assegura que as funcionalidades do sistema alinhem tecnologia, acessibilidade e eficiência operacional.
+
+***
+
+## User Stories – Isabella Ricci
+
+<p style={{ textAlign: "center" }}>
+  Tabela 1 - User Stories da Persona Estudante
+</p>
+
+<div style={{ overflowX: "auto" }}>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User Story
+        </th>
+
+        <th>
+          Critérios de Aceite
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          US1
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô me receba de forma amigável, usando
+          uma linguagem acessível, para que eu me sinta bem-vinda e menos
+          ansiosa com o ambiente universitário."
+        </td>
+
+        <td>
+          Dado que há estudantes visitando o campus, quando o robô iniciar o
+          tour, deve cumprimentá-lo de forma receptiva e utilizar uma linguagem
+          acessível e simpática.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US2
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô explique de maneira prática como
+          funcionam os projetos reais e o aprendizado baseado em desafios, para
+          entender como é estudar no Inteli."
+        </td>
+
+        <td>
+          Dado que o tour está em andamento, quando o robô apresentar o método
+          de ensino, deve dar exemplos de projetos reais de forma clara.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US3
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô me mostre salas colaborativas e
+          áreas de convivência, explicando como esses espaços contribuem para o
+          aprendizado prático."
+        </td>
+
+        <td>
+          Dado que o robô segue o roteiro de visita, quando ele chegar a cada
+          ponto, deve apresentar as áreas e explicar suas funções.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US4
+        </td>
+
+        <td>
+          "Como estudante, quero poder perguntar sobre bolsas, processo seletivo
+          e rotina acadêmica, e receber respostas simples e claras, para
+          entender como posso ingressar e me adaptar ao Inteli."
+        </td>
+
+        <td>
+          Dado que o robô possui módulo de interação, quando eu fizer uma
+          pergunta sobre a instituição, devo receber respostas curtas e claras.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US5
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô fale e exiba mensagens na tela, para
+          que eu possa acompanhar com acessibilidade e clareza."
+        </td>
+
+        <td>
+          Dado que há comunicação por voz e tela, quando o robô interagir, então
+          as falas devem ser acompanhadas de legendas ou textos equivalentes.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US6
+        </td>
+
+        <td>
+          "Como estudante, quero que o robô avise de forma leve e interativa
+          quando for se mover, para que o tour pareça divertido, seguro e
+          tecnológico."
+        </td>
+
+        <td>
+          Dado que o robô está prestes a se mover, quando iniciar o
+          deslocamento, então deve sinalizar de forma sonora e visual.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## User Stories – Ricardo Menezes
+
+<p style={{ textAlign: "center" }}>
+  Tabela 2 - User Stories da Persona Executivo
+</p>
+
+<div style={{ overflowX: "auto" }}>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User Story
+        </th>
+
+        <th>
+          Critérios de Aceite
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          US1
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô me receba de forma profissional,
+          para que o tour pareça relevante e respeitoso."
+        </td>
+
+        <td>
+          Dado que há uma visita executiva, quando o robô for iniciado, então
+          deve cumprimentar com formalidade.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US2
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô explique de forma objetiva e baseada
+          em resultados como a metodologia do Inteli é aplicada para formar
+          líderes tecnológicos."
+        </td>
+
+        <td>
+          Dado que o tour está em andamento, quando o robô apresentar o modelo
+          educacional, deve destacar resultados e aplicações corporativas dos
+          projetos desenvolvidos.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US3
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô destaque os laboratórios, hubs de
+          inovação e ambientes colaborativos, mostrando como o espaço estimula
+          colaboração e tomada de decisão."
+        </td>
+
+        <td>
+          Dado que o robô segue o roteiro de visita, quando apresentar os
+          ambientes, deve enfatizar aspectos de inovação e colaboração.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US4
+        </td>
+
+        <td>
+          "Como executivo, quero poder perguntar sobre parcerias empresariais,
+          metodologia e resultados de egressos, recebendo respostas rápidas e
+          diretas."
+        </td>
+
+        <td>
+          Dado que o robô possui sistema de diálogo, quando eu fizer perguntas
+          sobre o Inteli, devo receber respostas curtas e objetivas.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US5
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô comunique informações por voz e
+          texto de maneira formal e concisa, reforçando o caráter tecnológico e
+          inclusivo da instituição."
+        </td>
+
+        <td>
+          Dado que o robô possui múltiplos canais de comunicação, quando
+          transmitir informações, deve fazê-lo com tom formal e linguagem
+          técnica.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US6
+        </td>
+
+        <td>
+          "Como executivo, quero que o robô sinalize seus movimentos com
+          previsibilidade e linguagem técnica, para transmitir organização e
+          segurança no percurso."
+        </td>
+
+        <td>
+          Dado que o robô irá se mover, quando iniciar o deslocamento, deve
+          emitir alertas visuais e sonoros que indiquem a direção e o propósito
+          do movimento.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## User Stories – Gabriele Julião
+
+<p style={{ textAlign: "center" }}>
+  Tabela 3 - User Stories da Persona Staff Inteli
+</p>
+
+<div style={{ overflowX: "auto" }}>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User Story
+        </th>
+
+        <th>
+          Critérios de Aceite
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>
+          US1
+        </td>
+
+        <td>
+          "Como membro do time de admissões, quero que o robô realize tours com
+          um roteiro padronizado, para garantir consistência nas visitas."
+        </td>
+
+        <td>
+          Dado que o robô está operando, quando um tour for iniciado, ele deve
+          seguir o roteiro previamente definido.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US2
+        </td>
+
+        <td>
+          "Como funcionário, quero definir e ajustar o roteiro do tour pelo
+          aplicativo de suporte, para manter o conteúdo atualizado conforme
+          mudanças no campus ou no edital do processo seletivo."
+        </td>
+
+        <td>
+          Dado que há atualizações no campus, quando eu acessar o aplicativo de
+          suporte, devo conseguir editar o roteiro e salvar alterações.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US3
+        </td>
+
+        <td>
+          "Como equipe de admissões, quero que o robô registre dados das
+          perguntas realizadas durante o tour para nutrir leads posteriormente e
+          adaptar o roteiro."
+        </td>
+
+        <td>
+          Dado que o tour está em andamento, quando visitantes fizerem
+          perguntas, as interações devem ser registradas no sistema.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US4
+        </td>
+
+        <td>
+          "Como staff, quero receber alertas no app em caso de falhas ou
+          emergências, para poder agir rapidamente se o robô parar ou houver
+          problemas de percurso."
+        </td>
+
+        <td>
+          Dado que há uma falha ou interrupção, quando o robô detectar o evento,
+          deve enviar uma notificação imediata ao app de suporte.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US5
+        </td>
+
+        <td>
+          "Como equipe, quero coletar o nível de satisfação dos visitantes após
+          o tour, para medir a qualidade da experiência."
+        </td>
+
+        <td>
+          Dado que o tour foi concluído, quando a visita terminar, o sistema
+          deve solicitar e armazenar feedbacks.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US6
+        </td>
+
+        <td>
+          "Como staff, quero que o robô siga uma rota pré-definida com pontos de
+          parada, para garantir um tour seguro, completo e coerente."
+        </td>
+
+        <td>
+          Dado que o roteiro foi definido, quando o robô executar o tour, deve
+          percorrer todos os pontos conforme a sequência programada.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US7
+        </td>
+
+        <td>
+          "Como membro do time de admissões, quero que o sistema tenha um
+          chatbot treinado para responder perguntas sobre a faculdade e o
+          processo seletivo, para oferecer uma visita clara e completa."
+        </td>
+
+        <td>
+          Dado que há um módulo de IA, quando visitantes fizerem perguntas, o
+          chatbot deve responder com informações institucionais corretas e
+          dentro das diretrizes de comunicação.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US8
+        </td>
+
+        <td>
+          "Como staff, quero limitar respostas e temas específicos, para
+          garantir conformidade com a linguagem e restrições de um tour."
+        </td>
+
+        <td>
+          Dado que o chatbot está ativo, quando for configurado, deve restringir
+          temas e termos não permitidos.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US9
+        </td>
+
+        <td>
+          "Como staff, quero receber notificações chamativas caso o robô
+          apresente algum tipo de problema durante o tour, para que eu possa
+          fazer uma intervenção rápida."
+        </td>
+
+        <td>
+          Dado que há falhas de operação, quando o robô detectar o problema,
+          deve enviar alertas visuais e sonoros ao app do staff.
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          US10
+        </td>
+
+        <td>
+          "Como membro do time de admissões, quero visualizar relatórios de
+          tours realizados (como número de visitantes, tempo e feedbacks), para
+          analisar desempenho e otimizar futuras visitas."
+        </td>
+
+        <td>
+          Dado que há dados armazenados no sistema, quando eu acessar o painel
+          de relatórios, devo visualizar métricas e histórico das visitas
+          realizadas.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+# Conclusão
+
+ As User Stories desenvolvidas a partir das diferentes personas (Estudante, Executivo e Staff Inteli) traduzem as expectativas de cada público em requisitos práticos para o robô-guia. Enquanto os visitantes buscam acolhimento, clareza e interação tecnológica, o staff visa padronização, controle e análise de desempenho. Assim, o sistema integra tecnologia, experiência do usuário e eficiência operacional, refletindo os valores de inovação e hospitalidade do Inteli.
 
 
 # Template de Pasta (/docs/sprint-2/template-pasta)
@@ -3624,6 +5393,10 @@ c = \pm\sqrt{a^2 + b^2}
     do ensino médio, durante sua primeira visita ao Inteli e o tour
     automatizado.
   </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-staff" title="Mapa de Jornada do Staff Inteli">
+    Documentação detalhada da jornada da Gabriele Julião, staff do Inteli.
+  </Card>
 </Cards>
 
 
@@ -3868,6 +5641,133 @@ import { Callout } from "fumadocs-ui/components/callout";
  Ao endereçar a desconfiança inicial com a **surpresa da autoria estudantil** e finalizar com a **confiança nos resultados e na metodologia**, o Inteli garante que Ricardo saia do tour não apenas informado, mas **convencido da excelência e da vanguarda** da instituição que sediará seu desenvolvimento executivo.
 
 
+# Jornada do Usuário - Gabriele Julião (Staff Inteli) (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-staff)
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+import { Card, Cards } from "fumadocs-ui/components/card";
+import { Callout } from "fumadocs-ui/components/callout";
+
+## 1. Visão Geral da Jornada
+
+ A jornada do usuário de Gabriele Julião, coordenadora de admissões do Inteli, foi mapeada para garantir que sua experiência com o sistema do cachorro-robô atenda às necessidades de eficiência, engajamento e coleta inteligente de dados. O objetivo principal é transformar o tour tradicional em uma experiência tecnológica e estratégica, que facilite a captação de leads, gere insights sobre o comportamento dos visitantes e consolide o Inteli como referência em tecnologia no país. <br />
+ Abaixo, está o mapa visual da jornada da Gabriele Julião. O mapa pode ser visualizado também no Miro através do [link](https://miro.com/welcomeonboard/NFFEdGZFeWN0YTZTQ2RCM0R0a1BBMVJLMC9XTHpDTkFJS1JwRVJ0MDVna1BrSmFYamkxalN5TUppa1lmMERxT2ZnVUQrNEFjQnB5L1lPWGZCWTg4K201Uk81SWljVS9EYTZjc1dNdGQwQjdpdmRYUG56eS9wS3FWNGs0dCtIRGN3VHhHVHd5UWtSM1BidUtUYmxycDRnPT0hdjE=?share_link_id=721060916898).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Mapa da Jornada da Gabriele Julião{" "}
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Mapa da Jornada da Gabriele Julião" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+ Esse mapa revela um aspecto importante da vivência de Gabriele como coordenadora de admissões: a apreensão em relação ao funcionamento do tour. Embora a jornada do usuário apresente o caminho ideal, onde tudo acontece exatamente como planejado, é importante destacar o momento de insegurança que antecede o uso do robô, marcado pelo receio de que a tecnologia não responda como esperado. Essa tensão reflete tanto a responsabilidade que Gabriele carrega em garantir que esse primeiro contato com o Inteli seja uma boa experiência quanto o desafio natural de confiar em uma ferramenta tão nova dentro de um contexto real.
+
+## 2. Detalhamento das Fases da Jornada
+
+ Essa jornada é composta de três fases principais: Planejamento do Tour, Realização e Acompanhamento do Tour e a Análise Pós-visita.
+
+<Steps>
+  ### Fase 1: Planejamento do Tour
+
+  **Atividade:** Gabriele define o público-alvo da visita, agenda o tour e configura o cachorro-robô com roteiros personalizados de acordo com o perfil dos visitantes. Ela alinha detalhes com o time de Growth e Comunicação e prepara o ambiente do campus.
+
+  **Necessidades:**
+
+  * Ter uma visão clara do perfil dos visitantes para adaptar o roteiro e a linguagem do robô.
+  * Garantir que o sistema do tour seja simples de configurar e confiável.
+
+  **Emoções:**
+
+  * **Preocupada** que o cachorro não seja capaz de atender as expectativas dos visitantes 🧐.
+  * **Preocupada** com a acurácia das respostas dadas pelo cachorro  😥.
+
+  **Oportunidade:**
+
+  * Garantir na interface do administrador que todas as informações de "saúde" do cachorro sejam exibidas.
+
+  ### Fase 2: Realização e acompanhamento do tour
+
+  **Atividades:**
+
+  * Gabriele passa as instruções para o time da recepção, que fará o primeiro contato com os visitantes.
+  * Gabriele acompanha o cachorro pelo aplicativo.
+  * Gabriele posiciona o cachorro no seu ponto inicial, configura o cachorro com as informações dos participantes.
+
+  **Necessidades:**
+
+  * Aplicativo de configuração intuitivo e 100% funcional.
+  * Configuração rápida e pronta resposta do cachorro.
+  * Organização da universidade para que esse processo não seja atrapalhado.
+
+  **Emoções:**
+
+  * **Apreensão** durante a configuração 😬.
+  * **Felicidade** em perceber que o cachorro está funcionando exatamente como o esperado 😄.
+
+  **Oportunidades:**
+
+  * Exibir a maior quantidade de feedbacks possíveis na tela, para que ela não tenha dúvidas que as configurações estão sendo aplicadas.
+
+  ### Fase 3: Análise pós-visita
+
+  **Atividades:**
+
+  * Ao final do tour, Gabriele recebe um relatório com todas as informações dos visitantes, incluindo: escola, nível de satisfação com as respostas e propostas do Inteli, principais dúvidas, engajamento e curso desejado.
+  * Gabriele consegue manter um contato eficiente com os visitantes através dos canais informados por ele, começando o contato com a foto tirada pelo cachorro.
+
+  **Necessidades:**
+
+  * Que todas as informações, por mais minuciosas que sejam, estejam em foco da coleta.
+  * Receber todas as informações de forma intuitiva.
+  * Estrutura de tirar a foto, para ser o contato inicial.
+
+  **Emoções:**
+
+  * Extremamente **surpresa** com o nível de informações coletadas dos leads 😄.
+  * **Satisfação** em saber que a experiência do lead foi potencializada e a sua chance de conversão também 😄.
+
+  **Oportunidade:**
+
+  * Desenvolver uma dashboard com informações de qualidade.
+</Steps>
+
+## 3. Análise Detalhada dos Elementos da Jornada
+
+### 3.1. Necessidades Estratégicas
+
+ As necessidades de Gabriele estão diretamente ligadas à sua função de coordenadora de admissões, e não apenas à execução do tour em si, mas ao uso estratégico do sistema como uma ferramenta de captação, análise e fortalecimento institucional. Ela busca aprimorar a experiência dos visitantes, obter dados que orientem decisões futuras e reforçar o posicionamento do Inteli como referência em tecnologia e inovação.
+
+| Necessidade                                                   | Impacto no Projeto do Robô                                                                      | Oportunidade de Conteúdo                                                                  |
+| :------------------------------------------------------------ | :---------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| **Coletar dados precisos sobre o engajamento dos visitantes** | Requer integração do robô com um painel analítico que registre interações, dúvidas e emoções.   | Exibir métricas de engajamento e gerar relatórios automáticos pós-tour.                   |
+| **Garantir que o tour funcione de forma confiável e fluida**  | Demanda estabilidade técnica, interface intuitiva e suporte em tempo real.                      | Criar mensagens e comportamentos que transmitam segurança e profissionalismo.             |
+| **Refletir a identidade e o tom institucional do Inteli**     | Necessita de conteúdo alinhado à linguagem da marca e à narrativa de inovação e impacto social. | Inserir falas que reforcem os valores, missão e diferenciais do Inteli.                   |
+| **Otimizar o tempo e a logística das visitas**                | Requer automação no agendamento, personalização de roteiros e acompanhamento remoto.            | Permitir a configuração de tours distintos conforme o público (escolas, empresas, mídia). |
+
+### 3.2. Oportunidades de Conteúdo e Intervenção
+
+ As oportunidades identificadas na jornada da Gabriele têm foco em otimizar o uso do robô como ferramenta de captação e análise de dados, transformando o tour em uma experiência envolvente e estratégica.
+
+* Criar mecanismos automáticos de coleta de feedbacks e métricas de engajamento que permitam a Gabriele ajustar futuras visitas.
+* Incorporar falas do robô que reforcem a imagem institucional, destacando inovação, metodologias práticas e impacto social.
+* Permitir que Gabriele acompanhe o tour em tempo real por meio de um painel administrativo simples e visual.
+* Inserir momentos de interação leve e personalizada com os visitantes, reforçando o caráter humano e acolhedor da experiência.
+* Transformar o tour em uma ferramenta de inteligência de marketing, capaz de gerar insights sobre o perfil e o comportamento dos leads.
+
+## 4. Conclusão
+
+ A jornada de Gabriele Julião evidencia como o cachorro-robô pode ir além da automatização de visitas, atuando como uma ferramenta estratégica de captação e análise de leads. Para ela, o sucesso do sistema não se resume à fluidez técnica do tour, mas à sua capacidade de gerar dados relevantes, engajar visitantes e reforçar a imagem inovadora do Inteli. <br />
+ Ao transformar um processo tradicional em uma experiência interativa, tecnológica e orientada por dados, o robô auxilia Gabriele a compreender melhor o comportamento dos visitantes e aprimorar continuamente as estratégias de admissão. Assim, o projeto não apenas otimiza o trabalho da coordenadora, mas também fortalece o posicionamento do Inteli como uma instituição que une inovação, educação e inteligência de mercado.
+
+
 # Personas (/docs/sprint-1/entendimento-do-usuario/personas)
 
 <Cards>
@@ -3880,11 +5780,12 @@ import { Callout } from "fumadocs-ui/components/callout";
     Descrição detalhada da Persona 2, incluindo perfil, necessidades e
     comportamentos.
   </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-staff/persona-staff" title="Persona Staff Inteli">
+    Descrição detalhada da Persona Staff Inteli, incluindo perfil, necessidades
+    e comportamentos.
+  </Card>
 </Cards>
-
-
-# Persona 1 (/docs/sprint-1/entendimento-do-usuario/personas/persona-1)
-
 
 
 # Persona Candidato (/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato)
@@ -3994,3 +5895,58 @@ Durante o tour, o robô coleta feedbacks sobre a experiência do usuário e os d
 ## Conclusão
 
  Embora a maioria dos visitantes do Inteli seja composta por estudantes do ensino médio, a persona Ricardo Menezes representa um público-alvo estratégico (executivos, imprensa e parceiros) cujo impacto no projeto de automatização de tours com o cão robótico é desproporcionalmente alto. Este público não busca uma experiência lúdica, mas sim a validação da credibilidade e da vanguarda tecnológica da instituição. A presença do Ricardo exige que o robô seja programado para ter uma dupla funcionalidade: além de engajar o público jovem, ele deve ser capaz de alternar para um tom de voz formal, comunicação concisa e conteúdo focado em dados estratégicos (como cases de sucesso e resultados de cursos executivos). Em suma, o Ricardo atua como o padrão de qualidade para o projeto, garantindo que a solução tecnológica não apenas cumpra seu papel operacional de guia, mas também funcione como um reforço da imagem institucional do Inteli para o seu público mais influente e decisório. Ignorar as dores e necessidades deste executivo resultaria em um robô que falharia em seu papel mais importante: endossar a sofisticação e o profissionalismo da faculdade.
+
+
+# Gabriele Julião - Persona Staff Inteli (/docs/sprint-1/entendimento-do-usuario/personas/persona-staff/persona-staff)
+
+
+
+ A imagem abaixo ajuda a compreender de forma mais visual quem é Gabriele e como ela se conecta com o contexto do projeto:
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Persona Gabriele Julião
+</p>
+
+<div style={{ margin: 25 }}>
+  <div style={{ textAlign: "center" }}>
+        <img alt="Persona Executiva" src={__img0} placeholder="blur" />
+  </div>
+</div>
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Resumo da persona
+
+ Gabriele Julião é uma profissional paulistana de 32 anos que atua como coordenadora de admissões no Inteli, sendo responsável por gerenciar os processos seletivos e as visitas guiadas ao campus. Formada em Jornalismo e pós-graduada em Marketing Digital, Gabriele possui experiência em captação de leads e estratégias de comunicação voltadas à atração de jovens talentos. Sua principal motivação é aprimorar a experiência dos visitantes e fortalecer a imagem inovadora da instituição, tornando cada interação uma oportunidade de encantamento e conversão. <br />
+ Apesar dos bons resultados alcançados nas últimas campanhas de admissão, Gabriele enfrenta desafios como a dificuldade de mensurar o impacto das visitas ao campus e obter dados mais qualitativos sobre o interesse dos candidatos. Por isso, vê no cachorro-robô uma ferramenta estratégica para transformar o tour em uma experiência mais tecnológica, interativa e informativa. Durante as visitas, Gabriele acompanha o funcionamento do robô e analisa os dados coletados para compreender melhor o comportamento e o engajamento dos leads. Assim, ela busca unir tecnologia, inovação e marketing educacional para aprimorar o processo de admissão e otimizar a jornada dos futuros alunos do Inteli.
+
+## Informações Demográficas
+
+| Atributo                         | Detalhe                                                                                                                      |
+| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Idade**                        | 32 anos                                                                                                                      |
+| **Gênero**                       | Feminino                                                                                                                     |
+| **Profissão**                    | Coordenadora de admissões no Inteli                                                                                          |
+| **Formação**                     | Jornalismo, com pós graduação em Marketing Digital                                                                           |
+| **Localização**                  | São Paulo (SP)                                                                                                               |
+| **Familiaridade com Tecnologia** | Alta. Utiliza muitas mídias sociais, entende de fluxos e sabe muito sobre o seu público-alvo: futuros líderes em tecnologia. |
+
+## Bio
+
+ Gabriele Julião é uma paulistana de 32 anos, comunicativa e sempre em busca de novas formas de se conectar com as pessoas. Formada em Jornalismo e pós-graduada em Marketing Digital, ela construiu sua carreira unindo criatividade e estratégia, o que a levou a se tornar coordenadora de admissões no Inteli, onde lidera campanhas e visitas ao campus. <br />
+ Fora do trabalho, Gabriele é movida por curiosidade e expressão. Ela adora fotografia, cinema e música brasileira, e costuma aproveitar os fins de semana para explorar novos cafés e registrar momentos do cotidiano de São Paulo. Gosta de estar rodeada de amigos e é conhecida por seu bom humor e energia em eventos da faculdade. Ela ama visitar ambientes "aesthetic", como cafés superfaturados no centro da cidade e museus culturais. Sua atividade favorita com os amigos é ir ao Beco do Batman. <br />
+ Ao mesmo tempo, Gabriele tem um lado analítico e curioso: adora entender o comportamento das pessoas e buscar maneiras de transformar dados em histórias que inspiram. É esse equilíbrio entre empatia e estratégia que a faz enxergar o potencial de ferramentas inovadoras, como o cachorro-robô para transformar a experiência dos visitantes do Inteli em algo inesquecível.
+
+## Cenários de Uso do Sistema
+
+ Assim que chegam ao Inteli, Gabriele recebe um grupo de visitantes interessados em conhecer a instituição. Ela aciona o cachorro-robô, que inicia o tour guiado pelo térreo do campus. Os visitantes recebem um tablet conectado ao sistema do robô, por meio do qual pode interagir durante o percurso, enviando dúvidas por texto ou áudio. <br />
+ Enquanto o robô conduz o grupo de forma autônoma, Gabriele acompanha o tour à distância, observando o andamento pelo painel administrativo. A cada ponto de parada, o robô compartilha informações sobre o curso, os laboratórios, os projetos dos alunos e a cultura da instituição, estimulando o engajamento dos visitantes. <br />
+ Durante a experiência, o sistema coleta feedbacks e dados comportamentais, como nível de interesse e interação dos visitantes, permitindo que Gabriele obtenha informações mais ricas sobre o perfil dos leads. Ao final do tour, ela utiliza esses dados para aprimorar as próximas visitas e ajustar as estratégias de captação, tornando o processo de admissão mais eficiente e personalizado.
+
+## Dores e Necessidades
+
+ A principal dor de Gabriele está na padronização do tour, que quase sempre é feito de maneira diferente entre os visitantes. Além disso, há dificuldade de compreender com profundidade o comportamento e o nível de engajamento dos visitantes durante as visitas ao campus. Embora suas últimas campanhas tenham sido um sucesso, ela sente que falta informação quantitativa e qualitativa que ajude a entender o que realmente desperta o interesse dos jovens e quais fatores influenciam a decisão de inscrição.
+
+## Conclusão
