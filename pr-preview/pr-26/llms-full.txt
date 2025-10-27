@@ -158,20 +158,20 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
 </Cards>
 
 
-# Sprint 3 (/docs/sprint-3)
+# Sprint 2 (/docs/sprint-2)
 
 <Cards>
-  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
+  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
     Modelo básico para criação de novos arquivos MDX.
   </Card>
 
-  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
+  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 </Cards>
 
 
-# Título do Documento (/docs/sprint-3/template)
+# Título do Documento (/docs/sprint-2/template)
 
 
 
@@ -314,20 +314,20 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
-# Sprint 2 (/docs/sprint-2)
+# Sprint 3 (/docs/sprint-3)
 
 <Cards>
-  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
+  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
     Modelo básico para criação de novos arquivos MDX.
   </Card>
 
-  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
+  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 </Cards>
 
 
-# Título do Documento (/docs/sprint-2/template)
+# Título do Documento (/docs/sprint-3/template)
 
 
 
@@ -1142,7 +1142,7 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 ## Bibliografia
 
 \*BRASIL. LEI nº 13.709, de 14 de agosto de 2018 (LGPD). Disponível em: [https://www.planalto.gov.br/ccivil\_03/\_ato2015-2018/2018/lei/l13709.htm](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm).
-\*ANPD. Orientações sobre tratamento de dados de crianças e adolescentes. CD/ANPD nº 1/2023.
+\*ANPD. Orientações sobre tratamento de dados de crianças e adolescentes. CD/ANPD nº 1/2023. Disponível em: [https://www.gov.br/anpd/pt-br/documentos-e-publicacoes/orientacao-sobre-tratamento-de-dados-pessoais-de-criancas-e-adolescentes.pdf](https://www.gov.br/anpd/pt-br/documentos-e-publicacoes/orientacao-sobre-tratamento-de-dados-pessoais-de-criancas-e-adolescentes.pdf).
 
 
 # Análise financeira (/docs/sprint-1/entendimento-do-negocio/analise-financeira)
@@ -4874,14 +4874,14 @@ Os requisitos são classificados em duas categorias:
  As User Stories desenvolvidas a partir das diferentes personas (Estudante, Executivo e Staff Inteli) traduzem as expectativas de cada público em requisitos práticos para o robô-guia. Enquanto os visitantes buscam acolhimento, clareza e interação tecnológica, o staff visa padronização, controle e análise de desempenho. Assim, o sistema integra tecnologia, experiência do usuário e eficiência operacional, refletindo os valores de inovação e hospitalidade do Inteli.
 
 
-# Template de Pasta (/docs/sprint-3/template-pasta)
+# Template de Pasta (/docs/sprint-2/template-pasta)
 
 <Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
 </Cards>
 
 
-# Título do Documento (/docs/sprint-3/template-pasta/template)
+# Título do Documento (/docs/sprint-2/template-pasta/template)
 
 
 
@@ -5024,14 +5024,14 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
-# Template de Pasta (/docs/sprint-2/template-pasta)
+# Template de Pasta (/docs/sprint-3/template-pasta)
 
 <Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
+  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
 </Cards>
 
 
-# Título do Documento (/docs/sprint-2/template-pasta/template)
+# Título do Documento (/docs/sprint-3/template-pasta/template)
 
 
 
