@@ -1,0 +1,98 @@
+---
+title: Exploração Inicial do Robô
+---
+
+## Introdução
+
+Esta documentação apresenta os resultados da primeira fase de exploração do robô **Unitree Go2**, conduzida com o objetivo de avaliar sua viabilidade técnica e operacional para uso em tours autônomos no campus do **Inteli**.
+
+Nesta etapa, foram realizados testes físicos, verificações de limitações mecânicas e de firmware, além de uma análise inicial das ferramentas de desenvolvimento disponíveis, com foco em compreender os desafios e oportunidades para as próximas sprints do projeto.
+
+---
+
+## Testes Iniciais e Viabilidade Física
+
+O primeiro conjunto de testes buscou avaliar a capacidade do robô de operar em ambientes com variação de altura e restrição de espaço, como **escadas e elevadores**.
+
+Após consulta ao manual técnico da Unitree, identificou-se que o robô consegue subir **degraus de até 16 cm**, enquanto todas as escadas do campus possuem degraus acima desse limite.  
+Assim, o uso de escadas foi considerado **inviável**.
+
+Quanto ao **elevador**, verificou-se que o robô **não pode permanecer em espaços menores que 2m x 2m** e **precisa manter conexão constante com a internet**. Como os elevadores do campus não atendem a essas condições, o uso também foi considerado **inadequado**.
+
+Dessa forma, concluiu-se que o **trajeto ideal** para o tour deve ocorrer **exclusivamente em um pavimento**.
+
+---
+
+## Descoberta sobre Firmware e Suporte ao ROS2
+
+Buscando compreender os primeiros passos de configuração e controle do robô, a equipe consultou um professor orientador e um aluno veterano com experiência prévia no mesmo equipamento.
+
+Durante essas consultas, foi identificado que o **firmware do robô havia sido atualizado para a versão 1.1.11**, o que resultou na **perda do suporte oficial ao ROS2** — ferramenta essencial para navegação autônoma e integração com pacotes como o **Nav2**.
+
+Essa descoberta impactou diretamente o planejamento técnico, tornando necessário adotar uma **abordagem via SDK** ao invés de utilizar o ecossistema ROS2.
+
+---
+
+## Tentativas com o SDK Oficial da Unitree
+
+Como alternativa, a equipe iniciou os testes utilizando o **SDK oficial da Unitree**, disponível em:
+
+[https://github.com/unitreerobotics/unitree_sdk2](https://github.com/unitreerobotics/unitree_sdk2)
+
+Durante os experimentos, foi possível controlar **movimentos básicos por juntas**, como o comando para o robô se levantar (pré-programado no SDK).  
+Porém, ao tentar utilizar o módulo **Sport Client**, responsável pelas movimentações autônomas e trajetórias pré-definidas, o sistema **não funcionou corretamente**.
+
+O Sport Client podia ser ativado pelo aplicativo conectado no tablet, mas **desligava automaticamente após alguns segundos**, impossibilitando seu uso.
+
+A documentação oficial do SDK é bastante limitada, com poucas referências disponíveis:
+
+[https://support.unitree.com/home/en/developer/Application_development](https://support.unitree.com/home/en/developer/Application_development)
+
+Dessa forma, a equipe iniciou uma análise linha a linha dos códigos do repositório oficial, buscando compreender sua estrutura e identificar possíveis adaptações. Até o momento, **não foi possível realizar modificações bem-sucedidas**.
+
+---
+
+## Testes Práticos no Campus
+
+Em paralelo aos testes de software, foram realizados experimentos práticos com o **controle remoto do robô**, no **térreo do campus do Inteli**, espaço considerado mais adequado para o tour.
+
+### Observações de campo
+
+- O robô consegue **passar pela catraca** se ela estiver aberta.  
+  Quando fechada, **a altura do acrílico precisa ser reduzida** em alguns centímetros para permitir sua passagem.
+- O robô **detecta as paredes de vidro** do **Espaço Multiuso 01** e consegue se desviar delas adequadamente.
+- Ele **passa pela primeira porta do auditório**, mas **a segunda é estreita**, o que pode causar dificuldade.
+- O **corredor das salinhas** é acessível, mas exige atenção por ter **grande fluxo de pessoas**.
+
+Esses resultados demonstram que o robô possui boa percepção ambiental, mas a **navegação autônoma** ainda depende de validações futuras, especialmente quando o sistema estiver processando **múltiplas requisições** simultâneas.
+
+---
+
+## Pesquisas Paralelas e Próximos Passos
+
+Com as limitações identificadas no SDK e firmware, a equipe iniciou a busca por **soluções alternativas e comunitárias** que possam restaurar ou complementar as funcionalidades desejadas.
+
+### Repositórios em análise
+
+- [https://github.com/legion1581/unitree_webrtc_connect/tree/2.x.x](https://github.com/legion1581/unitree_webrtc_connect/tree/2.x.x)
+- [https://github.com/abizovnuralem/go2_ros2_sdk](https://github.com/abizovnuralem/go2_ros2_sdk)
+- [https://github.com/jizhang-cmu/autonomy_stack_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+A equipe também ingressou na comunidade da **Unitree Robotics no Discord**, utilizada como canal para **troca de informações técnicas** e **suporte entre desenvolvedores**:
+
+[https://discord.gg/wmGmmgDd9](https://discord.gg/wmGmmgDd9)
+
+---
+
+## Considerações Finais
+
+A fase de exploração inicial permitiu compreender as **limitações físicas e técnicas** do robô Unitree Go2, os impactos da **atualização de firmware**, e a necessidade de buscar soluções alternativas ao SDK oficial.
+
+Esta etapa foi essencial para **definir o escopo técnico** e direcionar as próximas sprints, que terão como foco:
+
+1. Testar repositórios alternativos de controle remoto e ROS2 adaptado.
+2. Garantir comunicação estável e segura com o robô.
+3. Iniciar o desenvolvimento de **trajetórias controladas por waypoints**.
+
+O objetivo desses avanços é **implementar um caminho de waypoints no térreo** do campus para **validar a viabilidade da rota planejada** utilizando esse método.  
+Essa validação será o ponto de partida para a criação de um sistema de **navegação autônoma segura e reprodutível** em ambiente real.

@@ -1,0 +1,94 @@
+---
+title: Privacidade e Proteção de Dados
+---
+
+<Callout title="Aviso" type="warning">
+  Essa etapa compete ao parceiro de projeto, sendo delineado, nessa subseção,
+  apenas recomendações por parte dos desenvolvedores de acordo com a Lei Geral
+  de Proteção de Dados (2018) e as capacidades técnicas do robô.
+</Callout>
+
+&emsp; Esta seção detalha como a privacidade dos visitantes será resguardada durante os tours com o cão-robô em ambiente educacional. O contexto é particularmente sensível: envolve dados potenciais de natureza biométrica (imagem e voz), um público majoritariamente composto por adolescentes e tecnologias emergentes de IA generativa. Por isso, recomenda-se uma abordagem responsável, documentada e transparente, compatível com a LGPD, a orientação da ANPD e as limitações técnicas do sistema.
+
+## Bases legais e escopo do tratamento
+
+&emsp; Segundo o Art. 5º da LGPD, dado pessoal é informação relacionada a pessoa natural identificada ou identificável; dados pessoais sensíveis incluem, entre outros, dados biométricos. As imagens capturadas por câmeras e padrões vocais presentes em gravações de áudio podem se enquadrar como biométricos, especialmente quando processados por reconhecimento facial ou de voz. Logs de interação com IA, quando associados a identificadores diretos ou indiretos, compõem perfis que também são dados pessoais.
+
+&emsp; No caso de menores, o Art. 14 da LGPD estabelece que o tratamento deve observar o melhor interesse da criança e do adolescente. A orientação pública da ANPD (CD/ANPD nº 1/2023) esclarece que, para adolescentes, bases legais dos Arts. 7º e 11 podem ser utilizadas, desde que respeitado o melhor interesse. Diante disso, recomenda-se uma abordagem híbrida:
+
+- Operação essencial (navegação, desvio de pessoas e obstáculos): interesse legítimo (Art. 7º, IX), suportado por Avaliação de Legítimo Interesse, quando o tratamento for estritamente necessário e proporcional;
+- Tratamento de dados biométricos: Art. 11 por consentimento específico e destacado (inciso I) ou, quando cabível, pela exceção de segurança do titular (inciso II, alínea g) para garantir a navegação segura;
+- Análises e melhoria: priorizar anonimização irreversível antes do processamento, descaracterizando dado pessoal.
+
+## Tipos de dados e finalidades
+
+&emsp; Em termos práticos, recomenda-se mapear e restringir o tratamento às categorias estritamente necessárias:
+
+- Operação e navegação: imagens efêmeras para detecção de obstáculos e localização relativa; áudio para ativações pontuais; telemetria de sensores e posição do robô;
+- Interação com IA: transcrição de perguntas e respostas (conteúdo semântico), preferencialmente sem retenção de voz bruta;
+- Métricas e melhoria: eventos agregados e anonimizados (ex.: número de dúvidas, temas mais recorrentes, pontos de dúvida no percurso);
+- Segurança e auditoria: registros mínimos para investigação de incidentes, com escopo reduzido e prazo curto.
+
+<Callout title="Nota sobre vídeo ao vivo" type="info">
+  Atualmente, o robô possui câmera HD com transmissão para o aplicativo do
+  fornecedor. Conforme discutido, entende-se que: (i) a imagem não é guardada
+  pelo sistema; (ii) é acessível apenas por pessoas na mesma rede e no app do
+  fornecedor; (iii) o acesso exige chave criptográfica no app; (iv) o uso visa
+  exclusivamente melhorar a navegação. Essa configuração reduz risco, mas não o
+  elimina. Decisões finais devem ser formalizadas pelo parceiro, com assunção de
+  impacto residual.
+</Callout>
+
+## Riscos e ameaças à privacidade
+
+&emsp; Os principais riscos incluem: vazamento de imagens/áudios de menores; uso secundário não previsto (function creep) por áreas como marketing/admissões; interceptação de tráfego se mal configurado; acesso físico ao armazenamento embarcado; retenção por provedores externos de IA; e reidentificação de dados supostamente anonimizados por cruzamento com outras bases.
+
+## Medidas técnicas e organizacionais
+
+&emsp; Recomenda-se o seguinte conjunto mínimo de salvaguardas:
+
+- Criptografia: TLS 1.3+ para dados em trânsito; AES‑256 para dados em repouso; partição criptografada separada para qualquer artefato sensível;
+- Minimização e privacidade por padrão: desfoque/mascaramento de rostos em tempo real sempre que não estritamente necessário à navegação; remoção de características biométricas de voz, mantendo apenas conteúdo textual; pseudonimização com identificadores irreversíveis; agregação imediata para métricas;
+- Controles de acesso: MFA obrigatório; RBAC com privilégio mínimo; gestão de acessos privilegiados (PAM) para contas admin; trilhas de auditoria completas com revisão periódica;
+- Integrações externas: preferir provedores com cláusulas contratuais de não retenção; desativar logging em ambientes de teste com dados reais; mascarar/anonimizar antes de enviar a terceiros;
+- Governança e evidências: Avaliação de Legítimo Interesse (ALI) quando aplicável; Relatório de Impacto à Proteção de Dados (RIPD) para o tratamento envolvendo menores e/ou biometria; treinamento de equipe e playbooks de incidente.
+
+## Retenção e descarte
+
+&emsp; Definir e implementar política objetiva de retenção:
+
+- Dados operacionais efêmeros (navegação/obstáculos): eliminação automática em 24–48 horas;
+- Dados de interação anonimizados (métricas): até 90 dias, com revisão de necessidade;
+- Qualquer dado identificável (se absolutamente indispensável): no máximo 30 dias, com justificativa e aprovação;
+- Descarte seguro: sanitização certificada que garanta irrecuperabilidade e cobertura de backups.
+
+## Direitos dos titulares
+
+&emsp; Disponibilizar um portal acessível (ex.: inteli.edu.br/privacidade-robo) para: confirmação de tratamento, acesso, correção, anonimização, eliminação, portabilidade e informações sobre compartilhamento. O prazo de resposta da LGPD (15 dias úteis) deve ser cumprido com fluxos automatizados: protocolo imediato, processamento automático do simples, escalonamento do complexo e notificação de conclusão.
+
+## Consentimento e assentimento
+
+&emsp; O consentimento dos responsáveis deve ser obtido em camadas, preferencialmente no agendamento do tour, com verificação de identidade (nome, CPF, vínculo com o menor) e linguagem clara: quais dados, por quê, por quanto tempo, quem acessa e quais proteções existem. Ofereça granularidade:
+
+- Coleta de imagens para navegação com anonimização;
+- Gravação de áudio para interação com IA;
+- Uso de dados anonimizados para métricas agregadas;
+- Opção de tour com sensores limitados e operação em modo anônimo.
+
+&emsp; Complementarmente, recomenda-se o assentimento do adolescente no dia do tour, com reafirmação do direito de interromper a participação. Durante o tour, mantenha transparência em tempo real: LEDs indicando câmera/microfone ativos; avisos verbais do robô antes de capturas necessárias; painel simples mostrando sensores ativos; e botão "Pausar coleta" acessível. Veja recomendações correlatas na seção "Transparência e Consentimento Informado".
+
+## Ações recomendadas (síntese)
+
+- Solicitar consentimento explícito e granular para cada funcionalidade que envolva dados pessoais;
+- Implementar anonimização/minimização por padrão e revisar necessidade de cada dado coletado;
+- Garantir criptografia em trânsito e em repouso, com segregação de ambientes e segredos;
+- Publicar política de privacidade clara e acessível, com versões resumidas visuais;
+- Disponibilizar portal para exercício de direitos com SLA legal (15 dias úteis);
+- Elaborar ALI e RIPD quando aplicável, documentando proporcionalidade e melhor interesse do menor;
+- Realizar revisão trimestral de acessos, testes de restauração/eliminação e simulações de incidente;
+- Formalizar posição sobre o uso de imagem (live feed) e riscos residuais, conforme governança do parceiro.
+
+## Bibliografia
+
+- BRASIL. LEI nº 13.709, de 14 de agosto de 2018 (LGPD). Disponível em: https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm.
+- ANPD. Orientações sobre tratamento de dados de crianças e adolescentes. CD/ANPD nº 1/2023. Disponível em: https://www.gov.br/anpd/pt-br/documentos-e-publicacoes/orientacao-sobre-tratamento-de-dados-pessoais-de-criancas-e-adolescentes.pdf.

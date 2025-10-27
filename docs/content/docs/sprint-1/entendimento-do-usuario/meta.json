@@ -1,0 +1,5 @@
+{
+  "title": "Entedimento do Usuário",
+  "description": "Descreve o perfil, necessidades e jornada dos usuários-alvo, com base em pesquisas e mapeamentos que orientam o desenvolvimento centrado no ser humano.",
+  "pages": ["personas", "mapa-de-jornada-do-usuario", "user-stories"]
+}

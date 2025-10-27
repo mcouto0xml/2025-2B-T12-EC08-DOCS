@@ -1,0 +1,12 @@
+{
+  "title": "Entedimento do Negócio",
+  "description": "Apresenta a análise do contexto de mercado, proposta de valor e viabilidade financeira do projeto, identificando oportunidades, riscos e posicionamento estratégico.",
+  "pages": [
+    "analise-financeira",
+    "canvas-proposta-de-valor",
+    "matriz-de-oportunidades",
+    "matriz-de-risco",
+    "matriz-oceano-azul",
+    "tam-sam-som"
+  ]
+}

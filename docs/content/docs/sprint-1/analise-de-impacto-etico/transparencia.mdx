@@ -1,0 +1,74 @@
+---
+title: Transparência e Consentimento Informado
+---
+
+<Callout title="Aviso" type="warning">
+  Essa etapa compete ao parceiro de projeto, sendo delineado, nessa subseção,
+  apenas recomendações por parte dos desenvolvedores de acordo com a Lei Geral
+  de Proteção de Dados (2018) e as capacidades técnicas do robô.
+</Callout>
+
+&emsp; Essa seção apresenta evidências de como todas as partes envolvidas devem ter acesso claro às informações relevantes. Além disso, apresenta como o consentimento é deve ser obtido de maneira adequada. Para esse fim contempla-se os seguintes stakeholders, não exaustivamente:
+
+- Desenvolvedores;
+- Visitantes do Inteli;
+- Pais dos visitantes;
+- Docentes e discentes do Inteli;
+- Governo;
+
+## Transparência
+
+&emsp; A transparência constitui não apenas princípio ético fundamental mas requisito legal explícito da LGPD conforme Artigo 6 inciso VI, estabelecendo que o tratamento de dados deve garantir aos titulares informações claras, precisas e facilmente acessíveis sobre realização do tratamento e respectivos agentes (Brasil, 2018). Em contexto de tecnologias de inteligência artificial aplicadas a populações vulneráveis como menores de idade, a transparência transcende conformidade regulatória para tornar-se condição sine qua non de legitimidade social do projeto. Por essa razão, a implementação deve adotar uma abordagem de transparência em três camadas: técnica, processual e comunitária; reconhecendo que diferentes stakeholders têm necessidades informacionais distintas e que informação deve ser não apenas disponibilizada mas ativamente comunicada de formas apropriadas e compreensíveis.
+
+&emsp; A transparência técnica demanda documentação pública abrangente das capacidades e limitações do robô Unitree Go2. Esta documentação deve especificar claramente quais sensores estão instalados no equipamento (câmeras HD e de profundidade, LiDAR, microfones, GPS), quais desses sensores estão ativos durante os tours e sob quais circunstâncias específicas, qual processamento ocorre localmente versus em servidores remotos, e quais integrações com serviços externos de inteligência artificial são utilizadas.
+
+&emsp; Além disso, a explicação de como a IA generativa funciona deve ser acessível a leigos, evitando abstrações técnicas enquanto mantém precisão factual, esclarecendo que o sistema é baseado em modelos de linguagem de grande escala treinados em textos da internet que identificam padrões estatísticos para gerar respostas coerentes mas não "pensam" ou "compreendem" no sentido humano. As fontes de dados utilizadas no treinamento desses modelos devem ser divulgadas na medida do possível, reconhecendo limitações de propriedade intelectual de fornecedores terceiros mas comprometendo-se com máxima abertura dentro dessas restrições.
+
+<Callout title="Dica" type="tip">
+  Esse repositório é benéfico no sentido de disponibilizar maior transparência.
+  Por meio dele, pais, visitantes e até desenvolvedores podem aprender
+  informações mais específicas do projeto de modo a fomentar a ciência como
+  declarado na seção de Responsabilidade Social.
+</Callout>
+
+&emsp; Ademais, a divulgação honesta de limitações conhecidas deve ocorrer de acordo com os testes, conforme apresentado na seção anterior. Caso não passe na avaliação formal, o cão-robô ou o guia deve proativamente comunicar que o reconhecimento de voz apresenta maior taxa de erro para sotaques regionais específicos comparado a sotaque paulistano padrão, que o sistema pode não compreender adequadamente gírias ou expressões idiomáticas regionais e que a inteligência artificial pode ocasionalmente gerar respostas incorretas ou _nonsensical_ devido à natureza probabilística de sua operação. Esta honestidade sobre imperfeição estabelece expectativas realistas e constrói confiança através de candor ao invés de marketing hiperbólico.
+
+&emsp; A transparência processual é fortemente recomendada, mesmo não competendo à equipe de desenvolvimento responsável pela Prova de Conceito. Ela requer publicação da Política de Privacidade específica do projeto em linguagem clara e acessível, evitando jargão jurídico enquanto mantém precisão legal, com disponibilização tanto em formato textual completo quanto em resumos visuais usando infográficos e ícones para comunicação rápida de pontos-chave. Nesses sentido, recomenda-se também a transparência comunitária. Esta vai além de documentação passiva para engajamento ativo com stakeholders. Apresentações abertas para comunidade do Inteli incluindo alunos atuais, pais de potenciais candidatos, professores e funcionários devem ser realizadas antes do deployment completo, oferecendo demonstrações ao vivo do robô, oportunidade para perguntas sem restrições, e coleta de feedback que genuinamente influencia decisões de projeto.
+
+## Consentimento Informado
+
+&emsp; O consentimento informado dos visitantes também ocorrerá em camadas, de modo a reconhecer que decisões sobre privacidade não são eventos únicos mas processos contínuos que requerem reafirmação periódica e granularidade de escolha. Todas essas etapas, porém, **são recomendativas e dependem da aplicação e integração delas, por parte do parceiro, ao seu sistema de tour.**
+
+&emsp; A primeira camada deve ocorrer previamente ao agendamento do tour quando visitantes acessam o site do Inteli - A Figura 1 apresenta essa tela. Neste momento, haverá um aviso destacado sobre utilização de robô autônomo. Inclui-se, então, um link proeminente para página dedicada descrevendo o projeto em profundidade técnica apropriada, vídeo curto de dois a três minutos mostrando o robô em ação durante tour real e explicando de forma acessível como funciona, e seção de perguntas frequentes respondendo questões comuns sobre privacidade, segurança, acessibilidade e opções de participação.
+
+<p style={{ textAlign: "center" }}>Figura 1: Agende uma Visita - Inteli</p>
+
+![Agende Sua Visita](./imgs/agende-uma-visita.png)
+
+<p style={{ textAlign: "center" }}>Fonte: Produzida pelos Autores (2025).</p>
+
+&emsp; A segunda camada consiste em consentimento parental formal necessário para visitantes menores de 18 anos, implementado através de formulário online específico enviado aos responsáveis legais após agendamento do tour. Este formulário deve começar com identificação inequívoca do responsável legal coletando nome completo, CPF, email e telefone de contato, e relação legal com o menor (pai, mãe, tutor judicial), seguida de verificação robusta de identidade através de validação de CPF em bases públicas da Receita Federal.
+
+&emsp; A explicação sobre tratamento de dados deve utilizar linguagem absolutamente clara e direta, estruturada em perguntas e respostas curtas:
+
+- **Quais informações serão coletadas sobre meu filho?**: seguido de lista específica (transcrição da interação visitante-robô, registro das respostas fornecidas pelo robô, localização dentro do campus durante o tour);
+- **Por quanto tempo essas informações serão mantidas?**: com resposta precisa sobre períodos de retenção diferenciados por tipo de dado;
+- **Quem terá acesso a essas informações?**: especificando equipes autorizadas;
+- **Como essas informações estão protegidas?**: descrevendo medidas de segurança em termos compreensíveis.
+
+&emsp; O direito de revogação do consentimento deve ser tão simples quanto sua concessão original, implementado através de link em todos os emails enviados aos participantes levando a formulário web de uma página que solicita apenas confirmação de identidade e motivo opcional para revogação (útil para melhoria mas não obrigatório). O processamento da revogação deve ser automatizado com confirmação imediata de recebimento e deleção de dados completamente finalizada dentro de 48 horas, seguida de email de confirmação com certificado de deleção especificando quais dados foram removidos e timestamp da operação.
+
+&emsp; Deve haver também a possibilidade de solicitação de download de cópia completa dos dados em formato estruturado (portabilidade conforme Artigo 18 da LGPD), correção de qualquer informação incorreta associada ao cadastro, solicitação de anonimização que mantém dados para finalidades estatísticas mas remove qualquer possibilidade de reidentificação, e solicitação de deleção completa e irrevogável de todos os dados.
+
+&emsp; Uma observação acerca do consentimento é a autorização do uso de imagens dos estudantes. Hoje em dia, o robô possui uma câmera HD, cuja imagem é transmitida para o aplicativo do drone. Em 22/10/2025, discutiu-se acerca da segurança desse dado e apreendeu-se o seguinte:
+
+- A imagem do visitante é coletada, mas não guardada por parte do sistema;
+- A imagem é acessível apenas por pessoas na mesma rede e no aplicativo do fornecedor;
+- A imagem é acessível apenas por meio de chave criptográfica presente no aplicativo;
+- A imagem é usada apenas para melhor navegação do robô.
+
+&emsp; Sendo assim, reconhece-se que a imagem apesar de potencialmente gravosa à reputação da instituição tem uma probabilidade muito baixa de ser vazada. Portanto, fica à critério do parceiro incluir isso na lista de dados coletados, cabendo ao próprio arcar com potenciais impactos dessa decisão.
+
+# Bibliografia
+
+- BRASIL. LEI No 13.709, DE 14 DE AGOSTO DE 2018. Disponível em: https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm.
