@@ -2574,6 +2574,126 @@ BOSTON DYNAMICS. *Spot Robot*. Disponível em: [https://www.bostondynamics.com/s
 SOFTBANK ROBOTICS. *Pepper Robot*. Disponível em: [https://www.softbankrobotics.com/aboutus/](https://www.softbankrobotics.com/aboutus/). Acesso em: 24 out. 2025.
 
 
+# NIST CSF: Robô de Serviço Autônomo com IA (/docs/sprint-1/entendimento-do-projeto/documentacao-nist)
+
+# NIST Cybersecurity Framework (CSF)
+
+### O que é o NIST CSF?
+
+O NIST Cybersecurity Framework (NIST CSF) é um conjunto de padrões, diretrizes e práticas recomendadas, desenvolvido pelo Instituto Nacional de Padrões e Tecnologia dos EUA (NIST), uma agência não reguladora que promove a inovação por meio do avanço da ciência, padrões e tecnologia de medição.
+
+O NIST CSF ajuda as organizações a melhorar seu gerenciamento de riscos de segurança cibernética e reduzir vulnerabilidades. Trata-se de um framework voluntário (não um instrumento legal), estruturado em cinco funções principais: **Identificar, Proteger, Detectar, Responder e Recuperar**.
+
+### Sobre este Documento
+
+Este documento apresenta uma **avaliação inicial** e **sugestões preliminares** para a aplicação do NIST CSF ao projeto do robô de tours do Inteli. O conteúdo aqui descrito **não é final** e serve como um ponto de partida para discussões, **estando sujeito a mudanças** à medida que os requisitos e a arquitetura do projeto evoluem.
+
+Os códigos nos títulos (ex: `ID.AM`) são os **Identificadores de Categoria** oficiais do NIST. Eles servem como uma referência rápida: as primeiras letras indicam a Função (ex: `ID` para Identificar) e as seguintes indicam a Categoria (ex: `AM` para Asset Management, ou Gerenciamento de Ativos).
+
+***
+
+## 1. Identificar (Identify)
+
+Para se proteger contra ataques cibernéticos, a equipe de segurança cibernética precisa de um entendimento completo de quais são os ativos e recursos mais importantes da organização. A função de identificação ajuda a entender o que precisa ser protegido e inclui categorias como gerenciamento de ativos, ambiente de negócios, governança, avaliação de riscos, estratégia de gerenciamento de riscos e gerenciamento de riscos da cadeia de suprimentos.
+
+Nesta fase inicial, podemos mapear os seguintes pontos:
+
+### Gerenciamento de Ativos (ID.AM)
+
+Os principais ativos que parecem compor o projeto são:
+
+#### **Hardware:**
+
+* A própria base robótica (inicialmente em escala reduzida).
+* Qualquer hardware externo que possa ser usado para processamento.
+* A infraestrutura de rede do campus (Wi-Fi) que o robô usará.
+
+#### **Software:**
+
+* O código de navegação e controle do robô.
+* A integração com a IA generativa (usando modelos pré-treinados).
+
+#### **Dados:**
+
+* O mapa e os scripts do tour pré-definido.
+* As fontes de informação para o chatbot (FAQs, conteúdo do site, etc.).
+* Logs das interações dos visitantes com o robô.
+
+### Avaliação de Risco (ID.RA)
+
+Com base nos ativos, podemos antecipar alguns riscos potenciais a serem considerados:
+
+* **Risco de Acesso:** A possibilidade de alguém não autorizado tentar controlar o robô.
+* **Risco de Imagem:** A possibilidade de a IA ser manipulada (ex: "prompt injection") para gerar respostas inadequadas, o que afetaria o objetivo de "encantar" os visitantes.
+* **Risco Operacional:** Interrupções no serviço (ex: rede offline) que parem o tour.
+
+***
+
+## 2. Proteger (Protect)
+
+A função de proteção abrange grande parte dos controles de segurança técnica e física para desenvolver e implementar salvaguardas apropriadas e proteger a infraestrutura crítica. Essas categorias são Gerenciamento de identidade e controle de acesso, Conscientização e treinamento, Segurança de dados, Processos e procedimentos de proteção de informações, Manutenção e Tecnologia de proteção.
+
+### Controle de Acesso (PR.AC)
+
+* **Acesso Administrativo:** Recomenda-se que qualquer painel de controle ou acesso para manutenção do robô seja protegido (ex: uma senha simples).
+* **Rede:** Uma ideia a se explorar seria isolar a comunicação do robô em uma rede separada, se a infraestrutura do campus permitir isso sem complexidade.
+
+### Segurança de Dados (PR.DS)
+
+* **Comunicação:** Se o robô se comunicar com serviços externos (como a API de IA), seria ideal que essa comunicação fosse criptografada (ex: HTTPS) para proteger os dados em trânsito.
+
+### Tecnologias de Proteção (PR.PT)
+
+* **Filtragem de IA:** Para mitigar o risco de respostas inadequadas, poderíamos explorar filtros simples nas perguntas sentadas à IA, bloqueando termos problemáticos.
+
+***
+
+## 3. Detectar (Detect)
+
+A função de detecção implementa medidas que alertam uma organização sobre ataques cibernéticos. As categorias de detecção incluem anomalias e eventos, monitoramento contínuo de segurança e processos de detecção.
+
+### Anomalias e Eventos (DE.AE)
+
+* **Monitoramento Básico:** Uma abordagem simples seria revisar periodicamente os logs de interação da IA. Isso ajudaria a identificar se os visitantes estão tentando ativamente fazer o robô gerar respostas ruins.
+* **Alertas:** Em vez de alertas em tempo real, poderíamos focar em monitorar a "saúde" básica do robô (ex: status da bateria, conexão de rede).
+
+***
+
+## 4. Responder (Respond)
+
+As categorias de funções de resposta garantem a resposta adequada a ataques cibernéticos e outros eventos de segurança cibernética. As categorias específicas incluem Planejamento de resposta, Comunicações, Análise, Mitigação e Melhorias.
+
+### Planejamento de Resposta (RS.RP)
+
+* **Plano de Intervenção:** A resposta mais simples para a maioria dos incidentes (ex: robô travado, IA gerando respostas ofensivas) seria ter um procedimento de "parada de emergência".
+* **Comunicação:** Definir quem do time (ex: Professor Orientador) deve ser avisado se algo der errado durante um tour.
+
+### Análise e Mitigação (RS.AN / RS.MI)
+
+* Após um incidente, a equipe analisaria o que aconteceu (ex: qual pergunta causou a falha) e consideraria ajustes simples para evitar que aconteça novamente.
+
+***
+
+## 5. Recuperar (Recover)
+
+As atividades de recuperação implementam planos de resiliência cibernética e garantem a continuidade dos negócios em caso de ataque cibernético, violação de segurança ou outro evento de segurança cibernética. As funções de recuperação são melhorias de planejamento de recuperação e comunicações.
+
+### Planejamento de Recuperação (RC.RP)
+
+* **Restauração:** Manter uma cópia segura da última versão funcional do código e dos scripts do tour em um repositório. Isso facilitaria a restauração do robô para um estado conhecido.
+
+### Melhorias (RC.IM)
+
+* Qualquer aprendizado com incidentes reais seria usado para reavaliar estas sugestões e melhorar a robustez do robô em futuras interações.
+
+***
+
+## Referências
+
+* [IBM Think: O que é o NIST Cybersecurity Framework?](https://www.ibm.com/br-pt/think/topics/nist)
+* [NIST IR 8183r2 (PDF): Cybersecurity Framework (CSF) Manufacturing Profile](https://nvlpubs.nist.gov/nistpubs/ir/2025/NIST.IR.8183r2.ipd.pdf)
+
+
 # Entendimento do Projeto (/docs/sprint-1/entendimento-do-projeto)
 
 <Cards>
@@ -2590,6 +2710,11 @@ SOFTBANK ROBOTICS. *Pepper Robot*. Disponível em: [https://www.softbankrobotics
     Descreve a estrutura e organização do sistema, incluindo componentes,
     tecnologias e padrões utilizados, garantindo escalabilidade,
     manutenibilidade e sustentabilidade.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-projeto/nist-csf" title="Framework NIST CSF">
+    Apresenta uma avaliação inicial e sugestões de cibersegurança, com base no
+    framework NIST para identificar, proteger, detectar, responder e recuperar.
   </Card>
 </Cards>
 
