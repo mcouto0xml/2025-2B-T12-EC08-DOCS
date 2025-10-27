@@ -241,14 +241,6 @@ F -->|HTTP| BUCKET
 "
 />
 
-## Equações Matemáticas em LaTeX
-
-Inline: $c = \pm\sqrt{a^2 + b^2}$
-
-```math
-c = \pm\sqrt{a^2 + b^2}
-```
-
 ## Imagens e Links
 
 <img alt="Imagem" src={__img0} placeholder="blur" />
@@ -396,14 +388,6 @@ F -->|Query e HTTP| PG
 F -->|HTTP| BUCKET
 "
 />
-
-## Equações Matemáticas em LaTeX
-
-Inline: $c = \pm\sqrt{a^2 + b^2}$
-
-```math
-c = \pm\sqrt{a^2 + b^2}
-```
 
 ## Imagens e Links
 
@@ -553,14 +537,6 @@ F -->|HTTP| BUCKET
 "
 />
 
-## Equações Matemáticas em LaTeX
-
-Inline: $c = \pm\sqrt{a^2 + b^2}$
-
-```math
-c = \pm\sqrt{a^2 + b^2}
-```
-
 ## Imagens e Links
 
 <img alt="Imagem" src={__img0} placeholder="blur" />
@@ -709,13 +685,7 @@ F -->|HTTP| BUCKET
 "
 />
 
-## Equações Matemáticas em LaTeX
-
-Inline: $c = \pm\sqrt{a^2 + b^2}$
-
-```math
-c = \pm\sqrt{a^2 + b^2}
-```
+w
 
 ## Imagens e Links
 
@@ -965,19 +935,15 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 
   A primeira camada deve ocorrer previamente ao agendamento do tour quando visitantes acessam o site do Inteli - A Figura 1 apresenta essa tela. Neste momento, haverá um aviso destacado sobre utilização de robô autônomo. Inclui-se, então, um link proeminente para página dedicada descrevendo o projeto em profundidade técnica apropriada, vídeo curto de dois a três minutos mostrando o robô em ação durante tour real e explicando de forma acessível como funciona, e seção de perguntas frequentes respondendo questões comuns sobre privacidade, segurança, acessibilidade e opções de participação.
 
-<div style={{ textAlign: "center" }}>
-  <sup>
-    Figura 1: Agende uma Visita - Inteli
-  </sup>
-</div>
+<p style={{ textAlign: "center" }}>
+  Figura 1: Agende uma Visita - Inteli
+</p>
 
 <img alt="Agende Sua Visita" src={__img0} placeholder="blur" />
 
-<div style={{ textAlign: "center" }}>
-  <sub style={{ textAlign: "center" }}>
-    Fonte: Produzida pelos Autores (2025).{" "}
-  </sub>
-</div>
+<p style={{ textAlign: "center" }}>
+  Fonte: Produzida pelos Autores (2025).
+</p>
 
   A segunda camada consiste em consentimento parental formal necessário para visitantes menores de 18 anos, implementado através de formulário online específico enviado aos responsáveis legais após agendamento do tour. Este formulário deve começar com identificação inequívoca do responsável legal coletando nome completo, CPF, email e telefone de contato, e relação legal com o menor (pai, mãe, tutor judicial), seguida de verificação robusta de identidade através de validação de CPF em bases públicas da Receita Federal.
 
@@ -1003,7 +969,7 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 
 # Bibliografia
 
-\*BRASIL. LEI No 13.709, DE 14 DE AGOSTO DE 2018. Disponível em: [https://www.planalto.gov.br/ccivil\_03/\_ato2015-2018/2018/lei/l13709.htm](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm).
+* BRASIL. LEI No 13.709, DE 14 DE AGOSTO DE 2018. Disponível em: [https://www.planalto.gov.br/ccivil\_03/\_ato2015-2018/2018/lei/l13709.htm](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm).
 
 
 # Vieses e Discriminação (/docs/sprint-1/analise-de-impacto-etico/vieses)
@@ -1044,11 +1010,11 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 
 ## Bibliografia
 
-\*CERVI, A. Inteli lança “Estação Inteli” para levar experiência prática e inovação a estudantes do ensino médio. Live Marketing, 25 out. 2025.
-\*INTELI. Inteli : Instituto de Tecnologia e Liderança : história, construção e metodologia. \[s.l.] Inteli, 2025. p. 109
-\*INTELI. Relatório Anual. \[s.l.] Inteli, 2024. Disponível em: [https://www.inteli.edu.br/wp-content/uploads/2024/08/RELATORIO-ANUAL-2024-22082024-FINAL-DIGITAL.pdf](https://www.inteli.edu.br/wp-content/uploads/2024/08/RELATORIO-ANUAL-2024-22082024-FINAL-DIGITAL.pdf). Acesso em: 26 out. 2025.
-\*MU, B. et al. Mixture of LoRA Experts With Multi-Modal and Multi-Granularity LLM Generative Error Correction for Accented Speech Recognition. IEEE Transactions on Audio, Speech and Language Processing, v. 33, p. 2973–2985, 2025.
-\*ZANDER, L.; ERTL, B. Female Students’ Belonging Uncertainty in Higher Education STEM Environments. Routledge eBooks, p. 67–78, 16 out. 2023.
+* CERVI, A. Inteli lança “Estação Inteli” para levar experiência prática e inovação a estudantes do ensino médio. Live Marketing, 25 out. 2025.
+* INTELI. Inteli : Instituto de Tecnologia e Liderança : história, construção e metodologia. \[s.l.] Inteli, 2025. p. 109
+* INTELI. Relatório Anual. \[s.l.] Inteli, 2024. Disponível em: [https://www.inteli.edu.br/wp-content/uploads/2024/08/RELATORIO-ANUAL-2024-22082024-FINAL-DIGITAL.pdf](https://www.inteli.edu.br/wp-content/uploads/2024/08/RELATORIO-ANUAL-2024-22082024-FINAL-DIGITAL.pdf). Acesso em: 26 out. 2025.
+* MU, B. et al. Mixture of LoRA Experts With Multi-Modal and Multi-Granularity LLM Generative Error Correction for Accented Speech Recognition. IEEE Transactions on Audio, Speech and Language Processing, v. 33, p. 2973–2985, 2025.
+* ZANDER, L.; ERTL, B. Female Students’ Belonging Uncertainty in Higher Education STEM Environments. Routledge eBooks, p. 67–78, 16 out. 2023.
 
 
 # Privacidade e Proteção de Dados (/docs/sprint-1/analise-impacto-etico/privacidade_e_protecao_de_dados)
@@ -1147,8 +1113,6 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 
 # Análise financeira (/docs/sprint-1/entendimento-do-negocio/analise-financeira)
 
-# Introdução
-
   A análise financeira tem como principal função quantificar custos, despesas e preço total do projeto desenvolvido, considerando equipe técnica e ferramentas específicas para a finalização e manutenção do projeto contratado \[1]. A planilha da análise financeira desenvolvida para o projeto pode ser encontrada neste [documento](https://docs.google.com/spreadsheets/d/1Rfc-X_f0lI5Y1oXJLWrr4Uq6wzQ6qkgw_KJwlaRfr2g/edit?usp=sharing).
 
   No contexto de desenvolvimento do projeto, a análise financeira foi dividida em duas etapas: a análise de **Desenvolvimento Inicial (2.5 meses)**, que inclui os valores do protótipo e das primeiras entregas, e a análise de **Manutenção (12 meses)**, que diz respeito ao desenvolvimento efetivo do produto e seu suporte no ambiente do cliente. O projeto total tem uma duração de 14.5 meses. Abaixo encontram-se os detalhes financeiros das duas etapas.
@@ -1157,33 +1121,549 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 
   O investimento inicial engloba todos os gastos não recorrentes necessários para iniciar o projeto e adquirir os ativos de longo prazo. Isso inclui custos de setup da empresa, contratação inicial da equipe e a aquisição de equipamentos essenciais, como notebooks e hardware específico para testes e desenvolvimento.
 
-| Item                           | Quantidade | Valor Unitário (R\$) |  Valor Base (R\$)  | Tributações (R\$) |     Total (R\$)    |
-| :----------------------------- | :--------: | :------------------: | :----------------: | :---------------: | :----------------: |
-| Setup Inicial                  |      1     |     R\$ 5.000,00     |    R\$ 5.000,00    |    R\$ 1.450,00   |    R\$ 6.450,00    |
-| Contratação de Funcionários    |      4     |     R\$ 3.500,00     |    R\$ 14.000,00   |    R\$ 4.060,00   |    R\$ 18.060,00   |
-| Notebooks para desenvolvedores |     15     |     R\$ 5.400,00     |    R\$ 81.000,00   |      R\$ 0,00     |    R\$ 81.000,00   |
-| Tablet                         |      1     |     R\$ 2.500,00     |    R\$ 2.500,00    |      R\$ 0,00     |    R\$ 2.500,00    |
-| Cachorro Robô                  |      1     |    R\$ 155.966,44    |   R\$ 155.966,44   |      R\$ 0,00     |   R\$ 155.966,44   |
-| **TOTAL GERAL**                |            |                      | **R\$ 258.466,44** |  **R\$ 5.510,00** | **R\$ 263.976,44** |
+<table>
+  <thead>
+    <tr>
+      <th>
+        Item
+      </th>
+
+      <th>
+        Quantidade
+      </th>
+
+      <th>
+        Valor Unitário (R$)
+      </th>
+
+      <th>
+        Valor Base (R$)
+      </th>
+
+      <th>
+        Tributações (R$)
+      </th>
+
+      <th>
+        Total (R$)
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Setup Inicial
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 1.450,00
+      </td>
+
+      <td>
+        R$ 6.450,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Contratação de Funcionários
+      </td>
+
+      <td>
+        4
+      </td>
+
+      <td>
+        R$ 3.500,00
+      </td>
+
+      <td>
+        R$ 14.000,00
+      </td>
+
+      <td>
+        R$ 4.060,00
+      </td>
+
+      <td>
+        R$ 18.060,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Notebooks para desenvolvedores
+      </td>
+
+      <td>
+        15
+      </td>
+
+      <td>
+        R$ 5.400,00
+      </td>
+
+      <td>
+        R$ 81.000,00
+      </td>
+
+      <td>
+        R$ 0,00
+      </td>
+
+      <td>
+        R$ 81.000,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Tablet
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 2.500,00
+      </td>
+
+      <td>
+        R$ 2.500,00
+      </td>
+
+      <td>
+        R$ 0,00
+      </td>
+
+      <td>
+        R$ 2.500,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Cachorro Robô
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 155.966,44
+      </td>
+
+      <td>
+        R$ 155.966,44
+      </td>
+
+      <td>
+        R$ 0,00
+      </td>
+
+      <td>
+        R$ 155.966,44
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          TOTAL GERAL
+        </strong>
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        <strong>
+          R$ 258.466,44
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 5.510,00
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 263.976,44
+        </strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## 1.2 Desenvolvimento Inicial
 
   Esta fase inicial, com duração de **2.5 meses**, é focada no desenvolvimento da Prova de Conceito (PoC) e na preparação da arquitetura. Os recursos financeiros nesta etapa são destinados para cobrir o custo da equipe técnica necessária para a prototipação e a aquisição de licenças e infraestrutura de hardware e software que viabilizarão tanto os testes iniciais quanto a posterior Manutenção do projeto.
 
-| Item                       | Quantidade | Valor Unitário (R\$) |  Valor Base (R\$) | Tributações (R\$) |     Total (R\$)    |
-| :------------------------- | :--------: | :------------------: | :---------------: | :---------------: | :----------------: |
-| Desenvolvedores Backend    |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00    |
-| Engenheiros de Dados       |      2     |     R\$ 5.000,00     |   R\$ 10.000,00   |    R\$ 4.500,00   |    R\$ 14.500,00   |
-| Eng. de Robótica/Embarcado |      3     |     R\$ 5.000,00     |   R\$ 15.000,00   |    R\$ 6.750,00   |    R\$ 21.750,00   |
-| Eng. de Backend/Cloud      |      3     |     R\$ 5.000,00     |   R\$ 15.000,00   |    R\$ 6.750,00   |    R\$ 21.750,00   |
-| Especialista em IA/MLOps   |      3     |     R\$ 5.000,00     |   R\$ 15.000,00   |    R\$ 6.750,00   |    R\$ 21.750,00   |
-| Designer/Dev. Frontend     |      2     |     R\$ 5.000,00     |   R\$ 10.000,00   |    R\$ 4.500,00   |    R\$ 14.500,00   |
-| Gerente de Projeto (PM)    |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00    |
-| Infraestrutura Cloud       |      4     |      R\$ 700,00      |    R\$ 2.800,00   |     R\$ 756,00    |    R\$ 3.556,00    |
-| Armazenamento              |     200    |       R\$ 0,10       |     R\$ 20,00     |      R\$ 5,40     |      R\$ 25,40     |
-| Monitoramento e Logs       |      1     |      R\$ 500,00      |     R\$ 500,00    |     R\$ 135,00    |     R\$ 635,00     |
-| Conectividade e APIs       |      4     |       R\$ 18,00      |     R\$ 72,00     |     R\$ 19,44     |      R\$ 91,44     |
-| **TOTAL GERAL**            |            |                      | **R\$ 78.392,00** | **R\$ 34.665,84** | **R\$ 113.057,84** |
+<table>
+  <thead>
+    <tr>
+      <th>
+        Item
+      </th>
+
+      <th>
+        Quantidade
+      </th>
+
+      <th>
+        Valor Unitário (R$)
+      </th>
+
+      <th>
+        Valor Base (R$)
+      </th>
+
+      <th>
+        Tributações (R$)
+      </th>
+
+      <th>
+        Total (R$)
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Desenvolvedores Backend
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 2.250,00
+      </td>
+
+      <td>
+        R$ 7.250,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Engenheiros de Dados
+      </td>
+
+      <td>
+        2
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 10.000,00
+      </td>
+
+      <td>
+        R$ 4.500,00
+      </td>
+
+      <td>
+        R$ 14.500,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Eng. de Robótica/Embarcado
+      </td>
+
+      <td>
+        3
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 15.000,00
+      </td>
+
+      <td>
+        R$ 6.750,00
+      </td>
+
+      <td>
+        R$ 21.750,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Eng. de Backend/Cloud
+      </td>
+
+      <td>
+        3
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 15.000,00
+      </td>
+
+      <td>
+        R$ 6.750,00
+      </td>
+
+      <td>
+        R$ 21.750,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Especialista em IA/MLOps
+      </td>
+
+      <td>
+        3
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 15.000,00
+      </td>
+
+      <td>
+        R$ 6.750,00
+      </td>
+
+      <td>
+        R$ 21.750,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Designer/Dev. Frontend
+      </td>
+
+      <td>
+        2
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 10.000,00
+      </td>
+
+      <td>
+        R$ 4.500,00
+      </td>
+
+      <td>
+        R$ 14.500,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Gerente de Projeto (PM)
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 2.250,00
+      </td>
+
+      <td>
+        R$ 7.250,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Infraestrutura Cloud
+      </td>
+
+      <td>
+        4
+      </td>
+
+      <td>
+        R$ 700,00
+      </td>
+
+      <td>
+        R$ 2.800,00
+      </td>
+
+      <td>
+        R$ 756,00
+      </td>
+
+      <td>
+        R$ 3.556,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Armazenamento
+      </td>
+
+      <td>
+        200
+      </td>
+
+      <td>
+        R$ 0,10
+      </td>
+
+      <td>
+        R$ 20,00
+      </td>
+
+      <td>
+        R$ 5,40
+      </td>
+
+      <td>
+        R$ 25,40
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Monitoramento e Logs
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 500,00
+      </td>
+
+      <td>
+        R$ 500,00
+      </td>
+
+      <td>
+        R$ 135,00
+      </td>
+
+      <td>
+        R$ 635,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Conectividade e APIs
+      </td>
+
+      <td>
+        4
+      </td>
+
+      <td>
+        R$ 18,00
+      </td>
+
+      <td>
+        R$ 72,00
+      </td>
+
+      <td>
+        R$ 19,44
+      </td>
+
+      <td>
+        R$ 91,44
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          TOTAL GERAL
+        </strong>
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        <strong>
+          R$ 78.392,00
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 34.665,84
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 113.057,84
+        </strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ***
 
@@ -1191,33 +1671,569 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 
   Esta fase tem uma duração de **12 meses** e é dedicada à Manutenção da solução implementada. Os recursos financeiros nesta etapa cobrem os custos operacionais e recorrentes necessários para garantir a estabilidade, o desempenho contínuo e a evolução sustentável da solução. O orçamento inclui uma equipe de suporte dedicada e o custo de manutenção da infraestrutura de alto desempenho (Cloud, Armazenamento, Monitoramento e Segurança).
 
-| Item                         | Quantidade | Valor Unitário (R\$) |  Valor Base (R\$) | Tributações (R\$) |    Total (R\$)    |
-| :--------------------------- | :--------: | :------------------: | :---------------: | :---------------: | :---------------: |
-| Eng. de Robótica (Apoio)     |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00   |
-| Eng. de Backend (Suporte)    |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00   |
-| Especialista em IA (Suporte) |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00   |
-| Gerente de Projeto (Acomp.)  |      1     |     R\$ 5.000,00     |    R\$ 5.000,00   |    R\$ 2.250,00   |    R\$ 7.250,00   |
-| **Subtotal Equipe**          |    **4**   |                      | **R\$ 20.000,00** |  **R\$ 9.000,00** | **R\$ 29.000,00** |
-| Infraestrutura Cloud         |     20     |      R\$ 700,00      |   R\$ 14.000,00   |    R\$ 3.780,00   |   R\$ 17.780,00   |
-| Armazenamento                |    2000    |       R\$ 2,25       |    R\$ 4.500,00   |    R\$ 1.215,00   |    R\$ 5.715,00   |
-| Monitoramento e Logs         |      1     |     R\$ 2.500,00     |    R\$ 2.500,00   |     R\$ 675,00    |    R\$ 3.175,00   |
-| Conectividade e APIs         |      6     |       R\$ 18,00      |     R\$ 108,00    |     R\$ 29,16     |     R\$ 137,16    |
-| Segurança                    |      1     |     R\$ 2.200,00     |    R\$ 2.200,00   |     R\$ 594,00    |    R\$ 2.794,00   |
-| **Subtotal Infraestrutura**  |            |                      | **R\$ 23.308,00** |  **R\$ 6.293,16** | **R\$ 29.601,16** |
-| **TOTAL GERAL**              |            |   **R\$ 25.420,25**  | **R\$ 43.308,00** | **R\$ 15.293,16** | **R\$ 58.601,16** |
+<table>
+  <thead>
+    <tr>
+      <th>
+        Item
+      </th>
+
+      <th>
+        Quantidade
+      </th>
+
+      <th>
+        Valor Unitário (R$)
+      </th>
+
+      <th>
+        Valor Base (R$)
+      </th>
+
+      <th>
+        Tributações (R$)
+      </th>
+
+      <th>
+        Total (R$)
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Eng. de Robótica (Apoio)
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 2.250,00
+      </td>
+
+      <td>
+        R$ 7.250,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Eng. de Backend (Suporte)
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 2.250,00
+      </td>
+
+      <td>
+        R$ 7.250,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Especialista em IA (Suporte)
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 2.250,00
+      </td>
+
+      <td>
+        R$ 7.250,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Gerente de Projeto (Acomp.)
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 5.000,00
+      </td>
+
+      <td>
+        R$ 2.250,00
+      </td>
+
+      <td>
+        R$ 7.250,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Subtotal Equipe
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          4
+        </strong>
+      </td>
+
+      <td />
+
+      <td>
+        <strong>
+          R$ 20.000,00
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 9.000,00
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 29.000,00
+        </strong>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Infraestrutura Cloud
+      </td>
+
+      <td>
+        20
+      </td>
+
+      <td>
+        R$ 700,00
+      </td>
+
+      <td>
+        R$ 14.000,00
+      </td>
+
+      <td>
+        R$ 3.780,00
+      </td>
+
+      <td>
+        R$ 17.780,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Armazenamento
+      </td>
+
+      <td>
+        2000
+      </td>
+
+      <td>
+        R$ 2,25
+      </td>
+
+      <td>
+        R$ 4.500,00
+      </td>
+
+      <td>
+        R$ 1.215,00
+      </td>
+
+      <td>
+        R$ 5.715,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Monitoramento e Logs
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 2.500,00
+      </td>
+
+      <td>
+        R$ 2.500,00
+      </td>
+
+      <td>
+        R$ 675,00
+      </td>
+
+      <td>
+        R$ 3.175,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Conectividade e APIs
+      </td>
+
+      <td>
+        6
+      </td>
+
+      <td>
+        R$ 18,00
+      </td>
+
+      <td>
+        R$ 108,00
+      </td>
+
+      <td>
+        R$ 29,16
+      </td>
+
+      <td>
+        R$ 137,16
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 2.200,00
+      </td>
+
+      <td>
+        R$ 2.200,00
+      </td>
+
+      <td>
+        R$ 594,00
+      </td>
+
+      <td>
+        R$ 2.794,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Subtotal Infraestrutura
+        </strong>
+      </td>
+
+      <td />
+
+      <td />
+
+      <td>
+        <strong>
+          R$ 23.308,00
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 6.293,16
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 29.601,16
+        </strong>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          TOTAL GERAL
+        </strong>
+      </td>
+
+      <td />
+
+      <td>
+        <strong>
+          R$ 25.420,25
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 43.308,00
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 15.293,16
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 58.601,16
+        </strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### 1.4 Despesas Mensais
 
   Além dos custos operacionais, toda operação envolve despesas recorrentes necessárias para a manutenção administrativa e legal do projeto. Essas despesas incluem serviços contábeis, jurídicos, seguros, infraestrutura básica de escritório e conectividade. Embora não estejam diretamente vinculadas à produção, são essenciais para garantir o funcionamento contínuo e o cumprimento das obrigações legais da PoC ou do projeto implementado. A seguir, detalham-se os valores estimados para cada categoria de despesa.
 
-| Item               | Quantidade | Valor Unitário (R\$) | Valor Base (R\$) | Tributações (R\$) |    Total (R\$)   |
-| :----------------- | :--------: | :------------------: | :--------------: | :---------------: | :--------------: |
-| Contabilidade      |      1     |      R\$ 800,00      |    R\$ 800,00    |     R\$ 232,00    |   R\$ 1.032,00   |
-| Jurídico           |      1     |      R\$ 600,00      |    R\$ 600,00    |     R\$ 174,00    |    R\$ 774,00    |
-| Escritório Virtual |      1     |      R\$ 350,00      |    R\$ 350,00    |     R\$ 101,50    |    R\$ 451,50    |
-| Internet           |      1     |      R\$ 400,00      |    R\$ 400,00    |     R\$ 116,00    |    R\$ 516,00    |
-| Seguro Empresarial |      1     |      R\$ 300,00      |    R\$ 300,00    |     R\$ 87,00     |    R\$ 387,00    |
-| **TOTAL GERAL**    |            |   **R\$ 2.450,00**   | **R\$ 2.450,00** |   **R\$ 710,50**  | **R\$ 3.160,50** |
+<table>
+  <thead>
+    <tr>
+      <th>
+        Item
+      </th>
+
+      <th>
+        Quantidade
+      </th>
+
+      <th>
+        Valor Unitário (R$)
+      </th>
+
+      <th>
+        Valor Base (R$)
+      </th>
+
+      <th>
+        Tributações (R$)
+      </th>
+
+      <th>
+        Total (R$)
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Contabilidade
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 800,00
+      </td>
+
+      <td>
+        R$ 800,00
+      </td>
+
+      <td>
+        R$ 232,00
+      </td>
+
+      <td>
+        R$ 1.032,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Jurídico
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 600,00
+      </td>
+
+      <td>
+        R$ 600,00
+      </td>
+
+      <td>
+        R$ 174,00
+      </td>
+
+      <td>
+        R$ 774,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Escritório Virtual
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 350,00
+      </td>
+
+      <td>
+        R$ 350,00
+      </td>
+
+      <td>
+        R$ 101,50
+      </td>
+
+      <td>
+        R$ 451,50
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Internet
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 400,00
+      </td>
+
+      <td>
+        R$ 400,00
+      </td>
+
+      <td>
+        R$ 116,00
+      </td>
+
+      <td>
+        R$ 516,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Seguro Empresarial
+      </td>
+
+      <td>
+        1
+      </td>
+
+      <td>
+        R$ 300,00
+      </td>
+
+      <td>
+        R$ 300,00
+      </td>
+
+      <td>
+        R$ 87,00
+      </td>
+
+      <td>
+        R$ 387,00
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          TOTAL GERAL
+        </strong>
+      </td>
+
+      <td />
+
+      <td>
+        <strong>
+          R$ 2.450,00
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 2.450,00
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 710,50
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 3.160,50
+        </strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ***
 
@@ -1225,13 +2241,75 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 
   O valor total a ser orçado foi cuidadosamente distribuído para cobrir todas as fases do projeto, desde a aquisição de ativos até os custos operacionais recorrentes e as despesas administrativas.
 
-| Etapa                               |         Valor        |
-| :---------------------------------- | :------------------: |
-| Investimento Inicial                |    R\$ 263.976,44    |
-| Desenvolvimento Inicial (2,5 meses) |    R\$ 282.644,60    |
-| Manutenção (12 meses)               |    R\$ 703.213,92    |
-| Despesas (14,5 meses)               |     R\$ 45.827,25    |
-| **Subtotal (Custos e Despesas)**    | **R\$ 1.295.662,21** |
+<table>
+  <thead>
+    <tr>
+      <th>
+        Etapa
+      </th>
+
+      <th>
+        Valor
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Investimento Inicial
+      </td>
+
+      <td>
+        R$ 263.976,44
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Desenvolvimento Inicial (2,5 meses)
+      </td>
+
+      <td>
+        R$ 282.644,60
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Manutenção (12 meses)
+      </td>
+
+      <td>
+        R$ 703.213,92
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Despesas (14,5 meses)
+      </td>
+
+      <td>
+        R$ 45.827,25
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Subtotal (Custos e Despesas)
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 1.295.662,21
+        </strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Margem de Lucro e Valor Final
 
@@ -1239,11 +2317,53 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 
 * **Margem de Lucro (20%):** A margem de lucro de 20% é aplicada sobre o valor total. Este percentual cobre riscos e garante a sustentabilidade da empresa para investimento contínuo em melhorias e inovação.
 
-|                           |         Valor        |
-| :------------------------ | :------------------: |
-| Total (Custos e Despesas) |   R\$ 1.295.662,21   |
-| Margem de Lucro           |    R\$ 259.132,44    |
-| **VALOR FINAL TOTAL**     | **R\$ 1.554.794,65** |
+<table>
+  <thead>
+    <tr>
+      <th />
+
+      <th>
+        Valor
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Total (Custos e Despesas)
+      </td>
+
+      <td>
+        R$ 1.295.662,21
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Margem de Lucro
+      </td>
+
+      <td>
+        R$ 259.132,44
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          VALOR FINAL TOTAL
+        </strong>
+      </td>
+
+      <td>
+        <strong>
+          R$ 1.554.794,65
+        </strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ***
 
@@ -1262,7 +2382,7 @@ A análise conclui que o projeto possui um potencial significativo de impacto ed
 
 ## Conclusão
 
-  A análise financeira do projeto demonstra um planejamento de custos rigoroso e uma precificação estratégica que reflete a duração de 14.5 meses do projeto. O valor total de **R\$ 1.554.794,65** é distribuído entre a fase de Desenvolvimento Inicial e a fase de Manutenção. Este orçamento garante a remuneração de profissionais qualificados, a cobertura de infraestrutura e a sustentabilidade do projeto, fornecendo um produto de alto valor e longo prazo.
+  A análise financeira do projeto demonstra um planejamento de custos rigoroso e uma precificação estratégica que reflete a duração de 14.5 meses do projeto. O valor total de **R$ 1.554.794,65** é distribuído entre a fase de Desenvolvimento Inicial e a fase de Manutenção. Este orçamento garante a remuneração de profissionais qualificados, a cobertura de infraestrutura e a sustentabilidade do projeto, fornecendo um produto de alto valor e longo prazo.
 
 ***
 
@@ -1395,14 +2515,18 @@ Osterwalder, A., Pigneur, Y., Bernarda, G., & Smith, A. (2014). Value Propositio
     oportunidades, suas probabilidades e impactos, bem como estratégias de
     implementação.
   </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-negocio/tam-sam-som" title="TAM SAM SOM">
+    Fornece uma análise detalhada do mercado-alvo do projeto, incluindo o Total
+    Addressable Market (TAM), Serviceable Available Market (SAM) e Serviceable
+    Obtainable Market (SOM).
+  </Card>
 </Cards>
 
 
 # Matriz de Oportunidades (/docs/sprint-1/entendimento-do-negocio/matriz-de-oportunidades)
 
 
-
-## Introdução
 
 A matriz de oportunidades é uma ferramenta estratégica utilizada para identificar, avaliar e priorizar **potenciais ganhos e melhorias** que podem ser alcançados no projeto do **robô para tours interativos no campus do Inteli**. Assim como a matriz de riscos, ela considera duas dimensões principais — **Probabilidade** (chance de ocorrência) e **Impacto** (nível de benefício gerado) — permitindo à equipe concentrar esforços nas oportunidades mais promissoras e de maior valor agregado para o projeto e para a instituição.
 
@@ -1444,8 +2568,8 @@ A matriz utiliza uma **escala 5x5**, classificando as oportunidades de acordo co
 
 #### 1. Coleta de Leads para Qualidade de Informações
 
-**Categoria**: Estratégica / Marketing\
-**Probabilidade**: Muito Alta (90%)\
+**Categoria**: Estratégica / Marketing
+**Probabilidade**: Muito Alta (90%)
 **Impacto**: Muito Alto
 
 **Descrição**:
@@ -1469,8 +2593,8 @@ Implementar a coleta de leads durante o tour robótico, registrando informaçõe
 
 #### 2. Integração com Projetos Acadêmicos
 
-**Categoria**: Acadêmica / Inovação\
-**Probabilidade**: Muito Alta (90%)\
+**Categoria**: Acadêmica / Inovação
+**Probabilidade**: Muito Alta (90%)
 **Impacto**: Alto
 
 **Descrição**:
@@ -1496,8 +2620,8 @@ Aproveitar o robô como plataforma viva de experimentação e integração entre
 
 #### 3. Melhoria da Experiência do Visitante
 
-**Categoria**: Experiência do Usuário\
-**Probabilidade**: Muito Alta (90%)\
+**Categoria**: Experiência do Usuário
+**Probabilidade**: Muito Alta (90%)
 **Impacto**: Moderado
 
 **Descrição**:
@@ -1522,8 +2646,8 @@ Utilizar o robô para proporcionar uma experiência imersiva, personalizada e in
 
 #### 4. Uso do Cão Robô em Eventos Externos
 
-**Categoria**: Divulgação / Extensão\
-**Probabilidade**: Moderada (50%)\
+**Categoria**: Divulgação / Extensão
+**Probabilidade**: Moderada (50%)
 **Impacto**: Muito Alto
 
 **Descrição**:
@@ -1548,8 +2672,8 @@ Participação do robô em eventos externos (feiras, congressos, escolas, empres
 
 #### 5. Visibilidade da Faculdade
 
-**Categoria**: Comunicação / Branding\
-**Probabilidade**: Moderado (50%)\
+**Categoria**: Comunicação / Branding
+**Probabilidade**: Moderado (50%)
 **Impacto**: Alto
 
 **Descrição**:
@@ -1576,8 +2700,8 @@ A presença do robô no campus, interagindo com visitantes e alunos, reforça a 
 
 #### 6. Expansão do Tour para Ambientes Virtuais
 
-**Categoria**: Tecnológica / Experiencial\
-**Probabilidade**: Baixa (30%)\
+**Categoria**: Tecnológica / Experiencial
+**Probabilidade**: Baixa (30%)
 **Impacto**: Moderado
 
 **Descrição**:
@@ -1601,8 +2725,8 @@ Desenvolver uma versão virtual ou híbrida do tour, permitindo que visitantes e
 
 #### 7. Uso do Cão Robô em Outros Pavimentos do Campus
 
-**Categoria**: Operacional / Logística\
-**Probabilidade**: Muito Baixa (10%)\
+**Categoria**: Operacional / Logística
+**Probabilidade**: Muito Baixa (10%)
 **Impacto**: Muito Alto
 
 **Descrição**:
@@ -1627,8 +2751,8 @@ Expandir a operação do robô para diferentes andares e ambientes do campus, am
 
 #### 8. Personalização por Perfil de Visitante
 
-**Categoria**: IA / Experiência do Usuário\
-**Probabilidade**: Muito Baixa (10%)\
+**Categoria**: IA / Experiência do Usuário
+**Probabilidade**: Muito Baixa (10%)
 **Impacto**: Moderado
 
 **Descrição**:
@@ -1652,7 +2776,7 @@ Desenvolver um sistema de personalização dinâmica, ajustando o conteúdo do t
 
 ## Considerações Finais
 
-A **matriz de oportunidades** oferece uma visão clara sobre os caminhos de evolução do projeto e seu potencial de impacto dentro e fora do campus do Inteli.\
+A **matriz de oportunidades** oferece uma visão clara sobre os caminhos de evolução do projeto e seu potencial de impacto dentro e fora do campus do Inteli.
 Ao identificar, priorizar e estruturar essas oportunidades, a equipe pode:
 
 * Ampliar o valor percebido do projeto
@@ -1666,8 +2790,6 @@ Assim como a matriz de riscos, este documento deve ser continuamente atualizado,
 # Matriz de Risco (/docs/sprint-1/entendimento-do-negocio/matriz-de-risco)
 
 
-
-## Introdução
 
 A matriz de riscos é uma ferramenta estratégica para identificar, avaliar e priorizar os riscos potenciais que podem impactar o projeto de desenvolvimento do robô para tours interativas no campus do Inteli. Esta análise classifica os riscos em duas dimensões: **Probabilidade** (chance de ocorrência) e **Impacto** (severidade das consequências), permitindo que a equipe concentre esforços nos riscos mais críticos.
 
@@ -1707,11 +2829,11 @@ A matriz utiliza uma escala de 5x5, onde:
 
 #### 1. Perda de Conectividade
 
-**Categoria**: Técnico\
-**Probabilidade**: Muito Alta (90%)\
+**Categoria**: Técnico
+**Probabilidade**: Muito Alta (90%)
 **Impacto**: Muito Alto
 
-**Descrição**:\
+**Descrição**:
 Falha na conexão do robô com sistemas externos (servidor, nuvem, APIs) durante a execução do tour, resultando na interrupção completa do serviço.
 
 **Consequências**:
@@ -1739,11 +2861,11 @@ Falha na conexão do robô com sistemas externos (servidor, nuvem, APIs) durante
 
 #### 2. Falha na Comunicação entre Robô e Usuário
 
-**Categoria**: Técnico/Experiência do Usuário\
-**Probabilidade**: Alto (70%)\
+**Categoria**: Técnico/Experiência do Usuário
+**Probabilidade**: Alto (70%)
 **Impacto**: Muito Alto
 
-**Descrição**:\
+**Descrição**:
 Problemas no reconhecimento de voz, processamento de linguagem natural ou na saída de áudio/visual que impedem a interação adequada com visitantes.
 
 **Consequências**:
@@ -1771,11 +2893,11 @@ Problemas no reconhecimento de voz, processamento de linguagem natural ou na sa�
 
 #### 3. Robô Machucar Alguém
 
-**Categoria**: Segurança/Legal\
-**Probabilidade**: Moderado (50%)\
+**Categoria**: Segurança/Legal
+**Probabilidade**: Moderado (50%)
 **Impacto**: Muito Alto
 
-**Descrição**:\
+**Descrição**:
 Colisão ou comportamento inesperado do robô causando danos físicos a visitantes, especialmente em áreas movimentadas do campus.
 
 **Consequências**:
@@ -1808,11 +2930,11 @@ Colisão ou comportamento inesperado do robô causando danos físicos a visitant
 
 #### 4. Acabar a Bateria
 
-**Categoria**: Operacional\
-**Probabilidade**: Moderado (50%)\
+**Categoria**: Operacional
+**Probabilidade**: Moderado (50%)
 **Impacto**: Alto
 
-**Descrição**:\
+**Descrição**:
 Bateria do robô se esgota durante o tour, interrompendo a experiência e deixando o robô imobilizado em local inconveniente.
 
 **Consequências**:
@@ -1841,11 +2963,11 @@ Bateria do robô se esgota durante o tour, interrompendo a experiência e deixan
 
 #### 5. Falha no Sensor Lidar
 
-**Categoria**: Técnico\
-**Probabilidade**: Moderado (30%)\
+**Categoria**: Técnico
+**Probabilidade**: Moderado (30%)
 **Impacto**: Alto
 
-**Descrição**:\
+**Descrição**:
 Mau funcionamento ou falha completa do sensor LiDAR responsável pelo mapeamento, localização e navegação autônoma do robô.
 
 **Consequências**:
@@ -1875,11 +2997,11 @@ Mau funcionamento ou falha completa do sensor LiDAR responsável pelo mapeamento
 
 #### 6. Dificuldade na Manutenção das Informações
 
-**Categoria**: Operacional/Conteúdo\
-**Probabilidade**: Moderado (50%)\
+**Categoria**: Operacional/Conteúdo
+**Probabilidade**: Moderado (50%)
 **Impacto**: Moderado
 
-**Descrição**:\
+**Descrição**:
 Complexidade para atualizar informações sobre processo seletivo, cursos, eventos e FAQ no sistema do robô, resultando em dados desatualizados.
 
 **Consequências**:
@@ -1909,11 +3031,11 @@ Complexidade para atualizar informações sobre processo seletivo, cursos, event
 
 #### 7. Robô Responder Algo Errado
 
-**Categoria**: IA/Conteúdo\
-**Probabilidade**: Moderado (30%)\
+**Categoria**: IA/Conteúdo
+**Probabilidade**: Moderado (30%)
 **Impacto**: Moderado
 
-**Descrição**:\
+**Descrição**:
 IA generativa fornece respostas incorretas, inconsistentes ou inadequadas sobre o Inteli, processo seletivo ou outros tópicos.
 
 **Consequências**:
@@ -1943,11 +3065,11 @@ IA generativa fornece respostas incorretas, inconsistentes ou inadequadas sobre 
 
 #### 8. Resistência do Público em Interagir com o Robô
 
-**Categoria**: Adoção/Experiência do Usuário\
-**Probabilidade**: Baixo (10%)\
+**Categoria**: Adoção/Experiência do Usuário
+**Probabilidade**: Baixo (10%)
 **Impacto**: Moderado
 
-**Descrição**:\
+**Descrição**:
 Visitantes podem sentir desconforto, timidez ou preferir interação humana, reduzindo a adesão ao tour robótico.
 
 **Consequências**:
@@ -1977,11 +3099,11 @@ Visitantes podem sentir desconforto, timidez ou preferir interação humana, red
 
 #### 9. O Robô Ser Danificado por Algum Visitante
 
-**Categoria**: Segurança/Operacional\
-**Probabilidade**: Baixo (10%)\
+**Categoria**: Segurança/Operacional
+**Probabilidade**: Baixo (10%)
 **Impacto**: Moderado
 
-**Descrição**:\
+**Descrição**:
 Vandalismo, manuseio inadequado ou comportamento malicioso de visitantes causando danos ao robô.
 
 **Consequências**:
@@ -2009,11 +3131,11 @@ Vandalismo, manuseio inadequado ou comportamento malicioso de visitantes causand
 
 #### 10. Obstáculos Inesperados no Caminho
 
-**Categoria**: Operacional\
-**Probabilidade**: Muito Alto (90%)\
+**Categoria**: Operacional
+**Probabilidade**: Muito Alto (90%)
 **Impacto**: Baixo
 
-**Descrição**:\
+**Descrição**:
 Objetos temporários, pessoas, móveis ou outros obstáculos não mapeados no caminho planejado do tour.
 
 **Consequências**:
@@ -2050,7 +3172,7 @@ Esta matriz de riscos é um documento vivo que deve ser atualizado continuamente
 A equipe deve manter comunicação transparente sobre riscos identificados e trabalhar colaborativamente na implementação das estratégias de mitigação definidas.
 
 
-# Matriz de avaliação de valor Oceano Azul (/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul)
+# Matriz de Avaliação de Valor Oceano Azul (/docs/sprint-1/entendimento-do-negocio/matriz-oceano-azul)
 
 
 
@@ -2555,7 +3677,7 @@ Foram selecionadas duas empresas de destaque nesse setor:
 ### Justificativas dos Atributos
 
 * **Preço**
-  * Nosso Projeto (9): Custo acessível, considerando hardware, software, infraestrutura de IA e manutenção estimada em R\$ 1.554.794,65.
+  * Nosso Projeto (9): Custo acessível, considerando hardware, software, infraestrutura de IA e manutenção estimada em R$ 1.554.794,65.
   * Boston Dynamics (4): Robôs avançados com alto custo de aquisição e manutenção.
   * SoftBank Robotics (6): Robôs humanoides com preço menor que Boston Dynamics, mas ainda relevante.
 
@@ -2625,16 +3747,7 @@ Foram selecionadas duas empresas de destaque nesse setor:
   Figura 1 - Gráfico da Matriz de avaliação de valor Oceano Azul
 </p>
 
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img
-          alt="Matriz de avaliação de valor Oceano
-    Azul"
-          src={__img0}
-          placeholder="blur"
-        />
-  </div>
-</div>
+<img alt="Matriz de avaliação de valor Oceano Azul" src={__img0} placeholder="blur" />
 
 <p style={{ textAlign: "center" }}>
   Fonte: Os autores (2025)
@@ -2666,6 +3779,104 @@ KIM, W. Chan; MAUBORGNE, Renée. *A Estratégia do Oceano Azul: Como criar novos
 BOSTON DYNAMICS. *Spot Robot*. Disponível em: [https://www.bostondynamics.com/spot](https://www.bostondynamics.com/spot). Acesso em: 24 out. 2025.
 
 SOFTBANK ROBOTICS. *Pepper Robot*. Disponível em: [https://www.softbankrobotics.com/aboutus/](https://www.softbankrobotics.com/aboutus/). Acesso em: 24 out. 2025.
+
+
+# Análise de Mercado – TAM, SAM e SOM (/docs/sprint-1/entendimento-do-negocio/tam-sam-som)
+
+Para compreender o potencial de crescimento e alcance de uma solução, é essencial analisar o tamanho e a estrutura do mercado em que ela se insere. As métricas TAM (Total Addressable Market), SAM (Serviceable Available Market) e SOM (Serviceable Obtainable Market) são amplamente utilizadas para estimar, respectivamente, o mercado total, o mercado atendível e o mercado efetivamente alcançável por uma empresa ou produto.
+
+Essa análise fornece uma visão quantitativa e estratégica da oportunidade de negócio, permitindo identificar os segmentos prioritários de atuação e definir estratégias realistas de penetração de mercado. Além disso, ela serve como base para decisões de investimento, posicionamento competitivo e planejamento de expansão, conectando o potencial econômico do mercado com a proposta de valor da solução estudada.
+
+A compreensão clara desses três níveis de mercado é fundamental para avaliar a viabilidade comercial, dimensionar o impacto financeiro esperado e orientar a alocação eficiente de recursos em iniciativas de inovação ou novos produtos.
+
+## Tese de Mercado
+
+A convergência entre robótica autônoma e IA generativa está elevando a capacidade de percepção, planejamento e interação por linguagem natural, abrindo aplicações de serviço (recepção, guia, suporte de 1º nível, logística indoor) muito além do chão de fábrica. O apetite de capital confirma a tendência: em 2024, startups de robótica captaram US$ 6,1 bi, alta sobre 2023, com destaque para teses alavancadas por IA generativa.
+
+No recorte de humanoides, a projeção da Goldman Sachs aponta um mercado de US$ 38 bilhões até 2035, com \~1,4 milhão de unidades, trajetória sustentada por queda de custos e maturação de modelos de IA. Grandes techs também movem peças: Meta estruturou um grupo dedicado a robôs humanoides com IA dentro do Reality Labs, sinalizando ambição de longo prazo em hardware e software de embodied AI.
+
+Onde estamos hoje. Globalmente, a base instalada e o know-how vêm da automação industrial, ainda concentrada em tarefas repetitivas, perigosas ou de alta precisão; a IFR (International Federation of Robotics) registra >4 milhões de robôs operando em fábricas e novas instalações acima de meio milhão/ano. Em paralelo, os robôs de serviço crescem de forma consistente (limpeza, logística, saúde), preparando terreno para funções interativas, exatamente onde a IA generativa amplia o escopo: entendimento de intenção, roteiros conversacionais e adaptação em tempo real.
+
+# Análise de Mercado — TAM, SAM e SOM (Brasil)
+
+## Modelo de negócio: RaaS (Robotics-as-a-Service) para recepção/guia/atendimento de 1º nível com IA generativa
+
+**Escopo (IN):** robôs de serviço profissionais (IFR — International Federation of Robotics) com IA generativa para recepção, guia/tour e atendimento de 1º nível em ambientes com fluxo de visitantes (campus universitários, hotéis, shopping centers, aeroportos, museus/atrações).
+
+**Fora do escopo (OUT):** robôs industriais de linha, drones/outdoor e soluções puramente de software.
+
+**Método:** cálculo detalhado site por site (cenário base: 1 robô/site; ativos grandes: 2–3). Deduplicação entre bases quando houver sobreposição (ex.: campus dentro de shopping).
+
+**Premissas de precificação RaaS (para todos os cálculos abaixo):** Setup único de R$ 178 mil/robô + mensalidade R$ 49 mil/robô por 36 meses → **ARR**/robô = R$ 588 mil/ano\[2] e **TCV**/robô (36m) = R$ 1,942 mi\[1].
+
+:::note\[Termos financeiros]
+
+* **TCV** (Total Contract Value): valor total do contrato ao longo do período contratado — aqui usado como referência para 36 meses.
+* **ARR** (Annual Recurring Revenue): receita recorrente anual.
+  :::
+
+## TAM — Total Addressable Market (RaaS)
+
+Abrange todos os locais compatíveis com funções de recepção/atendimento onde robôs profissionais podem operar com IA generativa em regime de assinatura (RaaS).
+
+**Desenvolvimento:**
+
+| Segmento                       | Quantidade       |
+| ------------------------------ | ---------------- |
+| Hospitais                      | 6.518            |
+| Meios de hospedagem (Cadastur) | \~18.000         |
+| Shopping centers (Abrasce)     | 648              |
+| Aeroportos (ANAC)              | 180              |
+| IES (INEP/Semesp)              | \~2.580          |
+| **Total**                      | **28.000 sites** |
+
+* **Valor RaaS (1×):** **ARR** ≈ R$ 16,51 bi/ano; Setup ≈ R$ 5,00 bi; **TCV** (36m) ≈ R$ 54,54 bi.
+* **Faixa hubs (2–3×):** **ARR** ≈ R$ 33,0–49,5 bi/ano.
+
+O **TAM** confirma amplitude e capilaridade para assinatura RaaS, com hospitalidade e educação como vetores expressivos de captura de valor recorrente.
+
+***
+
+## SAM — Serviceable Available Market (RaaS)
+
+Filtra o TAM para usos explícitos de recepção/guia/tour (locais com balcões de informação e atendimento ao público).
+
+**Desenvolvimento:**
+
+* **Incluídos:** hotéis/pousadas, shoppings, aeroportos, museus/atrações (subconjunto Ibram/FVA: 997), universidades.
+* **Total (cenário base):** 22.565 sites (1 robô/site).
+  * **Valor RaaS (1×):** **ARR** ≈ R$ 13,27 bi/ano; Setup ≈ R$ 4,02 bi; **TCV** (36m) ≈ R$ 43,82 bi.
+* **Faixa hubs (2–3×):** **ARR** ≈ R$ 26,5–39,8 bi/ano.
+
+O **SAM** concentra ativos de alto fluxo e operação padronizada, contexto ideal para assinatura recorrente com SLAs e integrações (CRM/ticket/elevadores).
+
+***
+
+## SOM — Serviceable Obtainable Market (RaaS; mercado inicial estratégico em faculdades de tecnologia privadas)
+
+Nicho hiperfocado para prova de valor e escala operacional, maximizando aderência tecnológica e ciclo de decisão corporativo (B2B).
+
+**Desenvolvimento (base e rampa):**
+
+* **Base de sites:** Instituições de Ensino Superior (IES) com cursos de TI (922) × 76,5% privadas ⇒ ≈ 705 (1 robô/campus).
+* **Valor RaaS (pleno 1×):** **ARR** ≈ R$ 414,5 mi/ano; Setup ≈ R$ 125,5 mi; **TCV** (36m) ≈ R$ 1,369 bi.
+* **Rampa de adoção (crescimento gradual ao longo de 12–36 meses; novos robôs/ano):**
+  * Ano 1: 21 robôs → **ARR** ≈ R$ 12,35 mi/ano, Setup ≈ R$ 3,74 mi, **TCV** (coorte\[3] — valor do grupo de implantação) ≈ R$ 40,78 mi.
+  * Ano 2: 56 robôs → **ARR** ≈ R$ 32,93 mi/ano, Setup ≈ R$ 9,97 mi, **TCV** (coorte — valor do grupo de implantação) ≈ R$ 108,75 mi.
+  * Ano 3: 106 robôs → **ARR** ≈ R$ 62,33 mi/ano, Setup ≈ R$ 18,87 mi, **TCV** (coorte — valor do grupo de implantação) ≈ R$ 205,85 mi.
+
+\[3] Coorte = grupo de implantação (lote de instalações implantadas na mesma janela de tempo).
+
+* *Run-rate (base instalada ao fim de cada ano):* *77 robôs (Ano 2)* ⇒ *≈ R$ 45,28 mi/ano; \*\*183 robôs (Ano 3)* ⇒ *≈ R$ 107,60 mi/ano*.
+* *Governança operacional:* SOM anual deve respeitar *capacidade de implantação/suporte* (k projetos/mês ⇒ *12k/ano) e \*\*lead time* de hardware.
+
+O *SOM RaaS* reduz risco comercial, acelera aprendizado de implantação e cria *referências replicáveis* para expandir, posteriormente, aos demais “baldes” do *SAM*.
+
+## Conclusão
+
+RaaS viabiliza captura de valor recorrente com SLAs (acordos de nível de serviço) e integrações, sustentando viabilidade econômica clara por cliente. O funil **TAM** → **SAM** → **SOM** em RaaS mostra endereço total robusto (**ARR** ≈ R$ 16,5 bi/ano no TAM) e priorização acionável no **SAM** (**ARR** ≈ R$ 13,3 bi/ano).
+
+O mercado inicial estratégico de \~705 campi permite crescimento gradual e controlado (**ARR** ≈ R$ 12,3 → 32,9 → 62,3 mi/ano por grupo de implantação). Esse recorte equilibra tamanho de oportunidade e executabilidade, ancorando o plano comercial e o dimensionamento de operações.
 
 
 # NIST CSF: Robô de Serviço Autônomo com IA (/docs/sprint-1/entendimento-do-projeto/documentacao-nist)
@@ -2825,11 +4036,7 @@ A arquitetura do sistema consiste em um conjunto de módulos e serviços que orq
   Figura 1 - Diagrama de Arquitetura do Sistema
 </p>
 
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img alt="Arquitetura do Sistema" src={__img0} placeholder="blur" />
-  </div>
-</div>
+<img alt="Arquitetura do Sistema" src={__img0} placeholder="blur" />
 
 <p style={{ textAlign: "center" }}>
   Fonte: Os autores (2025)
@@ -2892,9 +4099,7 @@ O objetivo principal do projeto é o desenvolvimento e programação de um robô
 Por fim, é válido destacar que o projeto proposto é uma iniciativa inovadora que busca combinar tecnologia e interação humana para melhorar a experiência de visitantes no campus do Inteli. A integração de um cachorro robô autônomo com recursos de inteligência artificial e aprendizado de máquina promete proporcionar uma experiência única e personalizada aos visitantes. Além de coletar dados que podem se tornar valiosos para o desenvolvimento futuro do projeto e para auxiliar o time de Growth do Inteli.
 
 
-# Requisitos (/docs/sprint-1/entendimento-do-projeto/requisitos)
-
-# Requisitos do Sistema
+# Requisitos do Sistema (/docs/sprint-1/entendimento-do-projeto/requisitos)
 
  Este documento apresenta a especificação dos **Requisitos Funcionais (RF)** e **Requisitos Não Funcionais (RNF)** do sistema, de acordo com as práticas recomendadas pela **norma ISO/IEC 25010:2011**, que define os modelos de qualidade de produto de software. O objetivo é assegurar que o sistema atenda às necessidades funcionais do negócio, ao mesmo tempo em que mantenha elevados padrões de qualidade, desempenho, segurança e manutenibilidade ao longo de seu ciclo de vida.
 
@@ -4951,14 +6156,6 @@ F -->|HTTP| BUCKET
 "
 />
 
-## Equações Matemáticas em LaTeX
-
-Inline: $c = \pm\sqrt{a^2 + b^2}$
-
-```math
-c = \pm\sqrt{a^2 + b^2}
-```
-
 ## Imagens e Links
 
 <img alt="Imagem" src={__img0} placeholder="blur" />
@@ -5100,14 +6297,6 @@ F -->|Query e HTTP| PG
 F -->|HTTP| BUCKET
 "
 />
-
-## Equações Matemáticas em LaTeX
-
-Inline: $c = \pm\sqrt{a^2 + b^2}$
-
-```math
-c = \pm\sqrt{a^2 + b^2}
-```
 
 ## Imagens e Links
 
@@ -5251,14 +6440,6 @@ F -->|HTTP| BUCKET
 "
 />
 
-## Equações Matemáticas em LaTeX
-
-Inline: $c = \pm\sqrt{a^2 + b^2}$
-
-```math
-c = \pm\sqrt{a^2 + b^2}
-```
-
 ## Imagens e Links
 
 <img alt="Imagem" src={__img0} placeholder="blur" />
@@ -5401,14 +6582,6 @@ F -->|HTTP| BUCKET
 "
 />
 
-## Equações Matemáticas em LaTeX
-
-Inline: $c = \pm\sqrt{a^2 + b^2}$
-
-```math
-c = \pm\sqrt{a^2 + b^2}
-```
-
 ## Imagens e Links
 
 <img alt="Imagem" src={__img0} placeholder="blur" />
@@ -5474,6 +6647,176 @@ c = \pm\sqrt{a^2 + b^2}
 </Files>
 
 
+# Personas (/docs/sprint-1/entendimento-do-usuario/personas)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato" title="Persona Candidato">
+    Descrição detalhada da Persona Candidato, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva" title="Persona Executiva">
+    Descrição detalhada da Persona Executiva, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-staff" title="Persona Staff Inteli">
+    Descrição detalhada da Persona Staff Inteli, incluindo perfil, necessidades
+    e comportamentos.
+  </Card>
+</Cards>
+
+
+# Isabella Ricci - Persona Candidato (/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato)
+
+
+
+ Isabella Ricci tem 17 anos e está concluindo o 3º ano do ensino médio em uma escola de alta performance em São Paulo. Desde o ensino fundamental, sempre demonstrou interesse por ciências e tecnologia, mas também se identifica com projetos criativos e o trabalho em equipe. Nos últimos meses, passou a pesquisar faculdades que unam inovação, propósito e prática, e o Inteli chamou sua atenção pela metodologia baseada em projetos reais e pelo foco em liderança.
+ Durante a visita ao campus, Isabella busca compreender melhor o ambiente de aprendizado, conhecer os espaços e esclarecer dúvidas sobre bolsas, processo seletivo e vida acadêmica, informações que considera importantes para tomar sua decisão sobre onde estudar. Segue abaixo o canva da persona:
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Isabella Ricci 
+</p>
+
+<img alt="Persona Candidato" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Cenários de uso do sistema
+
+ Assim que chegam ao Inteli, Isabella e seus pais são recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebem um tablet com uma aplicação onde podem registrar dúvidas durante o tour. Logo depois, o robô aparece para guiá-los pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos. Em cada ponto, o robô abre espaço para perguntas, e Isabella, junto dos pais, pode interagir pelo tablet, por texto ou por áudio.
+
+ Durante o tour, o robô coleta feedbacks sobre a experiência, que são armazenados e posteriormente visualizados no painel administrativo.
+
+## Dores e necessidades
+
+ Isabella sente insegurança em relação ao vestibular e ao processo de transição do ensino médio para o ensino superior. Ela teme não compreender completamente como funciona o processo seletivo do Inteli e tem dúvidas sobre o nível de exigência e o perfil de aluno esperado pela instituição. Essa incerteza é reforçada pelo fato de ainda não ter decidido se irá prestar o processo seletivo, o que torna a visita uma oportunidade importante para esclarecer dúvidas e reduzir barreiras emocionais na tomada de decisão. Ela deseja confirmar se o ambiente acadêmico, a metodologia de ensino e a cultura institucional realmente se alinham aos seus objetivos pessoais e à sua forma de aprendizado. Seu interesse por tecnologia e criatividade é acompanhado de uma necessidade de pertencimento e identificação com a proposta educacional.
+
+ Durante a visita, Isabella busca informações objetivas, mas também experiências que transmitam segurança e transparência. Ela valoriza interações que equilibrem clareza técnica e sensibilidade humana. O contato com o robô deve contribuir para esse processo, apresentando o Inteli de forma acessível, guiada e contextual, permitindo que Isabella enxergue com mais nitidez como o ambiente e a metodologia podem apoiar seu desenvolvimento acadêmico e pessoal.
+
+## Objetivos
+
+ O principal objetivo de Isabella ao visitar o Inteli é avaliar se deseja prestar o processo seletivo da instituição. Ela está em um momento de indecisão e busca informações que a ajudem a confirmar se o modelo de ensino, o ambiente e a proposta do curso correspondem às suas expectativas de formação.
+
+ Outro objetivo é conhecer o espaço físico e observar como os ambientes de estudo e convivência favorecem a aprendizagem e a colaboração entre os alunos. Essa dimensão visual da experiência é importante para que Isabella forme uma percepção concreta sobre o dia a dia acadêmico e a estrutura da instituição.
+
+  Ela também busca entender a metodologia de ensino baseada em projetos, compreendendo na prática como os estudantes aprendem, interagem e desenvolvem soluções reais. Esse entendimento é necessário para que ela perceba o diferencial do Inteli em relação a outras instituições de ensino superior.
+
+ Durante o tour, Isabella deseja esclarecer dúvidas sobre bolsas, rotina e oportunidades extracurriculares, como ligas estudantis e projetos paralelos. Essas informações têm um papel prático na decisão da família, especialmente no aspecto financeiro e no equilíbrio entre estudo e vivência universitária.
+
+## Conclusão
+
+ A persona **Isabella Ricci** representa o perfil de candidato em fase de descoberta, que visita o Inteli acompanhado dos pais para conhecer o campus e avaliar a possibilidade de ingressar na instituição. Sua jornada é marcada por dúvidas sobre o processo seletivo, o ambiente acadêmico e a adequação entre seu perfil e a metodologia de ensino proposta.
+
+ As dores e necessidades de Isabella revelam um equilíbrio entre fatores emocionais e racionais: ela busca informações claras, mas também experiências que transmitam segurança e identificação. O tour conduzido pelo robô tem papel fundamental nesse processo, funcionando como um canal de mediação entre o visitante e a instituição, capaz de esclarecer dúvidas e gerar percepção de acolhimento e transparência.
+
+ Seus objetivos se concentram em compreender o funcionamento do Inteli, conhecer os espaços, tirar dúvidas sobre bolsas e oportunidades, e, principalmente, confirmar se deseja participar do processo seletivo. A partir dessa experiência, espera obter elementos concretos e emocionais que a ajudem a decidir sobre seu futuro acadêmico, reforçando a importância do projeto como ponto de contato inicial entre candidatos e o Inteli.
+
+
+# Ricardo Menezes - Persona Executiva (/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva)
+
+
+
+ Abaixo, é possível ver um canva com um detalhamento acerca da persona Ricardo Menezes
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Persona Ricardo Menezes 
+</p>
+
+<img alt="Persona Executiva" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Resumo da Persona
+
+ Ricardo Menezes é um gestor de 35 anos que trabalha na Ambev, onde atua na gestão de equipes e colabora com times de tecnologia voltados à tomada de decisões estratégicas. Sua principal motivação é o curso executivo adquirido pela empresa no Inteli, do qual ele espera obter conhecimentos em dados e inteligência artificial para aprimorar suas decisões de negócio. Contudo, Ricardo chega ao Inteli com uma dor central: a desconfiança e o desconhecimento em relação à instituição e à sua metodologia de ensino baseada em cases, o que o faz questionar a real efetividade do curso. Seu objetivo primário durante a visita é entender melhor o funcionamento do curso, a história da faculdade e confirmar se o Inteli realmente emprega tecnologias inovadoras, exigindo para isso uma comunicação formal e madura, alinhada ao seu perfil corporativo. O cenário de uso do sistema envolve ser conduzido por um funcionário até a arquibancada, onde recebe um tablet para registrar dúvidas, e em seguida ser guiado pelo robô interativo em um percurso pelo térreo do campus, podendo interagir com o robô por texto ou áudio no tablet para sanar suas dúvidas logísticas e conceituais sobre a faculdade e o curso. O robô, por sua vez, coleta feedbacks de sua experiência para otimizar o processo.
+
+## Informações Demográficas
+
+| Atributo                         | Detalhe                                            |
+| :------------------------------- | :------------------------------------------------- |
+| **Idade**                        | 38 anos                                            |
+| **Gênero**                       | Masculino                                          |
+| **Profissão**                    | Gerente de Projetos Sênior na Ambev                |
+| **Formação**                     | Administração de Empresas                          |
+| **Localização**                  | São Paulo (SP)                                     |
+| **Familiaridade com Tecnologia** | Médio. usa ferramentas digitais, mas não é técnico |
+
+## Bio
+
+ Como dito anteriormente, Ricardo Menezes é um homem de 35 anos que atua como gestor de algumas equipes na Ambev, empresa líder em comércio de bebidas no Brasil. Ele se formou em administração há 12 anos e, desde então, trabalha no setor administrativo de empresas. Entrou na Ambev há 5 anos e tem atuado perto dos times de tecnologia, principalmente aqueles voltados à tomada de decisões estratégicas.
+Recentemente, a empresa adquiriu para os seus funcionários um curso executivo para os seus gestores em uma instituição chamada Inteli - Instituto de Tecnologia e Liderança. Com esse curso, Ricardo espera poder tomar melhores decisões de negócio baseando-se em dados e inteligência artificial. Entretanto, ele conhece pouco a universidade e não tem tanta confiança em relação ao método de ensino.
+
+## Cenários de Uso do Sistema
+
+ Assim que chegam ao Inteli, Rodrigo é recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebe um tablet com uma aplicação onde podem registrar dúvidas que surgirem durante o tour. Logo depois, o robô aparece para guiá-lo pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos.
+Em cada ponto, o robô abre espaço para dúvidas, e Rodrigo pode interagir pelo tablet, por texto ou por áudio, tirando dúvidas sobre os cursos executivos e o funcionamento e história da faculdade
+Durante o tour, o robô coleta feedbacks sobre a experiência do usuário e os disponibiliza para visualização no painel administrativo .
+
+## Dores e Necessidades
+
+ A principal dor de Ricardo é justamente não conhecer bem o suficiente a instituição onde ele estará fazendo esse curso executivo. Além disso, a metodologia de ensino do curso, que é baseada em cases, lhe deixa desconfiado em relação à efetividade do curso. Por fim, o que Ricardo mais quer neste cenário é entender melhor como funciona o curso, como funciona o Inteli e a sua história e também entender se essa faculdade realmente trabalha com tecnologias inovadoras. Entretanto, como alguém já mais maduro e muito acostumado com o mundo corporativo, ele prefere que seja utilizada uma linguagem mais formal na sua comunicação.
+
+## Conclusão
+
+ Embora a maioria dos visitantes do Inteli seja composta por estudantes do ensino médio, a persona Ricardo Menezes representa um público-alvo estratégico (executivos, imprensa e parceiros) cujo impacto no projeto de automatização de tours com o cão robótico é desproporcionalmente alto. Este público não busca uma experiência lúdica, mas sim a validação da credibilidade e da vanguarda tecnológica da instituição. A presença do Ricardo exige que o robô seja programado para ter uma dupla funcionalidade: além de engajar o público jovem, ele deve ser capaz de alternar para um tom de voz formal, comunicação concisa e conteúdo focado em dados estratégicos (como cases de sucesso e resultados de cursos executivos). Em suma, o Ricardo atua como o padrão de qualidade para o projeto, garantindo que a solução tecnológica não apenas cumpra seu papel operacional de guia, mas também funcione como um reforço da imagem institucional do Inteli para o seu público mais influente e decisório. Ignorar as dores e necessidades deste executivo resultaria em um robô que falharia em seu papel mais importante: endossar a sofisticação e o profissionalismo da faculdade.
+
+
+# Gabriele Julião - Persona Staff Inteli (/docs/sprint-1/entendimento-do-usuario/personas/persona-staff)
+
+
+
+ A imagem abaixo ajuda a compreender de forma mais visual quem é Gabriele e como ela se conecta com o contexto do projeto:
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Persona Gabriele Julião
+</p>
+
+<img alt="Persona Executiva" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Resumo da persona
+
+ Gabriele Julião é uma profissional paulistana de 32 anos que atua como coordenadora de admissões no Inteli, sendo responsável por gerenciar os processos seletivos e as visitas guiadas ao campus. Formada em Jornalismo e pós-graduada em Marketing Digital, Gabriele possui experiência em captação de leads e estratégias de comunicação voltadas à atração de jovens talentos. Sua principal motivação é aprimorar a experiência dos visitantes e fortalecer a imagem inovadora da instituição, tornando cada interação uma oportunidade de encantamento e conversão. <br />
+ Apesar dos bons resultados alcançados nas últimas campanhas de admissão, Gabriele enfrenta desafios como a dificuldade de mensurar o impacto das visitas ao campus e obter dados mais qualitativos sobre o interesse dos candidatos. Por isso, vê no cachorro-robô uma ferramenta estratégica para transformar o tour em uma experiência mais tecnológica, interativa e informativa. Durante as visitas, Gabriele acompanha o funcionamento do robô e analisa os dados coletados para compreender melhor o comportamento e o engajamento dos leads. Assim, ela busca unir tecnologia, inovação e marketing educacional para aprimorar o processo de admissão e otimizar a jornada dos futuros alunos do Inteli.
+
+## Informações Demográficas
+
+| Atributo                         | Detalhe                                                                                                                      |
+| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Idade**                        | 32 anos                                                                                                                      |
+| **Gênero**                       | Feminino                                                                                                                     |
+| **Profissão**                    | Coordenadora de admissões no Inteli                                                                                          |
+| **Formação**                     | Jornalismo, com pós graduação em Marketing Digital                                                                           |
+| **Localização**                  | São Paulo (SP)                                                                                                               |
+| **Familiaridade com Tecnologia** | Alta. Utiliza muitas mídias sociais, entende de fluxos e sabe muito sobre o seu público-alvo: futuros líderes em tecnologia. |
+
+## Bio
+
+ Gabriele Julião é uma paulistana de 32 anos, comunicativa e sempre em busca de novas formas de se conectar com as pessoas. Formada em Jornalismo e pós-graduada em Marketing Digital, ela construiu sua carreira unindo criatividade e estratégia, o que a levou a se tornar coordenadora de admissões no Inteli, onde lidera campanhas e visitas ao campus. <br />
+ Fora do trabalho, Gabriele é movida por curiosidade e expressão. Ela adora fotografia, cinema e música brasileira, e costuma aproveitar os fins de semana para explorar novos cafés e registrar momentos do cotidiano de São Paulo. Gosta de estar rodeada de amigos e é conhecida por seu bom humor e energia em eventos da faculdade. Ela ama visitar ambientes "aesthetic", como cafés superfaturados no centro da cidade e museus culturais. Sua atividade favorita com os amigos é ir ao Beco do Batman. <br />
+ Ao mesmo tempo, Gabriele tem um lado analítico e curioso: adora entender o comportamento das pessoas e buscar maneiras de transformar dados em histórias que inspiram. É esse equilíbrio entre empatia e estratégia que a faz enxergar o potencial de ferramentas inovadoras, como o cachorro-robô para transformar a experiência dos visitantes do Inteli em algo inesquecível.
+
+## Cenários de Uso do Sistema
+
+ Assim que chegam ao Inteli, Gabriele recebe um grupo de visitantes interessados em conhecer a instituição. Ela aciona o cachorro-robô, que inicia o tour guiado pelo térreo do campus. Os visitantes recebem um tablet conectado ao sistema do robô, por meio do qual pode interagir durante o percurso, enviando dúvidas por texto ou áudio. <br />
+ Enquanto o robô conduz o grupo de forma autônoma, Gabriele acompanha o tour à distância, observando o andamento pelo painel administrativo. A cada ponto de parada, o robô compartilha informações sobre o curso, os laboratórios, os projetos dos alunos e a cultura da instituição, estimulando o engajamento dos visitantes. <br />
+ Durante a experiência, o sistema coleta feedbacks e dados comportamentais, como nível de interesse e interação dos visitantes, permitindo que Gabriele obtenha informações mais ricas sobre o perfil dos leads. Ao final do tour, ela utiliza esses dados para aprimorar as próximas visitas e ajustar as estratégias de captação, tornando o processo de admissão mais eficiente e personalizado.
+
+## Dores e Necessidades
+
+ A principal dor de Gabriele está na padronização do tour, que quase sempre é feito de maneira diferente entre os visitantes. Além disso, há dificuldade de compreender com profundidade o comportamento e o nível de engajamento dos visitantes durante as visitas ao campus. Embora suas últimas campanhas tenham sido um sucesso, ela sente que falta informação quantitativa e qualitativa que ajude a entender o que realmente desperta o interesse dos jovens e quais fatores influenciam a decisão de inscrição.
+
+## Conclusão
+
+
 # Mapas de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
 
 <Cards>
@@ -5489,7 +6832,8 @@ c = \pm\sqrt{a^2 + b^2}
   </Card>
 
   <Card href="/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-staff" title="Mapa de Jornada do Staff Inteli">
-    Documentação detalhada da jornada da Gabriele Julião, staff do Inteli.
+    Documentação detalhada da jornada do usuário Gabriele Julião, membro do
+    staff do Inteli, durante a recepção e suporte ao tour automatizado.
   </Card>
 </Cards>
 
@@ -5498,24 +6842,16 @@ c = \pm\sqrt{a^2 + b^2}
 
 
 
-import { Steps } from "fumadocs-ui/components/steps";
-import { Card, Cards } from "fumadocs-ui/components/card";
-import { Callout } from "fumadocs-ui/components/callout";
-
 ## 1. Visão Geral da Jornada
 
- A jornada do usuário de **Isabella Ricci**, uma estudante de 17 anos no último ano do ensino médio, foi mapeada para compreender sua experiência durante a **visita ao Inteli**. Isabella demonstra forte interesse por inovação, tecnologia e projetos colaborativos, buscando uma instituição que una propósito, prática e aprendizado real.\
+ A jornada do usuário de **Isabella Ricci**, uma estudante de 17 anos no último ano do ensino médio, foi mapeada para compreender sua experiência durante a **visita ao Inteli**. Isabella demonstra forte interesse por inovação, tecnologia e projetos colaborativos, buscando uma instituição que una propósito, prática e aprendizado real.
  Seu principal objetivo na visita é conhecer melhor o ambiente, entender a metodologia baseada em projetos e esclarecer dúvidas sobre **bolsas, processo seletivo e vida acadêmica** antes de decidir onde estudar.
 
 <p style={{ textAlign: "center" }}>
   Figura 1 - Mapa da Jornada do Usuário: Isabella Ricci{" "}
 </p>
 
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img alt="Mapa da Jornada do Usuário Isabella Ricci" src={__img0} placeholder="blur" />
-  </div>
-</div>
+<img alt="Mapa da Jornada do Usuário Isabella Ricci" src={__img0} placeholder="blur" />
 
 <p style={{ textAlign: "center" }}>
   Fonte: Os autores (2025)
@@ -5597,11 +6933,75 @@ import { Callout } from "fumadocs-ui/components/callout";
 
 ### 3.1. Necessidades Principais
 
-| Necessidade                               | Impacto no Tour Automatizado                                                     | Oportunidade de Conteúdo                                    |
-| :---------------------------------------- | :------------------------------------------------------------------------------- | :---------------------------------------------------------- |
-| **Compreender a metodologia do Inteli**   | Exige uma explicação clara e prática da aprendizagem baseada em projetos.        | Mostrar vídeos e exemplos de projetos reais de alunos.      |
-| **Entender o processo seletivo e bolsas** | Deve incluir informações acessíveis e precisas sobre critérios, etapas e prazos. | Oferecer acesso direto a links e formulários de inscrição.  |
-| **Conhecer o campus e o ambiente**        | Importante que o tour destaque o ecossistema de inovação.                        | Enfatizar a infraestrutura moderna e o clima de comunidade. |
+<table>
+  <thead>
+    <tr>
+      <td>
+        Necessidade
+      </td>
+
+      <td>
+        Impacto no Tour Automatizado
+      </td>
+
+      <td>
+        Oportunidade de Conteúdo
+      </td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <strong>
+          Compreender a metodologia do Inteli
+        </strong>
+      </td>
+
+      <td>
+        Exige uma explicação clara e prática da aprendizagem baseada em
+        projetos.
+      </td>
+
+      <td>
+        Mostrar vídeos e exemplos de projetos reais de alunos.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Entender o processo seletivo e bolsas
+        </strong>
+      </td>
+
+      <td>
+        Deve incluir informações acessíveis e precisas sobre critérios, etapas e
+        prazos.
+      </td>
+
+      <td>
+        Oferecer acesso direto a links e formulários de inscrição.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Conhecer o campus e o ambiente
+        </strong>
+      </td>
+
+      <td>
+        Importante que o tour destaque o ecossistema de inovação.
+      </td>
+
+      <td>
+        Enfatizar a infraestrutura moderna e o clima de comunidade.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### 3.2. Oportunidades Estratégicas
 
@@ -5612,17 +7012,13 @@ import { Callout } from "fumadocs-ui/components/callout";
 
 ## 4. Conclusão
 
- A jornada de Isabella Ricci demonstra como a visita guiada por robô pode ser uma experiência **imersiva e inspiradora** para estudantes do ensino médio. Ao combinar tecnologia, interatividade e informação prática, o tour não apenas apresenta o Inteli, mas **desperta o desejo de pertencer** à comunidade acadêmica.\
+ A jornada de Isabella Ricci demonstra como a visita guiada por robô pode ser uma experiência **imersiva e inspiradora** para estudantes do ensino médio. Ao combinar tecnologia, interatividade e informação prática, o tour não apenas apresenta o Inteli, mas **desperta o desejo de pertencer** à comunidade acadêmica.
  Com uma condução empática e com exemplos reais, o robô pode transformar o interesse inicial de Isabella em uma **decisão consciente de se candidatar ao Inteli**.
 
 
 # Jornada do Usuário - Ricardo Menezes (Executivo Ambev) (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario/mapa-de-jornada-do-usuario-executivo)
 
 
-
-import { Steps } from "fumadocs-ui/components/steps";
-import { Card, Cards } from "fumadocs-ui/components/card";
-import { Callout } from "fumadocs-ui/components/callout";
 
 ## 1. Visão Geral da Jornada
 
@@ -5634,11 +7030,7 @@ import { Callout } from "fumadocs-ui/components/callout";
   Figura 1 - Mapa da Jornada do Usuário: Ricardo Menezes{" "}
 </p>
 
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img alt="Mapa da Jornada do Usuário Ricardo Menezes" src={__img0} placeholder="blur" />
-  </div>
-</div>
+<img alt="Mapa da Jornada do Usuário Ricardo Menezes" src={__img0} placeholder="blur" />
 
 <p style={{ textAlign: "center" }}>
   Fonte: Os autores (2025)
@@ -5713,12 +7105,99 @@ import { Callout } from "fumadocs-ui/components/callout";
 
  As necessidades de Ricardo não são apenas logísticas, mas sim **estratégicas e de validação de investimento**. Ele precisa de informações que justifiquem o tempo e o recurso investido pela Ambev no curso.
 
-| Necessidade                                            | Impacto no Projeto do Robô                                                                                       | Oportunidade de Conteúdo                                                      |
-| :----------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------- |
-| **Entender a história e o funcionamento do Inteli**    | Requer um módulo de conteúdo institucional formal e conciso.                                                     | Foco nos **fundadores, missão e visão** de inovação.                          |
-| **Validar a faculdade como referência em tecnologia**  | Exige a apresentação de **evidências concretas** e cases de sucesso.                                             | Mencionar parcerias estratégicas e o **desempenho dos alunos** no mercado.    |
-| **Compreender os cursos executivos e seus resultados** | Demanda dados sobre a **metodologia**, o corpo docente e o **ROI** (Retorno sobre o Investimento) do curso.      | Apresentar métricas de sucesso de ex-alunos e a **metodologia *case-based***. |
-| **Absorver o máximo de informações**                   | Necessidade de uma comunicação clara, madura e com a **opção de aprofundamento** (como o formulário de dúvidas). | Oferecer acesso a materiais complementares após o tour.                       |
+<table>
+  <thead>
+    <tr>
+      <td>
+        Necessidade
+      </td>
+
+      <td>
+        Impacto no Projeto do Robô
+      </td>
+
+      <td>
+        Oportunidade de Conteúdo
+      </td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <strong>
+          Entender a história e o funcionamento do Inteli
+        </strong>
+      </td>
+
+      <td>
+        Requer um módulo de conteúdo institucional formal e conciso.
+      </td>
+
+      <td>
+        Foco nos <strong>fundadores, missão e visão</strong> de inovação.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Validar a faculdade como referência em tecnologia
+        </strong>
+      </td>
+
+      <td>
+        Exige a apresentação de <strong>evidências concretas</strong> e cases de
+        sucesso.
+      </td>
+
+      <td>
+        Mencionar parcerias estratégicas e o{" "}
+        <strong>desempenho dos alunos</strong> no mercado.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Compreender os cursos executivos e seus resultados
+        </strong>
+      </td>
+
+      <td>
+        Demanda dados sobre a <strong>metodologia</strong>, o corpo docente e o{" "}
+        <strong>ROI</strong> (Retorno sobre o Investimento) do curso.
+      </td>
+
+      <td>
+        Apresentar métricas de sucesso de ex-alunos e a{" "}
+
+        <strong>
+          metodologia <em>case-based</em>
+        </strong>
+
+        .
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Absorver o máximo de informações
+        </strong>
+      </td>
+
+      <td>
+        Necessidade de uma comunicação clara, madura e com a{" "}
+        <strong>opção de aprofundamento</strong> (como o formulário de dúvidas).
+      </td>
+
+      <td>
+        Oferecer acesso a materiais complementares após o tour.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### 3.2. Oportunidades de Conteúdo e Intervenção
 
@@ -5739,10 +7218,6 @@ import { Callout } from "fumadocs-ui/components/callout";
 
 
 
-import { Steps } from "fumadocs-ui/components/steps";
-import { Card, Cards } from "fumadocs-ui/components/card";
-import { Callout } from "fumadocs-ui/components/callout";
-
 ## 1. Visão Geral da Jornada
 
  A jornada do usuário de Gabriele Julião, coordenadora de admissões do Inteli, foi mapeada para garantir que sua experiência com o sistema do cachorro-robô atenda às necessidades de eficiência, engajamento e coleta inteligente de dados. O objetivo principal é transformar o tour tradicional em uma experiência tecnológica e estratégica, que facilite a captação de leads, gere insights sobre o comportamento dos visitantes e consolide o Inteli como referência em tecnologia no país. <br />
@@ -5752,11 +7227,7 @@ import { Callout } from "fumadocs-ui/components/callout";
   Figura 1 - Mapa da Jornada da Gabriele Julião{" "}
 </p>
 
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img alt="Mapa da Jornada da Gabriele Julião" src={__img0} placeholder="blur" />
-  </div>
-</div>
+<img alt="Mapa da Jornada da Gabriele Julião" src={__img0} placeholder="blur" />
 
 <p style={{ textAlign: "center" }}>
   Fonte: Os autores (2025)
@@ -5839,12 +7310,95 @@ import { Callout } from "fumadocs-ui/components/callout";
 
  As necessidades de Gabriele estão diretamente ligadas à sua função de coordenadora de admissões, e não apenas à execução do tour em si, mas ao uso estratégico do sistema como uma ferramenta de captação, análise e fortalecimento institucional. Ela busca aprimorar a experiência dos visitantes, obter dados que orientem decisões futuras e reforçar o posicionamento do Inteli como referência em tecnologia e inovação.
 
-| Necessidade                                                   | Impacto no Projeto do Robô                                                                      | Oportunidade de Conteúdo                                                                  |
-| :------------------------------------------------------------ | :---------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
-| **Coletar dados precisos sobre o engajamento dos visitantes** | Requer integração do robô com um painel analítico que registre interações, dúvidas e emoções.   | Exibir métricas de engajamento e gerar relatórios automáticos pós-tour.                   |
-| **Garantir que o tour funcione de forma confiável e fluida**  | Demanda estabilidade técnica, interface intuitiva e suporte em tempo real.                      | Criar mensagens e comportamentos que transmitam segurança e profissionalismo.             |
-| **Refletir a identidade e o tom institucional do Inteli**     | Necessita de conteúdo alinhado à linguagem da marca e à narrativa de inovação e impacto social. | Inserir falas que reforcem os valores, missão e diferenciais do Inteli.                   |
-| **Otimizar o tempo e a logística das visitas**                | Requer automação no agendamento, personalização de roteiros e acompanhamento remoto.            | Permitir a configuração de tours distintos conforme o público (escolas, empresas, mídia). |
+<table>
+  <thead>
+    <tr>
+      <td>
+        Necessidade
+      </td>
+
+      <td>
+        Impacto no Projeto do Robô
+      </td>
+
+      <td>
+        Oportunidade de Conteúdo
+      </td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        <strong>
+          Coletar dados precisos sobre o engajamento dos visitantes
+        </strong>
+      </td>
+
+      <td>
+        Requer integração do robô com um painel analítico que registre
+        interações, dúvidas e emoções.
+      </td>
+
+      <td>
+        Exibir métricas de engajamento e gerar relatórios automáticos pós-tour.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Garantir que o tour funcione de forma confiável e fluida
+        </strong>
+      </td>
+
+      <td>
+        Demanda estabilidade técnica, interface intuitiva e suporte em tempo
+        real.
+      </td>
+
+      <td>
+        Criar mensagens e comportamentos que transmitam segurança e
+        profissionalismo.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Refletir a identidade e o tom institucional do Inteli
+        </strong>
+      </td>
+
+      <td>
+        Necessita de conteúdo alinhado à linguagem da marca e à narrativa de
+        inovação e impacto social.
+      </td>
+
+      <td>
+        Inserir falas que reforcem os valores, missão e diferenciais do Inteli.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>
+          Otimizar o tempo e a logística das visitas
+        </strong>
+      </td>
+
+      <td>
+        Requer automação no agendamento, personalização de roteiros e
+        acompanhamento remoto.
+      </td>
+
+      <td>
+        Permitir a configuração de tours distintos conforme o público (escolas,
+        empresas, mídia).
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### 3.2. Oportunidades de Conteúdo e Intervenção
 
@@ -5860,187 +7414,3 @@ import { Callout } from "fumadocs-ui/components/callout";
 
  A jornada de Gabriele Julião evidencia como o cachorro-robô pode ir além da automatização de visitas, atuando como uma ferramenta estratégica de captação e análise de leads. Para ela, o sucesso do sistema não se resume à fluidez técnica do tour, mas à sua capacidade de gerar dados relevantes, engajar visitantes e reforçar a imagem inovadora do Inteli. <br />
  Ao transformar um processo tradicional em uma experiência interativa, tecnológica e orientada por dados, o robô auxilia Gabriele a compreender melhor o comportamento dos visitantes e aprimorar continuamente as estratégias de admissão. Assim, o projeto não apenas otimiza o trabalho da coordenadora, mas também fortalece o posicionamento do Inteli como uma instituição que une inovação, educação e inteligência de mercado.
-
-
-# Personas (/docs/sprint-1/entendimento-do-usuario/personas)
-
-<Cards>
-  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato" title="Persona Candidato">
-    Descrição detalhada da Persona Candidato, incluindo perfil, necessidades e
-    comportamentos.
-  </Card>
-
-  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-2" title="Persona 2">
-    Descrição detalhada da Persona 2, incluindo perfil, necessidades e
-    comportamentos.
-  </Card>
-
-  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-staff/persona-staff" title="Persona Staff Inteli">
-    Descrição detalhada da Persona Staff Inteli, incluindo perfil, necessidades
-    e comportamentos.
-  </Card>
-</Cards>
-
-
-# Persona Candidato (/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato)
-
-
-
-# Isabella Ricci
-
- Isabella Ricci tem 17 anos e está concluindo o 3º ano do ensino médio em uma escola de alta performance em São Paulo. Desde o ensino fundamental, sempre demonstrou interesse por ciências e tecnologia, mas também se identifica com projetos criativos e o trabalho em equipe. Nos últimos meses, passou a pesquisar faculdades que unam inovação, propósito e prática, e o Inteli chamou sua atenção pela metodologia baseada em projetos reais e pelo foco em liderança.
- Durante a visita ao campus, Isabella busca compreender melhor o ambiente de aprendizado, conhecer os espaços e esclarecer dúvidas sobre bolsas, processo seletivo e vida acadêmica, informações que considera importantes para tomar sua decisão sobre onde estudar. Segue abaixo o canva da persona:
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Isabella Ricci 
-</p>
-
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img alt="Persona Candidato" src={__img0} placeholder="blur" />
-  </div>
-</div>
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-## Cenários de uso do sistema
-
- Assim que chegam ao Inteli, Isabella e seus pais são recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebem um tablet com uma aplicação onde podem registrar dúvidas durante o tour. Logo depois, o robô aparece para guiá-los pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos. Em cada ponto, o robô abre espaço para perguntas, e Isabella, junto dos pais, pode interagir pelo tablet, por texto ou por áudio.
-
- Durante o tour, o robô coleta feedbacks sobre a experiência, que são armazenados e posteriormente visualizados no painel administrativo.
-
-## Dores e necessidades
-
- Isabella sente insegurança em relação ao vestibular e ao processo de transição do ensino médio para o ensino superior. Ela teme não compreender completamente como funciona o processo seletivo do Inteli e tem dúvidas sobre o nível de exigência e o perfil de aluno esperado pela instituição. Essa incerteza é reforçada pelo fato de ainda não ter decidido se irá prestar o processo seletivo, o que torna a visita uma oportunidade importante para esclarecer dúvidas e reduzir barreiras emocionais na tomada de decisão. Ela deseja confirmar se o ambiente acadêmico, a metodologia de ensino e a cultura institucional realmente se alinham aos seus objetivos pessoais e à sua forma de aprendizado. Seu interesse por tecnologia e criatividade é acompanhado de uma necessidade de pertencimento e identificação com a proposta educacional.
-
- Durante a visita, Isabella busca informações objetivas, mas também experiências que transmitam segurança e transparência. Ela valoriza interações que equilibrem clareza técnica e sensibilidade humana. O contato com o robô deve contribuir para esse processo, apresentando o Inteli de forma acessível, guiada e contextual, permitindo que Isabella enxergue com mais nitidez como o ambiente e a metodologia podem apoiar seu desenvolvimento acadêmico e pessoal.
-
-## Objetivos
-
- O principal objetivo de Isabella ao visitar o Inteli é avaliar se deseja prestar o processo seletivo da instituição. Ela está em um momento de indecisão e busca informações que a ajudem a confirmar se o modelo de ensino, o ambiente e a proposta do curso correspondem às suas expectativas de formação.
-
- Outro objetivo é conhecer o espaço físico e observar como os ambientes de estudo e convivência favorecem a aprendizagem e a colaboração entre os alunos. Essa dimensão visual da experiência é importante para que Isabella forme uma percepção concreta sobre o dia a dia acadêmico e a estrutura da instituição.
-
-  Ela também busca entender a metodologia de ensino baseada em projetos, compreendendo na prática como os estudantes aprendem, interagem e desenvolvem soluções reais. Esse entendimento é necessário para que ela perceba o diferencial do Inteli em relação a outras instituições de ensino superior.
-
- Durante o tour, Isabella deseja esclarecer dúvidas sobre bolsas, rotina e oportunidades extracurriculares, como ligas estudantis e projetos paralelos. Essas informações têm um papel prático na decisão da família, especialmente no aspecto financeiro e no equilíbrio entre estudo e vivência universitária.
-
-## Conclusão
-
- A persona **Isabella Ricci** representa o perfil de candidato em fase de descoberta, que visita o Inteli acompanhado dos pais para conhecer o campus e avaliar a possibilidade de ingressar na instituição. Sua jornada é marcada por dúvidas sobre o processo seletivo, o ambiente acadêmico e a adequação entre seu perfil e a metodologia de ensino proposta.
-
- As dores e necessidades de Isabella revelam um equilíbrio entre fatores emocionais e racionais: ela busca informações claras, mas também experiências que transmitam segurança e identificação. O tour conduzido pelo robô tem papel fundamental nesse processo, funcionando como um canal de mediação entre o visitante e a instituição, capaz de esclarecer dúvidas e gerar percepção de acolhimento e transparência.
-
- Seus objetivos se concentram em compreender o funcionamento do Inteli, conhecer os espaços, tirar dúvidas sobre bolsas e oportunidades, e, principalmente, confirmar se deseja participar do processo seletivo. A partir dessa experiência, espera obter elementos concretos e emocionais que a ajudem a decidir sobre seu futuro acadêmico, reforçando a importância do projeto como ponto de contato inicial entre candidatos e o Inteli.
-
-
-# Ricardo Menezes - Persona Executiva (/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva)
-
-
-
- Abaixo, é possível ver um canva com um detalhamento acerca da persona Ricardo Menezes
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Persona Ricardo Menezes 
-</p>
-
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img alt="Persona Executiva" src={__img0} placeholder="blur" />
-  </div>
-</div>
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-## Resumo da Persona
-
- Ricardo Menezes é um gestor de 35 anos que trabalha na Ambev, onde atua na gestão de equipes e colabora com times de tecnologia voltados à tomada de decisões estratégicas. Sua principal motivação é o curso executivo adquirido pela empresa no Inteli, do qual ele espera obter conhecimentos em dados e inteligência artificial para aprimorar suas decisões de negócio. Contudo, Ricardo chega ao Inteli com uma dor central: a desconfiança e o desconhecimento em relação à instituição e à sua metodologia de ensino baseada em cases, o que o faz questionar a real efetividade do curso. Seu objetivo primário durante a visita é entender melhor o funcionamento do curso, a história da faculdade e confirmar se o Inteli realmente emprega tecnologias inovadoras, exigindo para isso uma comunicação formal e madura, alinhada ao seu perfil corporativo. O cenário de uso do sistema envolve ser conduzido por um funcionário até a arquibancada, onde recebe um tablet para registrar dúvidas, e em seguida ser guiado pelo robô interativo em um percurso pelo térreo do campus, podendo interagir com o robô por texto ou áudio no tablet para sanar suas dúvidas logísticas e conceituais sobre a faculdade e o curso. O robô, por sua vez, coleta feedbacks de sua experiência para otimizar o processo.
-
-## Informações Demográficas
-
-| Atributo                         | Detalhe                                            |
-| :------------------------------- | :------------------------------------------------- |
-| **Idade**                        | 38 anos                                            |
-| **Gênero**                       | Masculino                                          |
-| **Profissão**                    | Gerente de Projetos Sênior na Ambev                |
-| **Formação**                     | Administração de Empresas                          |
-| **Localização**                  | São Paulo (SP)                                     |
-| **Familiaridade com Tecnologia** | Médio. usa ferramentas digitais, mas não é técnico |
-
-## Bio
-
- Como dito anteriormente, Ricardo Menezes é um homem de 35 anos que atua como gestor de algumas equipes na Ambev, empresa líder em comércio de bebidas no Brasil. Ele se formou em administração há 12 anos e, desde então, trabalha no setor administrativo de empresas. Entrou na Ambev há 5 anos e tem atuado perto dos times de tecnologia, principalmente aqueles voltados à tomada de decisões estratégicas.
-Recentemente, a empresa adquiriu para os seus funcionários um curso executivo para os seus gestores em uma instituição chamada Inteli - Instituto de Tecnologia e Liderança. Com esse curso, Ricardo espera poder tomar melhores decisões de negócio baseando-se em dados e inteligência artificial. Entretanto, ele conhece pouco a universidade e não tem tanta confiança em relação ao método de ensino.
-
-## Cenários de Uso do Sistema
-
- Assim que chegam ao Inteli, Rodrigo é recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebe um tablet com uma aplicação onde podem registrar dúvidas que surgirem durante o tour. Logo depois, o robô aparece para guiá-lo pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos.
-Em cada ponto, o robô abre espaço para dúvidas, e Rodrigo pode interagir pelo tablet, por texto ou por áudio, tirando dúvidas sobre os cursos executivos e o funcionamento e história da faculdade
-Durante o tour, o robô coleta feedbacks sobre a experiência do usuário e os disponibiliza para visualização no painel administrativo .
-
-## Dores e Necessidades
-
- A principal dor de Ricardo é justamente não conhecer bem o suficiente a instituição onde ele estará fazendo esse curso executivo. Além disso, a metodologia de ensino do curso, que é baseada em cases, lhe deixa desconfiado em relação à efetividade do curso. Por fim, o que Ricardo mais quer neste cenário é entender melhor como funciona o curso, como funciona o Inteli e a sua história e também entender se essa faculdade realmente trabalha com tecnologias inovadoras. Entretanto, como alguém já mais maduro e muito acostumado com o mundo corporativo, ele prefere que seja utilizada uma linguagem mais formal na sua comunicação.
-
-## Conclusão
-
- Embora a maioria dos visitantes do Inteli seja composta por estudantes do ensino médio, a persona Ricardo Menezes representa um público-alvo estratégico (executivos, imprensa e parceiros) cujo impacto no projeto de automatização de tours com o cão robótico é desproporcionalmente alto. Este público não busca uma experiência lúdica, mas sim a validação da credibilidade e da vanguarda tecnológica da instituição. A presença do Ricardo exige que o robô seja programado para ter uma dupla funcionalidade: além de engajar o público jovem, ele deve ser capaz de alternar para um tom de voz formal, comunicação concisa e conteúdo focado em dados estratégicos (como cases de sucesso e resultados de cursos executivos). Em suma, o Ricardo atua como o padrão de qualidade para o projeto, garantindo que a solução tecnológica não apenas cumpra seu papel operacional de guia, mas também funcione como um reforço da imagem institucional do Inteli para o seu público mais influente e decisório. Ignorar as dores e necessidades deste executivo resultaria em um robô que falharia em seu papel mais importante: endossar a sofisticação e o profissionalismo da faculdade.
-
-
-# Gabriele Julião - Persona Staff Inteli (/docs/sprint-1/entendimento-do-usuario/personas/persona-staff/persona-staff)
-
-
-
- A imagem abaixo ajuda a compreender de forma mais visual quem é Gabriele e como ela se conecta com o contexto do projeto:
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Persona Gabriele Julião
-</p>
-
-<div style={{ margin: 25 }}>
-  <div style={{ textAlign: "center" }}>
-        <img alt="Persona Executiva" src={__img0} placeholder="blur" />
-  </div>
-</div>
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-## Resumo da persona
-
- Gabriele Julião é uma profissional paulistana de 32 anos que atua como coordenadora de admissões no Inteli, sendo responsável por gerenciar os processos seletivos e as visitas guiadas ao campus. Formada em Jornalismo e pós-graduada em Marketing Digital, Gabriele possui experiência em captação de leads e estratégias de comunicação voltadas à atração de jovens talentos. Sua principal motivação é aprimorar a experiência dos visitantes e fortalecer a imagem inovadora da instituição, tornando cada interação uma oportunidade de encantamento e conversão. <br />
- Apesar dos bons resultados alcançados nas últimas campanhas de admissão, Gabriele enfrenta desafios como a dificuldade de mensurar o impacto das visitas ao campus e obter dados mais qualitativos sobre o interesse dos candidatos. Por isso, vê no cachorro-robô uma ferramenta estratégica para transformar o tour em uma experiência mais tecnológica, interativa e informativa. Durante as visitas, Gabriele acompanha o funcionamento do robô e analisa os dados coletados para compreender melhor o comportamento e o engajamento dos leads. Assim, ela busca unir tecnologia, inovação e marketing educacional para aprimorar o processo de admissão e otimizar a jornada dos futuros alunos do Inteli.
-
-## Informações Demográficas
-
-| Atributo                         | Detalhe                                                                                                                      |
-| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| **Idade**                        | 32 anos                                                                                                                      |
-| **Gênero**                       | Feminino                                                                                                                     |
-| **Profissão**                    | Coordenadora de admissões no Inteli                                                                                          |
-| **Formação**                     | Jornalismo, com pós graduação em Marketing Digital                                                                           |
-| **Localização**                  | São Paulo (SP)                                                                                                               |
-| **Familiaridade com Tecnologia** | Alta. Utiliza muitas mídias sociais, entende de fluxos e sabe muito sobre o seu público-alvo: futuros líderes em tecnologia. |
-
-## Bio
-
- Gabriele Julião é uma paulistana de 32 anos, comunicativa e sempre em busca de novas formas de se conectar com as pessoas. Formada em Jornalismo e pós-graduada em Marketing Digital, ela construiu sua carreira unindo criatividade e estratégia, o que a levou a se tornar coordenadora de admissões no Inteli, onde lidera campanhas e visitas ao campus. <br />
- Fora do trabalho, Gabriele é movida por curiosidade e expressão. Ela adora fotografia, cinema e música brasileira, e costuma aproveitar os fins de semana para explorar novos cafés e registrar momentos do cotidiano de São Paulo. Gosta de estar rodeada de amigos e é conhecida por seu bom humor e energia em eventos da faculdade. Ela ama visitar ambientes "aesthetic", como cafés superfaturados no centro da cidade e museus culturais. Sua atividade favorita com os amigos é ir ao Beco do Batman. <br />
- Ao mesmo tempo, Gabriele tem um lado analítico e curioso: adora entender o comportamento das pessoas e buscar maneiras de transformar dados em histórias que inspiram. É esse equilíbrio entre empatia e estratégia que a faz enxergar o potencial de ferramentas inovadoras, como o cachorro-robô para transformar a experiência dos visitantes do Inteli em algo inesquecível.
-
-## Cenários de Uso do Sistema
-
- Assim que chegam ao Inteli, Gabriele recebe um grupo de visitantes interessados em conhecer a instituição. Ela aciona o cachorro-robô, que inicia o tour guiado pelo térreo do campus. Os visitantes recebem um tablet conectado ao sistema do robô, por meio do qual pode interagir durante o percurso, enviando dúvidas por texto ou áudio. <br />
- Enquanto o robô conduz o grupo de forma autônoma, Gabriele acompanha o tour à distância, observando o andamento pelo painel administrativo. A cada ponto de parada, o robô compartilha informações sobre o curso, os laboratórios, os projetos dos alunos e a cultura da instituição, estimulando o engajamento dos visitantes. <br />
- Durante a experiência, o sistema coleta feedbacks e dados comportamentais, como nível de interesse e interação dos visitantes, permitindo que Gabriele obtenha informações mais ricas sobre o perfil dos leads. Ao final do tour, ela utiliza esses dados para aprimorar as próximas visitas e ajustar as estratégias de captação, tornando o processo de admissão mais eficiente e personalizado.
-
-## Dores e Necessidades
-
- A principal dor de Gabriele está na padronização do tour, que quase sempre é feito de maneira diferente entre os visitantes. Além disso, há dificuldade de compreender com profundidade o comportamento e o nível de engajamento dos visitantes durante as visitas ao campus. Embora suas últimas campanhas tenham sido um sucesso, ela sente que falta informação quantitativa e qualitativa que ajude a entender o que realmente desperta o interesse dos jovens e quais fatores influenciam a decisão de inscrição.
-
-## Conclusão
