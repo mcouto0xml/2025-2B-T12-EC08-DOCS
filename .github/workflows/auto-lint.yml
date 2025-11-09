@@ -11,6 +11,8 @@ concurrency:
 jobs:
   lint-and-format:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     defaults:
       run:
         shell: bash

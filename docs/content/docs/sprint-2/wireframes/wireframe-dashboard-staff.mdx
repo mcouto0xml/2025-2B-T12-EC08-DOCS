@@ -1,0 +1,79 @@
+---
+title: Wireframe Dashboard Staff
+---
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+&emsp; Como definido anteriormente, um dos usuários da aplicação será um membro da staff do Inteli. Essa figura reaparece durante o desenvolvimento das telas, mas agora com um novo objetivo: visualizar os dados coletados durante o tour e pensar em como tirar o melhor proveito possível dessas informações.
+
+## 1. Tela Home
+
+Esta é a tela inicial do site, que permitirá ao Staff visualizar informações tanto sobre o robô quanto sobre o tour, incluindo dados sobre as perguntas realizadas.
+
+- **Propósito:** Permitir que o Staff visualize informações como a quantidade de perguntas e seus temas, além de dados sobre os tours e os visitantes.
+- **Elementos-Chave:**
+  - **Gráficos de Acompanhamento:** Localizados na parte superior e inferior central da tela, permitem ao Staff visualizar a quantidade de alertas e a demanda, respectivamente.
+  - **Tours por Mês:** Exibe a quantidade de tours realizados no mês.
+  - **Quantidade de Perguntas:** Mostra quantas perguntas foram feitas por tour.
+  - **Assuntos Mais Perguntados:** Permite ao Staff identificar os principais focos de dúvidas sobre o Inteli, como processo seletivo, programa de bolsas, clubes, etc.
+  - **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até outras telas do site, como a Tela Dashboard e Roteiro (2).
+
+<p style={{ textAlign: "center" }}>Figura 1 - Tela Home</p>
+
+![Tela Home](./imgs/wireframe-site-staff-home.png)
+
+<p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
+
+---
+
+## 2. Tela Dashboard e Roteiro
+
+Esta é uma tela de controle que permitirá ao Staff atualizar ou remover informações sobre a instituição e sobre o roteiro.
+
+- **Propósito:** Permitir que o Staff faça a manutenção das informações do Inteli, mantendo o modelo de IA do cão robô atualizado, e altere informações do tour.
+- **Elementos-Chave:**
+  - **Seção Documentos:** Localizada no centro esquerdo da tela, permite ao Staff remover ou adicionar informações sobre o Inteli, mantendo o sistema sempre atualizado com as últimas informações.
+  - **Seção de Roteiro:** Localizada no centro direito da tela, permite ao Staff alterar informações sobre o roteiro, caso seja necessário.
+  - **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
+
+<p style={{ textAlign: "center" }}>Figura 2 - Dashboard e Roteiro</p>
+
+![Tela Dashboard e Roteiro](./imgs/wireframe-site-staff-roteiro.png)
+
+<p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
+
+---
+
+## 3. Tela Pop-up Documentos
+
+Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o upload de novos documentos.
+
+- **Propósito:** Permitir que o Staff envie novas informações sobre o Inteli para o sistema.
+- **Elementos-Chave:**
+  - **Pop-up Documentos:** Localizado no centro da tela, permite ao usuário realizar o upload dos documentos do Inteli e inserir um título para melhor organização.
+  - **Botão "Adicionar":** Localizado na parte inferior central do pop-up, envia o documento e seu título para o sistema.
+  - **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
+
+<p style={{ textAlign: "center" }}>Figura 3 - Pop-up Documentos</p>
+
+![Tela - Pop-up Documentos](./imgs/wireframe-site-staff-popup-documentos.png)
+
+<p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
+
+---
+
+## Fluxo de Uso Principal
+
+<Steps>
+### 1. Visualizar Dados Gerais
+O Staff acessa a **Tela 1** (Home) para ver informações sobre os tours, perguntas feitas pelos visitantes e desempenho do robô.
+
+### 2. Gerenciar Informações da Instituição e do Tour
+
+A partir da **Tela 1**, o Staff acessa a **Tela 2** (Dashboard e Roteiro) para atualizar dados do Inteli e modificar o roteiro do tour quando necessário.
+
+### 3. Adicionar Novos Documentos
+
+Na **Tela 3** (Pop-up Documentos), o Staff pode realizar o upload de novos materiais e inserir títulos descritivos, mantendo o sistema de IA atualizado.
+
+</Steps>
