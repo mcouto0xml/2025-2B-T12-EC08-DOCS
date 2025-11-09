@@ -5,7 +5,7 @@ description: "Documentação detalhada da arquitetura atualizada do sistema Tour
 
 ## Introdução
 
-A arquitetura do sistema Tour Cão-Robô passou por uma evolução significativa desde sua concepção inicial. Com base em conversas entre todos os grupos e nas necessidades identificadas durante o desenvolvimento, realizamos atualizações na arquitetura para melhor atender aos requisitos do projeto. Para conferir a arquitetura anterior, clique [aqui](../../../sprint-1/entendimento-do-projeto/proposta-de-arquitetura.mdx).
+A arquitetura do sistema Tour Cão-Robô passou por uma evolução significativa desde sua concepção inicial. Com base em conversas entre todos os grupos e nas necessidades identificadas durante o desenvolvimento, realizamos atualizações na arquitetura para melhor atender aos requisitos do projeto. Para conferir a arquitetura anterior, clique [aqui](../../sprint-1/entendimento-do-projeto/proposta-de-arquitetura.mdx).
 
 Este documento apresenta a versão atualizada da arquitetura, detalhando cada componente, suas relações e responsabilidades dentro do ecossistema do sistema. A arquitetura foi projetada para operar um robô de serviço autônomo com IA generativa, programado para realizar tours interativas de apresentação do campus do Inteli, com foco em escalabilidade, modularidade e experiência do usuário.
 
@@ -316,10 +316,6 @@ A transcrição é sincronizada com o áudio do robô, garantindo acessibilidade
     A[Interação para avançar seções] --> B[Seção]
     B --> C[Robô]" />
 
-Interface que permite aos visitantes sinalizarem que estão prontos para avançar para o próximo checkpoint. Funciona como um sistema de votação ou confirmação coletiva, onde o grupo indica quando deseja prosseguir.
-
-Este controle democratiza o ritmo do tour, permitindo que os visitantes passem mais ou menos tempo em cada ponto conforme seu interesse.
-
 #### Controle Emergencial do Robô (Visitante)
 
 <Mermaid chart="graph LR
@@ -369,8 +365,6 @@ Interface administrativa de emergência com funcionalidades adicionais:
 
 - Pausa e retomada de tours
 - Redirecionamento do robô
-- Comunicação direta com visitantes
-- Visualização de status em tempo real
 
 #### Perfil do Robô
 
