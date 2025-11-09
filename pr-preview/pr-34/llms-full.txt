@@ -173,6 +173,10 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
     Wireframes desenvolvidos para as aplicações propostas de controle e
     interação com o sistema.
   </Card>
+
+  <Card href="/docs/sprint-2/robo" title="Documentação do Robô">
+    Documentação dos avanços e descobertas relativas ao código do Unitree Go2.
+  </Card>
 </Cards>
 
 
@@ -6135,30 +6139,55 @@ await conn.datachannel.pub_sub.publish_request_new(
 * Testamos o robô no térreo para validarmos em trajetórias mais longas.
 * Problemas encontrados:
   * Identificamos que as distâncias percorridas eram constantes, independentemente do valor de X e Y.
-  * O robô se movimentava em velocidades excessivas quando aumentavamos os valores de X e Y.
+  * O robô se movimenta em velocidades excessivas quando aumentamos os valores de X e Y.
 * Tentamos ajustar a velocidade via tópico `SpeedLevel`, mas não tivemos nenhum sucesso devido à falta de documentação.
 
 ### Pesquisa e descoberta
 
-* Estudamos a arquitetura do sistema e identificamos o fluxos de comunicação.
+* Estudamos a arquitetura do sistema e identificamos os fluxos de comunicação.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Arquitetura Unitree Go2
+</p>
 
 <img alt="Arquitetura Unitree" src={__img0} placeholder="blur" />
-Fonte: [support.unitree](https://support.unitree.com/home/en/developer/Architecture%20Description)
+
+<p style={{ textAlign: "center" }}>
+  Fonte: 
+
+  [support.unitree](https://support.unitree.com/home/en/developer/Architecture%20Description)
+</p>
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Arquitetura de hardware Unitree Go2
+</p>
 
 <img alt="Arquitetura Unitree" src={__img1} placeholder="blur" />
-Fonte: [support.unitree](https://support.unitree.com/home/en/developer/about_Go2)
+
+<p style={{ textAlign: "center" }}>
+  Fonte: 
+
+  [support.unitree](https://support.unitree.com/home/en/developer/about_Go2)
+</p>
 
 * Descobrimos que o modo `Sport Mode` precisa estar desativado para o SDK operar.
-  <img alt="SportMode" src={__img2} placeholder="blur" />
-  Fonte: [support.unitree](https://support.unitree.com/home/en/developer/Quick_start)
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - SportMode
+</p>
+
+<img alt="SportMode" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: 
+
+  [support.unitree](https://support.unitree.com/home/en/developer/Quick_start)
+</p>
 
 * Descoberta de documentação técnica do SDK (com parâmetros e APIs idênticas ao WebRTC):
-
-* Descobrimso que os parâmetros X, Y e Z esperam receber valores de velocidade em metros por segundo (m/s) e que todas as requisições enviadas para o robô duram apenas um segundo.
-
-* Sendo assim precisamos enviar a mesma requisição durante mais tempo caso precisemos de movimentações mais longas.
-
-[Motion Services Interface V2.0](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+  * [Motion Services Interface V2.0](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* Descobrimos que os parâmetros X, Y e Z esperam receber valores de velocidade em metros por segundo (m/s) e que todas as requisições enviadas para o robô duram apenas um segundo.
+* Sendo assim, precisamos enviar a mesma requisição durante mais tempo caso precisemos de movimentações mais longas.
 
 <Callout type="info">
   Após uma conversa com o professor Nicola, constatamos que o WebRTC é uma engenharia reversa do SDK, portanto, é possível utilizar os mesmos parâmetros descritos na documentação oficial.
@@ -6167,7 +6196,7 @@ Fonte: [support.unitree](https://support.unitree.com/home/en/developer/about_Go2
 ### Aplicação e calibração
 
 * Após as descobertas fizemos a implementação dos parâmetros descobertos.
-* A movimentação foi bem-sucedida e o robô se moviemnta em multiplas distâncias
+* A movimentação foi bem-sucedida e o robô se movimenta em múltiplas distâncias
 * Testamos com waypoints múltiplos e conseguimos validar a movimentação encadeada.
 
 ### Abstração e leitura dinâmica
