@@ -1,5 +1,9 @@
 {
   "title": "Wireframes",
   "description": "Wireframes são esboços visuais que mostram a estrutura e o layout básico de uma interface.",
-  "pages": ["wireframe-app-staff", "wireframe-app-visitante", "wireframe-dashboard-staff"]
+  "pages": [
+    "wireframe-app-staff",
+    "wireframe-app-visitante",
+    "wireframe-dashboard-staff"
+  ]
 }
