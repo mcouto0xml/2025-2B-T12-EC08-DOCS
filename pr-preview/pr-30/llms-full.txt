@@ -169,8 +169,13 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 
-  <Card href="/docs/sprint-2/modelagem-bd" title="Modelagem do Banco de Dados">
+  <Card href="/docs/sprint-2/modelagem-bd/modelagem-bd" title="Modelagem do Banco de Dados">
     Modelagem inicial do Banco de Dados.
+  </Card>
+
+  <Card href="/docs/sprint-2/wireframes" title="Wireframes">
+    Wireframes desenvolvidos para as aplicações propostas de controle e
+    interação com o sistema.
   </Card>
 </Cards>
 
@@ -6586,6 +6591,530 @@ F -->|HTTP| BUCKET
     <File name="meta.json" />
   </Folder>
 </Files>
+
+
+# Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/wireframes)
+
+<Cards>
+  <Card title="Wireframe App Staff" description="Wireframe do aplicativo onde o staff do Inteli poderá gerenciar os tours da aplicação." href="/docs/sprint-2/wireframes/wireframe-app-staff" />
+
+  <Card title="Wireframe App Visitante" description="Wireframe do aplicativo onde o visitante irá interagir com o tour, fazendo perguntas para o robô." href="/docs/sprint-2/wireframes/wireframe-app-visitante" />
+
+  <Card title="Wireframe Dashboard Staff" description="Wireframe da dashboard onde o staff do Inteli poderá visualizar insights sobre os tours feitos e gerenciar os documentos que o modelo do robô ingere." href="/docs/sprint-2/wireframes/wireframe-dashboard-staff" />
+</Cards>
+
+
+# Wireframe App Staff (/docs/sprint-2/wireframes/wireframe-app-staff)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+ Como definido anteriormente, um dos usuários da aplicação será uma pessoa da staff do Inteli. Assim, os principais deveres desse usuário enquanto interage com a aplicação é de **criar, gerenciar e acompanhar os tours** que estão em andamento e também visualizar estatísticas sobre, por exemplo, as perguntas mais comuns que são feitas pelos visitantes, etc.
+
+## 1. Tela de Visão Geral e Agendamentos
+
+Esta é a tela inicial do aplicativo, focada na gestão de tours.
+
+* **Propósito:** Permitir que o membro da Staff visualize os tours agendados e inicie o processo de criação de um novo tour.
+* **Elementos Chave:**
+  * **Seletor de Data:** Permite filtrar a lista de tours por dia (e.g., 27, 28, 29 DEZ).
+  * **Tabela/Lista de Tours:** Exibe os tours agendados com as colunas **Horário**, **Nome** (do responsável) e **Status** (e.g., Agendado, Em Andamento, Finalizado).
+  * **Botão de Criação (+):** Localizado no canto superior direito, inicia o fluxo de criação de um novo tour.
+  * **Ação de Clique:** Clicar em um tour existente na lista leva à tela de Detalhamento do Tour (Tela 5).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Tela de Visão Geral e Agendamentos
+</p>
+
+<img alt="Tela de Visão Geral e Agendamentos" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 2. Tela de Cadastro de Visitantes
+
+Esta tela faz parte do fluxo de criação de um novo tour.
+
+* **Propósito:** Coletar as informações essenciais dos visitantes que participarão do tour.
+* **Elementos Chave:**
+  * **Responsável e Data:** Campos para identificar o responsável pelo agendamento e a data do tour.
+  * **Visitantes:** Campos para **Nome** e **E-mail** do primeiro visitante.
+  * **Adicionar Visitantes:** Opção para incluir mais participantes no tour.
+  * **Botão Confirmar:** Avança para a próxima etapa do fluxo de criação do tour.
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Tela de Cadastro de Visitantes
+</p>
+
+<img alt="Tela de Cadastro de Visitantes" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 3. Tela de Seleção de Perfil do Robô
+
+Esta tela é a etapa de personalização do tour.
+
+* **Propósito:** Definir a personalidade e o modo de interação do cachorro robótico durante o tour.
+* **Elementos Chave:**
+  * **Título:** "Selecione o perfil do cachorro".
+  * **Carrossel de Seleção:** Área central com setas laterais para navegar entre os diferentes perfis/personalidades disponíveis para o robô.
+  * **Botão Finalizar:** Conclui a seleção e avança para a tela de Resumo.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Tela de Seleção de Perfil do Robô
+</p>
+
+<img alt="Tela de Seleção de Perfil do Robô" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 4. Tela de Resumo e Criação do Tour
+
+Esta tela é o ponto final antes da criação definitiva do tour.
+
+* **Propósito:** Permitir que o membro da Staff revise todas as informações coletadas (visitantes e perfil do robô) antes de finalizar o agendamento.
+* **Elementos Chave:**
+  * **Título:** "Informações gerais".
+  * **Conteúdo:** Área de texto longo que exibe o resumo dos dados.
+  * **Opção Editar:** Permite retornar às telas anteriores para realizar ajustes.
+  * **Botão Iniciar:** Cria o tour no sistema e o marca como agendado.
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 - Tela de Resumo e Criação do Tour
+</p>
+
+<img alt="Tela de Resumo e Criação do Tour" src={__img3} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 5. Tela de Detalhamento e Início do Tour
+
+Esta tela é acessada ao clicar em um tour agendado na Tela 1.
+
+* **Propósito:** Iniciar um tour agendado e gerar o código de acesso para o visitante.
+* **Fluxo de Ação:**
+  1. O membro da Staff acessa o detalhamento do tour.
+  2. Ao iniciar o tour (ação não visível no wireframe, mas implícita), o sistema gera um **Código do Tour**.
+  3. O código (representado por `******`) é exibido para ser fornecido ao visitante, que o utilizará em seu próprio aplicativo para iniciar a experiência.
+  * **Botão Cancelar:** Permite abortar a operação.
+
+<p style={{ textAlign: "center" }}>
+  Figura 5 - Tela de Detalhamento e Início do Tour (Geração de Código)
+</p>
+
+<img alt="Tela de Detalhamento e Início do Tour" src={__img4} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 6. Tela de Acompanhamento do Tour
+
+Esta é a tela principal de monitoramento de um tour em andamento.
+
+* **Propósito:** Fornecer à Staff uma visão em tempo real do progresso do tour e das interações do robô.
+* **Elementos Chave:**
+  * **Status: Em Andamento:** Indica que o tour está ativo.
+  * **Barra de Progresso:** Exibe as etapas do tour/processo (e.g., Arquibancada, Ateliê, Casinhas, etc) e o status de cada uma.
+  * **Perguntas Feitas:** Seção para visualizar as perguntas que foram feitas pelos visitantes ao robô, permitindo a coleta de estatísticas.
+  * **Barra de Navegação Inferior:** Contém as ações de controle do tour:
+    * Ícone de Mapa: Abre a visualização do mapa (Tela 7).
+    * Botão Central (X): **Finalizar Tour**.
+    * Ícone de Parada: **Parar por Emergência**.
+
+<p style={{ textAlign: "center" }}>
+  Figura 6 - Tela de Acompanhamento do Tour
+</p>
+
+<img alt="Tela de Acompanhamento do Tour" src={__img5} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 7. Tela de Mapa do Tour
+
+Esta tela é acessada a partir da Tela 6.
+
+* **Propósito:** Visualizar a localização atual do robô e o progresso físico do tour.
+* **Elementos Chave:**
+  * **Título:** "MAPA DO INTELI + CHECKPOINTS".
+  * **Área de Mapa:** Exibe o mapa da faculdade com a rota do tour.
+  * **Localização do Robô:** Indica o checkpoint onde o robô se encontra no momento.
+  * **Barra de Navegação Inferior:** Mantém as mesmas opções de controle da Tela 6.
+
+<p style={{ textAlign: "center" }}>
+  Figura 7 - Tela de Mapa do Tour
+</p>
+
+<img alt="Tela de Mapa do Tour" src={__img6} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Fluxo de Uso Principal
+
+<Steps>
+  ### 1. Visualizar Agendamentos
+
+  O membro da Staff acessa a **Tela 1** para ver a lista de tours agendados para o dia.
+
+  ### 2. Criar Novo Tour
+
+  A partir da **Tela 1**, o Staff inicia o fluxo de criação, passando pelas **Telas 2** (Cadastro de Visitantes) e **3** (Seleção de Perfil do Robô).
+
+  ### 3. Confirmar Agendamento
+
+  Na **Tela 4** (Resumo), o Staff revisa e confirma o agendamento do tour.
+
+  ### 4. Iniciar Tour e Gerar Código
+
+  No dia do tour, o Staff seleciona o agendamento na **Tela 1** e, após iniciar, é levado à **Tela 5** para obter o código de acesso que será repassado ao visitante.
+
+  ### 5. Acompanhar o Progresso
+
+  Com o tour em andamento, o Staff monitora o progresso na **Tela 6** (Acompanhamento), podendo visualizar o mapa na **Tela 7** e intervir (Finalizar ou Parar por Emergência) quando necessário.
+</Steps>
+
+
+# Wireframe App Visitante (/docs/sprint-2/wireframes/wireframe-app-visitante)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+  Como definido anteriormente, um dos principais usuários da aplicação será o visitante do Inteli. Assim, os principais deveres desse usuário, enquanto interage com a aplicação, são compreender as informações apresentadas e informar dúvidas sobre o Inteli durante o tour.
+
+## 1. Tela de Login com Código
+
+Esta é a tela inicial do aplicativo, que permitirá ao usuário iniciar o tour.
+
+* **Propósito:** Permitir que o usuário insira um código de acesso disponibilizado pela equipe para que o tour possa ser iniciado.
+* **Elementos-Chave:**
+  * **Campo de Inserção do Código:** Localizado no centro da tela, permite iniciar o tour quando o código correto for inserido.
+  * **Botão "Entrar":** Localizado na parte inferior central, inicia o tour caso o código esteja correto.
+  * **Ação de Clique:** Clicar em "Entrar" inicia o tour e envia o usuário para a tela de Tutorial - Conversa com o Cão Robô (2).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Tela de Login com Código do Tour
+</p>
+
+<img alt="Tela de Login com Código do Tour" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 2. Tela de Tutorial - Conversa com o Cão Robô
+
+Esta é a tela inicial do tutorial, que permitirá ao usuário aprender como interagir com o cão robô.
+
+* **Propósito:** Ensinar o usuário a se comunicar com o robô por meio do chat de voz.
+* **Elementos-Chave:**
+  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário como ele pode se comunicar com o cão robô.
+  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para o próximo pop-up do Tutorial - Fluxo do Tour (3).
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Tela de Tutorial - Conversa com o Cão Robô
+</p>
+
+<img alt="Tela de Tutorial - Conversa com o Cão Robô" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 3. Tela de Tutorial - Fluxo do Tour
+
+Esta é a tela do tutorial que permitirá ao usuário entender como funcionará a dinâmica do tour.
+
+* **Propósito:** Explicar ao usuário como ele pode passar pelos checkpoints do tour e o que eles representam.
+* **Elementos-Chave:**
+  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário como seguir com o tour.
+  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para o próximo pop-up do Tutorial - Botão de Emergência (4).
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Tela de Tutorial - Fluxo do Tour
+</p>
+
+<img alt="Tela de Tutorial - Fluxo do Tour" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 4. Tela de Tutorial - Botão de Emergência
+
+Esta é a tela do tutorial que permitirá ao usuário entender o que fazer em caso de emergência.
+
+* **Propósito:** Ensinar o usuário como agir em caso de erro ou bug no sistema do cão robô.
+* **Elementos-Chave:**
+  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário onde ele deve clicar para parar o robô, evitando possíveis danos.
+  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para a Tela - Mapa do Inteli (5).
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 - Tela de Tutorial - Botão de Emergência
+</p>
+
+<img alt="Tela de Tutorial - Botão de Emergência" src={__img3} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 5. Tela Mapa do Inteli
+
+Esta é a tela que permitirá ao usuário entender em qual parte do tour ele se encontra.
+
+* **Propósito:** Permitir que o usuário saiba em qual parte da instituição e em qual etapa do tour ele está no momento.
+* **Elementos-Chave:**
+  * **Mapa Inteli:** Localizado no centro da tela, mostra ao usuário onde ele está e em qual dos checkpoints se encontra ou já passou.
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta tela do mapa.
+  * **Botão "Checkpoint":** Localizado no HUD, envia o usuário para a Tela - Prosseguir com o Tour (6).
+
+<p style={{ textAlign: "center" }}>
+  Figura 5 - Tela Mapa do Inteli
+</p>
+
+<img alt="Tela - Mapa do Inteli" src={__img4} placeholder="blur" />
+
+***
+
+## 6. Tela Prosseguir com o Tour
+
+Esta é a tela que permitirá ao usuário continuar o tour ou permanecer parado com o cão robô em um dos checkpoints.
+
+* **Propósito:** Permitir que o usuário utilize os outros elementos do HUD, como o chat de conversa com o cão robô para fazer perguntas, ou prossiga com o tour.
+* **Elementos-Chave:**
+  * **Pop-up Checkpoint:** Localizado no centro da tela, mostra ao usuário a opção de seguir para o próximo ponto do tour ou permanecer no atual para conversar com o robô.
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta tela.
+  * **Botão "Microfone":** Localizado no centro do HUD, envia o usuário para a Tela - Chat com o Cão Robô (7).
+
+<p style={{ textAlign: "center" }}>
+  Figura 6 - Tela Prosseguir com o Tour
+</p>
+
+<img alt="Tela - Prosseguir com o Tour" src={__img5} placeholder="blur" />
+
+***
+
+## 7. Tela Chat com o Cão Robô
+
+Esta é a tela que permitirá ao usuário conversar com o cão robô para tirar dúvidas.
+
+* **Propósito:** Permitir que o usuário faça perguntas ao cão robô, que serão respondidas durante as pausas nos checkpoints.
+* **Elementos-Chave:**
+  * **Tela de Conversa:** Localizada no centro da tela, mostra as perguntas feitas pelo usuário e as respostas dadas pelo cão robô.
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta.
+  * **Botão "Microfone":** Localizado à direita da tela, permite ao usuário fazer perguntas ao cão robô.
+  * **Botão "Emergência":** Localizado no HUD, permite ao usuário ir até a Tela - Botão de Emergência (8).
+
+<p style={{ textAlign: "center" }}>
+  Figura 7 - Tela Chat com o Cão Robô
+</p>
+
+<img alt="Tela - Chat com o Cão Robô" src={__img6} placeholder="blur" />
+
+***
+
+## 8. Tela Botão de Emergência
+
+Esta é a tela que permitirá ao usuário parar o robô caso ocorra algum bug.
+
+* **Propósito:** Permitir que o usuário interrompa todas as ações do robô em caso de emergência.
+* **Elementos-Chave:**
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta.
+  * **Botão "Emergência":** Localizado no centro da tela, permite ao usuário parar completamente o cão robô.
+
+<p style={{ textAlign: "center" }}>
+  Figura 8 - Tela Botão de Emergência
+</p>
+
+<img alt="Tela - Botão de Emergência" src={__img7} placeholder="blur" />
+
+***
+
+## Fluxo de Uso Principal
+
+<Steps>
+  ### 1. Inserir Código de Acesso
+
+  O visitante acessa a **Tela 1** (Login com Código) e insere o código fornecido pela equipe do Inteli para iniciar o tour.
+
+  ### 2. Aprender a Interagir com o Cão Robô
+
+  Após o login, o visitante é guiado pelas **Telas 2**, **3** e **4** (Tutoriais) que explicam como conversar com o cão robô, como funcionam os checkpoints e como utilizar o botão de emergência.
+
+  ### 3. Visualizar o Mapa do Inteli
+
+  Concluído o tutorial, o visitante acessa a **Tela 5** (Mapa do Inteli) para ver onde está e acompanhar seu progresso pelos checkpoints do tour.
+
+  ### 4. Prosseguir com o Tour
+
+  Na **Tela 6** (Prosseguir com o Tour), o visitante decide se continua para o próximo ponto do tour ou permanece no atual para conversar com o cão robô.
+
+  ### 5. Interagir com o Cão Robô
+
+  Ao selecionar o botão de microfone, o visitante acessa a **Tela 7** (Chat com o Cão Robô), onde pode fazer perguntas e receber respostas durante as pausas do tour.
+
+  ### 6. Parar o Robô em Caso de Emergência
+
+  Se ocorrer algum problema, o visitante pode acessar a **Tela 8** (Botão de Emergência) para interromper imediatamente as ações do cão robô.
+</Steps>
+
+
+# Wireframe Dashboard Staff (/docs/sprint-2/wireframes/wireframe-dashboard-staff)
+
+
+
+
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+  Como definido anteriormente, um dos usuários da aplicação será um membro da staff do Inteli. Essa figura reaparece durante o desenvolvimento das telas, mas agora com um novo objetivo: visualizar os dados coletados durante o tour e pensar em como tirar o melhor proveito possível dessas informações.
+
+## 1. Tela Home
+
+Esta é a tela inicial do site, que permitirá ao Staff visualizar informações tanto sobre o robô quanto sobre o tour, incluindo dados sobre as perguntas realizadas.
+
+* **Propósito:** Permitir que o Staff visualize informações como a quantidade de perguntas e seus temas, além de dados sobre os tours e os visitantes.
+* **Elementos-Chave:**
+  * **Gráficos de Acompanhamento:** Localizados na parte superior e inferior central da tela, permitem ao Staff visualizar a quantidade de alertas e a demanda, respectivamente.
+  * **Tours por Mês:** Exibe a quantidade de tours realizados no mês.
+  * **Quantidade de Perguntas:** Mostra quantas perguntas foram feitas por tour.
+  * **Assuntos Mais Perguntados:** Permite ao Staff identificar os principais focos de dúvidas sobre o Inteli, como processo seletivo, programa de bolsas, clubes, etc.
+  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até outras telas do site, como a Tela Dashboard e Roteiro (2).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Tela Home
+</p>
+
+<img alt="Tela Home" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 2. Tela Dashboard e Roteiro
+
+Esta é uma tela de controle que permitirá ao Staff atualizar ou remover informações sobre a instituição e sobre o roteiro.
+
+* **Propósito:** Permitir que o Staff faça a manutenção das informações do Inteli, mantendo o modelo de IA do cão robô atualizado, e altere informações do tour.
+* **Elementos-Chave:**
+  * **Seção Documentos:** Localizada no centro esquerdo da tela, permite ao Staff remover ou adicionar informações sobre o Inteli, mantendo o sistema sempre atualizado com as últimas informações.
+  * **Seção de Roteiro:** Localizada no centro direito da tela, permite ao Staff alterar informações sobre o roteiro, caso seja necessário.
+  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Dashboard e Roteiro
+</p>
+
+<img alt="Tela Dashboard e Roteiro" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 3. Tela Pop-up Documentos
+
+Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o upload de novos documentos.
+
+* **Propósito:** Permitir que o Staff envie novas informações sobre o Inteli para o sistema.
+* **Elementos-Chave:**
+  * **Pop-up Documentos:** Localizado no centro da tela, permite ao usuário realizar o upload dos documentos do Inteli e inserir um título para melhor organização.
+  * **Botão "Adicionar":** Localizado na parte inferior central do pop-up, envia o documento e seu título para o sistema.
+  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Pop-up Documentos
+</p>
+
+<img alt="Tela - Pop-up Documentos" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Fluxo de Uso Principal
+
+<Steps>
+  ### 1. Visualizar Dados Gerais
+
+  O Staff acessa a **Tela 1** (Home) para ver informações sobre os tours, perguntas feitas pelos visitantes e desempenho do robô.
+
+  ### 2. Gerenciar Informações da Instituição e do Tour
+
+  A partir da **Tela 1**, o Staff acessa a **Tela 2** (Dashboard e Roteiro) para atualizar dados do Inteli e modificar o roteiro do tour quando necessário.
+
+  ### 3. Adicionar Novos Documentos
+
+  Na **Tela 3** (Pop-up Documentos), o Staff pode realizar o upload de novos materiais e inserir títulos descritivos, mantendo o sistema de IA atualizado.
+</Steps>
 
 
 # Template de Pasta (/docs/sprint-3/template-pasta)
