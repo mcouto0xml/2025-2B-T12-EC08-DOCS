@@ -174,7 +174,7 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
     interação com o sistema.
   </Card>
 
-  <Card href="/docs/sprint-2/robo" title="Documentação do Robô">
+  <Card href="/docs/sprint-2/robo/exploracao-robo" title="Documentação do Robô">
     Documentação dos avanços e descobertas relativas ao código do Unitree Go2.
   </Card>
 </Cards>
