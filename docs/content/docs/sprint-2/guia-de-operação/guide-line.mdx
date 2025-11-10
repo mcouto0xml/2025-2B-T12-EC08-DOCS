@@ -3,110 +3,80 @@ title: Guide Line
 description: Documento com o guia de operação do robô e informações relevantes.
 ---
 
-
 # Guia de Operação e Segurança - Robô Unitree Go2
-
 
 **Projeto:** Tour Autônomo - Inteli Instituto de Tecnologia e Liderança
 **Equipe:** Segurança e Robô
 **Versão:** Sprint 02
 
-
 ---
-
 
 ## Introdução
 
-
 Este documento tem como objetivo estabelecer as **diretrizes iniciais (guide line)** para o uso, operação e segurança do robô Unitree Go2 durante o desenvolvimento do projeto de **tour autônomo com visitantes** no campus do Inteli.
-
 
 Por se tratar de uma fase inicial (Sprint 02), as orientações descritas aqui servirão como **base operacional** e **padrões de conduta** para todos os membros da equipe, garantindo segurança, padronização e registro de boas práticas durante os testes.
 
-
 ---
 
-
 ## Situação Atual do Projeto
-
 
 O robô encontra-se em **fase de calibração e testes de controle/autonomia**.
 Durante essa etapa, foram identificadas **situações críticas e comportamentos relevantes** que impactam diretamente a segurança e confiabilidade do sistema:
 
-
 - **Superaquecimento na pata frontal esquerda:**
   O robô apresentou, em algumas ocasiões, aquecimento excessivo nesta região, resultando em queda brusca e necessidade de desligamento completo até o resfriamento.
-
 
 - **Sistema de diagnóstico via aplicativo:**
   Todos os erros são reportados em tempo real por meio de **cards vermelhos** no aplicativo do robô, permitindo rápida identificação da falha e tratativa.
 
-
 - **Alta responsividade aos comandos via aplicativo e controle:**
   O robô responde de forma imediata aos comandos do controle/app.
 
-
 - **Delay no reconhecimento de obstáculos (LiDAR):**
   Observou-se um atraso na atualização das leituras do LiDAR, possivelmente devido à sobrecarga de código. A equipe técnica realizará testes e otimizações para corrigir o problema.
-
 
 - **Proibição de movimento em ré durante o tour:**
   O robô **não deve andar de ré** sob nenhuma circunstância.
   Isso se deve à **ausência de sensores traseiros de detecção de obstáculos**, o que representa risco de colisão com visitantes ou objetos durante o tour.
 
-
 ---
 
-
 ## Diretrizes Gerais de Operação
-
 
 1. **Seguir rigorosamente a sequência de inicialização e desligamento.**
    A ordem de ligar primeiro o controle e depois o robô evita falhas de pareamento.
 
-
 2. **Evitar comandos repetidos ou simultâneos.**
    O robô pode interpretar múltiplos sinais como comandos contínuos, causando movimentos inesperados.
-
 
 3. **Monitorar a temperatura constantemente.**
    Se o sistema indicar superaquecimento, o robô deve ser imediatamente desligado.
 
-
 4. **Jamais levantar o robô em modo operacional ou de parada forçada.**
    Isso pode causar danos a pessoas ou até mesmo ao patrimônio.
-
 
 5. **Durante o tour, priorizar o deslocamento com uma velocidade segura.**
    O objetivo é garantir estabilidade e interação segura com os visitantes.
 
-
 6. **Realizar testes de funcionamento em ambientes controlados antes de operações públicas.**
-
 
 ---
 
-
-##  Procedimentos de Segurança
-
+## Procedimentos de Segurança
 
 - **Modo de emergência:**
   Caso o robô apresente comportamento inesperado, utilize **L2 + B** para realizar a **parada forçada imediata**.
 
-
 - **Falhas críticas:**
   Se houver qualquer anomalia (queda, superaquecimento, falha de controle), **desligar o robô**, ver diagnóstico no aplicativo, aguardar o resfriamento e **registrar o incidente**.
-
 
 - **Zona de segurança:**
   Durante testes, manter uma distância mínima de **1 metro** entre o robô e qualquer pessoa.
 
-
 ---
 
-
 ## Procedimentos Operacionais
-
 
 <table>
   <thead>
@@ -122,43 +92,66 @@ Durante essa etapa, foram identificadas **situações críticas e comportamentos
       <td>OP01</td>
       <td>Operação</td>
       <td>O controle deve ser ligado antes do robô.</td>
-      <td>A sequência de inicialização é concluída com sucesso sem falhas de conexão.</td>
+      <td>
+        A sequência de inicialização é concluída com sucesso sem falhas de
+        conexão.
+      </td>
     </tr>
     <tr>
       <td>OP02</td>
       <td>Operação</td>
-      <td>Para ligar o controle: apertar o botão de ligar uma vez e soltar; em seguida, apertar novamente e segurar até iniciar.</td>
+      <td>
+        Para ligar o controle: apertar o botão de ligar uma vez e soltar; em
+        seguida, apertar novamente e segurar até iniciar.
+      </td>
       <td>O controle é reconhecido e pareado corretamente com o robô.</td>
     </tr>
     <tr>
       <td>OP03</td>
       <td>Operação</td>
-      <td>Para ligar o robô: apertar o botão de ligar uma vez e soltar; em seguida, apertar novamente e segurar até iniciar.</td>
+      <td>
+        Para ligar o robô: apertar o botão de ligar uma vez e soltar; em
+        seguida, apertar novamente e segurar até iniciar.
+      </td>
       <td>O robô liga corretamente e responde aos comandos do controle.</td>
     </tr>
     <tr>
       <td>OP04</td>
       <td>Operação</td>
-      <td>Em caso de perda de controle das movimentações, pressionar L2 + A.</td>
+      <td>
+        Em caso de perda de controle das movimentações, pressionar L2 + A.
+      </td>
       <td>O robô trava os seus movimentos, estabilizando sua posição.</td>
     </tr>
     <tr>
       <td>OP05</td>
       <td>Segurança</td>
-      <td>Em caso de risco de dano ou acidente, pressionar L2 + B para parada forçada.</td>
-      <td>O robô interrompe imediatamente todos os movimentos e cai no chão.</td>
+      <td>
+        Em caso de risco de dano ou acidente, pressionar L2 + B para parada
+        forçada.
+      </td>
+      <td>
+        O robô interrompe imediatamente todos os movimentos e cai no chão.
+      </td>
     </tr>
     <tr>
       <td>OP06</td>
       <td>Segurança</td>
       <td>Para sair do modo de parada forçada, pressionar Start.</td>
-      <td>O robô retorna ao modo operacional normal e aceita novos comandos.</td>
+      <td>
+        O robô retorna ao modo operacional normal e aceita novos comandos.
+      </td>
     </tr>
     <tr>
       <td>OP07</td>
       <td>Operação</td>
-      <td>Evitar o comando A + A, pois pode causar comportamento incorreto (movimento infinito para trás).</td>
-      <td>Durante o teste, o robô não executa o comando e mantém controle estável.</td>
+      <td>
+        Evitar o comando A + A, pois pode causar comportamento incorreto
+        (movimento infinito para trás).
+      </td>
+      <td>
+        Durante o teste, o robô não executa o comando e mantém controle estável.
+      </td>
     </tr>
     <tr>
       <td>OP08</td>
@@ -169,7 +162,10 @@ Durante essa etapa, foram identificadas **situações críticas e comportamentos
     <tr>
       <td>OP09</td>
       <td>Técnica</td>
-      <td>Conectar hub USB-C na Jetson com monitor e mouse para acesso ao terminal.</td>
+      <td>
+        Conectar hub USB-C na Jetson com monitor e mouse para acesso ao
+        terminal.
+      </td>
       <td>Interface da Jetson exibida corretamente e terminal acessível.</td>
     </tr>
     <tr>
@@ -181,50 +177,55 @@ Durante essa etapa, foram identificadas **situações críticas e comportamentos
     <tr>
       <td>OP11</td>
       <td>Técnica</td>
-      <td>Utilizar adaptador Wi-Fi para conectar a Jetson e liberar acesso SSH remoto.</td>
+      <td>
+        Utilizar adaptador Wi-Fi para conectar a Jetson e liberar acesso SSH
+        remoto.
+      </td>
       <td>Conexão SSH estabelecida com sucesso e acesso remoto habilitado.</td>
     </tr>
     <tr>
       <td>OP12</td>
       <td>Operação</td>
-      <td>Para desligar o robô: apertar o botão de ligar uma vez e soltar; em seguida, apertar novamente e segurar até desligar completamente.</td>
+      <td>
+        Para desligar o robô: apertar o botão de ligar uma vez e soltar; em
+        seguida, apertar novamente e segurar até desligar completamente.
+      </td>
       <td>O robô desliga com segurança, sem perda de dados ou travamentos.</td>
     </tr>
     <tr>
       <td>OP13</td>
       <td>Operação</td>
-      <td>Após o robô desligar, repetir o mesmo processo para desligar o controle.</td>
-      <td>O controle é desligado corretamente e o sistema encerra a comunicação com sucesso.</td>
+      <td>
+        Após o robô desligar, repetir o mesmo processo para desligar o controle.
+      </td>
+      <td>
+        O controle é desligado corretamente e o sistema encerra a comunicação
+        com sucesso.
+      </td>
     </tr>
     <tr>
       <td>OP14</td>
       <td>Segurança</td>
       <td>Garantir sempre o desligamento do robô antes do controle.</td>
-      <td>Evita falhas de comunicação ou estados incorretos entre os dispositivos.</td>
+      <td>
+        Evita falhas de comunicação ou estados incorretos entre os dispositivos.
+      </td>
     </tr>
   </tbody>
 </table>
 
-
-
-
 ---
 
-
-##  Próximos Passos
-
+## Próximos Passos
 
 - Realizar **testes** para monitorar a frequência do superaquecimento.
 - Avaliar **otimizações no código do LiDAR** para reduzir o delay de resposta.
 - Criar **protocolo de redundância** para garantir segurança em caso de falhas críticas.
 - Desenvolver versão revisada do guide line com base nos resultados da Sprint 03.
 
-
 ---
 
-
-##  Observações Finais
-
+## Observações Finais
 
 Este documento é **dinâmico**, sendo atualizado conforme os avanços do projeto e novos aprendizados sobre o comportamento do robô.
 Todas as ocorrências devem ser registradas e revisadas pela equipe de segurança antes da próxima sprint.
