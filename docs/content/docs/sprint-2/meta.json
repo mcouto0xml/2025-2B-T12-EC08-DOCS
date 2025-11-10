@@ -1,5 +1,14 @@
 {
   "title": "Sprint 2",
   "description": "Documentação da Sprint 2",
-  "pages": ["template", "template-pasta", "wireframes", "prototipo-alta"]
+  
+  "pages": [
+    "template",
+    "template-pasta",
+    "wireframes",
+    "prototipo-alta",
+    "modelagem-bd",
+    "pipeline-de-docs",
+    "guia-de-operação"
+  ]
 }
