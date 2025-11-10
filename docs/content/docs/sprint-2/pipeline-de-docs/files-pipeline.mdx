@@ -82,7 +82,11 @@ RecursiveCharacterTextSplitter(
 
 - Mantém coesão semântica mesmo em respostas curtas.
 
-<Callout title="Importante"> Essa segmentação garante que as perguntas do usuário encontrem respostas dentro de um mesmo chunk. </Callout>
+<Callout title="Importante">
+  {" "}
+  Essa segmentação garante que as perguntas do usuário encontrem respostas
+  dentro de um mesmo chunk.{" "}
+</Callout>
 
 ---
 
@@ -114,15 +118,15 @@ chunks_with_embeddings.append({
 
 Cada embedding é armazenado com:
 
-  - ID único
+- ID único
 
-  - Conteúdo do chunk
+- Conteúdo do chunk
 
-  - Vetor (lista de floats)
+- Vetor (lista de floats)
 
-  - Modelo utilizado
+- Modelo utilizado
 
-  - Dados estruturados (página, seção, tipo)
+- Dados estruturados (página, seção, tipo)
 
 ---
 
@@ -130,9 +134,7 @@ Cada embedding é armazenado com:
 
 Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
 
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Pipeline de arquivos
-</p>
+<p style={{ textAlign: "center" }}>Figura 1 - Pipeline de arquivos</p>
 
 ![Pipeline de Ingestão](./imgs/file-pipeline.png)
 
@@ -146,4 +148,8 @@ A implementação deste pipeline possibilita o uso inteligente e contextualizado
 
 É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
 
-<Callout title="Próximos Passos" type="info"> Integração com o agente conversacional do robô e testes de consulta em linguagem natural usando os embeddings gerados. </Callout>
+<Callout title="Próximos Passos" type="info">
+  {" "}
+  Integração com o agente conversacional do robô e testes de consulta em
+  linguagem natural usando os embeddings gerados.{" "}
+</Callout>
