@@ -1,5 +1,12 @@
 {
   "title": "Sprint 2",
   "description": "Documentação da Sprint 2",
-  "pages": ["chatbot-v1", "template", "template-pasta"]
+  "pages": [
+    "template",
+    "template-pasta",
+    "wireframes",
+    "modelagem-bd",
+    "pipeline-de-docs",
+    "chatbot-v1"
+  ]
 }
