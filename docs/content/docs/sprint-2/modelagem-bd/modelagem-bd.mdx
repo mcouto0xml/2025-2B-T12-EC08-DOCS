@@ -5,7 +5,6 @@ description: Modelagem do Banco de Dados
 
 Modelagem no dbdiagram: [link da modelagem](https://dbdiagram.io/d/BANCO-DE-DADOS-ROB-690bbdc36735e1117070e737)
 
-
 ## 1. Introdução
 
 O banco de dados **Tour Cão-Robô** foi modelado para integrar os dois principais módulos do sistema — o aplicativo do visitante e o aplicativo do gestor — dentro de uma mesma base relacional.
@@ -13,11 +12,10 @@ A estrutura foi desenhada para manter a integridade entre os tours realizados co
 
 A arquitetura do banco tem como objetivos:
 
-* Centralizar as informações de **tours**, **visitantes**, **gestores** e **robôs**;
-* Garantir a consistência das interações entre os apps;
-* Facilitar consultas e análises para o **dashboard** final;
-* Manter o sistema escalável e modular, com clara separação entre dados operacionais e administrativos.
-
+- Centralizar as informações de **tours**, **visitantes**, **gestores** e **robôs**;
+- Garantir a consistência das interações entre os apps;
+- Facilitar consultas e análises para o **dashboard** final;
+- Manter o sistema escalável e modular, com clara separação entre dados operacionais e administrativos.
 
 ## 2. Estrutura Geral do Banco
 
@@ -27,7 +25,6 @@ As tabelas estão divididas em três grupos:
 1. **Tabelas compartilhadas (núcleo)** — armazenam os dados utilizados tanto pelo visitante quanto pelo gestor.
 2. **Tabelas do gestor** — contêm informações administrativas e de auditoria.
 3. **Tabelas do visitante** — registram interações e sessões do usuário durante o tour.
-
 
 ## 3. Tabelas Compartilhadas (Núcleo Geral)
 
@@ -239,7 +236,6 @@ As tabelas estão divididas em três grupos:
 | **referencia** | TEXT        | Referência do recurso afetado. |
 | **criado_em**  | TIMESTAMPTZ | Data e hora do registro.       |
 
-
 ## 5. Tabelas do App do Visitante
 
 ### 5.1. Tabela `dispositivos_visitante`
@@ -311,7 +307,6 @@ As tabelas estão divididas em três grupos:
 | **payload_json** | JSONB       | Dados complementares em formato JSON.  |
 | **criado_em**    | TIMESTAMPTZ | Data e hora de registro.               |
 
-
 ## 6. Views do Sistema
 
 **Conceito geral:**
@@ -329,7 +324,6 @@ Garante que o visitante visualize apenas informações públicas, mantendo a seg
 
 As views tornam o sistema mais seguro e simplificado, reduzindo a complexidade das consultas feitas pelos aplicativos e protegendo campos que não devem ser expostos.
 
-
 ## 7. Possíveis Pré-Tratamentos de Dados
 
 Para otimizar o desempenho e a integração entre os dois aplicativos e o dashboard, é possível realizar processamentos prévios dentro do banco de dados.
@@ -337,27 +331,27 @@ Esses pré-tratamentos reduzem o custo de consultas e entregam informações já
 
 ### 7.1. Pré-tratamentos gerais (compartilhados)
 
-* **Padronização de status e categorias:** manter domínios válidos para campos como `status`, `severidade`, `topico` e `tipo`, garantindo consistência e evitando erros de digitação.
-* **Criação de visões enriquecidas:** unificar informações que frequentemente precisam de junções, como “perguntas com nomes de checkpoints” ou “emergências com nome do visitante”.
-* **Normalização temporal:** gerar campos de dia, semana e mês com base em colunas de data para facilitar agrupamentos e gráficos de tendência.
+- **Padronização de status e categorias:** manter domínios válidos para campos como `status`, `severidade`, `topico` e `tipo`, garantindo consistência e evitando erros de digitação.
+- **Criação de visões enriquecidas:** unificar informações que frequentemente precisam de junções, como “perguntas com nomes de checkpoints” ou “emergências com nome do visitante”.
+- **Normalização temporal:** gerar campos de dia, semana e mês com base em colunas de data para facilitar agrupamentos e gráficos de tendência.
 
 ### 7.2. Pré-tratamentos para o App do Visitante
 
-* **Consolidação de estado do tour:** visão que combina `tours`, `progresso_tour` e `checkpoints` para exibir o andamento atualizado em tempo real.
-* **Percentual do tutorial concluído:** cálculo prévio da proporção de passos completados em `tutorial_progresso`.
-* **Histórico resumido do chat:** visão com as últimas mensagens de cada tour, limitando volume de dados transferido ao app.
+- **Consolidação de estado do tour:** visão que combina `tours`, `progresso_tour` e `checkpoints` para exibir o andamento atualizado em tempo real.
+- **Percentual do tutorial concluído:** cálculo prévio da proporção de passos completados em `tutorial_progresso`.
+- **Histórico resumido do chat:** visão com as últimas mensagens de cada tour, limitando volume de dados transferido ao app.
 
 ### 7.3. Pré-tratamentos para o App do Gestor
 
-* **Agenda consolidada:** visão que agrega dados de tours, capacidade e participantes confirmados, exibindo percentual de ocupação.
-* **Linha do tempo operacional:** combinação de status, emergências e progresso em ordem cronológica para monitoramento ao vivo.
-* **Relatórios rápidos de perguntas:** agrupamentos de `perguntas_visitantes` por checkpoint ou tópico.
+- **Agenda consolidada:** visão que agrega dados de tours, capacidade e participantes confirmados, exibindo percentual de ocupação.
+- **Linha do tempo operacional:** combinação de status, emergências e progresso em ordem cronológica para monitoramento ao vivo.
+- **Relatórios rápidos de perguntas:** agrupamentos de `perguntas_visitantes` por checkpoint ou tópico.
 
 ### 7.4. Pré-tratamentos para o Dashboard
 
-* **Séries temporais agregadas:** sumarizações de tours por mês, emergências por semana, perguntas por tópico e uso do app por dia.
-* **Fatos analíticos materializados:** criação de tabelas materializadas com agregações recorrentes (por exemplo, número de emergências resolvidas por semana).
-* **Enriquecimento para visualização:** inclusão de nomes de gestor, robô e checkpoint nas visões para simplificar relatórios no Power BI, Metabase ou outras ferramentas.
+- **Séries temporais agregadas:** sumarizações de tours por mês, emergências por semana, perguntas por tópico e uso do app por dia.
+- **Fatos analíticos materializados:** criação de tabelas materializadas com agregações recorrentes (por exemplo, número de emergências resolvidas por semana).
+- **Enriquecimento para visualização:** inclusão de nomes de gestor, robô e checkpoint nas visões para simplificar relatórios no Power BI, Metabase ou outras ferramentas.
 
 Esses pré-tratamentos garantem que tanto os aplicativos quanto o dashboard obtenham dados prontos para uso, com menor latência e sem sobrecarregar o servidor com junções complexas.
 
