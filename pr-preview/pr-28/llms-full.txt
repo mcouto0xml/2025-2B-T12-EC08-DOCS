@@ -173,6 +173,10 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
     Documento com o guia de operação do robô e informações relevantes.
   </Card>
 
+  <Card href="/docs/sprint-2/modelagem-bd/modelagem-bd" title="Modelagem do Banco de Dados">
+    Modelagem inicial do Banco de Dados.
+  </Card>
+
   <Card href="/docs/sprint-2/wireframes" title="Wireframes">
     Wireframes desenvolvidos para as aplicações propostas de controle e
     interação com o sistema.
@@ -6463,6 +6467,537 @@ Todas as ocorrências devem ser registradas e revisadas pela equipe de seguranç
   <Card href="/docs/sprint-2/guia-de-operação/guide-line" title="Guide Line">
     Documento com o guia de operação do robô e informações relevantes.
   </Card>
+</Cards>
+
+
+# Modelagem Banco de Dados (/docs/sprint-2/modelagem-bd/modelagem-bd)
+
+Modelagem no dbdiagram: [link da modelagem](https://dbdiagram.io/d/BANCO-DE-DADOS-ROB-690bbdc36735e1117070e737)
+
+## 1. Introdução
+
+O banco de dados **Tour Cão-Robô** foi modelado para integrar os dois principais módulos do sistema — o aplicativo do visitante e o aplicativo do gestor — dentro de uma mesma base relacional.
+A estrutura foi desenhada para manter a integridade entre os tours realizados com o cão robô e as interações dos usuários, permitindo controle administrativo, rastreabilidade e geração de métricas de desempenho para o dashboard administrativo.
+
+A arquitetura do banco tem como objetivos:
+
+* Centralizar as informações de **tours**, **visitantes**, **gestores** e **robôs**;
+* Garantir a consistência das interações entre os apps;
+* Facilitar consultas e análises para o **dashboard** final;
+* Manter o sistema escalável e modular, com clara separação entre dados operacionais e administrativos.
+
+## 2. Estrutura Geral do Banco
+
+O modelo relacional é composto por 19 tabelas e 2 views.
+As tabelas estão divididas em três grupos:
+
+1. **Tabelas compartilhadas (núcleo)** — armazenam os dados utilizados tanto pelo visitante quanto pelo gestor.
+2. **Tabelas do gestor** — contêm informações administrativas e de auditoria.
+3. **Tabelas do visitante** — registram interações e sessões do usuário durante o tour.
+
+## 3. Tabelas Compartilhadas (Núcleo Geral)
+
+### 3.1. Tabela `robot_dogs`
+
+**Descrição:** Registra os cães robôs que conduzem os tours.
+
+| Coluna            | Tipo        | Descrição                                  |
+| ----------------- | ----------- | ------------------------------------------ |
+| **id**            | SERIAL (PK) | Identificador único do robô.               |
+| **nome**          | TEXT        | Nome do cão-robô.                          |
+| **modelo**        | TEXT        | Modelo ou versão do robô.                  |
+| **numero\_serie** | TEXT        | Número de série único de identificação.    |
+| **ativo**         | BOOLEAN     | Indica se o robô está disponível para uso. |
+| **criado\_em**    | TIMESTAMPTZ | Data e hora de cadastro no sistema.        |
+
+***
+
+### 3.2. Tabela `gestores`
+
+**Descrição:** Armazena os administradores do sistema responsáveis por criar e gerenciar tours.
+
+| Coluna          | Tipo        | Descrição                               |
+| --------------- | ----------- | --------------------------------------- |
+| **id**          | SERIAL (PK) | Identificador único do gestor.          |
+| **nome**        | TEXT        | Nome completo do gestor.                |
+| **email**       | TEXT        | Endereço de e-mail único para login.    |
+| **senha\_hash** | TEXT        | Senha criptografada.                    |
+| **ativo**       | BOOLEAN     | Indica se a conta do gestor está ativa. |
+| **criado\_em**  | TIMESTAMPTZ | Data e hora de criação do registro.     |
+
+***
+
+### 3.3. Tabela `visitantes`
+
+**Descrição:** Armazena informações básicas dos visitantes que participam dos tours.
+
+| Coluna         | Tipo        | Descrição                             |
+| -------------- | ----------- | ------------------------------------- |
+| **id**         | SERIAL (PK) | Identificador do visitante.           |
+| **nome**       | TEXT        | Nome completo do visitante.           |
+| **email**      | TEXT        | E-mail de contato.                    |
+| **criado\_em** | TIMESTAMPTZ | Data e hora do registro do visitante. |
+
+***
+
+### 3.4. Tabela `tours`
+
+**Descrição:** Representa cada tour realizado com o cão-robô.
+
+| Coluna              | Tipo          | Descrição                                                              |
+| ------------------- | ------------- | ---------------------------------------------------------------------- |
+| **id**              | SERIAL (PK)   | Identificador do tour.                                                 |
+| **titulo**          | TEXT          | Nome ou tema do tour.                                                  |
+| **codigo\_visita**  | TEXT (UNIQUE) | Código de acesso usado pelos visitantes.                               |
+| **horario\_inicio** | TIMESTAMPTZ   | Horário programado de início.                                          |
+| **horario\_fim**    | TIMESTAMPTZ   | Horário previsto para término.                                         |
+| **status**          | TEXT          | Estado atual do tour (planejado, em\_andamento, concluído, cancelado). |
+| **robot\_dog\_id**  | INT (FK)      | Cão-robô responsável pelo tour.                                        |
+| **gestor\_id**      | INT (FK)      | Gestor responsável pela criação.                                       |
+| **criado\_em**      | TIMESTAMPTZ   | Data e hora de criação do tour.                                        |
+
+***
+
+### 3.5. Tabela `checkpoints`
+
+**Descrição:** Define os pontos de parada do roteiro de cada tour.
+
+| Coluna        | Tipo         | Descrição                                |
+| ------------- | ------------ | ---------------------------------------- |
+| **id**        | SERIAL (PK)  | Identificador do checkpoint.             |
+| **tour\_id**  | INT (FK)     | Tour ao qual o ponto pertence.           |
+| **nome**      | TEXT         | Nome ou título do ponto.                 |
+| **descricao** | TEXT         | Descrição ou instruções.                 |
+| **ordem**     | INT          | Ordem sequencial do ponto no percurso.   |
+| **lat**       | NUMERIC(9,6) | Latitude para posicionamento geográfico. |
+| **lng**       | NUMERIC(9,6) | Longitude correspondente.                |
+
+***
+
+### 3.6. Tabela `chat_mensagens`
+
+**Descrição:** Armazena as mensagens trocadas entre o visitante, o cão-robô e o sistema.
+
+| Coluna              | Tipo        | Descrição                                                    |
+| ------------------- | ----------- | ------------------------------------------------------------ |
+| **id**              | SERIAL (PK) | Identificador da mensagem.                                   |
+| **tour\_id**        | INT (FK)    | Tour onde a conversa ocorreu.                                |
+| **sessao\_id**      | INT (FK)    | Sessão do visitante que enviou a mensagem.                   |
+| **remetente\_tipo** | TEXT        | Define o tipo de remetente: visitante, cão\_robô ou sistema. |
+| **texto**           | TEXT        | Conteúdo textual da mensagem.                                |
+| **media\_url**      | TEXT        | Link para mídia (imagem, áudio, vídeo).                      |
+| **criado\_em**      | TIMESTAMPTZ | Data e hora do envio da mensagem.                            |
+
+***
+
+### 3.7. Tabela `checkpoint_eventos`
+
+**Descrição:** Registra as respostas do visitante ao avançar pelos checkpoints.
+
+| Coluna                      | Tipo        | Descrição                                 |
+| --------------------------- | ----------- | ----------------------------------------- |
+| **id**                      | SERIAL (PK) | Identificador do evento.                  |
+| **tour\_id**                | INT (FK)    | Tour correspondente.                      |
+| **checkpoint\_id**          | INT (FK)    | Checkpoint relacionado.                   |
+| **confirmado**              | BOOLEAN     | Indica se o visitante confirmou o avanço. |
+| **confirmado\_por\_sessao** | INT (FK)    | Sessão que respondeu.                     |
+| **criado\_em**              | TIMESTAMPTZ | Data e hora do registro.                  |
+
+***
+
+### 3.8. Tabela `progresso_tour`
+
+**Descrição:** Guarda o histórico de progresso dos grupos dentro de cada tour.
+
+| Coluna             | Tipo        | Descrição                          |
+| ------------------ | ----------- | ---------------------------------- |
+| **id**             | SERIAL (PK) | Identificador do progresso.        |
+| **tour\_id**       | INT (FK)    | Tour correspondente.               |
+| **checkpoint\_id** | INT (FK)    | Checkpoint alcançado.              |
+| **alcancado\_em**  | TIMESTAMPTZ | Data e hora de conclusão do ponto. |
+
+***
+
+### 3.9. Tabela `perguntas_visitantes`
+
+**Descrição:** Armazena as perguntas feitas pelos visitantes durante os tours.
+
+| Coluna             | Tipo        | Descrição                             |
+| ------------------ | ----------- | ------------------------------------- |
+| **id**             | SERIAL (PK) | Identificador da pergunta.            |
+| **tour\_id**       | INT (FK)    | Tour onde a pergunta foi feita.       |
+| **visitante\_id**  | INT (FK)    | Visitante autor da pergunta.          |
+| **checkpoint\_id** | INT (FK)    | Checkpoint relacionado, se aplicável. |
+| **pergunta**       | TEXT        | Texto da pergunta enviada.            |
+| **topico**         | TEXT        | Categoria ou tema da pergunta.        |
+| **respondida**     | BOOLEAN     | Indica se a pergunta foi respondida.  |
+| **criado\_em**     | TIMESTAMPTZ | Data e hora do registro.              |
+
+***
+
+### 3.10. Tabela `emergencias`
+
+**Descrição:** Registra emergências acionadas durante o tour.
+
+| Coluna            | Tipo        | Descrição                                                                  |
+| ----------------- | ----------- | -------------------------------------------------------------------------- |
+| **id**            | SERIAL (PK) | Identificador da emergência.                                               |
+| **tour\_id**      | INT (FK)    | Tour onde ocorreu a emergência.                                            |
+| **sessao\_id**    | INT (FK)    | Sessão que a reportou.                                                     |
+| **tipo**          | TEXT        | Tipo de incidente (ex.: queda, saúde).                                     |
+| **severidade**    | TEXT        | Nível de gravidade (baixa, média, alta).                                   |
+| **mensagem**      | TEXT        | Descrição fornecida pelo visitante.                                        |
+| **status**        | TEXT        | Estado atual da emergência (aberta, em atendimento, resolvida, cancelada). |
+| **criado\_em**    | TIMESTAMPTZ | Data e hora do registro.                                                   |
+| **resolvido\_em** | TIMESTAMPTZ | Data e hora de resolução.                                                  |
+
+***
+
+### 3.11. Tabela `tour_visitantes`
+
+**Descrição:** Faz o vínculo entre visitantes e tours, incluindo a confirmação de participação.
+
+| Coluna            | Tipo        | Descrição                                 |
+| ----------------- | ----------- | ----------------------------------------- |
+| **id**            | SERIAL (PK) | Identificador do vínculo.                 |
+| **tour\_id**      | INT (FK)    | Tour relacionado.                         |
+| **visitante\_id** | INT (FK)    | Visitante relacionado.                    |
+| **confirmado**    | BOOLEAN     | Indica se o visitante confirmou presença. |
+
+## 4. Tabelas do App do Gestor
+
+### 4.1. Tabela `tour_admin_details`
+
+**Descrição:** Armazena informações internas sobre o tour.
+
+| Coluna                    | Tipo         | Descrição                       |
+| ------------------------- | ------------ | ------------------------------- |
+| **tour\_id**              | INT (PK, FK) | Tour correspondente.            |
+| **capacidade**            | INT          | Número máximo de visitantes.    |
+| **observacoes\_internas** | TEXT         | Observações internas de gestão. |
+
+***
+
+### 4.2. Tabela `tour_status_log`
+
+**Descrição:** Mantém o histórico de mudanças de status dos tours.
+
+| Coluna              | Tipo        | Descrição                        |
+| ------------------- | ----------- | -------------------------------- |
+| **id**              | SERIAL (PK) | Identificador do log.            |
+| **tour\_id**        | INT (FK)    | Tour afetado.                    |
+| **status**          | TEXT        | Novo status atribuído.           |
+| **atualizado\_por** | INT (FK)    | Gestor que realizou a alteração. |
+| **atualizado\_em**  | TIMESTAMPTZ | Data e hora da mudança.          |
+| **observacoes**     | TEXT        | Observações opcionais.           |
+
+***
+
+### 4.3. Tabela `logs_gestor`
+
+**Descrição:** Registra ações administrativas executadas pelos gestores.
+
+| Coluna         | Tipo        | Descrição                      |
+| -------------- | ----------- | ------------------------------ |
+| **id**         | SERIAL (PK) | Identificador do log.          |
+| **gestor\_id** | INT (FK)    | Gestor responsável pela ação.  |
+| **acao**       | TEXT        | Tipo de ação executada.        |
+| **referencia** | TEXT        | Referência do recurso afetado. |
+| **criado\_em** | TIMESTAMPTZ | Data e hora do registro.       |
+
+## 5. Tabelas do App do Visitante
+
+### 5.1. Tabela `dispositivos_visitante`
+
+**Descrição:** Registra os dispositivos usados pelos visitantes.
+
+| Coluna                  | Tipo        | Descrição                              |
+| ----------------------- | ----------- | -------------------------------------- |
+| **id**                  | SERIAL (PK) | Identificador do dispositivo.          |
+| **visitante\_id**       | INT (FK)    | Visitante proprietário do dispositivo. |
+| **so**                  | TEXT        | Sistema operacional (iOS, Android).    |
+| **versao\_app**         | TEXT        | Versão do aplicativo.                  |
+| **device\_fingerprint** | TEXT        | Identificador único do aparelho.       |
+| **criado\_em**          | TIMESTAMPTZ | Data de registro.                      |
+
+***
+
+### 5.2. Tabela `sessoes_visita`
+
+**Descrição:** Controla as sessões de login dos visitantes em tours.
+
+| Coluna              | Tipo        | Descrição                |
+| ------------------- | ----------- | ------------------------ |
+| **id**              | SERIAL (PK) | Identificador da sessão. |
+| **visitante\_id**   | INT (FK)    | Visitante da sessão.     |
+| **tour\_id**        | INT (FK)    | Tour correspondente.     |
+| **dispositivo\_id** | INT (FK)    | Dispositivo usado.       |
+| **entrou\_em**      | TIMESTAMPTZ | Data e hora de login.    |
+| **saiu\_em**        | TIMESTAMPTZ | Data e hora de logout.   |
+
+***
+
+### 5.3. Tabela `tutorial_passos`
+
+**Descrição:** Define os passos do tutorial exibido no app do visitante.
+
+| Coluna       | Tipo        | Descrição                    |
+| ------------ | ----------- | ---------------------------- |
+| **id**       | SERIAL (PK) | Identificador do passo.      |
+| **chave**    | TEXT        | Identificador textual único. |
+| **titulo**   | TEXT        | Título exibido.              |
+| **conteudo** | TEXT        | Texto ou instruções.         |
+| **ordem**    | INT         | Posição sequencial do passo. |
+
+***
+
+### 5.4. Tabela `tutorial_progresso`
+
+**Descrição:** Armazena o progresso de cada visitante no tutorial.
+
+| Coluna            | Tipo        | Descrição                   |
+| ----------------- | ----------- | --------------------------- |
+| **id**            | SERIAL (PK) | Identificador do progresso. |
+| **visitante\_id** | INT (FK)    | Visitante correspondente.   |
+| **passo\_id**     | INT (FK)    | Passo do tutorial.          |
+| **concluido\_em** | TIMESTAMPTZ | Data e hora de conclusão.   |
+
+***
+
+### 5.5. Tabela `eventos_app`
+
+**Descrição:** Registra ações de telemetria do app do visitante.
+
+| Coluna            | Tipo        | Descrição                               |
+| ----------------- | ----------- | --------------------------------------- |
+| **id**            | SERIAL (PK) | Identificador do evento.                |
+| **sessao\_id**    | INT (FK)    | Sessão relacionada.                     |
+| **evento**        | TEXT        | Nome da ação (login, abrir\_mapa, etc). |
+| **payload\_json** | JSONB       | Dados complementares em formato JSON.   |
+| **criado\_em**    | TIMESTAMPTZ | Data e hora de registro.                |
+
+## 6. Views do Sistema
+
+**Conceito geral:**
+Views são consultas pré-definidas que se comportam como tabelas virtuais. Elas combinam dados de múltiplas tabelas, simplificando o acesso às informações e protegendo dados sensíveis.
+
+### 6.1. `v_tour_gestor`
+
+Fornece ao app do gestor uma visão consolidada dos tours, contendo título, horários, robô, responsável e informações administrativas.
+Permite que o painel do gestor acesse tudo o que precisa em uma única consulta, sem manipular diretamente várias tabelas.
+
+### 6.2. `v_tour_visitante`
+
+Apresenta ao app do visitante apenas os dados essenciais de cada tour (código, horários, status e cão robô).
+Garante que o visitante visualize apenas informações públicas, mantendo a segurança e a confidencialidade dos dados administrativos.
+
+As views tornam o sistema mais seguro e simplificado, reduzindo a complexidade das consultas feitas pelos aplicativos e protegendo campos que não devem ser expostos.
+
+## 7. Possíveis Pré-Tratamentos de Dados
+
+Para otimizar o desempenho e a integração entre os dois aplicativos e o dashboard, é possível realizar processamentos prévios dentro do banco de dados.
+Esses pré-tratamentos reduzem o custo de consultas e entregam informações já estruturadas para cada camada do sistema.
+
+### 7.1. Pré-tratamentos gerais (compartilhados)
+
+* **Padronização de status e categorias:** manter domínios válidos para campos como `status`, `severidade`, `topico` e `tipo`, garantindo consistência e evitando erros de digitação.
+* **Criação de visões enriquecidas:** unificar informações que frequentemente precisam de junções, como “perguntas com nomes de checkpoints” ou “emergências com nome do visitante”.
+* **Normalização temporal:** gerar campos de dia, semana e mês com base em colunas de data para facilitar agrupamentos e gráficos de tendência.
+
+### 7.2. Pré-tratamentos para o App do Visitante
+
+* **Consolidação de estado do tour:** visão que combina `tours`, `progresso_tour` e `checkpoints` para exibir o andamento atualizado em tempo real.
+* **Percentual do tutorial concluído:** cálculo prévio da proporção de passos completados em `tutorial_progresso`.
+* **Histórico resumido do chat:** visão com as últimas mensagens de cada tour, limitando volume de dados transferido ao app.
+
+### 7.3. Pré-tratamentos para o App do Gestor
+
+* **Agenda consolidada:** visão que agrega dados de tours, capacidade e participantes confirmados, exibindo percentual de ocupação.
+* **Linha do tempo operacional:** combinação de status, emergências e progresso em ordem cronológica para monitoramento ao vivo.
+* **Relatórios rápidos de perguntas:** agrupamentos de `perguntas_visitantes` por checkpoint ou tópico.
+
+### 7.4. Pré-tratamentos para o Dashboard
+
+* **Séries temporais agregadas:** sumarizações de tours por mês, emergências por semana, perguntas por tópico e uso do app por dia.
+* **Fatos analíticos materializados:** criação de tabelas materializadas com agregações recorrentes (por exemplo, número de emergências resolvidas por semana).
+* **Enriquecimento para visualização:** inclusão de nomes de gestor, robô e checkpoint nas visões para simplificar relatórios no Power BI, Metabase ou outras ferramentas.
+
+Esses pré-tratamentos garantem que tanto os aplicativos quanto o dashboard obtenham dados prontos para uso, com menor latência e sem sobrecarregar o servidor com junções complexas.
+
+## 8. Conclusão
+
+O banco de dados **Tour Cão-Robô** foi projetado para fornecer uma base sólida, escalável e consistente, que unifica as necessidades dos dois aplicativos do projeto.
+A arquitetura centralizada, com tabelas compartilhadas e visões segmentadas, garante que o sistema mantenha integridade, segurança e desempenho mesmo com grande volume de interações.
+
+Além da operação diária dos aplicativos, o modelo suporta análises avançadas e relatórios dinâmicos para o dashboard administrativo, permitindo medir engajamento, eficiência operacional e qualidade da experiência dos visitantes.
+
+Em síntese, o banco de dados não apenas armazena informações, mas estrutura o ecossistema completo do **Tour Cão-Robô**, viabilizando a integração entre tecnologia, gestão e experiência interativa.
+
+
+# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
+
+
+
+# Pipeline de Ingestão de Arquivos
+
+## Introdução
+
+O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
+
+A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
+
+***
+
+## Estrutura Geral do Pipeline
+
+<Callout type="info">
+  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
+</Callout>
+
+### 1. Extração dos textos
+
+```python
+from unstructured.partition.pdf import partition_pdf
+
+elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
+```
+
+* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
+
+* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
+
+***
+
+### 2. Sanitização dos textos
+
+```python
+def clean_text(text):
+    text = re.sub(r'\s+', ' ', text)
+    text = text.replace('\ufb01', 'fi')
+    ...
+```
+
+* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
+
+* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
+
+***
+
+### 3. Enriquecimento semântico
+
+```python
+def extract_enhanced_metadata(element):
+    return {
+        'element_id': ...,
+        'element_type': ...,
+        'page_number': ...,
+        'hierarchy_level': ...,
+        'section': ...,
+    }
+```
+
+* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
+
+* Isso ajuda a preservar a estrutura semântica do documento original.
+
+***
+
+### 4. Divisão em chunks com sobreposição
+
+```python
+RecursiveCharacterTextSplitter(
+  chunk_size=500,
+  chunk_overlap=100,
+)
+```
+
+* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
+
+* Mantém coesão semântica mesmo em respostas curtas.
+
+<Callout title="Importante">
+  {" "}
+
+  Essa segmentação garante que as perguntas do usuário encontrem respostas
+  dentro de um mesmo chunk.{" "}
+</Callout>
+
+***
+
+### 5. Geração de embeddings
+
+```python
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+embeddings = model.encode(texts, ...)
+```
+
+* Utiliza modelo pré-treinado da HuggingFace.
+
+* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
+
+* Embeddings são normalizados e possuem metadados do chunk.
+
+***
+
+### 6. Inserção no banco vetorial (ETAPA: Persistência)
+
+```python
+chunks_with_embeddings.append({
+  'id': 'chunk_x',
+  'content': ...,
+  'embedding': [...],
+  'metadata': {...}
+})
+```
+
+Cada embedding é armazenado com:
+
+* ID único
+
+* Conteúdo do chunk
+
+* Vetor (lista de floats)
+
+* Modelo utilizado
+
+* Dados estruturados (página, seção, tipo)
+
+***
+
+## Diagrama do Pipeline
+
+Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Pipeline de arquivos
+</p>
+
+<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Conclusão
+
+A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
+
+É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
+
+<Callout title="Próximos Passos" type="info">
+  {" "}
+
+  Integração com o agente conversacional do robô e testes de consulta em
+  linguagem natural usando os embeddings gerados.{" "}
+</Callout>
+
+
+# Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/pipeline-de-docs)
+
+<Cards>
+  <Card title="Wireframe App Staff" description="Wireframe do aplicativo onde o staff do Inteli poderá gerenciar os tours da aplicação." href="/docs/content/docs/sprint-2/Modelo de IA/files-pipeline.mdx" />
 </Cards>
 
 
