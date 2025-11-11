@@ -1,0 +1,625 @@
+---
+title: "Arquitetura Atualizada do Sistema"
+description: "Documentação detalhada da arquitetura atualizada do sistema Tour Cão-Robô"
+---
+
+## Introdução
+
+A arquitetura do sistema Tour Cão-Robô passou por uma evolução significativa desde sua concepção inicial. Com base em conversas entre todos os grupos e nas necessidades identificadas durante o desenvolvimento, realizamos atualizações na arquitetura para melhor atender aos requisitos do projeto. Para conferir a arquitetura anterior, clique [aqui](../../sprint-1/entendimento-do-projeto/proposta-de-arquitetura.mdx).
+
+Este documento apresenta a versão atualizada da arquitetura, detalhando cada componente, suas relações e responsabilidades dentro do ecossistema do sistema. A arquitetura foi projetada para operar um robô de serviço autônomo com IA generativa, programado para realizar tours interativas de apresentação do campus do Inteli, com foco em escalabilidade, modularidade e experiência do usuário.
+
+<div style={{ textAlign: "center", marginTop: "20px", marginBottom: "10px" }}>
+  <strong>Figura 1 - Diagrama de Arquitetura Atualizada do Sistema</strong>
+</div>
+
+![Arquitetura do Sistema](./imgs/arquitetura-atualizada.png)
+
+<div style={{ textAlign: "center", marginTop: "10px", marginBottom: "20px" }}>
+  <em>Fonte: Os autores (2025)</em>
+</div>
+
+## Visão Geral da Arquitetura
+
+A arquitetura do sistema está organizada em cinco camadas principais:
+
+1. **Modelo**: Componentes de inteligência artificial e processamento de linguagem natural
+2. **Banco de Dados**: Camada de persistência com bancos vetorial e sequencial
+3. **Back-end**: Serviços de API e integração com LLM
+4. **Front-end**: Interfaces para visitantes, administradores e equipe de staff
+5. **Robô**: Hardware físico que executa os tours
+
+Cada camada possui responsabilidades específicas e se comunica de forma estruturada com as demais, garantindo a integridade e o fluxo adequado de informações.
+
+## Camada de Modelo
+
+A camada de modelo é responsável por todo o processamento de linguagem natural e validação de conteúdo, sendo o coração inteligente do sistema.
+
+### Perguntas e Respostas (Chatbot)
+
+<Mermaid chart="graph LR
+    A[Chat de perguntas] --> B[Perguntas e Respostas em áudio]
+    A --> C[Perguntas e Respostas em texto]
+    B --> D[Modelo de Validação]
+    C --> D
+    E[Banco de dados Vetorial] --> F[Perguntas e Respostas Chatbot]
+    D --> F" />
+
+O módulo de perguntas e respostas utiliza modelos de linguagem de grande escala (LLM) para processar dúvidas dos visitantes. Este componente se conecta ao banco de dados vetorial para recuperar contexto relevante antes de gerar respostas. As perguntas podem vir tanto em formato de texto quanto de áudio, garantindo acessibilidade e múltiplas formas de interação.
+
+A integração com o banco vetorial permite que o chatbot acesse documentos institucionais, FAQs e informações específicas sobre o campus, possibilitando respostas precisas e contextualizadas. O modelo de validação atua como uma camada de segurança, garantindo que as respostas sejam apropriadas e alinhadas com as políticas institucionais.
+
+### Módulo de STT (Speech-To-Text)
+
+<Mermaid chart="graph LR
+    A[Perguntas e Respostas em áudio] --> B[Módulo de STT]
+    B --> C[Modelo de Validação]" />
+
+O módulo de STT é responsável por converter a fala dos visitantes em texto. Este componente é essencial para permitir interações por voz, tornando a experiência mais natural e acessível. O texto transcrito é enviado para o modelo de validação antes de ser processado pelo chatbot.
+
+A implementação do STT permite que visitantes façam perguntas naturalmente, sem necessidade de digitação, melhorando significativamente a experiência durante o tour.
+
+### Módulo de TTS (Text-To-Speech)
+
+<Mermaid chart="graph LR
+    A[Modelo de Validação] --> B[Módulo de TTS]
+    B --> C[Perguntas e Respostas em áudio]" />
+
+O módulo de TTS sintetiza as respostas textuais em áudio, permitindo que o robô "fale" com os visitantes. Após a validação do conteúdo, o texto é convertido em áudio com voz natural, proporcionando uma experiência interativa e humanizada.
+
+### Modelo de Validação
+
+<Mermaid chart="graph TB
+    A[Perguntas e Respostas em texto] --> B[Modelo de Validação]
+    C[Módulo de STT] --> B
+    B --> D[Perguntas e Respostas Chatbot]
+    B --> E[Módulo de TTS]
+    B --> F[Banco de dados sequencial]" />
+
+O modelo de validação é uma camada de segurança que verifica todas as interações antes de serem processadas ou apresentadas aos usuários. Ele valida tanto as entradas (perguntas dos visitantes) quanto as saídas (respostas geradas pelo chatbot), garantindo que o conteúdo seja:
+
+- Apropriado e dentro das políticas institucionais
+- Coerente com o contexto da pergunta
+- Livre de erros de sintaxe e semântica
+- Alinhado com os valores e diretrizes do Inteli
+
+Além disso, o modelo de validação registra suas decisões no banco de dados sequencial, criando uma trilha de auditoria que pode ser utilizada para melhorias contínuas do sistema e análise de segurança.
+
+## Camada de Banco de Dados
+
+A camada de persistência é dividida em dois tipos de bancos de dados, cada um otimizado para necessidades específicas do sistema.
+
+### Banco de Dados Vetorial
+
+<Mermaid chart="graph TB
+    A[Serviço de documentos] --> B[Banco de dados Vetorial]
+    B --> C[Perguntas e Respostas Chatbot]" />
+
+O banco de dados vetorial armazena documentos institucionais em formato de embeddings (representações vetoriais). Esta tecnologia permite buscas semânticas eficientes, onde o sistema encontra informações relevantes não apenas por palavras-chave, mas por similaridade de significado.
+
+O serviço de documentos é responsável por processar e indexar novos documentos neste banco. Quando um visitante faz uma pergunta, o chatbot consulta o banco vetorial para recuperar os trechos de documentos mais relevantes, que são então utilizados como contexto para gerar a resposta.
+
+Esta abordagem garante que as respostas sejam sempre baseadas em informações oficiais e atualizadas, mantendo a precisão e confiabilidade do sistema.
+
+### Banco de Dados Sequencial
+
+<Mermaid chart="graph TB
+    A[LLM API] <--> B[Banco de dados sequencial]
+    C[API] <--> B
+    D[Modelo de Validação] --> B" />
+
+O banco de dados sequencial é uma base relacional tradicional que armazena informações estruturadas do sistema. Conforme documentado na modelagem do banco de dados, ele contém 19 tabelas organizadas em três grupos:
+
+- **Tabelas compartilhadas**: tours, visitantes, gestores, robot_dogs, checkpoints
+- **Tabelas do gestor**: tour_admin_details, tour_status_log, logs_gestor
+- **Tabelas do visitante**: sessoes_visita, dispositivos_visitante, tutorial_progresso
+
+Este banco é utilizado tanto pela LLM API quanto pela API regular, garantindo que todas as operações do sistema sejam registradas e que os dados permaneçam consistentes. As interações bidirecionais permitem que os serviços leiam e escrevam dados conforme necessário.
+
+## Camada de Back-end
+
+O back-end está dividido em dois conjuntos de serviços: LLM API (focada em inteligência artificial) e API (focada em operações gerais).
+
+### LLM API
+
+#### Perguntas e Respostas em Texto
+
+<Mermaid chart="graph LR
+    A[Chat de perguntas] --> B[Perguntas e Respostas em texto]
+    B --> C[Modelo de Validação]
+    C --> D[Chatbot]
+    E[monitoramento da tour] --> B" />
+
+Este endpoint recebe perguntas em formato de texto do front-end e as encaminha para processamento. Além do chat direto dos visitantes, ele também recebe dados do módulo de monitoramento da tour, permitindo que administradores acompanhem e intervenham nas interações quando necessário.
+
+O processamento passa pela validação antes de chegar ao chatbot, garantindo segurança em todas as etapas.
+
+#### Perguntas e Respostas em Áudio
+
+<Mermaid chart="graph TB
+    A[Chat de perguntas] --> B[Perguntas e Respostas em áudio]
+    B --> C[Módulo de STT]
+    C --> D[Modelo de Validação]
+    D --> E[Módulo de TTS]
+    E --> B
+    F[monitoramento da tour] --> B" />
+
+Este endpoint gerencia todo o fluxo de perguntas e respostas por voz. Ele recebe áudio do visitante, coordena a transcrição via STT, valida o conteúdo, processa a resposta e converte de volta para áudio via TTS.
+
+O monitoramento da tour também se conecta a este serviço, permitindo que administradores visualizem interações por voz em tempo real.
+
+#### Serviço de Documentos
+
+<Mermaid chart="graph LR
+    A[Cadastro de Documentos] --> B[Serviço de documentos]
+    B --> C[Banco de dados Vetorial]" />
+
+O serviço de documentos é responsável por receber uploads de documentos institucionais através da interface de administração, processá-los e armazená-los no banco vetorial. Este serviço:
+
+- Extrai texto de diferentes formatos (PDF, DOCX, etc.)
+- Divide o conteúdo em chunks (pedaços) adequados
+- Gera embeddings vetoriais para cada chunk
+- Indexa os dados no banco vetorial
+
+A manutenção deste serviço garante que o conhecimento do chatbot esteja sempre atualizado com as informações mais recentes da instituição.
+
+### API
+
+#### Sistema de Usuários
+
+<Mermaid chart="graph LR
+    A[Cadastro e Login] --> B[Sistema de usuários]
+    B --> C[Banco de dados sequencial]" />
+
+O sistema de usuários gerencia autenticação e autorização de administradores e equipe de staff. Ele implementa:
+
+- Cadastro de novos usuários com validação
+- Login seguro com hash de senhas
+- Gerenciamento de sessões
+- Controle de permissões por perfil
+
+Todas as operações são registradas no banco sequencial, mantendo um histórico completo de acessos e ações administrativas.
+
+#### Visitas
+
+<Mermaid chart="graph LR
+    A[Cadastro de visita] --> B[Visitas]
+    C[Cronograma de visitas] --> B
+    B --> D[Banco de dados sequencial]" />
+
+O serviço de visitas gerencia todo o ciclo de vida dos tours:
+
+- Criação de novos tours com código de acesso
+- Vinculação de visitantes a tours
+- Configuração de checkpoints e roteiros
+- Atualização de status (planejado, em andamento, concluído)
+
+Este serviço é utilizado tanto para o cadastro inicial quanto para a visualização do cronograma, centralizando toda a lógica de negócio relacionada a tours.
+
+#### Seção
+
+<Mermaid chart="graph TB
+    A[Interação para avançar seções] --> B[Seção]
+    C[monitoramento da tour] --> B
+    B --> D[Robô]
+    B --> E[Banco de dados sequencial]" />
+
+O serviço de seção gerencia a navegação pelos checkpoints do tour. Ele recebe comandos tanto dos visitantes (quando confirmam estar prontos para avançar) quanto dos administradores (através do monitoramento), e coordena o movimento do robô físico.
+
+Cada mudança de seção é registrada no banco de dados, permitindo rastreamento preciso do progresso de cada tour.
+
+#### Emergência Robô
+
+<Mermaid chart="graph TB
+    A[Controle emergencial do robô visitante] --> B[Emergência robô]
+    C[Controle emergencial do robô admin] --> B
+    B --> D[Robô]
+    D --> E[Logs]" />
+
+O serviço de emergência permite intervenções imediatas no robô em situações críticas. Tanto visitantes quanto administradores podem acionar este serviço, que:
+
+- Pausa o tour imediatamente
+- Interrompe o movimento do robô
+- Registra o incidente com severidade e descrição
+- Notifica a equipe responsável
+- Mantém histórico completo no sistema de logs
+
+A prioridade deste serviço garante que questões de segurança sejam tratadas instantaneamente.
+
+#### Analytics e Métricas
+
+<Mermaid chart="graph LR
+    A[Analytics e métricas] --> B[Dashboard com analytics e logs]
+    A --> C[Banco de dados sequencial]" />
+
+Este serviço processa dados históricos para gerar insights sobre o uso do sistema:
+
+- Número de tours realizados por período
+- Taxa de conclusão de tours
+- Perguntas mais frequentes
+- Tempo médio em cada checkpoint
+- Incidentes e emergências por categoria
+- Métricas de satisfação dos visitantes
+
+Os dados são apresentados no dashboard de forma visual e interativa, auxiliando na tomada de decisões e melhorias contínuas.
+
+#### Logs
+
+<Mermaid chart="graph TB
+    A[Front-end] --> B[Logs]
+    C[LLM API] --> B
+    D[Robô] --> B
+    E[Emergência robô] --> B
+    B --> F[Banco de dados sequencial]" />
+
+O serviço de logs é transversal a todo o sistema, recebendo registros de todas as camadas:
+
+- Ações do front-end (cliques, navegação, interações)
+- Requisições e respostas da LLM API
+- Comandos enviados ao robô e status de execução
+- Incidentes de emergência
+
+Esta centralização permite auditoria completa, debugging eficiente e análise de comportamento do sistema. Todos os logs são persistidos no banco sequencial com timestamp e contexto completo.
+
+## Camada de Front-end
+
+O front-end está organizado em três perfis distintos de usuário, cada um com necessidades e permissões específicas.
+
+### Visitante
+
+#### Chat de Perguntas
+
+<Mermaid chart="graph LR
+    A[Chat de perguntas] --> B[Perguntas e Respostas em texto]
+    A --> C[Perguntas e Respostas em áudio]" />
+
+A interface de chat permite que visitantes façam perguntas de duas formas:
+
+- **Texto**: Digitação direta de perguntas
+- **Áudio**: Gravação de pergunta falada
+
+Ambas as modalidades são processadas pelos serviços apropriados do back-end, proporcionando flexibilidade e acessibilidade na interação.
+
+#### Transcrição da Fala do Robô
+
+<Mermaid chart="graph LR
+    A[Transcrião da fala do robô] --> B[Perguntas e Respostas em texto]" />
+
+Esta interface exibe em tempo real a transcrição do que o robô está falando. Isso beneficia:
+
+- Visitantes com deficiência auditiva
+- Pessoas em ambientes ruidosos
+- Aqueles que preferem acompanhar visualmente
+- Falantes não nativos da língua do tour
+
+A transcrição é sincronizada com o áudio do robô, garantindo acessibilidade total.
+
+#### Interação para Avançar Seções
+
+<Mermaid chart="graph LR
+    A[Interação para avançar seções] --> B[Seção]
+    B --> C[Robô]" />
+
+#### Controle Emergencial do Robô (Visitante)
+
+<Mermaid chart="graph LR
+    A[Controle emergencial do robô visitante] --> B[Emergência robô]
+    B --> C[Robô]" />
+
+Botão de emergência acessível aos visitantes para situações imprevistas. Ao ser acionado, o robô para imediatamente e um alerta é enviado para os administradores.
+
+Esta funcionalidade empodera os visitantes e garante segurança adicional durante os tours.
+
+### Administrador
+
+#### Cadastro e Login
+
+Interface de autenticação para acesso às funcionalidades administrativas. Implementa login seguro com validação de credenciais e gerenciamento de sessões.
+
+#### Cadastro de Visita
+
+<Mermaid chart="graph LR
+    A[Cadastro de visita] --> B[Visitas]
+    B --> C[Banco de dados sequencial]" />
+
+Interface para criação de novos tours, incluindo:
+
+- Definição de título e descrição
+- Seleção do robô disponível
+- Configuração de horários
+- Geração de código de acesso único
+- Definição de capacidade máxima
+- Adição de checkpoints com geolocalização
+
+#### Cronograma de Visitas
+
+<Mermaid chart="graph LR
+    A[Cronograma de visitas] --> B[Visitas]" />
+
+Visualização em formato de calendário de todos os tours agendados. Permite:
+
+- Visualização por dia, semana ou mês
+- Filtros por status e robô
+- Detalhes de cada tour ao clicar
+- Edição e cancelamento de tours
+
+#### Controle Emergencial do Robô (Admin)
+
+Interface administrativa de emergência com funcionalidades adicionais:
+
+- Pausa e retomada de tours
+- Redirecionamento do robô
+
+#### Monitoramento da Tour
+
+<Mermaid chart="graph LR
+    A[monitoramento da tour] --> B[Seção]
+    A --> C[Perguntas e Respostas em texto]
+    A --> D[Perguntas e Respostas em áudio]" />
+
+Dashboard em tempo real que exibe:
+
+- Localização atual do robô
+- Checkpoint ativo
+- Visitantes conectados
+- Perguntas sendo feitas
+- Respostas sendo geradas
+- Status geral do tour
+
+Permite intervenção administrativa quando necessário, garantindo qualidade e segurança.
+
+### Dashboard Staff
+
+#### Dashboard com Analytics e Logs
+
+<Mermaid chart="graph LR
+    A[Analytics e métricas] --> B[Dashboard com analytics e logs]" />
+
+Interface dedicada à equipe de staff do Inteli com visualizações avançadas:
+
+- Gráficos de tendência de uso
+- Análise de perguntas frequentes
+- Métricas de satisfação
+- Taxa de sucesso de tours
+- Logs detalhados do sistema
+- Relatórios exportáveis
+
+#### Cadastro de Documentos
+
+<Mermaid chart="graph LR
+    A[Cadastro de Documentos] --> B[Serviço de documentos]
+    B --> C[Banco de dados Vetorial]" />
+
+Interface para gestão da base de conhecimento:
+
+- Upload de documentos (PDF, DOCX, TXT)
+- Categorização por tópico
+- Versionamento de documentos
+- Ativação/desativação de conteúdo
+- Preview de como o chatbot utilizará cada documento
+
+## Camada do Robô
+
+<Mermaid chart="graph TB
+    A[Seção] --> B[Robô]
+    C[Emergência robô] --> B
+    B --> D[Logs]" />
+
+O robô físico (Unitree Go2 Edu) é o componente que interage diretamente com os visitantes no mundo real. Ele recebe comandos de:
+
+- **Serviço de Seção**: Para movimento entre checkpoints
+- **Serviço de Emergência**: Para paradas e intervenções
+
+Todas as ações do robô são registradas no sistema de logs, incluindo:
+
+- Comandos recebidos
+- Posição atual
+- Status de bateria e sensores
+- Erros e exceções
+- Tempo de execução de cada comando
+
+O robô opera de forma autônoma seguindo a rota pré-programada, mas pode ser controlado remotamente quando necessário.
+
+## Fluxos Principais do Sistema
+
+### Fluxo de Pergunta do Visitante (Texto)
+
+<Mermaid chart="sequenceDiagram
+    participant V as Visitante
+    participant F as Front-end
+    participant API as LLM API
+    participant Val as Modelo Validação
+    participant Chat as Chatbot
+    participant BD as Banco Vetorial
+    
+    V->>F: Digite pergunta
+    F->>API: Envia texto
+    API->>Val: Valida entrada
+    Val->>Chat: Texto validado
+    Chat->>BD: Busca contexto
+    BD->>Chat: Retorna documentos
+    Chat->>Val: Gera resposta
+    Val->>API: Resposta validada
+    API->>F: Retorna resposta
+    F->>V: Exibe resposta" />
+
+### Fluxo de Pergunta do Visitante (Áudio)
+
+<Mermaid chart="sequenceDiagram
+    participant V as Visitante
+    participant F as Front-end
+    participant API as LLM API
+    participant STT as Módulo STT
+    participant Val as Modelo Validação
+    participant Chat as Chatbot
+    participant TTS as Módulo TTS
+    
+    V->>F: Grava áudio
+    F->>API: Envia áudio
+    API->>STT: Transcreve
+    STT->>Val: Texto transcrito
+    Val->>Chat: Valida e envia
+    Chat->>Val: Gera resposta
+    Val->>TTS: Texto validado
+    TTS->>API: Áudio sintetizado
+    API->>F: Retorna áudio
+    F->>V: Reproduz resposta" />
+
+### Fluxo de Avanço de Seção
+
+<Mermaid chart="sequenceDiagram
+    participant V as Visitantes
+    participant F as Front-end
+    participant API as API
+    participant R as Robô
+    participant BD as Banco Sequencial
+    
+    V->>F: Confirmam avanço
+    F->>API: Solicita próxima seção
+    API->>BD: Registra confirmação
+    API->>R: Comando de movimento
+    R->>API: Confirma execução
+    API->>BD: Atualiza progresso
+    API->>F: Notifica mudança
+    F->>V: Atualiza interface" />
+
+### Fluxo de Emergência
+
+<Mermaid chart="sequenceDiagram
+    participant U as Usuário (V/A)
+    participant F as Front-end
+    participant API as API
+    participant R as Robô
+    participant L as Logs
+    participant BD as Banco Sequencial
+    
+    U->>F: Aciona emergência
+    F->>API: Alerta de emergência
+    API->>R: STOP imediato
+    R->>API: Confirma parada
+    API->>L: Registra incidente
+    API->>BD: Salva emergência
+    L->>BD: Persiste logs
+    API->>F: Notifica status
+    F->>U: Confirma ação" />
+
+## Segurança e Validação
+
+O sistema implementa múltiplas camadas de segurança:
+
+### Validação de Entrada e Saída
+
+Todas as interações com modelos de IA passam pelo modelo de validação, que verifica:
+
+- Conteúdo apropriado e dentro das políticas
+- Ausência de tentativas de injection ou manipulação
+- Coerência contextual
+- Alinhamento com diretrizes institucionais
+
+### Autenticação e Autorização
+
+- Senhas criptografadas com hash seguro
+- Tokens de sessão com expiração
+- Controle de permissões por perfil de usuário
+- Logout automático por inatividade
+
+### Auditoria Completa
+
+- Registro de todas as ações em logs
+- Trilha de auditoria de mudanças administrativas
+- Rastreamento de emergências e incidentes
+- Histórico de validações e intervenções
+
+### Proteção de Dados
+
+- Dados pessoais minimizados e protegidos
+- Conformidade com LGPD
+- Acesso restrito a informações sensíveis
+- Backups automáticos e recovery
+
+## Escalabilidade e Performance
+
+A arquitetura foi projetada considerando crescimento futuro:
+
+### Separação de Responsabilidades
+
+Cada serviço tem função específica, permitindo escalonamento independente conforme demanda.
+
+### Bancos de Dados Especializados
+
+- Banco vetorial otimizado para buscas semânticas
+- Banco sequencial otimizado para transações e consultas relacionais
+
+### Cache e Otimização
+
+- Respostas frequentes podem ser cacheadas
+- Índices otimizados no banco sequencial
+- Pré-processamento de documentos no banco vetorial
+
+### Monitoramento Proativo
+
+Sistema de logs e métricas permite identificar gargalos e otimizar continuamente.
+
+## Tecnologias e Ferramentas
+
+Embora a escolha final de tecnologias específicas seja flexível, a arquitetura suporta:
+
+### Back-end
+- APIs RESTful ou GraphQL
+- Node.js, Python ou outras linguagens modernas
+- Frameworks como Express, FastAPI ou Django
+
+### Banco de Dados
+- PostgreSQL para banco sequencial
+- Pinecone, Weaviate ou Qdrant para banco vetorial
+
+### Modelo de IA
+- OpenAI, Anthropic ou modelos open-source
+- Whisper para STT
+- ElevenLabs ou Azure TTS para síntese de voz
+
+### Front-end
+- React, Next.js ou Vue.js
+- Mobile: React Native ou Flutter
+- Design System consistente
+
+### Infraestrutura
+- Cloud providers (AWS, GCP, Azure)
+- Containerização com Docker
+- Orquestração com Kubernetes (opcional)
+
+## Comparação com Arquitetura Anterior
+
+As principais mudanças em relação à arquitetura original incluem:
+
+### Novos Componentes
+
+- **Módulo de STT**: Adicionado para suportar perguntas por voz
+- **Visitas**: Serviço dedicado ao gerenciamento de tours
+- **Monitoramento da Tour**: Dashboard em tempo real para administradores
+- **Dashboard Staff**: Interface dedicada para equipe interna
+
+### Reorganização
+
+- **Separação clara entre LLM API e API regular**: Melhor organização de responsabilidades
+- **Três perfis de front-end distintos**: Visitante, Administrador e Staff
+- **Fluxos bidirecionais explícitos**: Especialmente entre API e bancos de dados
+
+### Melhorias
+
+- **Controle de emergência duplo**: Tanto visitantes quanto administradores
+- **Monitoramento em tempo real**: Visibilidade completa das operações
+- **Sistema de logs centralizado**: Recebe dados de todas as camadas
+- **Gestão de documentos**: Interface dedicada para atualização da base de conhecimento
+
+## Conclusão
+
+A arquitetura atualizada do sistema Tour Cão-Robô representa uma evolução madura e bem estruturada do projeto inicial. A separação clara de responsabilidades, a implementação de múltiplos perfis de usuário e a adição de funcionalidades de monitoramento e controle garantem que o sistema seja:
+
+- **Robusto**: Com validação em múltiplas camadas e sistema de logs completo
+- **Escalável**: Componentes independentes que podem crescer conforme demanda
+- **Seguro**: Autenticação, autorização e auditoria em todas as operações
+- **Acessível**: Múltiplas formas de interação (texto, áudio, visual)
+- **Gerenciável**: Interfaces administrativas completas e monitoramento em tempo real
+
+Esta arquitetura forma a base técnica sólida sobre a qual o projeto será desenvolvido, garantindo qualidade, confiabilidade e capacidade de evolução contínua. As melhorias implementadas refletem o aprendizado e as necessidades identificadas ao longo do processo de desenvolvimento, resultando em um sistema mais completo e preparado para atender aos objetivos do projeto.
