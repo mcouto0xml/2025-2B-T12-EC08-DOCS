@@ -60,32 +60,34 @@ A seguir, cada tela presente no protótipo é descrita com seu propósito, conte
 <p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
 
 ### Resumo
+
 A primeira tela apresentada assim que o tablet é ligado e o aplicativo é iniciado.
 
 ### Funcionalidades
+
 - Campo para inserção do código do tour, recebido pelo visitante.
 - Botão de confirmação.
 
 ### Objetivo
+
 Validar a entrada do visitante, associando-o ao tour correto e permitindo o início da experiência guiada pela LIA.
 
 ---
 
 ## Tutorial 1 — Botão de Emergência
 
-<p style={{ textAlign: "center" }}>
-  Figura 4 - Tutorial Botão de Emergência
-</p>
+<p style={{ textAlign: "center" }}>Figura 4 - Tutorial Botão de Emergência</p>
 
 ![Tutorial Botão de Emergência](./imgs/tut-botao.png)
 
 <p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
 
-
 ### Resumo
+
 Primeira tela da sequência de tutoriais, exibida logo após inserir o código do tour, em formato de pop-up.
 
 ### Funcionalidade e objetivo
+
 - Informa o visitante sobre o botão de emergência, localizado na interface.
 - Explica que acionar o botão solicitará ajuda dos funcionários do Inteli.
 
@@ -101,11 +103,12 @@ Primeira tela da sequência de tutoriais, exibida logo após inserir o código d
 
 <p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
 
-
 ### Resumo
+
 Tela de tutorial explicando precauções físicas.
 
 ### Informações
+
 - O visitante deve manter pelo menos 2 metros de distância da LIA.
 - Garanta segurança e operação adequada da navegação robótica.
 
@@ -121,11 +124,12 @@ Tela de tutorial explicando precauções físicas.
 
 <p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
 
-
 ### Resumo
+
 Instruções sobre a etapa interativa do tour.
 
 ### Detalhes
+
 - O robô responderá perguntas ao final de cada etapa do percurso.
 - Essa interação ocorrerá através da tela de chat.
 
@@ -141,20 +145,19 @@ Instruções sobre a etapa interativa do tour.
 
 <p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
 
-
 ### Resumo
+
 Explica ao visitante como o tour avança.
 
 ### Detalhes
+
 - Ao final de cada fase do tour, o app exibirá uma tela pop-up perguntando se o visitante deseja continuar.
 
 ---
 
 ## Tela de Chat
 
-<p style={{ textAlign: "center" }}>
-  Figura 8 - Tela de Chat - Envio de dúvida
-</p>
+<p style={{ textAlign: "center" }}>Figura 8 - Tela de Chat - Envio de dúvida</p>
 
 ![Tela de Chat - Envio de dúvida](./imgs/chat-audio.png)
 
@@ -168,36 +171,37 @@ Explica ao visitante como o tour avança.
 
 <p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
 
-
 ### Resumo
+
 Espaço principal de interação entre visitante e a LIA.
 
 ### Funcionalidades
+
 - Enviar perguntas por voz ao robô.
 - A LIA responde por voz simultaneamente.
 - As respostas aparecem também em formato textual, como em um chat convencional.
 - Exibe cada mensagem como se fosse uma conversa tipo WhatsApp.
 
 ### Acesso
+
 - Ícone do microfone na navbar, disponível durante todo o tour.
 
 ---
 
 ## Tela de Prosseguir
 
-<p style={{ textAlign: "center" }}>
-  Figura 10 - Tela de Prosseguir
-</p>
+<p style={{ textAlign: "center" }}>Figura 10 - Tela de Prosseguir</p>
 
 ![Tela de Prosseguir](./imgs/prox-etapa.png)
 
 <p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
 
-
 ### Resumo
+
 Tela exibida em formato de pop-up ao final de cada etapa.
 
 ### Funcionalidades
+
 - Pergunta ao visitante: “Deseja prosseguir para a próxima etapa?”
 - Interrompe o fluxo até confirmação do visitante.
 
@@ -205,48 +209,48 @@ Tela exibida em formato de pop-up ao final de cada etapa.
 
 ## Tela de Emergência
 
-<p style={{ textAlign: "center" }}>
-  Figura 11 - Tela de Emergência
-</p>
+<p style={{ textAlign: "center" }}>Figura 11 - Tela de Emergência</p>
 
 ![Tela de Emergência](./imgs/emergência.png)
 
 <p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
 
-
 ### Resumo
+
 Tela crítica para acionamento de suporte imediato.
 
 ### Funcionalidades
+
 - Botão principal para solicitar assistência.
 - Interrompe o tour completamente.
 - Funcionários do Inteli são notificados.
 
 ### Acesso
+
 - Ícone de sirene na navbar.
 
 ---
 
 ## Tela do Mapa
 
-<p style={{ textAlign: "center" }}>
-  Figura 11 - Tela do Mapa
-</p>
+<p style={{ textAlign: "center" }}>Figura 11 - Tela do Mapa</p>
 
 ![Tela do Mapa](./imgs/mapa.png)
 
 <p style={{ textAlign: "center" }}>Fonte: Os autores (2025)</p>
 
-
 ### Resumo
+
 Visualização espacial da navegação da LIA.
 
 ### Funcionalidades
+
 - Mostrar o campus do Inteli.
 - Indicar a posição atual do robô no mapa.
 - Atualização em tempo real conforme o tour acontece.
 
 ### Acesso
+
 - Ícone de mapa na navbar.
 
 ---
@@ -254,12 +258,15 @@ Visualização espacial da navegação da LIA.
 # Mecanismos de Acesso às Telas
 
 ### Exibidas automaticamente
+
 - Inicial → ao abrir o app.
 - Tutoriais → após inserir o código.
 - Prosseguir → após a LIA finalizar cada etapa do tour.
 
 ### Exibidas manualmente
+
 Via navbar:
+
 - Chat (microfone)
 - Emergência (sirene)
 - Mapa (pin/mapa)
