@@ -1,0 +1,5 @@
+{
+  "title": "Protótipo de alta fidelidade",
+  "description": "Protótipos de alta fidelidade são representações visuais que mostram a estrutura e o layout fielmente a interface final.",
+  "pages": ["paf-visitante", "paf-staff"]
+}
