@@ -169,7 +169,18 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
 
-  <Card href="/docs/sprint-2/entendimento-do-negocio/analise-financeira-atualizada" title="Análise Financeira Atualizada" description="Refina a análise financeira do projeto desenvolvida na sprint anterior" />
+  <Card href="/docs/sprint-2/guia-de-operação" title="Guia de Operação">
+    Documento com o guia de operação do robô e informações relevantes.
+  </Card>
+
+  <Card href="/docs/sprint-2/modelagem-bd/modelagem-bd" title="Modelagem do Banco de Dados">
+    Modelagem inicial do Banco de Dados.
+  </Card>
+
+  <Card href="/docs/sprint-2/wireframes" title="Wireframes">
+    Wireframes desenvolvidos para as aplicações propostas de controle e
+    interação com o sistema.
+  </Card>
 </Cards>
 
 
@@ -6128,6 +6139,925 @@ O custo anual estimado de **R$ 386.660,24** cobre todos os recursos necessários
   Essa análise permite compreender a sustentabilidade financeira da solução e será atualizada conforme necessário durante o desenvolvimento do projeto.
 
 
+# Guide Line (/docs/sprint-2/guia-de-opera%C3%A7%C3%A3o/guide-line)
+
+# Guia de Operação e Segurança - Robô Unitree Go2
+
+**Projeto:** Tour Autônomo - Inteli Instituto de Tecnologia e Liderança
+**Equipe:** Segurança e Robô
+**Versão:** Sprint 02
+
+***
+
+## Introdução
+
+Este documento tem como objetivo estabelecer as **diretrizes iniciais (guide line)** para o uso, operação e segurança do robô Unitree Go2 durante o desenvolvimento do projeto de **tour autônomo com visitantes** no campus do Inteli.
+
+Por se tratar de uma fase inicial (Sprint 02), as orientações descritas aqui servirão como **base operacional** e **padrões de conduta** para todos os membros da equipe, garantindo segurança, padronização e registro de boas práticas durante os testes.
+
+***
+
+## Situação Atual do Projeto
+
+O robô encontra-se em **fase de calibração e testes de controle/autonomia**.
+Durante essa etapa, foram identificadas **situações críticas e comportamentos relevantes** que impactam diretamente a segurança e confiabilidade do sistema:
+
+* **Superaquecimento na pata frontal esquerda:**
+  O robô apresentou, em algumas ocasiões, aquecimento excessivo nesta região, resultando em queda brusca e necessidade de desligamento completo até o resfriamento.
+
+* **Sistema de diagnóstico via aplicativo:**
+  Todos os erros são reportados em tempo real por meio de **cards vermelhos** no aplicativo do robô, permitindo rápida identificação da falha e tratativa.
+
+* **Alta responsividade aos comandos via aplicativo e controle:**
+  O robô responde de forma imediata aos comandos do controle/app.
+
+* **Delay no reconhecimento de obstáculos (LiDAR):**
+  Observou-se um atraso na atualização das leituras do LiDAR, possivelmente devido à sobrecarga de código. A equipe técnica realizará testes e otimizações para corrigir o problema.
+
+* **Proibição de movimento em ré durante o tour:**
+  O robô **não deve andar de ré** sob nenhuma circunstância.
+  Isso se deve à **ausência de sensores traseiros de detecção de obstáculos**, o que representa risco de colisão com visitantes ou objetos durante o tour.
+
+***
+
+## Diretrizes Gerais de Operação
+
+1. **Seguir rigorosamente a sequência de inicialização e desligamento.**
+   A ordem de ligar primeiro o controle e depois o robô evita falhas de pareamento.
+
+2. **Evitar comandos repetidos ou simultâneos.**
+   O robô pode interpretar múltiplos sinais como comandos contínuos, causando movimentos inesperados.
+
+3. **Monitorar a temperatura constantemente.**
+   Se o sistema indicar superaquecimento, o robô deve ser imediatamente desligado.
+
+4. **Jamais levantar o robô em modo operacional ou de parada forçada.**
+   Isso pode causar danos a pessoas ou até mesmo ao patrimônio.
+
+5. **Durante o tour, priorizar o deslocamento com uma velocidade segura.**
+   O objetivo é garantir estabilidade e interação segura com os visitantes.
+
+6. **Realizar testes de funcionamento em ambientes controlados antes de operações públicas.**
+
+***
+
+## Procedimentos de Segurança
+
+* **Modo de emergência:**
+  Caso o robô apresente comportamento inesperado, utilize **L2 + B** para realizar a **parada forçada imediata**.
+
+* **Falhas críticas:**
+  Se houver qualquer anomalia (queda, superaquecimento, falha de controle), **desligar o robô**, ver diagnóstico no aplicativo, aguardar o resfriamento e **registrar o incidente**.
+
+* **Zona de segurança:**
+  Durante testes, manter uma distância mínima de **1 metro** entre o robô e qualquer pessoa.
+
+***
+
+## Procedimentos Operacionais
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+
+      <th>
+        Área Responsável
+      </th>
+
+      <th>
+        Procedimento / Situação
+      </th>
+
+      <th>
+        Critério de Aceite / Resultado Esperado
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        OP01
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        O controle deve ser ligado antes do robô.
+      </td>
+
+      <td>
+        A sequência de inicialização é concluída com sucesso sem falhas de
+        conexão.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP02
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Para ligar o controle: apertar o botão de ligar uma vez e soltar; em
+        seguida, apertar novamente e segurar até iniciar.
+      </td>
+
+      <td>
+        O controle é reconhecido e pareado corretamente com o robô.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP03
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Para ligar o robô: apertar o botão de ligar uma vez e soltar; em
+        seguida, apertar novamente e segurar até iniciar.
+      </td>
+
+      <td>
+        O robô liga corretamente e responde aos comandos do controle.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP04
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Em caso de perda de controle das movimentações, pressionar L2 + A.
+      </td>
+
+      <td>
+        O robô trava os seus movimentos, estabilizando sua posição.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP05
+      </td>
+
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Em caso de risco de dano ou acidente, pressionar L2 + B para parada
+        forçada.
+      </td>
+
+      <td>
+        O robô interrompe imediatamente todos os movimentos e cai no chão.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP06
+      </td>
+
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Para sair do modo de parada forçada, pressionar Start.
+      </td>
+
+      <td>
+        O robô retorna ao modo operacional normal e aceita novos comandos.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP07
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Evitar o comando A + A, pois pode causar comportamento incorreto
+        (movimento infinito para trás).
+      </td>
+
+      <td>
+        Durante o teste, o robô não executa o comando e mantém controle estável.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP08
+      </td>
+
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Durante o modo de parada forçada, não levantar o robô.
+      </td>
+
+      <td>
+        Evita danos mecânicos, à pessoas e ao patrimônio do Inteli.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP09
+      </td>
+
+      <td>
+        Técnica
+      </td>
+
+      <td>
+        Conectar hub USB-C na Jetson com monitor e mouse para acesso ao
+        terminal.
+      </td>
+
+      <td>
+        Interface da Jetson exibida corretamente e terminal acessível.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP10
+      </td>
+
+      <td>
+        Técnica
+      </td>
+
+      <td>
+        Em caso de falha de conexão ou inicialização, reiniciar o robô.
+      </td>
+
+      <td>
+        O sistema reinicia e funciona corretamente.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP11
+      </td>
+
+      <td>
+        Técnica
+      </td>
+
+      <td>
+        Utilizar adaptador Wi-Fi para conectar a Jetson e liberar acesso SSH
+        remoto.
+      </td>
+
+      <td>
+        Conexão SSH estabelecida com sucesso e acesso remoto habilitado.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP12
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Para desligar o robô: apertar o botão de ligar uma vez e soltar; em
+        seguida, apertar novamente e segurar até desligar completamente.
+      </td>
+
+      <td>
+        O robô desliga com segurança, sem perda de dados ou travamentos.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP13
+      </td>
+
+      <td>
+        Operação
+      </td>
+
+      <td>
+        Após o robô desligar, repetir o mesmo processo para desligar o controle.
+      </td>
+
+      <td>
+        O controle é desligado corretamente e o sistema encerra a comunicação
+        com sucesso.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OP14
+      </td>
+
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Garantir sempre o desligamento do robô antes do controle.
+      </td>
+
+      <td>
+        Evita falhas de comunicação ou estados incorretos entre os dispositivos.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+***
+
+## Próximos Passos
+
+* Realizar **testes** para monitorar a frequência do superaquecimento.
+* Avaliar **otimizações no código do LiDAR** para reduzir o delay de resposta.
+* Criar **protocolo de redundância** para garantir segurança em caso de falhas críticas.
+* Desenvolver versão revisada do guide line com base nos resultados da Sprint 03.
+
+***
+
+## Observações Finais
+
+Este documento é **dinâmico**, sendo atualizado conforme os avanços do projeto e novos aprendizados sobre o comportamento do robô.
+Todas as ocorrências devem ser registradas e revisadas pela equipe de segurança antes da próxima sprint.
+
+
+# Guia de Operação do Robô (/docs/sprint-2/guia-de-opera%C3%A7%C3%A3o)
+
+<Cards>
+  <Card href="/docs/sprint-2/guia-de-operação/guide-line" title="Guide Line">
+    Documento com o guia de operação do robô e informações relevantes.
+  </Card>
+</Cards>
+
+
+# Modelagem Banco de Dados (/docs/sprint-2/modelagem-bd/modelagem-bd)
+
+Modelagem no dbdiagram: [link da modelagem](https://dbdiagram.io/d/BANCO-DE-DADOS-ROB-690bbdc36735e1117070e737)
+
+## 1. Introdução
+
+O banco de dados **Tour Cão-Robô** foi modelado para integrar os dois principais módulos do sistema — o aplicativo do visitante e o aplicativo do gestor — dentro de uma mesma base relacional.
+A estrutura foi desenhada para manter a integridade entre os tours realizados com o cão robô e as interações dos usuários, permitindo controle administrativo, rastreabilidade e geração de métricas de desempenho para o dashboard administrativo.
+
+A arquitetura do banco tem como objetivos:
+
+* Centralizar as informações de **tours**, **visitantes**, **gestores** e **robôs**;
+* Garantir a consistência das interações entre os apps;
+* Facilitar consultas e análises para o **dashboard** final;
+* Manter o sistema escalável e modular, com clara separação entre dados operacionais e administrativos.
+
+## 2. Estrutura Geral do Banco
+
+O modelo relacional é composto por 19 tabelas e 2 views.
+As tabelas estão divididas em três grupos:
+
+1. **Tabelas compartilhadas (núcleo)** — armazenam os dados utilizados tanto pelo visitante quanto pelo gestor.
+2. **Tabelas do gestor** — contêm informações administrativas e de auditoria.
+3. **Tabelas do visitante** — registram interações e sessões do usuário durante o tour.
+
+## 3. Tabelas Compartilhadas (Núcleo Geral)
+
+### 3.1. Tabela `robot_dogs`
+
+**Descrição:** Registra os cães robôs que conduzem os tours.
+
+| Coluna            | Tipo        | Descrição                                  |
+| ----------------- | ----------- | ------------------------------------------ |
+| **id**            | SERIAL (PK) | Identificador único do robô.               |
+| **nome**          | TEXT        | Nome do cão-robô.                          |
+| **modelo**        | TEXT        | Modelo ou versão do robô.                  |
+| **numero\_serie** | TEXT        | Número de série único de identificação.    |
+| **ativo**         | BOOLEAN     | Indica se o robô está disponível para uso. |
+| **criado\_em**    | TIMESTAMPTZ | Data e hora de cadastro no sistema.        |
+
+***
+
+### 3.2. Tabela `gestores`
+
+**Descrição:** Armazena os administradores do sistema responsáveis por criar e gerenciar tours.
+
+| Coluna          | Tipo        | Descrição                               |
+| --------------- | ----------- | --------------------------------------- |
+| **id**          | SERIAL (PK) | Identificador único do gestor.          |
+| **nome**        | TEXT        | Nome completo do gestor.                |
+| **email**       | TEXT        | Endereço de e-mail único para login.    |
+| **senha\_hash** | TEXT        | Senha criptografada.                    |
+| **ativo**       | BOOLEAN     | Indica se a conta do gestor está ativa. |
+| **criado\_em**  | TIMESTAMPTZ | Data e hora de criação do registro.     |
+
+***
+
+### 3.3. Tabela `visitantes`
+
+**Descrição:** Armazena informações básicas dos visitantes que participam dos tours.
+
+| Coluna         | Tipo        | Descrição                             |
+| -------------- | ----------- | ------------------------------------- |
+| **id**         | SERIAL (PK) | Identificador do visitante.           |
+| **nome**       | TEXT        | Nome completo do visitante.           |
+| **email**      | TEXT        | E-mail de contato.                    |
+| **criado\_em** | TIMESTAMPTZ | Data e hora do registro do visitante. |
+
+***
+
+### 3.4. Tabela `tours`
+
+**Descrição:** Representa cada tour realizado com o cão-robô.
+
+| Coluna              | Tipo          | Descrição                                                              |
+| ------------------- | ------------- | ---------------------------------------------------------------------- |
+| **id**              | SERIAL (PK)   | Identificador do tour.                                                 |
+| **titulo**          | TEXT          | Nome ou tema do tour.                                                  |
+| **codigo\_visita**  | TEXT (UNIQUE) | Código de acesso usado pelos visitantes.                               |
+| **horario\_inicio** | TIMESTAMPTZ   | Horário programado de início.                                          |
+| **horario\_fim**    | TIMESTAMPTZ   | Horário previsto para término.                                         |
+| **status**          | TEXT          | Estado atual do tour (planejado, em\_andamento, concluído, cancelado). |
+| **robot\_dog\_id**  | INT (FK)      | Cão-robô responsável pelo tour.                                        |
+| **gestor\_id**      | INT (FK)      | Gestor responsável pela criação.                                       |
+| **criado\_em**      | TIMESTAMPTZ   | Data e hora de criação do tour.                                        |
+
+***
+
+### 3.5. Tabela `checkpoints`
+
+**Descrição:** Define os pontos de parada do roteiro de cada tour.
+
+| Coluna        | Tipo         | Descrição                                |
+| ------------- | ------------ | ---------------------------------------- |
+| **id**        | SERIAL (PK)  | Identificador do checkpoint.             |
+| **tour\_id**  | INT (FK)     | Tour ao qual o ponto pertence.           |
+| **nome**      | TEXT         | Nome ou título do ponto.                 |
+| **descricao** | TEXT         | Descrição ou instruções.                 |
+| **ordem**     | INT          | Ordem sequencial do ponto no percurso.   |
+| **lat**       | NUMERIC(9,6) | Latitude para posicionamento geográfico. |
+| **lng**       | NUMERIC(9,6) | Longitude correspondente.                |
+
+***
+
+### 3.6. Tabela `chat_mensagens`
+
+**Descrição:** Armazena as mensagens trocadas entre o visitante, o cão-robô e o sistema.
+
+| Coluna              | Tipo        | Descrição                                                    |
+| ------------------- | ----------- | ------------------------------------------------------------ |
+| **id**              | SERIAL (PK) | Identificador da mensagem.                                   |
+| **tour\_id**        | INT (FK)    | Tour onde a conversa ocorreu.                                |
+| **sessao\_id**      | INT (FK)    | Sessão do visitante que enviou a mensagem.                   |
+| **remetente\_tipo** | TEXT        | Define o tipo de remetente: visitante, cão\_robô ou sistema. |
+| **texto**           | TEXT        | Conteúdo textual da mensagem.                                |
+| **media\_url**      | TEXT        | Link para mídia (imagem, áudio, vídeo).                      |
+| **criado\_em**      | TIMESTAMPTZ | Data e hora do envio da mensagem.                            |
+
+***
+
+### 3.7. Tabela `checkpoint_eventos`
+
+**Descrição:** Registra as respostas do visitante ao avançar pelos checkpoints.
+
+| Coluna                      | Tipo        | Descrição                                 |
+| --------------------------- | ----------- | ----------------------------------------- |
+| **id**                      | SERIAL (PK) | Identificador do evento.                  |
+| **tour\_id**                | INT (FK)    | Tour correspondente.                      |
+| **checkpoint\_id**          | INT (FK)    | Checkpoint relacionado.                   |
+| **confirmado**              | BOOLEAN     | Indica se o visitante confirmou o avanço. |
+| **confirmado\_por\_sessao** | INT (FK)    | Sessão que respondeu.                     |
+| **criado\_em**              | TIMESTAMPTZ | Data e hora do registro.                  |
+
+***
+
+### 3.8. Tabela `progresso_tour`
+
+**Descrição:** Guarda o histórico de progresso dos grupos dentro de cada tour.
+
+| Coluna             | Tipo        | Descrição                          |
+| ------------------ | ----------- | ---------------------------------- |
+| **id**             | SERIAL (PK) | Identificador do progresso.        |
+| **tour\_id**       | INT (FK)    | Tour correspondente.               |
+| **checkpoint\_id** | INT (FK)    | Checkpoint alcançado.              |
+| **alcancado\_em**  | TIMESTAMPTZ | Data e hora de conclusão do ponto. |
+
+***
+
+### 3.9. Tabela `perguntas_visitantes`
+
+**Descrição:** Armazena as perguntas feitas pelos visitantes durante os tours.
+
+| Coluna             | Tipo        | Descrição                             |
+| ------------------ | ----------- | ------------------------------------- |
+| **id**             | SERIAL (PK) | Identificador da pergunta.            |
+| **tour\_id**       | INT (FK)    | Tour onde a pergunta foi feita.       |
+| **visitante\_id**  | INT (FK)    | Visitante autor da pergunta.          |
+| **checkpoint\_id** | INT (FK)    | Checkpoint relacionado, se aplicável. |
+| **pergunta**       | TEXT        | Texto da pergunta enviada.            |
+| **topico**         | TEXT        | Categoria ou tema da pergunta.        |
+| **respondida**     | BOOLEAN     | Indica se a pergunta foi respondida.  |
+| **criado\_em**     | TIMESTAMPTZ | Data e hora do registro.              |
+
+***
+
+### 3.10. Tabela `emergencias`
+
+**Descrição:** Registra emergências acionadas durante o tour.
+
+| Coluna            | Tipo        | Descrição                                                                  |
+| ----------------- | ----------- | -------------------------------------------------------------------------- |
+| **id**            | SERIAL (PK) | Identificador da emergência.                                               |
+| **tour\_id**      | INT (FK)    | Tour onde ocorreu a emergência.                                            |
+| **sessao\_id**    | INT (FK)    | Sessão que a reportou.                                                     |
+| **tipo**          | TEXT        | Tipo de incidente (ex.: queda, saúde).                                     |
+| **severidade**    | TEXT        | Nível de gravidade (baixa, média, alta).                                   |
+| **mensagem**      | TEXT        | Descrição fornecida pelo visitante.                                        |
+| **status**        | TEXT        | Estado atual da emergência (aberta, em atendimento, resolvida, cancelada). |
+| **criado\_em**    | TIMESTAMPTZ | Data e hora do registro.                                                   |
+| **resolvido\_em** | TIMESTAMPTZ | Data e hora de resolução.                                                  |
+
+***
+
+### 3.11. Tabela `tour_visitantes`
+
+**Descrição:** Faz o vínculo entre visitantes e tours, incluindo a confirmação de participação.
+
+| Coluna            | Tipo        | Descrição                                 |
+| ----------------- | ----------- | ----------------------------------------- |
+| **id**            | SERIAL (PK) | Identificador do vínculo.                 |
+| **tour\_id**      | INT (FK)    | Tour relacionado.                         |
+| **visitante\_id** | INT (FK)    | Visitante relacionado.                    |
+| **confirmado**    | BOOLEAN     | Indica se o visitante confirmou presença. |
+
+## 4. Tabelas do App do Gestor
+
+### 4.1. Tabela `tour_admin_details`
+
+**Descrição:** Armazena informações internas sobre o tour.
+
+| Coluna                    | Tipo         | Descrição                       |
+| ------------------------- | ------------ | ------------------------------- |
+| **tour\_id**              | INT (PK, FK) | Tour correspondente.            |
+| **capacidade**            | INT          | Número máximo de visitantes.    |
+| **observacoes\_internas** | TEXT         | Observações internas de gestão. |
+
+***
+
+### 4.2. Tabela `tour_status_log`
+
+**Descrição:** Mantém o histórico de mudanças de status dos tours.
+
+| Coluna              | Tipo        | Descrição                        |
+| ------------------- | ----------- | -------------------------------- |
+| **id**              | SERIAL (PK) | Identificador do log.            |
+| **tour\_id**        | INT (FK)    | Tour afetado.                    |
+| **status**          | TEXT        | Novo status atribuído.           |
+| **atualizado\_por** | INT (FK)    | Gestor que realizou a alteração. |
+| **atualizado\_em**  | TIMESTAMPTZ | Data e hora da mudança.          |
+| **observacoes**     | TEXT        | Observações opcionais.           |
+
+***
+
+### 4.3. Tabela `logs_gestor`
+
+**Descrição:** Registra ações administrativas executadas pelos gestores.
+
+| Coluna         | Tipo        | Descrição                      |
+| -------------- | ----------- | ------------------------------ |
+| **id**         | SERIAL (PK) | Identificador do log.          |
+| **gestor\_id** | INT (FK)    | Gestor responsável pela ação.  |
+| **acao**       | TEXT        | Tipo de ação executada.        |
+| **referencia** | TEXT        | Referência do recurso afetado. |
+| **criado\_em** | TIMESTAMPTZ | Data e hora do registro.       |
+
+## 5. Tabelas do App do Visitante
+
+### 5.1. Tabela `dispositivos_visitante`
+
+**Descrição:** Registra os dispositivos usados pelos visitantes.
+
+| Coluna                  | Tipo        | Descrição                              |
+| ----------------------- | ----------- | -------------------------------------- |
+| **id**                  | SERIAL (PK) | Identificador do dispositivo.          |
+| **visitante\_id**       | INT (FK)    | Visitante proprietário do dispositivo. |
+| **so**                  | TEXT        | Sistema operacional (iOS, Android).    |
+| **versao\_app**         | TEXT        | Versão do aplicativo.                  |
+| **device\_fingerprint** | TEXT        | Identificador único do aparelho.       |
+| **criado\_em**          | TIMESTAMPTZ | Data de registro.                      |
+
+***
+
+### 5.2. Tabela `sessoes_visita`
+
+**Descrição:** Controla as sessões de login dos visitantes em tours.
+
+| Coluna              | Tipo        | Descrição                |
+| ------------------- | ----------- | ------------------------ |
+| **id**              | SERIAL (PK) | Identificador da sessão. |
+| **visitante\_id**   | INT (FK)    | Visitante da sessão.     |
+| **tour\_id**        | INT (FK)    | Tour correspondente.     |
+| **dispositivo\_id** | INT (FK)    | Dispositivo usado.       |
+| **entrou\_em**      | TIMESTAMPTZ | Data e hora de login.    |
+| **saiu\_em**        | TIMESTAMPTZ | Data e hora de logout.   |
+
+***
+
+### 5.3. Tabela `tutorial_passos`
+
+**Descrição:** Define os passos do tutorial exibido no app do visitante.
+
+| Coluna       | Tipo        | Descrição                    |
+| ------------ | ----------- | ---------------------------- |
+| **id**       | SERIAL (PK) | Identificador do passo.      |
+| **chave**    | TEXT        | Identificador textual único. |
+| **titulo**   | TEXT        | Título exibido.              |
+| **conteudo** | TEXT        | Texto ou instruções.         |
+| **ordem**    | INT         | Posição sequencial do passo. |
+
+***
+
+### 5.4. Tabela `tutorial_progresso`
+
+**Descrição:** Armazena o progresso de cada visitante no tutorial.
+
+| Coluna            | Tipo        | Descrição                   |
+| ----------------- | ----------- | --------------------------- |
+| **id**            | SERIAL (PK) | Identificador do progresso. |
+| **visitante\_id** | INT (FK)    | Visitante correspondente.   |
+| **passo\_id**     | INT (FK)    | Passo do tutorial.          |
+| **concluido\_em** | TIMESTAMPTZ | Data e hora de conclusão.   |
+
+***
+
+### 5.5. Tabela `eventos_app`
+
+**Descrição:** Registra ações de telemetria do app do visitante.
+
+| Coluna            | Tipo        | Descrição                               |
+| ----------------- | ----------- | --------------------------------------- |
+| **id**            | SERIAL (PK) | Identificador do evento.                |
+| **sessao\_id**    | INT (FK)    | Sessão relacionada.                     |
+| **evento**        | TEXT        | Nome da ação (login, abrir\_mapa, etc). |
+| **payload\_json** | JSONB       | Dados complementares em formato JSON.   |
+| **criado\_em**    | TIMESTAMPTZ | Data e hora de registro.                |
+
+## 6. Views do Sistema
+
+**Conceito geral:**
+Views são consultas pré-definidas que se comportam como tabelas virtuais. Elas combinam dados de múltiplas tabelas, simplificando o acesso às informações e protegendo dados sensíveis.
+
+### 6.1. `v_tour_gestor`
+
+Fornece ao app do gestor uma visão consolidada dos tours, contendo título, horários, robô, responsável e informações administrativas.
+Permite que o painel do gestor acesse tudo o que precisa em uma única consulta, sem manipular diretamente várias tabelas.
+
+### 6.2. `v_tour_visitante`
+
+Apresenta ao app do visitante apenas os dados essenciais de cada tour (código, horários, status e cão robô).
+Garante que o visitante visualize apenas informações públicas, mantendo a segurança e a confidencialidade dos dados administrativos.
+
+As views tornam o sistema mais seguro e simplificado, reduzindo a complexidade das consultas feitas pelos aplicativos e protegendo campos que não devem ser expostos.
+
+## 7. Possíveis Pré-Tratamentos de Dados
+
+Para otimizar o desempenho e a integração entre os dois aplicativos e o dashboard, é possível realizar processamentos prévios dentro do banco de dados.
+Esses pré-tratamentos reduzem o custo de consultas e entregam informações já estruturadas para cada camada do sistema.
+
+### 7.1. Pré-tratamentos gerais (compartilhados)
+
+* **Padronização de status e categorias:** manter domínios válidos para campos como `status`, `severidade`, `topico` e `tipo`, garantindo consistência e evitando erros de digitação.
+* **Criação de visões enriquecidas:** unificar informações que frequentemente precisam de junções, como “perguntas com nomes de checkpoints” ou “emergências com nome do visitante”.
+* **Normalização temporal:** gerar campos de dia, semana e mês com base em colunas de data para facilitar agrupamentos e gráficos de tendência.
+
+### 7.2. Pré-tratamentos para o App do Visitante
+
+* **Consolidação de estado do tour:** visão que combina `tours`, `progresso_tour` e `checkpoints` para exibir o andamento atualizado em tempo real.
+* **Percentual do tutorial concluído:** cálculo prévio da proporção de passos completados em `tutorial_progresso`.
+* **Histórico resumido do chat:** visão com as últimas mensagens de cada tour, limitando volume de dados transferido ao app.
+
+### 7.3. Pré-tratamentos para o App do Gestor
+
+* **Agenda consolidada:** visão que agrega dados de tours, capacidade e participantes confirmados, exibindo percentual de ocupação.
+* **Linha do tempo operacional:** combinação de status, emergências e progresso em ordem cronológica para monitoramento ao vivo.
+* **Relatórios rápidos de perguntas:** agrupamentos de `perguntas_visitantes` por checkpoint ou tópico.
+
+### 7.4. Pré-tratamentos para o Dashboard
+
+* **Séries temporais agregadas:** sumarizações de tours por mês, emergências por semana, perguntas por tópico e uso do app por dia.
+* **Fatos analíticos materializados:** criação de tabelas materializadas com agregações recorrentes (por exemplo, número de emergências resolvidas por semana).
+* **Enriquecimento para visualização:** inclusão de nomes de gestor, robô e checkpoint nas visões para simplificar relatórios no Power BI, Metabase ou outras ferramentas.
+
+Esses pré-tratamentos garantem que tanto os aplicativos quanto o dashboard obtenham dados prontos para uso, com menor latência e sem sobrecarregar o servidor com junções complexas.
+
+## 8. Conclusão
+
+O banco de dados **Tour Cão-Robô** foi projetado para fornecer uma base sólida, escalável e consistente, que unifica as necessidades dos dois aplicativos do projeto.
+A arquitetura centralizada, com tabelas compartilhadas e visões segmentadas, garante que o sistema mantenha integridade, segurança e desempenho mesmo com grande volume de interações.
+
+Além da operação diária dos aplicativos, o modelo suporta análises avançadas e relatórios dinâmicos para o dashboard administrativo, permitindo medir engajamento, eficiência operacional e qualidade da experiência dos visitantes.
+
+Em síntese, o banco de dados não apenas armazena informações, mas estrutura o ecossistema completo do **Tour Cão-Robô**, viabilizando a integração entre tecnologia, gestão e experiência interativa.
+
+
+# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
+
+
+
+# Pipeline de Ingestão de Arquivos
+
+## Introdução
+
+O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
+
+A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
+
+***
+
+## Estrutura Geral do Pipeline
+
+<Callout type="info">
+  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
+</Callout>
+
+### 1. Extração dos textos
+
+```python
+from unstructured.partition.pdf import partition_pdf
+
+elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
+```
+
+* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
+
+* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
+
+***
+
+### 2. Sanitização dos textos
+
+```python
+def clean_text(text):
+    text = re.sub(r'\s+', ' ', text)
+    text = text.replace('\ufb01', 'fi')
+    ...
+```
+
+* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
+
+* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
+
+***
+
+### 3. Enriquecimento semântico
+
+```python
+def extract_enhanced_metadata(element):
+    return {
+        'element_id': ...,
+        'element_type': ...,
+        'page_number': ...,
+        'hierarchy_level': ...,
+        'section': ...,
+    }
+```
+
+* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
+
+* Isso ajuda a preservar a estrutura semântica do documento original.
+
+***
+
+### 4. Divisão em chunks com sobreposição
+
+```python
+RecursiveCharacterTextSplitter(
+  chunk_size=500,
+  chunk_overlap=100,
+)
+```
+
+* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
+
+* Mantém coesão semântica mesmo em respostas curtas.
+
+<Callout title="Importante">
+  {" "}
+
+  Essa segmentação garante que as perguntas do usuário encontrem respostas
+  dentro de um mesmo chunk.{" "}
+</Callout>
+
+***
+
+### 5. Geração de embeddings
+
+```python
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+embeddings = model.encode(texts, ...)
+```
+
+* Utiliza modelo pré-treinado da HuggingFace.
+
+* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
+
+* Embeddings são normalizados e possuem metadados do chunk.
+
+***
+
+### 6. Inserção no banco vetorial (ETAPA: Persistência)
+
+```python
+chunks_with_embeddings.append({
+  'id': 'chunk_x',
+  'content': ...,
+  'embedding': [...],
+  'metadata': {...}
+})
+```
+
+Cada embedding é armazenado com:
+
+* ID único
+
+* Conteúdo do chunk
+
+* Vetor (lista de floats)
+
+* Modelo utilizado
+
+* Dados estruturados (página, seção, tipo)
+
+***
+
+## Diagrama do Pipeline
+
+Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Pipeline de arquivos
+</p>
+
+<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Conclusão
+
+A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
+
+É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
+
+<Callout title="Próximos Passos" type="info">
+  {" "}
+
+  Integração com o agente conversacional do robô e testes de consulta em
+  linguagem natural usando os embeddings gerados.{" "}
+</Callout>
+
+
+# Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/pipeline-de-docs)
+
+<Cards>
+  <Card title="Wireframe App Staff" description="Wireframe do aplicativo onde o staff do Inteli poderá gerenciar os tours da aplicação." href="/docs/content/docs/sprint-2/Modelo de IA/files-pipeline.mdx" />
+</Cards>
+
+
 # Template de Pasta (/docs/sprint-2/template-pasta)
 
 <Cards>
@@ -6268,6 +7198,530 @@ F -->|HTTP| BUCKET
     <File name="meta.json" />
   </Folder>
 </Files>
+
+
+# Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/wireframes)
+
+<Cards>
+  <Card title="Wireframe App Staff" description="Wireframe do aplicativo onde o staff do Inteli poderá gerenciar os tours da aplicação." href="/docs/sprint-2/wireframes/wireframe-app-staff" />
+
+  <Card title="Wireframe App Visitante" description="Wireframe do aplicativo onde o visitante irá interagir com o tour, fazendo perguntas para o robô." href="/docs/sprint-2/wireframes/wireframe-app-visitante" />
+
+  <Card title="Wireframe Dashboard Staff" description="Wireframe da dashboard onde o staff do Inteli poderá visualizar insights sobre os tours feitos e gerenciar os documentos que o modelo do robô ingere." href="/docs/sprint-2/wireframes/wireframe-dashboard-staff" />
+</Cards>
+
+
+# Wireframe App Staff (/docs/sprint-2/wireframes/wireframe-app-staff)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+ Como definido anteriormente, um dos usuários da aplicação será uma pessoa da staff do Inteli. Assim, os principais deveres desse usuário enquanto interage com a aplicação é de **criar, gerenciar e acompanhar os tours** que estão em andamento e também visualizar estatísticas sobre, por exemplo, as perguntas mais comuns que são feitas pelos visitantes, etc.
+
+## 1. Tela de Visão Geral e Agendamentos
+
+Esta é a tela inicial do aplicativo, focada na gestão de tours.
+
+* **Propósito:** Permitir que o membro da Staff visualize os tours agendados e inicie o processo de criação de um novo tour.
+* **Elementos Chave:**
+  * **Seletor de Data:** Permite filtrar a lista de tours por dia (e.g., 27, 28, 29 DEZ).
+  * **Tabela/Lista de Tours:** Exibe os tours agendados com as colunas **Horário**, **Nome** (do responsável) e **Status** (e.g., Agendado, Em Andamento, Finalizado).
+  * **Botão de Criação (+):** Localizado no canto superior direito, inicia o fluxo de criação de um novo tour.
+  * **Ação de Clique:** Clicar em um tour existente na lista leva à tela de Detalhamento do Tour (Tela 5).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Tela de Visão Geral e Agendamentos
+</p>
+
+<img alt="Tela de Visão Geral e Agendamentos" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 2. Tela de Cadastro de Visitantes
+
+Esta tela faz parte do fluxo de criação de um novo tour.
+
+* **Propósito:** Coletar as informações essenciais dos visitantes que participarão do tour.
+* **Elementos Chave:**
+  * **Responsável e Data:** Campos para identificar o responsável pelo agendamento e a data do tour.
+  * **Visitantes:** Campos para **Nome** e **E-mail** do primeiro visitante.
+  * **Adicionar Visitantes:** Opção para incluir mais participantes no tour.
+  * **Botão Confirmar:** Avança para a próxima etapa do fluxo de criação do tour.
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Tela de Cadastro de Visitantes
+</p>
+
+<img alt="Tela de Cadastro de Visitantes" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 3. Tela de Seleção de Perfil do Robô
+
+Esta tela é a etapa de personalização do tour.
+
+* **Propósito:** Definir a personalidade e o modo de interação do cachorro robótico durante o tour.
+* **Elementos Chave:**
+  * **Título:** "Selecione o perfil do cachorro".
+  * **Carrossel de Seleção:** Área central com setas laterais para navegar entre os diferentes perfis/personalidades disponíveis para o robô.
+  * **Botão Finalizar:** Conclui a seleção e avança para a tela de Resumo.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Tela de Seleção de Perfil do Robô
+</p>
+
+<img alt="Tela de Seleção de Perfil do Robô" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 4. Tela de Resumo e Criação do Tour
+
+Esta tela é o ponto final antes da criação definitiva do tour.
+
+* **Propósito:** Permitir que o membro da Staff revise todas as informações coletadas (visitantes e perfil do robô) antes de finalizar o agendamento.
+* **Elementos Chave:**
+  * **Título:** "Informações gerais".
+  * **Conteúdo:** Área de texto longo que exibe o resumo dos dados.
+  * **Opção Editar:** Permite retornar às telas anteriores para realizar ajustes.
+  * **Botão Iniciar:** Cria o tour no sistema e o marca como agendado.
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 - Tela de Resumo e Criação do Tour
+</p>
+
+<img alt="Tela de Resumo e Criação do Tour" src={__img3} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 5. Tela de Detalhamento e Início do Tour
+
+Esta tela é acessada ao clicar em um tour agendado na Tela 1.
+
+* **Propósito:** Iniciar um tour agendado e gerar o código de acesso para o visitante.
+* **Fluxo de Ação:**
+  1. O membro da Staff acessa o detalhamento do tour.
+  2. Ao iniciar o tour (ação não visível no wireframe, mas implícita), o sistema gera um **Código do Tour**.
+  3. O código (representado por `******`) é exibido para ser fornecido ao visitante, que o utilizará em seu próprio aplicativo para iniciar a experiência.
+  * **Botão Cancelar:** Permite abortar a operação.
+
+<p style={{ textAlign: "center" }}>
+  Figura 5 - Tela de Detalhamento e Início do Tour (Geração de Código)
+</p>
+
+<img alt="Tela de Detalhamento e Início do Tour" src={__img4} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 6. Tela de Acompanhamento do Tour
+
+Esta é a tela principal de monitoramento de um tour em andamento.
+
+* **Propósito:** Fornecer à Staff uma visão em tempo real do progresso do tour e das interações do robô.
+* **Elementos Chave:**
+  * **Status: Em Andamento:** Indica que o tour está ativo.
+  * **Barra de Progresso:** Exibe as etapas do tour/processo (e.g., Arquibancada, Ateliê, Casinhas, etc) e o status de cada uma.
+  * **Perguntas Feitas:** Seção para visualizar as perguntas que foram feitas pelos visitantes ao robô, permitindo a coleta de estatísticas.
+  * **Barra de Navegação Inferior:** Contém as ações de controle do tour:
+    * Ícone de Mapa: Abre a visualização do mapa (Tela 7).
+    * Botão Central (X): **Finalizar Tour**.
+    * Ícone de Parada: **Parar por Emergência**.
+
+<p style={{ textAlign: "center" }}>
+  Figura 6 - Tela de Acompanhamento do Tour
+</p>
+
+<img alt="Tela de Acompanhamento do Tour" src={__img5} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 7. Tela de Mapa do Tour
+
+Esta tela é acessada a partir da Tela 6.
+
+* **Propósito:** Visualizar a localização atual do robô e o progresso físico do tour.
+* **Elementos Chave:**
+  * **Título:** "MAPA DO INTELI + CHECKPOINTS".
+  * **Área de Mapa:** Exibe o mapa da faculdade com a rota do tour.
+  * **Localização do Robô:** Indica o checkpoint onde o robô se encontra no momento.
+  * **Barra de Navegação Inferior:** Mantém as mesmas opções de controle da Tela 6.
+
+<p style={{ textAlign: "center" }}>
+  Figura 7 - Tela de Mapa do Tour
+</p>
+
+<img alt="Tela de Mapa do Tour" src={__img6} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Fluxo de Uso Principal
+
+<Steps>
+  ### 1. Visualizar Agendamentos
+
+  O membro da Staff acessa a **Tela 1** para ver a lista de tours agendados para o dia.
+
+  ### 2. Criar Novo Tour
+
+  A partir da **Tela 1**, o Staff inicia o fluxo de criação, passando pelas **Telas 2** (Cadastro de Visitantes) e **3** (Seleção de Perfil do Robô).
+
+  ### 3. Confirmar Agendamento
+
+  Na **Tela 4** (Resumo), o Staff revisa e confirma o agendamento do tour.
+
+  ### 4. Iniciar Tour e Gerar Código
+
+  No dia do tour, o Staff seleciona o agendamento na **Tela 1** e, após iniciar, é levado à **Tela 5** para obter o código de acesso que será repassado ao visitante.
+
+  ### 5. Acompanhar o Progresso
+
+  Com o tour em andamento, o Staff monitora o progresso na **Tela 6** (Acompanhamento), podendo visualizar o mapa na **Tela 7** e intervir (Finalizar ou Parar por Emergência) quando necessário.
+</Steps>
+
+
+# Wireframe App Visitante (/docs/sprint-2/wireframes/wireframe-app-visitante)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+  Como definido anteriormente, um dos principais usuários da aplicação será o visitante do Inteli. Assim, os principais deveres desse usuário, enquanto interage com a aplicação, são compreender as informações apresentadas e informar dúvidas sobre o Inteli durante o tour.
+
+## 1. Tela de Login com Código
+
+Esta é a tela inicial do aplicativo, que permitirá ao usuário iniciar o tour.
+
+* **Propósito:** Permitir que o usuário insira um código de acesso disponibilizado pela equipe para que o tour possa ser iniciado.
+* **Elementos-Chave:**
+  * **Campo de Inserção do Código:** Localizado no centro da tela, permite iniciar o tour quando o código correto for inserido.
+  * **Botão "Entrar":** Localizado na parte inferior central, inicia o tour caso o código esteja correto.
+  * **Ação de Clique:** Clicar em "Entrar" inicia o tour e envia o usuário para a tela de Tutorial - Conversa com o Cão Robô (2).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Tela de Login com Código do Tour
+</p>
+
+<img alt="Tela de Login com Código do Tour" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 2. Tela de Tutorial - Conversa com o Cão Robô
+
+Esta é a tela inicial do tutorial, que permitirá ao usuário aprender como interagir com o cão robô.
+
+* **Propósito:** Ensinar o usuário a se comunicar com o robô por meio do chat de voz.
+* **Elementos-Chave:**
+  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário como ele pode se comunicar com o cão robô.
+  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para o próximo pop-up do Tutorial - Fluxo do Tour (3).
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Tela de Tutorial - Conversa com o Cão Robô
+</p>
+
+<img alt="Tela de Tutorial - Conversa com o Cão Robô" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 3. Tela de Tutorial - Fluxo do Tour
+
+Esta é a tela do tutorial que permitirá ao usuário entender como funcionará a dinâmica do tour.
+
+* **Propósito:** Explicar ao usuário como ele pode passar pelos checkpoints do tour e o que eles representam.
+* **Elementos-Chave:**
+  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário como seguir com o tour.
+  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para o próximo pop-up do Tutorial - Botão de Emergência (4).
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Tela de Tutorial - Fluxo do Tour
+</p>
+
+<img alt="Tela de Tutorial - Fluxo do Tour" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 4. Tela de Tutorial - Botão de Emergência
+
+Esta é a tela do tutorial que permitirá ao usuário entender o que fazer em caso de emergência.
+
+* **Propósito:** Ensinar o usuário como agir em caso de erro ou bug no sistema do cão robô.
+* **Elementos-Chave:**
+  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário onde ele deve clicar para parar o robô, evitando possíveis danos.
+  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para a Tela - Mapa do Inteli (5).
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 - Tela de Tutorial - Botão de Emergência
+</p>
+
+<img alt="Tela de Tutorial - Botão de Emergência" src={__img3} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 5. Tela Mapa do Inteli
+
+Esta é a tela que permitirá ao usuário entender em qual parte do tour ele se encontra.
+
+* **Propósito:** Permitir que o usuário saiba em qual parte da instituição e em qual etapa do tour ele está no momento.
+* **Elementos-Chave:**
+  * **Mapa Inteli:** Localizado no centro da tela, mostra ao usuário onde ele está e em qual dos checkpoints se encontra ou já passou.
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta tela do mapa.
+  * **Botão "Checkpoint":** Localizado no HUD, envia o usuário para a Tela - Prosseguir com o Tour (6).
+
+<p style={{ textAlign: "center" }}>
+  Figura 5 - Tela Mapa do Inteli
+</p>
+
+<img alt="Tela - Mapa do Inteli" src={__img4} placeholder="blur" />
+
+***
+
+## 6. Tela Prosseguir com o Tour
+
+Esta é a tela que permitirá ao usuário continuar o tour ou permanecer parado com o cão robô em um dos checkpoints.
+
+* **Propósito:** Permitir que o usuário utilize os outros elementos do HUD, como o chat de conversa com o cão robô para fazer perguntas, ou prossiga com o tour.
+* **Elementos-Chave:**
+  * **Pop-up Checkpoint:** Localizado no centro da tela, mostra ao usuário a opção de seguir para o próximo ponto do tour ou permanecer no atual para conversar com o robô.
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta tela.
+  * **Botão "Microfone":** Localizado no centro do HUD, envia o usuário para a Tela - Chat com o Cão Robô (7).
+
+<p style={{ textAlign: "center" }}>
+  Figura 6 - Tela Prosseguir com o Tour
+</p>
+
+<img alt="Tela - Prosseguir com o Tour" src={__img5} placeholder="blur" />
+
+***
+
+## 7. Tela Chat com o Cão Robô
+
+Esta é a tela que permitirá ao usuário conversar com o cão robô para tirar dúvidas.
+
+* **Propósito:** Permitir que o usuário faça perguntas ao cão robô, que serão respondidas durante as pausas nos checkpoints.
+* **Elementos-Chave:**
+  * **Tela de Conversa:** Localizada no centro da tela, mostra as perguntas feitas pelo usuário e as respostas dadas pelo cão robô.
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta.
+  * **Botão "Microfone":** Localizado à direita da tela, permite ao usuário fazer perguntas ao cão robô.
+  * **Botão "Emergência":** Localizado no HUD, permite ao usuário ir até a Tela - Botão de Emergência (8).
+
+<p style={{ textAlign: "center" }}>
+  Figura 7 - Tela Chat com o Cão Robô
+</p>
+
+<img alt="Tela - Chat com o Cão Robô" src={__img6} placeholder="blur" />
+
+***
+
+## 8. Tela Botão de Emergência
+
+Esta é a tela que permitirá ao usuário parar o robô caso ocorra algum bug.
+
+* **Propósito:** Permitir que o usuário interrompa todas as ações do robô em caso de emergência.
+* **Elementos-Chave:**
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta.
+  * **Botão "Emergência":** Localizado no centro da tela, permite ao usuário parar completamente o cão robô.
+
+<p style={{ textAlign: "center" }}>
+  Figura 8 - Tela Botão de Emergência
+</p>
+
+<img alt="Tela - Botão de Emergência" src={__img7} placeholder="blur" />
+
+***
+
+## Fluxo de Uso Principal
+
+<Steps>
+  ### 1. Inserir Código de Acesso
+
+  O visitante acessa a **Tela 1** (Login com Código) e insere o código fornecido pela equipe do Inteli para iniciar o tour.
+
+  ### 2. Aprender a Interagir com o Cão Robô
+
+  Após o login, o visitante é guiado pelas **Telas 2**, **3** e **4** (Tutoriais) que explicam como conversar com o cão robô, como funcionam os checkpoints e como utilizar o botão de emergência.
+
+  ### 3. Visualizar o Mapa do Inteli
+
+  Concluído o tutorial, o visitante acessa a **Tela 5** (Mapa do Inteli) para ver onde está e acompanhar seu progresso pelos checkpoints do tour.
+
+  ### 4. Prosseguir com o Tour
+
+  Na **Tela 6** (Prosseguir com o Tour), o visitante decide se continua para o próximo ponto do tour ou permanece no atual para conversar com o cão robô.
+
+  ### 5. Interagir com o Cão Robô
+
+  Ao selecionar o botão de microfone, o visitante acessa a **Tela 7** (Chat com o Cão Robô), onde pode fazer perguntas e receber respostas durante as pausas do tour.
+
+  ### 6. Parar o Robô em Caso de Emergência
+
+  Se ocorrer algum problema, o visitante pode acessar a **Tela 8** (Botão de Emergência) para interromper imediatamente as ações do cão robô.
+</Steps>
+
+
+# Wireframe Dashboard Staff (/docs/sprint-2/wireframes/wireframe-dashboard-staff)
+
+
+
+
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+  Como definido anteriormente, um dos usuários da aplicação será um membro da staff do Inteli. Essa figura reaparece durante o desenvolvimento das telas, mas agora com um novo objetivo: visualizar os dados coletados durante o tour e pensar em como tirar o melhor proveito possível dessas informações.
+
+## 1. Tela Home
+
+Esta é a tela inicial do site, que permitirá ao Staff visualizar informações tanto sobre o robô quanto sobre o tour, incluindo dados sobre as perguntas realizadas.
+
+* **Propósito:** Permitir que o Staff visualize informações como a quantidade de perguntas e seus temas, além de dados sobre os tours e os visitantes.
+* **Elementos-Chave:**
+  * **Gráficos de Acompanhamento:** Localizados na parte superior e inferior central da tela, permitem ao Staff visualizar a quantidade de alertas e a demanda, respectivamente.
+  * **Tours por Mês:** Exibe a quantidade de tours realizados no mês.
+  * **Quantidade de Perguntas:** Mostra quantas perguntas foram feitas por tour.
+  * **Assuntos Mais Perguntados:** Permite ao Staff identificar os principais focos de dúvidas sobre o Inteli, como processo seletivo, programa de bolsas, clubes, etc.
+  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até outras telas do site, como a Tela Dashboard e Roteiro (2).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Tela Home
+</p>
+
+<img alt="Tela Home" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 2. Tela Dashboard e Roteiro
+
+Esta é uma tela de controle que permitirá ao Staff atualizar ou remover informações sobre a instituição e sobre o roteiro.
+
+* **Propósito:** Permitir que o Staff faça a manutenção das informações do Inteli, mantendo o modelo de IA do cão robô atualizado, e altere informações do tour.
+* **Elementos-Chave:**
+  * **Seção Documentos:** Localizada no centro esquerdo da tela, permite ao Staff remover ou adicionar informações sobre o Inteli, mantendo o sistema sempre atualizado com as últimas informações.
+  * **Seção de Roteiro:** Localizada no centro direito da tela, permite ao Staff alterar informações sobre o roteiro, caso seja necessário.
+  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Dashboard e Roteiro
+</p>
+
+<img alt="Tela Dashboard e Roteiro" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 3. Tela Pop-up Documentos
+
+Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o upload de novos documentos.
+
+* **Propósito:** Permitir que o Staff envie novas informações sobre o Inteli para o sistema.
+* **Elementos-Chave:**
+  * **Pop-up Documentos:** Localizado no centro da tela, permite ao usuário realizar o upload dos documentos do Inteli e inserir um título para melhor organização.
+  * **Botão "Adicionar":** Localizado na parte inferior central do pop-up, envia o documento e seu título para o sistema.
+  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Pop-up Documentos
+</p>
+
+<img alt="Tela - Pop-up Documentos" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Fluxo de Uso Principal
+
+<Steps>
+  ### 1. Visualizar Dados Gerais
+
+  O Staff acessa a **Tela 1** (Home) para ver informações sobre os tours, perguntas feitas pelos visitantes e desempenho do robô.
+
+  ### 2. Gerenciar Informações da Instituição e do Tour
+
+  A partir da **Tela 1**, o Staff acessa a **Tela 2** (Dashboard e Roteiro) para atualizar dados do Inteli e modificar o roteiro do tour quando necessário.
+
+  ### 3. Adicionar Novos Documentos
+
+  Na **Tela 3** (Pop-up Documentos), o Staff pode realizar o upload de novos materiais e inserir títulos descritivos, mantendo o sistema de IA atualizado.
+</Steps>
 
 
 # Template de Pasta (/docs/sprint-3/template-pasta)
