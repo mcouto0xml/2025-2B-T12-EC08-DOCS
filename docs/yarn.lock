@@ -21,9 +21,9 @@
   integrity sha512-9hFT4RauhcUzqOE4f1+frMKLZrgNog5b06I7VmZQV1BkvwvqrbC8EBZf3L1eEL2AKb6rNKjER0sEvJiSP1FXEA==
 
 "@biomejs/biome@^2.2.5":
-  version "2.2.7"
-  resolved "https://registry.npmjs.org/@biomejs/biome/-/biome-2.2.7.tgz"
-  integrity sha512-1a8j0UP1vXVUf3UzMZEJ/zS2VgAG6wU6Cuh/I764sUGI+MCnJs/9WaojHYBDCxCMLTgU60/WqnYof85emXmSBA==
+  version "2.3.4"
+  resolved "https://registry.npmjs.org/@biomejs/biome/-/biome-2.3.4.tgz"
+  integrity sha512-TU08LXjBHdy0mEY9APtEtZdNQQijXUDSXR7IK1i45wgoPD5R0muK7s61QcFir6FpOj/RP1+YkPx5QJlycXUU3w==
   optionalDependencies:
     "@biomejs/cli-darwin-arm64" "2.2.7"
     "@biomejs/cli-darwin-x64" "2.2.7"
