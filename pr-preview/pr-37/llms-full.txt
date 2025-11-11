@@ -6091,14 +6091,14 @@ Os requisitos são classificados em duas categorias:
  As User Stories desenvolvidas a partir das diferentes personas (Estudante, Executivo e Staff Inteli) traduzem as expectativas de cada público em requisitos práticos para o robô-guia. Enquanto os visitantes buscam acolhimento, clareza e interação tecnológica, o staff visa padronização, controle e análise de desempenho. Assim, o sistema integra tecnologia, experiência do usuário e eficiência operacional, refletindo os valores de inovação e hospitalidade do Inteli.
 
 
-# Documentação do Chatbot Inteli (/docs/sprint-2/chatbot-v1/documentacao)
+# Chatbot Inteli v1 (/docs/sprint-2/chatbot-v1/documentacao)
 
 
 
 import { Steps } from 'fumadocs-ui/components/steps';
 import { Callout } from 'fumadocs-ui/components/callout';
 
- O Chatbot Inteli é um assistente virtual especializado desenvolvido para responder perguntas sobre o Instituto de Tecnologia e Liderança. O sistema utiliza a tecnologia Google Generative AI (Gemini) para processar consultas e fornecer respostas precisas baseadas em documentos oficiais do instituto.
+ O Chatbot Inteli é um assistente virtual especializado desenvolvido para responder perguntas sobre o Instituto de Tecnologia e Liderança. O sistema utiliza a tecnologia de IA generativa do google (Gemini) para processar consultas e fornecer respostas precisas baseadas em documentos oficiais do instituto.
 
 ***
 
@@ -6113,7 +6113,6 @@ Fornecer um canal de comunicação automatizado e eficiente para estudantes, can
 * Respostas contextualizadas baseadas em documentos oficiais
 * Interface web moderna e responsiva
 * Foco exclusivo em informações do Inteli
-* Histórico de conversação por sessão
 * Processamento de múltiplos documentos PDF
 
 ### Interface do Chatbot
@@ -6148,7 +6147,7 @@ Servidor Flask que gerencia as requisições HTTP, mantém sessões de conversa�
 
 ### Camada de Inteligência
 
-Integração com Google Generative AI (Gemini 2.0 Flash) para processamento de linguagem natural e geração de respostas contextualizadas.
+Integração com IA generativa (Gemini 2.0 Flash) para processamento de linguagem natural e geração de respostas contextualizadas.
 
 ### Fluxo de Dados
 
@@ -6296,7 +6295,7 @@ test-adk/
 
 ### 1. Processamento de Documentos
 
-O sistema processa automaticamente documentos PDF para criar uma base de conhecimento. O processo inclui:
+O sistema processa automaticamente documentos PDF para criar uma base de conhecimento para a IA. O processo inclui:
 
 * Extração de texto página por página
 * Limpeza de caracteres especiais e formatação
@@ -6486,6 +6485,8 @@ O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) 
 * **Line Height**: 1.6 (para melhor legibilidade)
 * **Espaçamento de Letras**: 0.5px (títulos)
 
+\*obs: isso não consta no BrandBook mas que será autorizado na próxima sprint
+
 ### Componentes
 
 #### 1. Cabeçalho
@@ -6531,37 +6532,6 @@ Botões de exemplo para iniciar conversação.
 * Hover com preenchimento vermelho
 * Texto clicável
 * Desaparecem após primeira interação
-
-#### 5. Input e Botão de Envio
-
-Área de digitação e envio de mensagens.
-
-**Características**:
-
-* Input com borda que muda para vermelho no foco
-* Botão vermelho gradiente
-* Enter para enviar
-* Desabilitação durante processamento
-
-### Responsividade
-
-#### Desktop (> 900px)
-
-* Container com largura máxima de 900px
-* Mensagens ocupam até 70% da largura
-* Espaçamento generoso
-
-#### Tablet (600px - 900px)
-
-* Container adapta-se à largura disponível
-* Mensagens mantêm proporção
-* Touch targets otimizados
-
-#### Mobile (\< 600px)
-
-* Layout vertical completo
-* Mensagens podem ocupar até 85% da largura
-* Botões maiores para facilitar toque
 
 ***
 
@@ -6694,26 +6664,6 @@ Esses cursos são presenciais e ministrados em período integral durante os dois
 **Pergunta**: Qual é a capital da França?
 
 **Resposta Esperada**: "Desculpe, sou especializado apenas em informações sobre o Inteli."
-
-### Customização da Interface
-
-#### Cores
-
-Edite as variáveis CSS em `templates/index.html`:
-
-```css
-/* Cores principais */
-#2B2D42  /* Azul escuro */
-#E63946  /* Vermelho Inteli */
-```
-
-#### Layout
-
-Modifique classes CSS para ajustar:
-
-* Tamanho do container (`.chat-container`)
-* Largura de mensagens (`.message-content`)
-* Espaçamentos (padding/margin)
 
 ### Segurança
 
