@@ -161,12 +161,9 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
 # Sprint 2 (/docs/sprint-2)
 
 <Cards>
-  <Card href="/docs/sprint-2/template" title="Template de Arquivo">
-    Modelo básico para criação de novos arquivos MDX.
-  </Card>
-
-  <Card href="/docs/sprint-2/template-pasta" title="Template de Pasta">
-    Modelo de estrutura para criação de novas pastas de documentação.
+  <Card href="/docs/sprint-2/arquetipo-branding" title="Arquétipo e Name Branding">
+    Apresenta a ideação por trás da escolha representativa da raça do cão-robô e
+    do nome por trás da experiência do usuário a ser fomentada a partir dele
   </Card>
 
   <Card href="/docs/sprint-2/guia-de-operação" title="Guia de Operação">
@@ -6096,6 +6093,931 @@ Os requisitos são classificados em duas categorias:
  As User Stories desenvolvidas a partir das diferentes personas (Estudante, Executivo e Staff Inteli) traduzem as expectativas de cada público em requisitos práticos para o robô-guia. Enquanto os visitantes buscam acolhimento, clareza e interação tecnológica, o staff visa padronização, controle e análise de desempenho. Assim, o sistema integra tecnologia, experiência do usuário e eficiência operacional, refletindo os valores de inovação e hospitalidade do Inteli.
 
 
+# Arquétipos das Raças de Cães (/docs/sprint-2/arquetipo-branding/arquetipo)
+
+
+
+
+
+
+
+ Foi elaborado um conjunto de possíveis arquétipos para elencar distintos aspectos definir como que o cachorro-robô deve se relacionar em termos relacionados a sua personalidade.
+
+## Border Collie - O Explorador-Construtor
+
+ O *Border Collie* é a personificação do arquétipo *Explorer-Builder*. Conhecido por sua inteligência excepcional, o Border Collie é o cão que aprende rapidamente, busca constantemente novos desafios e aplica seu aprendizado com precisão. Sua natureza exploradora é equilibrada com a habilidade de construir soluções de forma eficiente e prática.
+
+### Características:
+
+* *Curiosidade e aprendizado constante*: Sempre em busca de novas soluções, o Border Collie nunca se cansa de aprender e explorar.
+* \*Disciplina e foco: Embora seja explorador, o Border Collie mantém um alto nível de disciplina e foco para atingir seus objetivos.
+* *Trabalho em equipe*: Essa raça é conhecida por ser altamente cooperativa e eficiente, sempre pronta para ajudar e aprender com os outros.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Border Collie
+</p>
+
+<img alt="Border Collie" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+ O Border Collie reflete a jornada de aprendizado constante e a construção de soluções práticas.
+
+***
+
+## Akita - O Herói-Guardião
+
+ O *Akita* representa o arquétipo *Hero-Guardian*. Um cão leal, corajoso e protetor. Conhecido pela sua independência e força, o Akita é um líder natural, guiado por um senso profundo de responsabilidade e honra. Ele protege seu território e aqueles a quem é leal com coragem e determinação, características que definem o arquétipo do Herói e do Guardião.
+
+### Características:
+
+* *Coragem e proteção*: O Akita enfrenta desafios de frente, protegendo sua família e território com bravura.
+* \*Liderança com integridade: Um líder ético, o Akita toma decisões ponderadas e se destaca pela sua lealdade.
+* *Autonomia e foco*: Embora seja protetor, o Akita também valoriza sua independência e é autossuficiente.
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Akita Inu
+</p>
+
+<img alt="Border Collie" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+ O Akita simboliza a força silenciosa, a lealdade e a coragem necessárias para liderar e proteger.
+
+***
+
+## Chow Chow - O Sábio
+
+ O *Chow Chow* representa o arquétipo *Sage*, um cão calmo, introspectivo e sábio. Ele é um excelente exemplo de como inteligência e observação podem ser ferramentas poderosas para entender o mundo ao seu redor. O Chow Chow não é impulsivo, mas prefere tomar seu tempo para perceber o que está acontecendo, agindo apenas quando tem certeza.
+
+### Características:
+
+* *Sabedoria e observação*: O Chow Chow é observador e paciente, sempre pronto para entender antes de agir.
+* *Inteligência tranquila*: Sua inteligência não é rápida nem impulsiva, mas profunda e meticulosa.
+* *Calma sob pressão*: Em vez de reagir com pressa, o Chow Chow mantém a calma e reflete sobre a situação antes de tomar decisões.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Chow Chow
+</p>
+
+<img alt="Border Collie" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Conclusão
+
+ Os *arquétipos* representados pelas raças de cães (como o *Border Collie*, *Akita* e *Chow Chow*) refletem diferentes aspectos do comportamento e das motivações de visitantes, oferecendo uma base sólida para a definição do tom de comunicação do cão robô durante o tour no Inteli.
+
+ Além disso, eles também garantem que a experiência seja adaptada às necessidades emocionais e informativas dos visitantes. A comunicação será, portanto, acolhedora, profissional ou reflexiva, conforme o perfil de cada visitante, oferecendo uma experiência única e enriquecedora durante o tour.
+
+***
+
+
+# Arquétipo e Name Branding (/docs/sprint-2/arquetipo-branding)
+
+Arquétipo e identidade de nome do cão-robô do Inteli.
+
+## **Introdução**
+
+ Este documento apresenta a proposta conceitual de **arquétipo e name branding** desenvolvida para o **cão-robô Unitree Go2**, responsável por conduzir tours educacionais no campus do Instituto de Tecnologia e Liderança (Inteli).
+
+ O objetivo é estabelecer uma **personalidade simbólica e comunicacional coerente**, que torne o robô mais acessível, empático e alinhado à cultura institucional, traduzindo a visão do Inteli de unir **inovação, humanidade e aprendizado interativo**.
+
+ O desenvolvimento da identidade do robô foi estruturado em duas frentes complementares:
+
+1. **Arquétipos das Raças de Cães**, que definem traços comportamentais, simbólicos e de tom de voz;
+2. **Ideação de Nomes**, que explora opções de identidade verbal e conceitual para o robô, conectando tecnologia, cultura e propósito.
+
+<Cards>
+  <Card href="/docs/sprint-1/arquetipo-branding/arquetipo" title="Arquétipos das Raças de Cães">
+    Apresenta os arquétipos do Border Collie, Akita e Chow Chow, que inspiram a
+    personalidade do cão-robô e orientam seu tom de comunicação.
+  </Card>
+
+  <Card href="/docs/sprint-1/arquetipo-branding/name-branding" title="Ideação de Nomes">
+    Detalha o processo criativo e simbólico de nomeação do cão-robô, incluindo
+    as opções LIA, Laika, IARA e Chaser.
+  </Card>
+</Cards>
+
+***
+
+## **Conclusão**
+
+ O conjunto dos **arquétipos e nomes** constitui a base conceitual para o **name branding** e o **tom de comunicação** do cão-robô, garantindo uma experiência interativa coerente com os valores e objetivos do Inteli.
+
+ O robô deverá expressar uma combinação de **curiosidade, empatia e inteligência prática**, adaptando seu comportamento a diferentes contextos. Desde a recepção de estudantes de ensino médio até apresentações para visitantes institucionais.
+
+ Assim, o trabalho de design simbólico e verbal aqui apresentado não apenas humaniza a presença do robô no campus, mas também transforma a interação em um **ato de mediação pedagógica e cultural**, alinhado à missão do Inteli de promover **aprendizado ativo, tecnologia ética e inovação com propósito**.
+
+
+# Name Branding do Cão-Robô (/docs/sprint-2/arquetipo-branding/name-branding)
+
+
+
+
+
+
+
+
+
+
+
+ Durante o processo de concepção do **cão-robô** que atuará como guia interativo do campus do Inteli, foram exploradas diferentes possibilidades de nomes que refletissem sua personalidade, propósito e vínculo com a identidade institucional.
+
+ A escolha do nome é uma etapa essencial de branding, pois define o tom emocional e a forma como o público se conecta com o robô. A seguir, estão apresentados quatro nomes ideados: LIA, Laika, IARA e Chaser. Cada um deles traduz distintos aspectos simbólicos e conceituais do projeto.
+
+***
+
+## **LIA - Learning. Intelligent. Adaptability**
+
+ O nome LIA representa o arquétipo da inteligência adaptativa. Derivado da sigla de \*Learning Intelligent. Adaptability.", simboliza um sistema que aprende com o ambiente e se ajusta a diferentes contextos e públicos.
+
+ É um nome curto, sonoro e de fácil memorização, transmitindo empatia, tecnologia e proximidade humana.
+
+### Significados:
+
+* Learning: capacidade de aprendizado contínuo, refletindo a natureza educacional do Inteli.
+* Intelligent: inteligência prática e sensível, conectada à experiência humana.
+* Adaptability: flexibilidade para se ajustar a diferentes tipos de visitantes e situações.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - LIA
+</p>
+
+<img alt="LIA" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+ O nome *LIA* é simbólico para um cão-robô que aprende, observa e interage de maneira fluida e adaptável.
+
+***
+
+## **Laika - O Legado Pioneiro**
+
+ Inspirado na cadela *Laika*, o primeiro ser vivo a orbitar a Terra em 1957, esse nome evoca o espírito pioneiro e explorador da ciência.
+
+ No contexto do projeto, *Laika* simboliza curiosidade, coragem e avanço tecnológico, qualidades que se alinham à proposta do Inteli de formar líderes capazes de romper barreiras e criar o novo.
+
+### Significados:
+
+* Histórico: homenagem à cadela russa que marcou a história da exploração espacial.
+* Simbólico: representa a coragem de ser o primeiro e de abrir caminhos para o futuro.
+* Emocional: desperta empatia e inspiração por sua conexão com a história científica e humana.
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Laika
+</p>
+
+<img alt="Laika" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+ O nome *Laika* posiciona o cão-robô como um símbolo de descoberta e inovação, evocando o arquétipo do **Explorador**, que impulsiona o avanço e inspira novas gerações.
+
+***
+
+## **IARA - Inteligência Autônoma de Reconhecimento e Acolhimento**
+
+ O nome *IARA* combina tecnologia e brasilidade.
+
+ Inspirado na lenda indígena da Iara, a sereia das águas, o nome carrega uma sonoridade suave e acolhedora, representando empatia, sabedoria e conexão com o ambiente.
+
+ No contexto técnico, *IARA* é também um acrônimo de **Inteli Autonomous Robotic Assistant**, refletindo o propósito do robô de perceber, compreender e interagir com os visitantes de maneira sensível e acessível.
+
+### Significados:
+
+* Mitológico: figura brasileira associada à harmonia e ao poder da voz.
+* Tecnológico: referência direta à capacidade de percepção e acolhimento inteligente.
+* Simbólico: une raízes culturais com inovação, transmitindo empatia e identidade local.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - IARA
+</p>
+
+<img alt="IARA" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+ O nome *IARA* reforça a identidade brasileira e inclusiva do projeto, equilibrando tecnologia, cultura e empatia, um nome que “fala com as pessoas” de forma calorosa e simbólica.
+
+***
+
+## **Chaser - O Aprendiz Infinito**
+
+ *Chaser* foi o nome do cão mais inteligente já registrado, capaz de reconhecer mais de mil palavras.
+
+ Esse nome carrega o significado de aprendizado ilimitado e memória expandida, conceitos diretamente relacionados à inteligência artificial e à educação contínua.
+
+ Simboliza o desejo de aprender, compreender e aperfeiçoar-se. O mesmo propósito do robô e da comunidade acadêmica que o desenvolve.
+
+### Significados:
+
+* Histórico: referência ao Border Collie que redefiniu o entendimento sobre cognição animal.
+* Conceitual: representa a busca incessante pelo conhecimento e pela linguagem.
+* Inspiracional: simboliza a integração entre biologia, ciência e tecnologia.
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 - Chaser
+</p>
+
+<img alt="Chaser" src={__img3} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+ O nome *Chaser* traduz a essência do aprendizado contínuo e da curiosidade aplicada à prática, sendo ideal para um robô educador e pesquisador.
+
+***
+
+## **Conclusão**
+
+ Os nomes *LIA*, *Laika*, *IARA* e *Chaser* representam diferentes dimensões do projeto do cão-robô do Inteli, abrangendo desde a inteligência adaptativa até a inspiração histórica e cultural.\
+ Cada nome carrega um tom e uma intenção específica:
+
+* **LIA**: inteligência empática e adaptável;
+* **Laika**: espírito pioneiro e explorador;
+* **IARA**: acolhimento e identidade brasileira;
+* **Chaser**: aprendizado contínuo e curiosidade científica.
+
+ Essas opções servirão de base para a escolha final do nome oficial, considerando fatores de comunicação, personalidade e identificação com o público.
+
+ A definição final buscará equilibrar tecnologia, empatia e simbolismo, assegurando que o nome do cão-robô traduza o propósito do Inteli: unir inovação, humanidade e aprendizado em uma experiência interativa e inspiradora.
+
+***
+
+<p style={{ textAlign: "center" }}>
+  Figura 5 - Conjunto de Ideações
+</p>
+
+<img alt="Nomes - Conjunto de Ideações" src={__img4} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+
+# Chatbot Inteli v1 (/docs/sprint-2/chatbot-v1/documentacao)
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+import { Callout } from "fumadocs-ui/components/callout";
+
+ O Chatbot Inteli é um assistente virtual especializado desenvolvido para responder perguntas sobre o Instituto de Tecnologia e Liderança. O sistema utiliza a tecnologia de IA generativa do google (Gemini) para processar consultas e fornecer respostas precisas baseadas em documentos oficiais do instituto.
+
+***
+
+## 1. Visão Geral
+
+### Objetivo
+
+Fornecer um canal de comunicação automatizado e eficiente para estudantes, candidatos e interessados obterem informações sobre cursos, processo seletivo, infraestrutura e outros aspectos do Inteli.
+
+### Características Principais
+
+* Respostas contextualizadas baseadas em documentos oficiais
+* Interface web moderna e responsiva
+* Foco exclusivo em informações do Inteli
+* Processamento de múltiplos documentos PDF
+
+### Interface do Chatbot
+
+<div style={{ textAlign: "center" }}>
+  <sup>
+    Figura 1: Interface do Chatbot Inteli
+  </sup>
+</div>
+
+<img alt="Interface do Chatbot" src={__img0} placeholder="blur" />
+
+<div style={{ textAlign: "center" }}>
+  <sub>
+    Fonte: Produzida pelos Autores (2025).
+  </sub>
+</div>
+
+***
+
+## 2. Arquitetura do Sistema
+
+O sistema é composto por três camadas principais:
+
+### Camada de Apresentação
+
+Interface web desenvolvida em HTML, CSS e JavaScript vanilla, responsável pela interação com o usuário. Apresenta design responsivo com identidade visual do Inteli.
+
+### Camada de Aplicação
+
+Servidor Flask que gerencia as requisições HTTP, mantém sessões de conversação e orquestra a comunicação com o modelo de IA.
+
+### Camada de Inteligência
+
+Integração com IA generativa (Gemini 2.0 Flash) para processamento de linguagem natural e geração de respostas contextualizadas.
+
+### Fluxo de Dados
+
+```
+Usuário -> Interface Web -> Servidor Flask -> Google Gemini API -> Processamento de Contexto -> Resposta -> Interface Web -> Usuário
+```
+
+***
+
+## 3. Tecnologias Utilizadas
+
+### Backend
+
+* **Python 3.12**: Linguagem de programação principal
+* **Flask 3.0.0**: Framework web para criação do servidor
+* **Flask-CORS 4.0.0**: Gerenciamento de políticas de Cross-Origin Resource Sharing
+* **Google Generative AI**: SDK para integração com modelos Gemini
+* **Python-dotenv 1.0.0**: Gerenciamento de variáveis de ambiente
+
+### Processamento de Documentos
+
+* **PyPDF2 3.0.1**: Biblioteca para extração de texto de arquivos PDF
+
+### Frontend
+
+* **HTML5**: Estrutura da interface
+* **CSS3**: Estilização e design responsivo
+* **JavaScript ES6**: Interatividade e comunicação com API
+
+### Infraestrutura
+
+* **Google Gemini 2.0 Flash**: Modelo de linguagem para geração de respostas
+* **Ambiente Virtual Python**: Isolamento de dependências
+
+***
+
+## 4. Configuração e Instalação
+
+### Pré-requisitos
+
+* Python 3.12 ou superior
+* Conta Google Cloud com acesso ao Gemini API
+* Navegador web moderno (Chrome, Firefox, Edge, Safari)
+
+<Steps>
+  ### 1. Clonar o Repositório
+
+  ```bash
+  git clone https://github.com/GabrielMartinsAlves/test-adk.git
+  cd test-adk
+  ```
+
+  ### 2. Criar Ambiente Virtual
+
+  ```bash
+  python -m venv venv
+  ```
+
+  ### 3. Ativar Ambiente Virtual
+
+  **Windows (PowerShell):**
+
+  ```bash
+  .\venv\Scripts\Activate.ps1
+  ```
+
+  **Linux/Mac:**
+
+  ```bash
+  source venv/bin/activate
+  ```
+
+  ### 4. Instalar Dependências
+
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+  ### 5. Configurar Variáveis de Ambiente
+
+  Crie um arquivo `.env` na raiz do projeto:
+
+  ```bash
+  GOOGLE_API_KEY=sua_chave_api_aqui
+  ```
+
+  Para obter uma API key do Google Gemini, acesse: [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
+
+  ### 6. Processar Documentos
+
+  Execute o script de processamento de PDFs para extrair o contexto:
+
+  ```bash
+  python process_pdfs.py
+  ```
+
+  Este comando irá:
+
+  * Ler os arquivos PDF na pasta raiz
+  * Extrair todo o texto dos documentos
+  * Limpar e formatar o conteúdo
+  * Salvar o contexto em `inteli_context.txt`
+
+  ### 7. Iniciar o Servidor
+
+  ```bash
+  python app.py
+  ```
+
+  O servidor estará disponível em: [http://localhost:5000](http://localhost:5000)
+</Steps>
+
+***
+
+## 5. Estrutura do Projeto
+
+```
+test-adk/
+│
+├── app.py                              # Servidor Flask e lógica principal
+├── process_pdfs.py                     # Script de processamento de PDFs
+├── requirements.txt                    # Dependências do projeto
+├── .env                                # Variáveis de ambiente (não versionado)
+├── .env.example                        # Exemplo de configuração
+├── .gitignore                          # Arquivos ignorados pelo Git
+├── README.md                           # Documentação básica
+├── DOCUMENTATION.md                    # Documentação completa (este arquivo)
+│
+├── templates/
+│   └── index.html                      # Interface web do chatbot
+│
+├── static/
+│   ├── logo-inteli-3-768x420-1.png    # Logo do Inteli
+│   └── inteli-logo.svg                 # Logo vetorial (alternativa)
+│
+├── Livro_Inteli_PDF_distribuicao.pdf  # Documento fonte 1
+├── Edital-Processo-Seletivo-Inteli_-Graduacao-2026_AJUSTADO.pdf  # Documento fonte 2
+│
+└── inteli_context.txt                  # Contexto extraído dos PDFs (gerado)
+```
+
+***
+
+## 6. Funcionalidades
+
+### 1. Processamento de Documentos
+
+O sistema processa automaticamente documentos PDF para criar uma base de conhecimento para a IA. O processo inclui:
+
+* Extração de texto página por página
+* Limpeza de caracteres especiais e formatação
+* Remoção de espaços e quebras de linha excessivas
+* Concatenação de múltiplos documentos com identificação da fonte
+
+### 2. Gerenciamento de Sessões
+
+Cada usuário possui uma sessão única identificada por timestamp, permitindo:
+
+* Manutenção do histórico de conversação
+* Contexto contínuo durante toda a interação
+* Isolamento entre diferentes usuários
+* Capacidade de resetar a conversa
+
+### 3. Respostas Contextualizadas
+
+O chatbot utiliza todo o contexto extraído dos documentos para:
+
+* Fornecer respostas precisas e detalhadas
+* Citar informações específicas dos documentos
+* Manter consistência com fontes oficiais
+* Recusar perguntas fora do escopo do Inteli
+
+### 4. Interface Responsiva
+
+A interface se adapta a diferentes tamanhos de tela:
+
+* Design mobile-first
+* Elementos interativos otimizados para touch
+* Layout que se ajusta automaticamente
+* Experiência consistente em todos os dispositivos
+
+### 5. Validação de Escopo
+
+Sistema inteligente que:
+
+* Identifica se a pergunta é sobre o Inteli
+* Rejeita educadamente consultas fora do escopo
+* Mantém o foco nas informações institucionais
+* Orienta o usuário sobre tópicos disponíveis
+
+***
+
+## 7. Processamento de Documentos
+
+### Arquivos Processados
+
+O sistema processa os seguintes documentos oficiais:
+
+1. **Livro\_Inteli\_PDF\_distribuicao.pdf**: Documento institucional com informações gerais sobre o Inteli
+2. **Edital-Processo-Seletivo-Inteli\_-Graduacao-2026\_AJUSTADO.pdf**: Edital oficial do processo seletivo
+
+### Algoritmo de Extração
+
+```python
+def extract_text_from_pdf(pdf_path):
+    """
+    Extrai texto de arquivo PDF usando PyPDF2
+
+    Processo:
+    1. Abre o arquivo em modo binário
+    2. Cria leitor PDF
+    3. Itera por todas as páginas
+    4. Extrai texto de cada página
+    5. Concatena com quebras de linha
+    """
+```
+
+### Limpeza de Dados
+
+O processo de limpeza remove:
+
+* Múltiplas quebras de linha consecutivas (reduzidas para duas)
+* Espaços duplicados ou excessivos
+* Caracteres de controle desnecessários
+* Espaços em branco no início e fim
+
+### Armazenamento
+
+O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) para:
+
+* Rápido carregamento na inicialização
+* Facilitar debugging e validação
+* Permitir atualizações incrementais
+* Reduzir processamento repetitivo
+
+***
+
+## 8. API e Endpoints
+
+### 1. GET /
+
+**Descrição**: Renderiza a página principal do chatbot
+
+**Resposta**: HTML da interface web
+
+**Código de Status**: 200 OK
+
+### 2. POST /chat
+
+**Descrição**: Processa mensagens do usuário e retorna respostas do chatbot
+
+**Request Body**:
+
+```json
+{
+  "message": "Quais são os cursos oferecidos pelo Inteli?",
+  "session_id": "session_1699123456789"
+}
+```
+
+**Response**:
+
+```json
+{
+  "response": "O Inteli oferece os seguintes cursos...",
+  "session_id": "session_1699123456789"
+}
+```
+
+**Códigos de Status**:
+
+* 200: Sucesso
+* 400: Mensagem vazia
+* 500: Erro no processamento
+
+### 3. POST /reset
+
+**Descrição**: Reseta a conversa de uma sessão específica
+
+**Request Body**:
+
+```json
+{
+  "session_id": "session_1699123456789"
+}
+```
+
+**Response**:
+
+```json
+{
+  "message": "Conversa resetada com sucesso"
+}
+```
+
+**Códigos de Status**:
+
+* 200: Sucesso
+* 500: Erro no processamento
+
+### 4. GET /health
+
+**Descrição**: Verifica o status do servidor e contexto carregado
+
+**Response**:
+
+```json
+{
+  "status": "ok",
+  "context_loaded": true,
+  "context_size": 125000
+}
+```
+
+**Códigos de Status**: 200 OK
+
+***
+
+## 9. Interface do Usuário
+
+### Design System
+
+#### Paleta de Cores
+
+* **Azul Escuro**: #2B2D42 (background do cabeçalho)
+* **Vermelho Inteli**: #E63946 (elementos interativos)
+* **Cinza Claro**: #f8f9fa (background do chat)
+* **Branco**: #ffffff (mensagens do bot)
+* **Texto**: #2c3e50 (conteúdo principal)
+
+#### Tipografia
+
+* **Fonte Principal**: Segoe UI, Tahoma, Geneva, Verdana, sans-serif
+* **Tamanho Base**: 15px
+* **Line Height**: 1.6 (para melhor legibilidade)
+* **Espaçamento de Letras**: 0.5px (títulos)
+
+\*obs: isso não consta no BrandBook mas que será autorizado na próxima sprint
+
+### Componentes
+
+#### 1. Cabeçalho
+
+Contém logo do Inteli, título do assistente e botão de nova conversa (visível após primeira mensagem).
+
+**Características**:
+
+* Background azul escuro
+* Logo branca com filtro CSS
+* Informações institucionais
+* Botão discreto de reset
+
+#### 2. Área de Mensagens
+
+Exibe histórico da conversa com scroll automático.
+
+**Características**:
+
+* Background com gradiente sutil
+* Mensagens do usuário alinhadas à direita (vermelho)
+* Mensagens do bot alinhadas à esquerda (branco com borda azul)
+* Animação de fade-in ao adicionar mensagens
+
+#### 3. Indicador de Digitação
+
+Animação visual enquanto o bot processa a resposta.
+
+**Características**:
+
+* Três pontos pulsantes
+* Cor azul escuro
+* Animação sincronizada
+* Aparece apenas durante processamento
+
+#### 4. Chips de Sugestão
+
+Botões de exemplo para iniciar conversação.
+
+**Características**:
+
+* Borda vermelha
+* Hover com preenchimento vermelho
+* Texto clicável
+* Desaparecem após primeira interação
+
+***
+
+## Sistema de Prompts
+
+### Estrutura do Prompt do Sistema
+
+O prompt do sistema é construído dinamicamente e contém:
+
+#### 1. Identificação e Papel
+
+Define o chatbot como assistente especializado no Inteli.
+
+#### 2. Instruções Obrigatórias
+
+```
+1. Responder APENAS perguntas sobre o Inteli
+2. Buscar resposta no contexto fornecido
+3. Usar informações relevantes do contexto
+4. Citar detalhes específicos
+5. Recusar perguntas fora do escopo
+6. Não usar emojis
+7. Ser claro, objetivo e amigável
+```
+
+#### 3. Formatação de Respostas
+
+Diretrizes para formatação consistente:
+
+* Uso de parágrafos para organizar ideias
+* Listas com travessões e quebras de linha
+* Linha em branco antes de listas
+* Exemplo de formatação incluído no prompt
+
+#### 4. Contexto Completo
+
+Todo o conteúdo extraído dos PDFs é incluído no prompt, permitindo:
+
+* Acesso a informações detalhadas
+* Respostas precisas e verificáveis
+* Consistência com documentos oficiais
+
+#### 5. Instrução Final
+
+Reforça o uso do português brasileiro e exclusividade do contexto fornecido.
+
+### Configuração do Modelo
+
+```python
+generation_config = {
+    "temperature": 0.7,        # Balanceamento entre criatividade e precisão
+    "top_p": 0.95,             # Núcleo de probabilidade para diversidade
+    "top_k": 40,               # Número de tokens considerados
+    "max_output_tokens": 2048  # Limite de tokens na resposta
+}
+```
+
+### Configurações de Segurança
+
+Filtros aplicados para bloquear conteúdo inadequado:
+
+* Assédio: BLOCK\_MEDIUM\_AND\_ABOVE
+* Discurso de ódio: BLOCK\_MEDIUM\_AND\_ABOVE
+* Conteúdo sexual explícito: BLOCK\_MEDIUM\_AND\_ABOVE
+* Conteúdo perigoso: BLOCK\_MEDIUM\_AND\_ABOVE
+
+***
+
+## Exemplo de Uso
+
+### Cenário: Consulta sobre Cursos Oferecidos
+
+#### Interação Completa
+
+**Usuário**: Quais são os cursos oferecidos pelo Inteli?
+
+**Chatbot**: O Inteli oferece os seguintes cursos de graduação, conforme o Edital do Processo Seletivo Inteli - Graduação 2026:
+
+* Administração (ADM Tech)
+* Ciência da Computação
+* Engenharia da Computação
+* Engenharia de Software
+* Sistemas de Informação
+
+Esses cursos são presenciais e ministrados em período integral durante os dois primeiros anos, e em período parcial nos anos seguintes.
+
+### Análise da Resposta
+
+#### Elementos Presentes
+
+1. **Contextualização**: Menciona a fonte da informação (Edital)
+2. **Formatação Clara**: Lista organizada com travessões
+3. **Informações Completas**: Nome completo dos cursos
+4. **Detalhes Adicionais**: Informação sobre modalidade e período
+
+#### Fluxo Técnico
+
+```
+1. Usuário digita pergunta no input
+2. JavaScript captura evento de envio
+3. Mensagem enviada via POST /chat
+4. Flask recebe e valida a mensagem
+5. Verifica/cria sessão do usuário
+6. Primeira mensagem: envia contexto do sistema
+7. Envia pergunta do usuário ao Gemini
+8. Gemini processa com contexto completo
+9. Resposta retornada ao Flask
+10. Flask formata JSON de resposta
+11. JavaScript recebe e renderiza mensagem
+12. Scroll automático para última mensagem
+13. Botão "Nova Conversa" torna-se visível
+```
+
+### Outros Exemplos de Uso
+
+#### Pergunta sobre Processo Seletivo
+
+**Pergunta**: Como funciona o processo seletivo?
+
+**Tipo de Resposta Esperada**: Informações sobre etapas, datas, requisitos e critérios de avaliação baseados no edital.
+
+#### Pergunta sobre Infraestrutura
+
+**Pergunta**: Qual é a infraestrutura do Inteli?
+
+**Tipo de Resposta Esperada**: Descrição das instalações, laboratórios, espaços de convivência e recursos tecnológicos.
+
+#### Pergunta Fora do Escopo
+
+**Pergunta**: Qual é a capital da França?
+
+**Resposta Esperada**: "Desculpe, sou especializado apenas em informações sobre o Inteli."
+
+### Segurança
+
+#### Boas Práticas Implementadas
+
+1. **Variáveis de Ambiente**: API keys não versionadas
+2. **CORS Configurado**: Controle de origens permitidas
+3. **Validação de Input**: Verificação de mensagens vazias
+4. **Rate Limiting**: Considerar implementação para produção
+
+***
+
+## Conclusão
+
+Este chatbot representa uma solução completa e profissional para fornecer informações sobre o Inteli. A arquitetura modular permite fácil manutenção e extensão, enquanto a integração com Google Gemini garante respostas de alta qualidade baseadas em fontes oficiais.
+
+
+# Chatbot Inteli (/docs/sprint-2/chatbot-v1)
+
+<Cards>
+  <Card title="Documentação Completa" description="Documentação técnica completa do Chatbot Inteli, incluindo arquitetura, instalação e uso." href="/docs/sprint-2/chatbot-v1/documentacao" />
+</Cards>
+
+
+# Análise Financeira Atualizada (/docs/sprint-2/entendimento-do-negocio/analise-financeira-atualizada)
+
+# Introdução
+
+  Esta documentação traz a análise financeira atualizada, considerando os custos apenas de operação e necessários para manter o projeto rodando durante um período de 12 meses após o seu desenvolvimento completo. Além disso, estes custos desconsideram as ferramentas e outro gastos, como jurídico, contabilidade, internet, entre outros, que o parceiro já possui. A planilha com o detalhamento dos gastos de operação pode ser encontrada [aqui](https://docs.google.com/spreadsheets/d/1Rfc-X_f0lI5Y1oXJLWrr4Uq6wzQ6qkgw_KJwlaRfr2g/edit?usp=sharing)
+
+# Investimento
+
+  O investimento inicial engloba todos os custos necessários para começar a implementação e operação do projeto, incluindo custo de contratação da equipe e aquisição dos equipamentos.
+
+| Item                           | Quantidade | Valor (R$)     |
+| ------------------------------ | ---------- | -------------- |
+| Contratação de Funcionários    | 3          | 13.545,00      |
+| Notebooks para Desenvolvedores | 3          | 16.200,00      |
+| Tablet                         | 1          | 2.500,00       |
+| Cachorro Robô                  | 1          | 155.966,44     |
+| **Total Investimento Inicial** | —          | **188.211,44** |
+
+# Custos Operacionais
+
+  Os custos operacionais representam as despesas mensais para manter o projeto funcionando. Entre eles estão o salário da equipe técnica, assim como seus benefícios, e a infraestrutura digital. Estes custos garantem a viabilidade do projeto, garantindo que possíveis manutenções, correções e atualizações possam ser feitas conforme necessário.
+
+| Item                            | Quantidade | Valor (R$)    |
+| ------------------------------- | ---------- | ------------- |
+| Estagiário de TI                | 2          | 3.625,00      |
+| Engenheiro de Computação Sênior | 1          | 11.600,00     |
+| Benefícios                      | 3          | 1.160,00      |
+| Armazenamento AWS               | 4          | 152,40        |
+| **Total Mensal de Operação**    | —          | **16.537,40** |
+
+## Gasto Total
+
+  A soma do investimento inicial e dos custos operacionais projetados para um período de 12 meses representa o custo total estimado para manter o projeto rodando.
+
+| Categoria               | Valor (R$)     |
+| ----------------------- | -------------- |
+| Investimento Inicial    | 188.211,44     |
+| Operação (12 meses)     | 198.448,80     |
+| **Total Geral (1 ano)** | **386.660,24** |
+
+# Conclusão
+
+  Após o desenvolvimento, o projeto entra em uma fase de manutenção e operação contínua, exigindo uma estrutura mínima composta por profissionais técnicos, equipamentos e serviços de nuvem.\
+O custo anual estimado de **R$ 386.660,24** cobre todos os recursos necessários para garantir o funcionamento estável, suporte e atualização do sistema ao longo de um ano.
+
+  Essa análise permite compreender a sustentabilidade financeira da solução e será atualizada conforme necessário durante o desenvolvimento do projeto.
+
+
 # Guide Line (/docs/sprint-2/guia-de-opera%C3%A7%C3%A3o/guide-line)
 
 # Guia de Operação e Segurança - Robô Unitree Go2
@@ -7590,148 +8512,6 @@ Via navbar:
 # Conclusão
 
 O protótipo de alta fidelidade documentado aqui representa a versão visual final do aplicativo do visitante. Ele estabelece como será a experiência completa, desde a chegada do usuário ao tour até sua interação com a LIA e a navegação pelas informações exibidas. Esta documentação serve como referência para designers, desenvolvedores e avaliadores durante a construção oficial do aplicativo.
-
-
-# Template de Pasta (/docs/sprint-2/template-pasta)
-
-<Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
-</Cards>
-
-
-# Título do Documento (/docs/sprint-2/template-pasta/template)
-
-
-
-
-
-# Cabeçalho Principal
-
-## Callouts/Admonitions
-
-<Callout type="info">
-  Esta é uma nota importante para destacar algo relevante no documento.
-</Callout>
-
-<Callout type="warn">
-  Esta é uma advertência para chamar a atenção para um possível problema.
-</Callout>
-
-<Callout>
-  Hello World
-</Callout>
-
-<Callout title="Title">
-  Hello World
-</Callout>
-
-<Callout title="Title" type="error">
-  Hello World
-</Callout>
-
-## Bloco de Código
-
-```python
-# Código de exemplo em Python
-def exemplo():
-    print("Olá, Mundo!")
-```
-
-```rust title="Exemplo em Rust com título"
-// Código de exemplo em Rust
-fn exemplo() {
-    println!("Olá, Mundo!");
-}
-```
-
-## Flowcharts MermaidJS
-
-<Mermaid
-  chart="flowchart TD
-U[Usuário] --> P[Proxy Reverso]
-
-P --> FE[React.js Frontend]
-P --> C[ASP.NET Core]
-P --> FA[FastAPI]
-P --> F[Flask]
-
-B[Broker MQTT] -->|MQTT| C
-
-C -->|Query e HTTP| PG[(PostgreSQL)]
-C -->|HTTP| BUCKET[(MinIO DataLake)]
-
-FA -->|Função Direta| ML[Módulo de Retreinamento]
-FA -->|Função Direta| IF[Gerador de Inferências]
-FA -->|HTTP| BUCKET
-
-F -->|Query e HTTP| PG
-F -->|HTTP| BUCKET
-"
-/>
-
-## Imagens e Links
-
-<img alt="Imagem" src={__img0} placeholder="blur" />
-
-<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
-
-[Link](https://www.example.com)
-
-[Link Relativo](../template)
-
-## Estrutura de pastas
-
-<Files>
-  <Folder name="sprint-1" defaultOpen>
-    <Folder name="entendimento-do-negocio" defaultOpen>
-      <File name="analise-financeira.mdx" />
-
-      <File name="canvas-proposta-de-valor.mdx" />
-
-      <File name="index.mdx" />
-
-      <File name="matriz-de-risco.mdx" />
-
-      <File name="matriz-oceano-azul.mdx" />
-
-      <File name="meta.json" />
-    </Folder>
-
-    <Folder name="entendimento-do-projeto" defaultOpen>
-      <File name="index.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="proposta-de-arquitetura.mdx" />
-
-      <File name="requisitos-funcionais.mdx" />
-
-      <File name="requisitos-nao-funcionais.mdx" />
-    </Folder>
-
-    <Folder name="entendimento-do-usuario" defaultOpen>
-      <Folder name="personas" defaultOpen>
-        <File name="index.mdx" />
-
-        <File name="persona-1.mdx" />
-      </Folder>
-
-      <File name="index.mdx" />
-
-      <File name="mapa-de-jornada-do-usuario.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="user-stories.mdx" />
-    </Folder>
-
-    <File name="analise-de-impacto-etico.mdx" />
-
-    <File name="index.mdx" />
-
-    <File name="meta.json" />
-  </Folder>
-</Files>
 
 
 # Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/wireframes)
