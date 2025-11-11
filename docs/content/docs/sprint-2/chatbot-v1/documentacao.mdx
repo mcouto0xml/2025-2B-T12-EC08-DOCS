@@ -3,8 +3,8 @@ title: Chatbot Inteli v1
 description: Documentação completa do assistente virtual especializado do Instituto de Tecnologia e Liderança
 ---
 
-import { Steps } from 'fumadocs-ui/components/steps';
-import { Callout } from 'fumadocs-ui/components/callout';
+import { Steps } from "fumadocs-ui/components/steps";
+import { Callout } from "fumadocs-ui/components/callout";
 
 &emsp;O Chatbot Inteli é um assistente virtual especializado desenvolvido para responder perguntas sobre o Instituto de Tecnologia e Liderança. O sistema utiliza a tecnologia de IA generativa do google (Gemini) para processar consultas e fornecer respostas precisas baseadas em documentos oficiais do instituto.
 
@@ -18,21 +18,21 @@ Fornecer um canal de comunicação automatizado e eficiente para estudantes, can
 
 ### Características Principais
 
-*   Respostas contextualizadas baseadas em documentos oficiais
-*   Interface web moderna e responsiva
-*   Foco exclusivo em informações do Inteli
-*   Processamento de múltiplos documentos PDF
+- Respostas contextualizadas baseadas em documentos oficiais
+- Interface web moderna e responsiva
+- Foco exclusivo em informações do Inteli
+- Processamento de múltiplos documentos PDF
 
 ### Interface do Chatbot
 
-<div style={{textAlign: 'center'}}>
-<sup>Figura 1: Interface do Chatbot Inteli</sup>
+<div style={{ textAlign: "center" }}>
+  <sup>Figura 1: Interface do Chatbot Inteli</sup>
 </div>
 
 ![Interface do Chatbot](./chatbot-interface.png)
 
-<div style={{textAlign: 'center'}}>
-<sub>Fonte: Produzida pelos Autores (2025).</sub>
+<div style={{ textAlign: "center" }}>
+  <sub>Fonte: Produzida pelos Autores (2025).</sub>
 </div>
 
 ---
@@ -65,26 +65,26 @@ Usuário -> Interface Web -> Servidor Flask -> Google Gemini API -> Processament
 
 ### Backend
 
-*   **Python 3.12**: Linguagem de programação principal
-*   **Flask 3.0.0**: Framework web para criação do servidor
-*   **Flask-CORS 4.0.0**: Gerenciamento de políticas de Cross-Origin Resource Sharing
-*   **Google Generative AI**: SDK para integração com modelos Gemini
-*   **Python-dotenv 1.0.0**: Gerenciamento de variáveis de ambiente
+- **Python 3.12**: Linguagem de programação principal
+- **Flask 3.0.0**: Framework web para criação do servidor
+- **Flask-CORS 4.0.0**: Gerenciamento de políticas de Cross-Origin Resource Sharing
+- **Google Generative AI**: SDK para integração com modelos Gemini
+- **Python-dotenv 1.0.0**: Gerenciamento de variáveis de ambiente
 
 ### Processamento de Documentos
 
-*   **PyPDF2 3.0.1**: Biblioteca para extração de texto de arquivos PDF
+- **PyPDF2 3.0.1**: Biblioteca para extração de texto de arquivos PDF
 
 ### Frontend
 
-*   **HTML5**: Estrutura da interface
-*   **CSS3**: Estilização e design responsivo
-*   **JavaScript ES6**: Interatividade e comunicação com API
+- **HTML5**: Estrutura da interface
+- **CSS3**: Estilização e design responsivo
+- **JavaScript ES6**: Interatividade e comunicação com API
 
 ### Infraestrutura
 
-*   **Google Gemini 2.0 Flash**: Modelo de linguagem para geração de respostas
-*   **Ambiente Virtual Python**: Isolamento de dependências
+- **Google Gemini 2.0 Flash**: Modelo de linguagem para geração de respostas
+- **Ambiente Virtual Python**: Isolamento de dependências
 
 ---
 
@@ -92,9 +92,9 @@ Usuário -> Interface Web -> Servidor Flask -> Google Gemini API -> Processament
 
 ### Pré-requisitos
 
-*   Python 3.12 ou superior
-*   Conta Google Cloud com acesso ao Gemini API
-*   Navegador web moderno (Chrome, Firefox, Edge, Safari)
+- Python 3.12 ou superior
+- Conta Google Cloud com acesso ao Gemini API
+- Navegador web moderno (Chrome, Firefox, Edge, Safari)
 
 <Steps>
 ### 1. Clonar o Repositório
@@ -113,11 +113,13 @@ python -m venv venv
 ### 3. Ativar Ambiente Virtual
 
 **Windows (PowerShell):**
+
 ```bash
 .\venv\Scripts\Activate.ps1
 ```
 
 **Linux/Mac:**
+
 ```bash
 source venv/bin/activate
 ```
@@ -147,10 +149,11 @@ python process_pdfs.py
 ```
 
 Este comando irá:
-*   Ler os arquivos PDF na pasta raiz
-*   Extrair todo o texto dos documentos
-*   Limpar e formatar o conteúdo
-*   Salvar o contexto em `inteli_context.txt`
+
+- Ler os arquivos PDF na pasta raiz
+- Extrair todo o texto dos documentos
+- Limpar e formatar o conteúdo
+- Salvar o contexto em `inteli_context.txt`
 
 ### 7. Iniciar o Servidor
 
@@ -159,6 +162,7 @@ python app.py
 ```
 
 O servidor estará disponível em: http://localhost:5000
+
 </Steps>
 
 ---
@@ -198,46 +202,46 @@ test-adk/
 
 O sistema processa automaticamente documentos PDF para criar uma base de conhecimento para a IA. O processo inclui:
 
-*   Extração de texto página por página
-*   Limpeza de caracteres especiais e formatação
-*   Remoção de espaços e quebras de linha excessivas
-*   Concatenação de múltiplos documentos com identificação da fonte
+- Extração de texto página por página
+- Limpeza de caracteres especiais e formatação
+- Remoção de espaços e quebras de linha excessivas
+- Concatenação de múltiplos documentos com identificação da fonte
 
 ### 2. Gerenciamento de Sessões
 
 Cada usuário possui uma sessão única identificada por timestamp, permitindo:
 
-*   Manutenção do histórico de conversação
-*   Contexto contínuo durante toda a interação
-*   Isolamento entre diferentes usuários
-*   Capacidade de resetar a conversa
+- Manutenção do histórico de conversação
+- Contexto contínuo durante toda a interação
+- Isolamento entre diferentes usuários
+- Capacidade de resetar a conversa
 
 ### 3. Respostas Contextualizadas
 
 O chatbot utiliza todo o contexto extraído dos documentos para:
 
-*   Fornecer respostas precisas e detalhadas
-*   Citar informações específicas dos documentos
-*   Manter consistência com fontes oficiais
-*   Recusar perguntas fora do escopo do Inteli
+- Fornecer respostas precisas e detalhadas
+- Citar informações específicas dos documentos
+- Manter consistência com fontes oficiais
+- Recusar perguntas fora do escopo do Inteli
 
 ### 4. Interface Responsiva
 
 A interface se adapta a diferentes tamanhos de tela:
 
-*   Design mobile-first
-*   Elementos interativos otimizados para touch
-*   Layout que se ajusta automaticamente
-*   Experiência consistente em todos os dispositivos
+- Design mobile-first
+- Elementos interativos otimizados para touch
+- Layout que se ajusta automaticamente
+- Experiência consistente em todos os dispositivos
 
 ### 5. Validação de Escopo
 
 Sistema inteligente que:
 
-*   Identifica se a pergunta é sobre o Inteli
-*   Rejeita educadamente consultas fora do escopo
-*   Mantém o foco nas informações institucionais
-*   Orienta o usuário sobre tópicos disponíveis
+- Identifica se a pergunta é sobre o Inteli
+- Rejeita educadamente consultas fora do escopo
+- Mantém o foco nas informações institucionais
+- Orienta o usuário sobre tópicos disponíveis
 
 ---
 
@@ -248,7 +252,7 @@ Sistema inteligente que:
 O sistema processa os seguintes documentos oficiais:
 
 1. **Livro_Inteli_PDF_distribuicao.pdf**: Documento institucional com informações gerais sobre o Inteli
-2. **Edital-Processo-Seletivo-Inteli_-Graduacao-2026_AJUSTADO.pdf**: Edital oficial do processo seletivo
+2. **Edital-Processo-Seletivo-Inteli\_-Graduacao-2026_AJUSTADO.pdf**: Edital oficial do processo seletivo
 
 ### Algoritmo de Extração
 
@@ -256,7 +260,7 @@ O sistema processa os seguintes documentos oficiais:
 def extract_text_from_pdf(pdf_path):
     """
     Extrai texto de arquivo PDF usando PyPDF2
-    
+
     Processo:
     1. Abre o arquivo em modo binário
     2. Cria leitor PDF
@@ -270,19 +274,19 @@ def extract_text_from_pdf(pdf_path):
 
 O processo de limpeza remove:
 
-*   Múltiplas quebras de linha consecutivas (reduzidas para duas)
-*   Espaços duplicados ou excessivos
-*   Caracteres de controle desnecessários
-*   Espaços em branco no início e fim
+- Múltiplas quebras de linha consecutivas (reduzidas para duas)
+- Espaços duplicados ou excessivos
+- Caracteres de controle desnecessários
+- Espaços em branco no início e fim
 
 ### Armazenamento
 
 O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) para:
 
-*   Rápido carregamento na inicialização
-*   Facilitar debugging e validação
-*   Permitir atualizações incrementais
-*   Reduzir processamento repetitivo
+- Rápido carregamento na inicialização
+- Facilitar debugging e validação
+- Permitir atualizações incrementais
+- Reduzir processamento repetitivo
 
 ---
 
@@ -301,6 +305,7 @@ O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) 
 **Descrição**: Processa mensagens do usuário e retorna respostas do chatbot
 
 **Request Body**:
+
 ```json
 {
   "message": "Quais são os cursos oferecidos pelo Inteli?",
@@ -309,6 +314,7 @@ O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) 
 ```
 
 **Response**:
+
 ```json
 {
   "response": "O Inteli oferece os seguintes cursos...",
@@ -317,15 +323,17 @@ O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) 
 ```
 
 **Códigos de Status**:
-*   200: Sucesso
-*   400: Mensagem vazia
-*   500: Erro no processamento
+
+- 200: Sucesso
+- 400: Mensagem vazia
+- 500: Erro no processamento
 
 ### 3. POST /reset
 
 **Descrição**: Reseta a conversa de uma sessão específica
 
 **Request Body**:
+
 ```json
 {
   "session_id": "session_1699123456789"
@@ -333,6 +341,7 @@ O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) 
 ```
 
 **Response**:
+
 ```json
 {
   "message": "Conversa resetada com sucesso"
@@ -340,14 +349,16 @@ O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) 
 ```
 
 **Códigos de Status**:
-*   200: Sucesso
-*   500: Erro no processamento
+
+- 200: Sucesso
+- 500: Erro no processamento
 
 ### 4. GET /health
 
 **Descrição**: Verifica o status do servidor e contexto carregado
 
 **Response**:
+
 ```json
 {
   "status": "ok",
@@ -366,20 +377,20 @@ O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) 
 
 #### Paleta de Cores
 
-*   **Azul Escuro**: #2B2D42 (background do cabeçalho)
-*   **Vermelho Inteli**: #E63946 (elementos interativos)
-*   **Cinza Claro**: #f8f9fa (background do chat)
-*   **Branco**: #ffffff (mensagens do bot)
-*   **Texto**: #2c3e50 (conteúdo principal)
+- **Azul Escuro**: #2B2D42 (background do cabeçalho)
+- **Vermelho Inteli**: #E63946 (elementos interativos)
+- **Cinza Claro**: #f8f9fa (background do chat)
+- **Branco**: #ffffff (mensagens do bot)
+- **Texto**: #2c3e50 (conteúdo principal)
 
 #### Tipografia
 
-*   **Fonte Principal**: Segoe UI, Tahoma, Geneva, Verdana, sans-serif
-*   **Tamanho Base**: 15px
-*   **Line Height**: 1.6 (para melhor legibilidade)
-*   **Espaçamento de Letras**: 0.5px (títulos)
+- **Fonte Principal**: Segoe UI, Tahoma, Geneva, Verdana, sans-serif
+- **Tamanho Base**: 15px
+- **Line Height**: 1.6 (para melhor legibilidade)
+- **Espaçamento de Letras**: 0.5px (títulos)
 
-*obs: isso não consta no BrandBook mas que será autorizado na próxima sprint
+\*obs: isso não consta no BrandBook mas que será autorizado na próxima sprint
 
 ### Componentes
 
@@ -388,40 +399,44 @@ O contexto processado é salvo em arquivo de texto plano (`inteli_context.txt`) 
 Contém logo do Inteli, título do assistente e botão de nova conversa (visível após primeira mensagem).
 
 **Características**:
-*   Background azul escuro
-*   Logo branca com filtro CSS
-*   Informações institucionais
-*   Botão discreto de reset
+
+- Background azul escuro
+- Logo branca com filtro CSS
+- Informações institucionais
+- Botão discreto de reset
 
 #### 2. Área de Mensagens
 
 Exibe histórico da conversa com scroll automático.
 
 **Características**:
-*   Background com gradiente sutil
-*   Mensagens do usuário alinhadas à direita (vermelho)
-*   Mensagens do bot alinhadas à esquerda (branco com borda azul)
-*   Animação de fade-in ao adicionar mensagens
+
+- Background com gradiente sutil
+- Mensagens do usuário alinhadas à direita (vermelho)
+- Mensagens do bot alinhadas à esquerda (branco com borda azul)
+- Animação de fade-in ao adicionar mensagens
 
 #### 3. Indicador de Digitação
 
 Animação visual enquanto o bot processa a resposta.
 
 **Características**:
-*   Três pontos pulsantes
-*   Cor azul escuro
-*   Animação sincronizada
-*   Aparece apenas durante processamento
+
+- Três pontos pulsantes
+- Cor azul escuro
+- Animação sincronizada
+- Aparece apenas durante processamento
 
 #### 4. Chips de Sugestão
 
 Botões de exemplo para iniciar conversação.
 
 **Características**:
-*   Borda vermelha
-*   Hover com preenchimento vermelho
-*   Texto clicável
-*   Desaparecem após primeira interação
+
+- Borda vermelha
+- Hover com preenchimento vermelho
+- Texto clicável
+- Desaparecem após primeira interação
 
 ---
 
@@ -451,18 +466,18 @@ Define o chatbot como assistente especializado no Inteli.
 
 Diretrizes para formatação consistente:
 
-*   Uso de parágrafos para organizar ideias
-*   Listas com travessões e quebras de linha
-*   Linha em branco antes de listas
-*   Exemplo de formatação incluído no prompt
+- Uso de parágrafos para organizar ideias
+- Listas com travessões e quebras de linha
+- Linha em branco antes de listas
+- Exemplo de formatação incluído no prompt
 
 #### 4. Contexto Completo
 
 Todo o conteúdo extraído dos PDFs é incluído no prompt, permitindo:
 
-*   Acesso a informações detalhadas
-*   Respostas precisas e verificáveis
-*   Consistência com documentos oficiais
+- Acesso a informações detalhadas
+- Respostas precisas e verificáveis
+- Consistência com documentos oficiais
 
 #### 5. Instrução Final
 
@@ -483,10 +498,10 @@ generation_config = {
 
 Filtros aplicados para bloquear conteúdo inadequado:
 
-*   Assédio: BLOCK_MEDIUM_AND_ABOVE
-*   Discurso de ódio: BLOCK_MEDIUM_AND_ABOVE
-*   Conteúdo sexual explícito: BLOCK_MEDIUM_AND_ABOVE
-*   Conteúdo perigoso: BLOCK_MEDIUM_AND_ABOVE
+- Assédio: BLOCK_MEDIUM_AND_ABOVE
+- Discurso de ódio: BLOCK_MEDIUM_AND_ABOVE
+- Conteúdo sexual explícito: BLOCK_MEDIUM_AND_ABOVE
+- Conteúdo perigoso: BLOCK_MEDIUM_AND_ABOVE
 
 ---
 
@@ -500,11 +515,11 @@ Filtros aplicados para bloquear conteúdo inadequado:
 
 **Chatbot**: O Inteli oferece os seguintes cursos de graduação, conforme o Edital do Processo Seletivo Inteli - Graduação 2026:
 
-*   Administração (ADM Tech)
-*   Ciência da Computação
-*   Engenharia da Computação
-*   Engenharia de Software
-*   Sistemas de Informação
+- Administração (ADM Tech)
+- Ciência da Computação
+- Engenharia da Computação
+- Engenharia de Software
+- Sistemas de Informação
 
 Esses cursos são presenciais e ministrados em período integral durante os dois primeiros anos, e em período parcial nos anos seguintes.
 
