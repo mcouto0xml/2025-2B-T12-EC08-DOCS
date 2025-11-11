@@ -1,0 +1,5 @@
+{
+  "title": "Modelagem do Banco de Dados",
+  "description": "Define a modelagem do banco de dados para o projeto, incluindo requisitos, proposta de arquitetura e documentação conforme padrões NIST.",
+  "pages": ["modelagem-bd"]
+}
