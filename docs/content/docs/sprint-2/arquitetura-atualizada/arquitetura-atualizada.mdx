@@ -67,8 +67,6 @@ A implementação do STT permite que visitantes façam perguntas naturalmente, s
 
 O módulo de TTS sintetiza as respostas textuais em áudio, permitindo que o robô "fale" com os visitantes. Após a validação do conteúdo, o texto é convertido em áudio com voz natural, proporcionando uma experiência interativa e humanizada.
 
-Este módulo é fundamental para a personalidade do robô, permitindo que ele se comunique de forma clara e envolvente com os visitantes durante todo o tour.
-
 ### Modelo de Validação
 
 <Mermaid chart="graph TB
@@ -86,16 +84,6 @@ O modelo de validação é uma camada de segurança que verifica todas as intera
 - Alinhado com os valores e diretrizes do Inteli
 
 Além disso, o modelo de validação registra suas decisões no banco de dados sequencial, criando uma trilha de auditoria que pode ser utilizada para melhorias contínuas do sistema e análise de segurança.
-
-### Personalidade do Robô
-
-<Mermaid chart="graph LR
-    A[Perfil do robô] --> B[Personalidade do robô]
-    B --> C[LLM API]" />
-
-O módulo de personalidade do robô define as características comportamentais e o tom de voz do assistente virtual. Administradores podem configurar aspectos como formalidade, entusiasmo e estilo de comunicação através da interface de perfil do robô.
-
-Esta configuração é utilizada pela LLM API para ajustar as respostas geradas, garantindo consistência na personalidade do robô ao longo de todas as interações. A personalidade pode ser ajustada conforme o público-alvo de cada tour, tornando a experiência mais adequada e envolvente.
 
 ## Camada de Banco de Dados
 
@@ -174,10 +162,6 @@ O serviço de documentos é responsável por receber uploads de documentos insti
 - Indexa os dados no banco vetorial
 
 A manutenção deste serviço garante que o conhecimento do chatbot esteja sempre atualizado com as informações mais recentes da instituição.
-
-#### Personalidade do Robô
-
-Conforme descrito na camada de modelo, este serviço gerencia as configurações de personalidade que influenciam todas as respostas geradas pela LLM.
 
 ### API
 
@@ -365,20 +349,6 @@ Interface administrativa de emergência com funcionalidades adicionais:
 
 - Pausa e retomada de tours
 - Redirecionamento do robô
-
-#### Perfil do Robô
-
-<Mermaid chart="graph LR
-    A[Perfil do robô] --> B[Personalidade do robô]" />
-
-Interface para configuração da personalidade do robô:
-
-- Tom de voz (formal, casual, entusiasta)
-- Estilo de linguagem
-- Tipo de saudação
-- Comportamento em diferentes situações
-
-As configurações são aplicadas imediatamente e afetam todas as interações subsequentes.
 
 #### Monitoramento da Tour
 
@@ -626,7 +596,6 @@ As principais mudanças em relação à arquitetura original incluem:
 
 - **Módulo de STT**: Adicionado para suportar perguntas por voz
 - **Visitas**: Serviço dedicado ao gerenciamento de tours
-- **Personalidade do Robô**: Sistema de configuração de comportamento
 - **Monitoramento da Tour**: Dashboard em tempo real para administradores
 - **Dashboard Staff**: Interface dedicada para equipe interna
 
