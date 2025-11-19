@@ -1,0 +1,6 @@
+{
+    "title": "Frontend",
+    "description": "Frontend do projeto, onde o usuário terá o contato com a aplicação sem ter que lidar com a complexibilidade do backend.",
+    "pages": ["frontend-staff"]
+  }
+  
