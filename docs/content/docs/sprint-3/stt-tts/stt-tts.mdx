@@ -1,9 +1,9 @@
 ---
-title: Laika AI Audio Assistant
+title: LIA AI Audio Assistant
 description: Documentação completa do assistente de voz com pipeline de processamento STT-LLM-TTS
 ---
 
-O Laika AI Audio Assistant é um assistente virtual de voz que utiliza tecnologias de IA avançadas para processar áudio, gerar respostas inteligentes e convertê-las novamente em áudio. O sistema implementa uma pipeline completa de Speech-to-Text (STT), processamento via LLM e Text-to-Speech (TTS), proporcionando uma experiência conversacional natural.
+O LIA AI Audio Assistant é um assistente virtual de voz que utiliza tecnologias de IA avançadas para processar áudio, gerar respostas inteligentes e convertê-las novamente em áudio. O sistema implementa uma pipeline completa de Speech-to-Text (STT), processamento via LLM e Text-to-Speech (TTS), proporcionando uma experiência conversacional natural.
 
 ---
 
@@ -26,10 +26,10 @@ Plataforma de conversação por voz baseada em inteligência artificial que proc
 ### Interface do Assistente
 
 <div style={{ textAlign: "center" }}>
-  <sup>Figura 1: Interface do Laika AI Audio Assistant</sup>
+  <sup>Figura 1: Interface do LIA AI Audio Assistant</sup>
 </div>
 
-![Interface do Laika](./laika-interface.png)
+![Interface da LIA](./laika-interface.png)
 
 <div style={{ textAlign: "center" }}>
   <sub>Fonte: Produzida pelos Autores (2025).</sub>
@@ -516,8 +516,8 @@ pipeline.process_all_audio_files()
 #### 1. Cabeçalho
 
 ```python
-st.title("Demo Laika")
-st.markdown("### Converse com a Laika usando áudio!")
+st.title("Demo LIA")
+st.markdown("### Converse com a LIA usando áudio!")
 ```
 
 **Características:**
@@ -910,7 +910,7 @@ sucesso, audio_resposta, transcricao, resposta = pipeline.process_audio(
 if sucesso:
     print("Processamento concluído com sucesso!")
     print(f"Você disse: {transcricao}")
-    print(f"Laika respondeu: {resposta}")
+    print(f"LIA respondeu: {resposta}")
     print(f"Áudio salvo em: {audio_resposta}")
     
     # Usar áudio gerado
