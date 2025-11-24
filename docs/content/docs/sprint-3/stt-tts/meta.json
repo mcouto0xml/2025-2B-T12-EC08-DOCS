@@ -1,0 +1,5 @@
+{
+  "title": "Laika AI Audio Assistant",
+  "description": "Documentação do assistente de voz com pipeline STT-LLM-TTS.",
+  "pages": ["documentacao"]
+}
