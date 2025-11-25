@@ -18,7 +18,19 @@ title: Simulação
 
 ### Gazebo
 
+&emsp; Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades:
+    - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa;
+    - Importação de modelos de controlador do Unitree Go2;
+    - Importação do modelo 3D do Inteli (criado por @Melomm);
+    - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
+
 ### Unity
+&emsp; Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
+
+
+
+    - Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
+    - Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints;
 
 ### Docker
 
@@ -31,20 +43,16 @@ title: Simulação
 
 ---
 
-## Novas Funcionalidades
-
-### Gazebo
-
-### Unity
-
-### Docker
-
----
 
 ## Problemas e Impeditivos Encontrados
 ### Gazebo
+- Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR
 
 ### Unity
+- Problemas de importação de modelos de espaço para o simulador;
+- Dificuldade de comunicação do ROS com o sistema;
+- Dificuldade de achar utilidade nas informações transferidas
+- Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
 
 ### Docker
 
@@ -53,13 +61,18 @@ title: Simulação
 
 ## Próximos Passos
 
-
+- Começar testes de ROS no robô físico;
+- Começar testes de LiDAR no robô físico;
+- Começar a integração dos repositórios encontrados com o robô físico;
 
 ---
 
 ## Aprendizados
 
 ### Gazebo
+- Comunicação código e robô via ROS2;
+- Como funciona a nuvem de pontos do LiDAR;
+- Diversos modelos de navegação autônoma e controle manual para o Go2
 
 ### Unity
 
