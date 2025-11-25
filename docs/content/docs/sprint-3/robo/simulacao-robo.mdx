@@ -10,21 +10,29 @@ title: Simulação
 - Simular o robô Unitree Go2 no Gazebo
 - Continuar testes no ambiente Unity (Autonomous Stack GO2)
 - Entender como funciona os tópicos do LiDAR do GO2
+- Utilizar Docker para compartimentalizar e facilitar uso do ROS2
 
 ---
 
 ## Atividades Realizadas na Sprint 3
+&emsp; Durante a sprint, o grupo se dividiu em 3 frentes principais para o trabalho com simuladores: ROS2 com Gazebo, Unity e Docker.
+
+&emsp; Primeiramente, a equipe de Gazebo focou em estudar as funcionalidades dele e do RViz, sendo ele nosso simulador principal devido à sua leveza relativa comparado à outros programas. Ainda no mesmo, importamos modelos de controlador do Go2, assim como um modelo 3D do Inteli criado pelo @Melomm. Por fim, testamos o algorítimo NAV2 para navegação 2d autônoma, mas não conseguimos encontrar nenhuma implementação do NAV2 que funcionaria com nosso robô e que utilizaria o SLAM.
+&emsp; A equipe de Unity tentou, durante a sprint, entender se os tópicos do LiDAR do simulador funcionavam de forma igual ao real, além de criar um ambiente de testes que representasse o térreo do Inteli e manipular os waypoints. Durante esse processo, tivemos sérios problemas com relação a qualquer tipo de alteração no simulador, já que foi tido como desnecessários o trabalho que teríamos para fazer a engenharia reversa do simulador para conseguirmos editar qualquer coisa, e ainda ter que passar mais tempo estudando o modelo.
 
 
 ---
 
-## Novas Funcionalidades
-
-
-
----
 
 ## Problemas e Impeditivos Encontrados
+
+### Geral
+- Não conseguimos testar o ROS no robô direito, pois gastamos um tempo considerável tentando configurar o ambiente ROS
+- Nesse gancho, a instalação do ROS2 causou problemas consideráveis, principalmente em sua dependência de uma versão específica do Ubuntu (20.04) para utilizarmos nos sistemas desejados. Além de mais da metade do grupo ter que gastar tempo configurando o dual boot, um membro em específico teve problemas tão graves que resultou numa corrupção dos outros sistemas operacionais.
+- A Documentação de Ros2 é boa, mas a da Unitree deixa a desejar, com a integração entre ambos sendo pior ainda.
+
+### Gazebo
+- Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR
 
 
 ---
