@@ -1,157 +1,204 @@
 ---
-title: Protótipo de Alta Fidelidade - Dashboard Staff
+title: Protótipo de Alta Fidelidade - App Staff
 ---
 
-# Protótipo de Alta Fidelidade — Dashboard do Staff
+# Protótipo de Alta Fidelidade — Aplicativo do Staff
 
-O Dashboard do Staff foi projetado para oferecer uma visão centralizada das operações relacionadas aos tours guiados, permitindo que os colaboradores acompanhem métricas essenciais, gerenciem documentos que alimentam o modelo de IA e administrem usuários internos. O objetivo é proporcionar uma interface clara, funcional e segura para apoiar decisões rápidas e melhorar o fluxo de trabalho do staff no campus do Inteli.
+O aplicativo do Staff foi desenvolvido para apoiar os colaboradores responsáveis pelos tours guiados realizados no campus do Inteli. Por meio dele, os funcionários podem criar, visualizar e gerenciar tours, acompanhar o progresso da visitação, acessar o mapa detalhado do campus e disponibilizar o código de acesso aos visitantes.
 
 ---
 
-# Telas do Dashboard
+# Telas do Aplicativo
 
-## 1. Tela de Acompanhamento Geral
+## 1. Tela de Login
 
-<p style={{ textAlign: "center" }}>Figura 1 — Tela de Acompanhhamento Geral</p>
+<p style={{ textAlign: "center" }}>Figura 1 — Tela de Login</p>
 
-![Acompanhamento Geral](./imgs/acompanhamento-geral.png)
+![Login](./imgs/login.png)
 
 ### Resumo
 
-Painel principal do dashboard, apresentando indicadores e gráficos referentes aos tours realizados em um determinado período.
-
-### Informações exibidas
-
-- Total de tours concluídos.  
-- Número de visitantes atendidos.  
-- Duração média dos tours.  
-- Gráficos por horário, setor e dias da semana.  
-- Métricas de performance do robô.
+Tela inicial utilizada para entrada no aplicativo por parte dos funcionários.
 
 ### Funcionalidades
 
-- Seleção de intervalos de tempo.  
-- Filtros dinâmicos que atualizam os gráficos automaticamente.  
-- Acesso rápido às demais seções do dashboard.
+- Exibição do nome do colaborador identificado.
+- Botão **Entrar** para acesso ao painel principal.
 
 ### Objetivo
 
-Fornecer uma visão consolidada e analítica das operações, auxiliando o staff no acompanhamento e planejamento dos tours.
+Garantir que apenas colaboradores autorizados gerenciem tours dentro do campus.
 
 ---
 
-## 2. Tela de Gerenciamento de Documentos
+## 2. Tela de Lista de Tours
 
-<p style={{ textAlign: "center" }}>Figura 2 — Tela de Gerenciamento de Documentos</p>
+<p style={{ textAlign: "center" }}>Figura 2 — Tela de Lista de Tours</p>
 
-![Gerenciamento de Documentos](./imgs/gerenciar-documentos.png)
+![Lista de Tours](./imgs/tours-lista.png)
 
 ### Resumo
 
-Área destinada ao controle dos documentos utilizados para alimentar o modelo de IA responsável pelas interações durante os tours.
+Tela principal do aplicativo, apresentando todos os tours cadastrados para a data selecionada.
 
 ### Informações exibidas
 
-- Lista dos documentos já cadastrados.  
-- Data de upload e tipo de arquivo.  
-- Status de processamento pelo modelo.  
-- Opções de visualização e remoção.
+- Horário do tour.
+- Nome do responsável/convidado.
+- Duração prevista.
+- Botões para **consultar** ou **iniciar** o tour.
 
 ### Funcionalidades
 
-- Upload de novos documentos.  
-- Exclusão de arquivos obsoletos.  
-- Atualização dos documentos já existentes.  
-- Histórico de modificações.
+- Seleção de data para navegar entre dias.
+- Troca de dias da semana usando botões de navegação.
+- Início do tour diretamente pela lista.
 
 ### Objetivo
 
-Garantir que o modelo de IA esteja atualizado com informações confiáveis e relevantes sobre o campus e suas estruturas.
+Organizar e facilitar o gerenciamento diário dos tours.
 
 ---
 
-## 3. Tela de Adição de Documentos
+## 3. Tela de Edição do Tour
 
-<p style={{ textAlign: "center" }}>Figura 3 — Tela de Adição de Documentos</p>
+<p style={{ textAlign: "center" }}>Figura 3 — Tela de Edição de Tour</p>
 
-![Adicionar Documentos](./imgs/adicionar-documento.png)
+![Edição de Tour](./imgs/tour-editar.png)
 
 ### Resumo
 
-Tela dedicada ao envio de novos documentos que alimentarão o roteiro e o conhecimento do modelo de IA. O conteúdo central da interface é um card de upload, onde o colaborador pode selecionar e enviar arquivos.
+Tela usada para visualizar e editar informações detalhadas de um tour específico.
 
 ### Informações exibidas
 
-- Card central com campo de upload.  
-- Instruções sobre formatos aceitos (ex.: PDF).  
-- Indicação de tamanho máximo do arquivo.  
-- Botão para confirmar envio.
+- Data e horário.
+- Nome do responsável.
+- Setor/área de destino.
+- Lista de visitantes cadastrados.
 
 ### Funcionalidades
 
-- Selecionar arquivo pelo explorador de arquivos.  
-- Arrastar e soltar documentos diretamente no card.  
-- Enviar documentos para processamento pelo modelo.  
-- Visualizar mensagem de sucesso ou erro após o upload.
+- Adicionar novos visitantes.
+- Remover visitantes existentes.
+- Editar informações principais do tour.
+- Criar um novo tour a partir do botão flutuante.
 
 ### Objetivo
 
-Simplificar o processo de adicionar novos conteúdos ao sistema, garantindo que o staff alimente o modelo de IA de forma rápida e sem complicações.
+Permitir ajustes ágeis antes ou durante o andamento do tour.
 
 ---
 
-## 4. Tela de Gestão de Usuários
+## 4. Tela do Mapa e Progresso
 
-<p style={{ textAlign: "center" }}>Figura 4 — Tela de Gestão de Usuários</p>
+<p style={{ textAlign: "center" }}>Figura 4 — Tela de Mapa</p>
 
-![Gestão de Usuários](./imgs/gestao-usuarios.png)
+![Mapa](./imgs/mapa-staff.png)
 
 ### Resumo
 
-Tela utilizada para administrar os usuários com acesso ao dashboard, controlando permissões e atividades.
-
-### Informações exibidas
-
-- Lista de usuários cadastrados.  
-- Função e nível de acesso.  
-- Status da conta.  
-- Último login.
+Tela que permite aos colaboradores acompanhar o progresso do tour e visualizar a localização do robô.
 
 ### Funcionalidades
 
-- Adicionar novos usuários.  
-- Alterar permissões.  
-- Ativar e desativar contas.  
-- Remover usuários inativos.
+- Mapa do campus com rota do tour.
+- Indicação da etapa atual.
+- Histórico de perguntas feitas pelos visitantes.
 
 ### Objetivo
 
-Proporcionar controle seguro e eficiente sobre quem pode visualizar e operar o dashboard.
+Garantir supervisão do progresso do tour e orientar o staff sobre o ritmo da visita.
+
+---
+
+## 5. Tela de Menu
+
+<p style={{ textAlign: "center" }}>Figura 5 — Tela de Menu</p>
+
+![Menu](./imgs/menu.png)
+
+### Resumo
+
+Seção de navegação para configurações e gestão da conta.
+
+### Opções disponíveis
+
+- Perfil do usuário.
+- Configurações gerais.
+- Sair do aplicativo.
+
+### Objetivo
+
+Oferecer área central de ajustes e gerenciamento da sessão.
+
+---
+
+## 6. Tela de Informações Gerais do Tour
+
+<p style={{ textAlign: "center" }}>Figura 6 — Informações Gerais</p>
+
+![Informações Gerais](./imgs/info-gerais.png)
+
+### Resumo
+
+Tela apresentada para reforço de orientações antes do início do tour.
+
+### Conteúdo abordado
+
+- Segurança dos visitantes.
+- Acompanhamento do robô.
+- Procedimentos caso haja intercorrências.
+
+### Objetivo
+
+Garantir alinhamento entre o staff antes da condução da experiência.
+
+---
+
+## 7. Tela de Código do Tour
+
+<p style={{ textAlign: "center" }}>Figura 7 — Código do Tour</p>
+
+![Código do Tour](./imgs/codigo.png)
+
+### Resumo
+
+Tela que exibe o código destinado aos visitantes para entrar no tour pelo aplicativo visitante.
+
+### Funcionalidades
+
+- Exibir código único gerado automaticamente.
+- Botão para confirmar início do tour.
+- Informação sobre como compartilhar o código com o visitante.
+
+### Objetivo
+
+Conectar visitantes ao tour correto e garantir sincronização entre dispositivos.
 
 ---
 
 # Mecanismos de Navegação
 
-### Fluxo principal
+### Fluxo Automático
 
-| Evento                       | Tela apresentada             |
-| --------------------------- | ---------------------------- |
-| Acessar o dashboard         | Acompanhamento Geral         |
-| Selecionar “Documentos”     | Gerenciamento de Documentos  |
-| Clicar em “Adicionar Docs”  | Adição de Documentos         |
-| Selecionar “Usuários”       | Gestão de Usuários           |
+| Evento             | Tela apresentada      |
+| ------------------ | --------------------- |
+| Abrir o app        | Login                 |
+| Login bem-sucedido | Lista de Tours        |
+| Selecionar Tour    | Edição do Tour        |
+| Iniciar Tour       | Código do Tour → Mapa |
 
-### Acesso permanente via barra lateral
+### Acesso Permanente via Menu
 
-- Acompanhamento Geral  
-- Documentos  
-- Adicionar Documento  
-- Usuários  
+- Perfil
+- Configurações
+- Sair
 
 ---
 
 # Conclusão
 
-O protótipo de alta fidelidade documentado representa a estrutura visual e funcional do Dashboard do Staff. Por meio de telas claras e focadas nas necessidades dos colaboradores — como acompanhamento de métricas, gestão de documentos e controle de usuários — o sistema oferece suporte direto e eficiente ao gerenciamento dos tours guiados pelo robô no campus.
+O protótipo de alta fidelidade documentado neste projeto representa a estrutura visual e funcional do Aplicativo do Staff. Ele define o fluxo de trabalho, interações essenciais e suporte necessário para a condução segura, organizada e eficiente dos tours guiados pelo robô dentro do campus.
 
 ---
