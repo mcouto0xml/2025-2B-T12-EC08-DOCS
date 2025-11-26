@@ -1,5 +1,14 @@
 {
   "title": "Sprint 3",
   "description": "Documentação da Sprint 3",
-  "pages": ["template", "template-pasta", "secure-software"]
+
+  "pages": [
+    "stt-tts",
+    "robo",
+    "prototipo-alta",
+    "template",
+    "template-pasta",
+    "docs-rag",
+    "secure-software"
+  ]
 }
