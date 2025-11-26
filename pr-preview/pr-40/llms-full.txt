@@ -12,15 +12,15 @@ Bem-vindo à documentação do projeto! Aqui você encontrará informações det
   </Card>
 
   <Card href="/docs/sprint-3" title="Sprint 3">
-    Documentação referente à Sprint 2 do projeto.
+    Documentação referente à Sprint 3 do projeto.
   </Card>
 
   <Card href="/docs/sprint-4" title="Sprint 4">
-    Documentação referente à Sprint 2 do projeto.
+    Documentação referente à Sprint 4 do projeto.
   </Card>
 
   <Card href="/docs/sprint-5" title="Sprint 5">
-    Documentação referente à Sprint 2 do projeto.
+    Documentação referente à Sprint 5 do projeto.
   </Card>
 </Cards>
 
@@ -207,14 +207,883 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
 # Sprint 3 (/docs/sprint-3)
 
 <Cards>
+  <Card href="/docs/sprint-3/secure-software" title="S-SDLC">
+    Secure Software Development Life Cycle
+  </Card>
+
   <Card href="/docs/sprint-3/template" title="Template de Arquivo">
     Modelo básico para criação de novos arquivos MDX.
   </Card>
 
-  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
+  <Card href="/docs/sprint-3/robo" title="Robo">
+    Documentação referente ao desenvolvimento do robo.
+  </Card>
+
+  <Card href="/docs/sprint-3/stt-tts" title="LIA AI Audio Assistant">
+    Documentação completa do assistente de voz com pipeline de processamento
+    STT-LLM-TTS
+  </Card>
+
+  <Card href="/docs/sprint-3/prototipo-alta" title="Protótipo de alta fidelidade do dashboard de Staff.">
+    Protótipos de alta fidelidade são representações visuais que mostram a
+    estrutura e o layout fielmente a interface final do dashboard.
+  </Card>
+
+  <Card href="/docs/sprint-3/template" title="Template de Pasta">
     Modelo de estrutura para criação de novas pastas de documentação.
   </Card>
+
+  <Card href="/docs/sprint-3/bd-v2/bd-v2" title="Banco de Dados - Versão 2.0">
+    Banco de Dados na Versão 2.
+  </Card>
 </Cards>
+
+
+# LIA AI Audio Assistant (/docs/sprint-3/stt-tts)
+
+
+
+O LIA AI Audio Assistant é um assistente virtual de voz que utiliza tecnologias de IA avançadas para processar áudio, gerar respostas inteligentes e convertê-las novamente em áudio. O sistema implementa uma pipeline completa de Speech-to-Text (STT), processamento via LLM e Text-to-Speech (TTS), proporcionando uma experiência conversacional natural.
+
+***
+
+## 1. Visão Geral
+
+### Objetivo
+
+Plataforma de conversação por voz baseada em inteligência artificial que processa áudio, gera respostas e sintetiza voz.
+
+### Características Principais
+
+* Pipeline STT → LLM → TTS
+* Interface web com Streamlit
+* Transcrição com OpenAI Whisper
+* Geração de respostas via Google Gemini
+* Síntese de voz com Google Cloud TTS
+* Suporte a MP3, WAV, M4A, OGG, FLAC
+* Histórico de conversação
+
+### Interface do Assistente
+
+<div style={{ textAlign: "center" }}>
+  <sup>
+    Figura 1: Interface do LIA AI Audio Assistant
+  </sup>
+</div>
+
+<img alt="Interface da LIA" src={__img0} placeholder="blur" />
+
+<div style={{ textAlign: "center" }}>
+  <sub>
+    Fonte: Produzida pelos Autores (2025).
+  </sub>
+</div>
+
+***
+
+## 2. Arquitetura do Sistema
+
+### Camadas
+
+**Apresentação**: Interface Streamlit para interação, upload e reprodução de áudio.
+
+**STT**: Transcrição de áudio usando Whisper com detecção automática de idioma.
+
+**LLM**: Processamento com Google Gemini 2.0 Flash para geração de respostas.
+
+**TTS**: Síntese de voz com Google Cloud Text-to-Speech em português brasileiro.
+
+### Fluxo de Dados
+
+```
+Usuário Upload Áudio → STT (Whisper) → Transcrição → LLM (Gemini) → Resposta Texto → TTS (Google Cloud) → Áudio Resposta → Usuário
+```
+
+***
+
+## 3. Tecnologias Utilizadas
+
+### Backend
+
+* **Python 3.12**: Linguagem de programação principal
+* **Streamlit 1.51.0**: Framework para criação da interface web interativa
+* **Python-dotenv 1.2.1**: Gerenciamento de variáveis de ambiente
+
+### Inteligência Artificial
+
+* **OpenAI Whisper 20250625**: Modelo de transcrição de áudio (STT)
+* **Google Generative AI**: SDK para integração com Gemini 2.0 Flash
+* **Google Cloud Text-to-Speech 2.33.0**: Síntese de voz natural
+
+### Processamento de Áudio
+
+* **PyTorch 2.9.1**: Framework de deep learning para modelos de áudio
+* **TorchAudio 2.9.1**: Biblioteca para processamento de áudio
+* **FFmpeg**: Codificação e decodificação de formatos de áudio
+
+### Machine Learning
+
+* **Transformers 4.57.1**: Biblioteca Hugging Face para modelos transformer
+* **Sentence-Transformers 5.1.2**: Embeddings semânticos de texto
+* **Accelerate 1.11.0**: Otimização de treinamento e inferência
+
+### Infraestrutura
+
+* **CUDA 12.8**: Aceleração GPU para processamento de modelos
+* **Logging**: Sistema integrado de logs para monitoramento
+
+***
+
+## 4. Configuração e Instalação
+
+### Pré-requisitos
+
+* Python 3.12 ou superior
+* Conta Google Cloud com API Text-to-Speech habilitada
+* Chave API do Google Gemini
+* GPU NVIDIA com CUDA (opcional, mas recomendado)
+* FFmpeg instalado no sistema
+* Mínimo de 4GB de RAM disponível
+* Mínimo de 2GB de espaço em disco
+
+### Passos de Instalação
+
+#### 1. Clonar o Repositório
+
+```bash
+git clone https://github.com/daviiabreu/embedding-models.git
+cd embedding-models
+```
+
+#### 2. Criar Ambiente Virtual
+
+```bash
+python -m venv venv
+```
+
+#### 3. Ativar Ambiente Virtual
+
+**Windows (PowerShell):**
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+**Linux/Mac:**
+
+```bash
+source venv/bin/activate
+```
+
+#### 4. Instalar Dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+**Nota**: A instalação pode demorar alguns minutos devido ao tamanho dos pacotes de deep learning (PyTorch, Transformers, etc.).
+
+#### 5. Configurar Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```bash
+GEMINI_API_KEY=sua_chave_gemini_aqui
+GOOGLE_APPLICATION_CREDENTIALS=caminho/para/credentials.json
+```
+
+**Para obter as credenciais:**
+
+* **Gemini API Key**: [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
+* **Google Cloud Credentials**: [https://console.cloud.google.com/apis/credentials](https://console.cloud.google.com/apis/credentials)
+
+#### 6. Configurar Google Cloud
+
+1. Acesse o Google Cloud Console
+2. Crie um projeto ou selecione um existente
+3. Habilite a API "Cloud Text-to-Speech"
+4. Crie uma Service Account
+5. Baixe o arquivo JSON de credenciais
+6. Configure a variável `GOOGLE_APPLICATION_CREDENTIALS`
+
+#### 7. Instalar FFmpeg (se necessário)
+
+**Windows (via Chocolatey):**
+
+```powershell
+choco install ffmpeg
+```
+
+**Linux (Ubuntu/Debian):**
+
+```bash
+sudo apt update
+sudo apt install ffmpeg
+```
+
+**Mac (via Homebrew):**
+
+```bash
+brew install ffmpeg
+```
+
+#### 8. Iniciar a Aplicação
+
+**Interface Web (Streamlit):**
+
+```bash
+streamlit run streamlit_app.py
+```
+
+**Modo CLI (Pipeline):**
+
+```bash
+python main.py arquivo_audio.mp3
+```
+
+**Linux:**
+
+```bash
+python3 main.py arquivo_audio.mp3
+```
+
+A interface web estará disponível em: [http://localhost:8501](http://localhost:8501)
+
+***
+
+## 5. Estrutura do Projeto
+
+```
+embedding-models/
+│
+├── main.py                       # Pipeline CLI principal
+├── streamlit_app.py              # Interface web Streamlit
+├── requirements.txt              # Dependências do projeto
+├── .env                          # Variáveis de ambiente (não versionado)
+├── .gitignore                    # Arquivos ignorados pelo Git
+├── DOCUMENTATION.md              # Documentação completa (este arquivo)
+│
+├── pipeline/
+│   ├── __init__.py              # Inicializador do módulo
+│   └── llm_service.py           # Serviço de integração com Gemini
+│
+├── stt/
+│   ├── __init__.py              # Inicializador do módulo
+│   └── stt_service.py           # Serviço de transcrição (Whisper)
+│
+├── tts/
+│   ├── __init__.py              # Inicializador do módulo
+│   └── tts_service.py           # Serviço de síntese de voz (Google TTS)
+│
+├── input_audio/                  # Pasta para áudios de entrada (gerada)
+│
+├── output_audio/                 # Pasta para áudios gerados (gerada)
+│
+└── pipeline.log                  # Arquivo de logs (gerado)
+```
+
+***
+
+## 6. Funcionalidades
+
+### Speech-to-Text (STT)
+
+Transcrição de áudio com modelo Whisper "base" (74M parâmetros). Suporta 99+ idiomas com detecção automática. Formatos aceitos: MP3, WAV, M4A, FLAC, OGG, AAC. Processamento local sem API externa.
+
+### Large Language Model (LLM)
+
+Modelo: gemini-2.0-flash
+Configurações: Temperature 0.5, Top P 0.9, Top K 20, Max Tokens 500
+Mantém histórico de conversa e implementa retry logic para falhas.
+
+### Text-to-Speech (TTS)
+
+Voz Puck em português brasileiro usando gemini-2.5-pro-tts. Saída em formato MP3.
+
+### Pipeline
+
+Modo arquivo único: `python main.py arquivo.mp3`
+Modo batch: `python main.py` (processa todos os arquivos em input\_audio/)
+Logging: INFO, WARNING, ERROR em console e arquivo pipeline.log
+
+### Interface Web
+
+Componentes: área de chat, upload de áudio, preview, status da pipeline, player de resposta, botões de ação.
+Gerenciamento de sessão com histórico persistente.
+
+***
+
+## 7. Módulos e Serviços
+
+### STT Service (`stt/stt_service.py`)
+
+#### Classe: N/A (Funcional)
+
+**Função Principal: `transcribe_audio(audio_filepath: str) -> str | None`**
+
+Transcreve arquivo de áudio para texto.
+
+**Parâmetros:**
+
+* `audio_filepath`: Caminho absoluto do arquivo de áudio
+
+**Retorno:**
+
+* `str`: Texto transcrito
+* `None`: Em caso de erro
+
+**Características:**
+
+* Carregamento lazy do modelo Whisper
+* Detecção automática de idioma
+* Tratamento de erros robusto
+* Logging detalhado
+
+**Exemplo de Uso:**
+
+```python
+from stt_service import transcribe_audio
+
+texto = transcribe_audio("input_audio/gravacao.mp3")
+if texto:
+    print(f"Transcrição: {texto}")
+```
+
+***
+
+### LLM Service (`pipeline/llm_service.py`)
+
+#### Classe: `LLMService`
+
+Gerencia a comunicação com o Google Gemini.
+
+**Métodos Principais:**
+
+**`__init__(model_name: str = "gemini-pro")`**
+
+Inicializa o serviço e configura o modelo.
+
+**`setup_configurations()`**
+
+Define configurações de segurança e geração.
+
+**`setup_model()`**
+
+Tenta configurar diferentes versões do Gemini.
+
+**`create_prompt(user_transcription: str, context: str = None) -> str`**
+
+Cria prompt otimizado para o modelo.
+
+**Parâmetros:**
+
+* `user_transcription`: Texto do usuário
+* `context`: Contexto adicional opcional
+
+**Retorno:**
+
+* `str`: Prompt formatado
+
+**`get_response(user_input: str, context: str = None, max_retries: int = 3) -> Optional[str]`**
+
+Obtém resposta do Gemini com retry logic.
+
+**Parâmetros:**
+
+* `user_input`: Pergunta/texto do usuário
+* `context`: Contexto da conversa
+* `max_retries`: Número máximo de tentativas
+
+**Retorno:**
+
+* `str`: Resposta gerada
+* `None`: Em caso de falha completa
+
+**Configurações de Segurança:**
+
+```python
+safety_settings = [
+    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
+]
+```
+
+**Função Utilitária:**
+
+```python
+from llm_service import get_llm_response
+
+resposta = get_llm_response("Olá, como você está?")
+print(resposta)
+```
+
+***
+
+### TTS Service (`tts/tts_service.py`)
+
+#### Classe: `TTSService`
+
+Gerencia a síntese de voz usando Google Cloud.
+
+**Métodos Principais:**
+
+**`__init__()`**
+
+Inicializa o serviço e cria diretórios.
+
+**`setup_output_directory() -> Path`**
+
+Cria e retorna o diretório de saída padrão.
+
+**`normalize_output_path(output_path: str) -> Path`**
+
+Normaliza e valida o caminho de saída.
+
+**Parâmetros:**
+
+* `output_path`: Caminho desejado
+
+**Retorno:**
+
+* `Path`: Caminho normalizado (sempre .mp3)
+
+**`synthesize_speech(text: str, output_path: str, voice_speed: bool = False) -> bool`**
+
+Converte texto em áudio.
+
+**Parâmetros:**
+
+* `text`: Texto para sintetizar
+* `output_path`: Caminho do arquivo de saída
+* `voice_speed`: Velocidade da voz (não implementado)
+
+**Retorno:**
+
+* `bool`: True se sucesso, False caso contrário
+
+**Configuração da Voz:**
+
+```python
+voice = texttospeech.VoiceSelectionParams(
+    language_code="pt-BR",
+    name="Puck",
+    model_name="gemini-2.5-pro-tts"
+)
+```
+
+**Função Utilitária:**
+
+```python
+from tts_service import text_to_speech
+
+sucesso = text_to_speech("Olá, mundo!", "output_audio/resposta.mp3")
+if sucesso:
+    print("Áudio gerado com sucesso!")
+```
+
+***
+
+## 8. API da Pipeline
+
+### Classe: `AudioPipeline` (main.py)
+
+#### Métodos Principais:
+
+**`__init__()`**
+
+Inicializa a pipeline e cria diretórios necessários.
+
+**`setup_directories()`**
+
+Cria os diretórios `input_audio/` e `output_audio/`.
+
+**`process_audio(audio_filename: str, conversation_context: str = None) -> tuple`**
+
+Processa um arquivo de áudio através da pipeline completa.
+
+**Parâmetros:**
+
+* `audio_filename`: Nome do arquivo em `input_audio/`
+* `conversation_context`: Contexto opcional da conversa
+
+**Retorno:**
+
+```python
+(sucesso: bool, caminho_audio: str, transcrição: str, resposta_llm: str)
+```
+
+**Fluxo de Execução:**
+
+1. Validar existência do arquivo
+2. Criar timestamp para identificação
+3. **ETAPA 1**: Transcrever áudio → STT
+4. **ETAPA 2**: Enviar para LLM → Resposta
+5. **ETAPA 3**: Converter para áudio → TTS
+6. Retornar resultados
+
+**`process_all_audio_files()`**
+
+Processa todos os arquivos de áudio na pasta `input_audio/`.
+
+**Características:**
+
+* Processa em lote
+* Gera relatório final
+* Estatísticas de sucesso/falha
+
+**Exemplo de Uso:**
+
+```python
+from main import AudioPipeline
+
+pipeline = AudioPipeline()
+
+# Processar arquivo específico
+sucesso, audio_path, texto, resposta = pipeline.process_audio("pergunta.mp3")
+
+if sucesso:
+    print(f"Transcrição: {texto}")
+    print(f"Resposta: {resposta}")
+    print(f"Áudio gerado: {audio_path}")
+
+# Processar todos os arquivos
+pipeline.process_all_audio_files()
+```
+
+***
+
+## 9. Fluxo de Processamento
+
+### Pipeline Completa - Detalhado
+
+#### Fase 1: Inicialização
+
+```python
+pipeline = AudioPipeline()
+pipeline.setup_directories()
+```
+
+1. Criar diretórios `input_audio/` e `output_audio/`
+2. Configurar logging
+3. Inicializar serviços (lazy loading)
+
+#### Fase 2: Recebimento de Áudio
+
+**Interface Streamlit:**
+
+```python
+uploaded_file = st.file_uploader(...)
+```
+
+**CLI:**
+
+```python
+audio_filename = sys.argv[1]
+```
+
+1. Validar formato do arquivo
+2. Verificar tamanho do arquivo
+3. Salvar na pasta `input_audio/`
+
+#### Fase 3: Transcrição (STT)
+
+```python
+transcription = transcribe_audio(str(audio_path))
+```
+
+**Processo:**
+
+1. Carregar modelo Whisper (primeira execução)
+2. Preprocessar áudio
+3. Executar transcrição
+4. Detectar idioma
+5. Retornar texto limpo
+
+**Tempo estimado:** 2-10 segundos (dependendo do tamanho)
+
+#### Fase 4: Processamento LLM
+
+```python
+llm_response = get_llm_response(transcription, conversation_context)
+```
+
+**Processo:**
+
+1. Criar prompt contextualizado
+2. Configurar parâmetros de geração
+3. Enviar requisição ao Gemini
+4. Aplicar retry logic se necessário
+5. Validar resposta
+6. Retornar texto da resposta
+
+**Tempo estimado:** 1-5 segundos
+
+#### Fase 5: Síntese de Voz (TTS)
+
+```python
+audio_success = text_to_speech(llm_response, str(output_path))
+```
+
+**Processo:**
+
+1. Validar texto de entrada
+2. Configurar cliente Google Cloud
+3. Configurar voz e parâmetros
+4. Executar síntese
+5. Salvar arquivo MP3
+6. Retornar status de sucesso
+
+**Tempo estimado:** 1-3 segundos
+
+#### Fase 6: Apresentação
+
+**Interface Streamlit:**
+
+1. Adicionar mensagens ao histórico
+2. Atualizar status da pipeline
+3. Exibir áudio no player
+4. Disponibilizar download
+
+**CLI:**
+
+1. Logar resultados no console
+2. Salvar em `pipeline.log`
+3. Exibir relatório final
+
+***
+
+## 10. Gerenciamento de Erros
+
+### Estratégias Implementadas
+
+#### 1. Validação de Entrada
+
+```python
+if not audio_path.exists():
+    logging.error(f"Arquivo não encontrado: {audio_path}")
+    return False, None, None, None
+```
+
+**Verificações:**
+
+* Existência do arquivo
+* Formato válido
+* Tamanho aceitável
+* Texto não vazio (TTS)
+
+#### 2. Try-Except em Todas as Etapas
+
+```python
+try:
+    transcription = transcribe_audio(str(audio_path))
+    if not transcription:
+        logging.error("Falha na transcrição")
+        return False, None, None, None
+except Exception as e:
+    logging.error(f"Erro na pipeline: {e}")
+    import traceback
+    logging.error(traceback.format_exc())
+    return False, None, None, None
+```
+
+#### 3. Retry Logic (LLM)
+
+```python
+def get_response(self, user_input: str, context: str = None, max_retries: int = 3):
+    for attempt in range(max_retries):
+        try:
+            # Tentativa de processamento
+            response = self.model.generate_content(prompt, **config)
+            # ...
+        except Exception as e:
+            if attempt < max_retries - 1:
+                continue  # Tenta novamente
+            else:
+                return "Desculpe, ocorreu um erro..."
+```
+
+#### 4. Fallback Responses
+
+**LLM bloqueado por safety:**
+
+```python
+if finish_reason == 2:  # SAFETY
+    return "Desculpe, não posso responder a essa pergunta específica."
+```
+
+**Erro de transcrição:**
+
+```python
+if not transcription:
+    return "Não foi possível transcrever o áudio."
+```
+
+#### 5. Logging Detalhado
+
+```python
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('pipeline.log'),
+        logging.StreamHandler()
+    ]
+)
+```
+
+**Níveis:**
+
+* **INFO**: Operações normais
+* **WARNING**: Situações anormais não críticas
+* **ERROR**: Falhas que impedem operação
+
+***
+
+## 11. Exemplos de Uso
+
+### Exemplo 1: Uso via CLI - Arquivo Único
+
+```bash
+python main.py pergunta.mp3
+```
+
+**Saída Esperada:**
+
+```
+Iniciando Pipeline de Áudio
+Diretório de entrada: C:\Users\...\input_audio
+Diretório de saída: C:\Users\...\output_audio
+Processando arquivo específico: pergunta.mp3
+Iniciando transcrição de: pergunta.mp3
+Transcrição concluída: Qual é a capital do Brasil?...
+Enviando para LLM...
+Resposta da LLM: A capital do Brasil é Brasília...
+Convertendo resposta para áudio...
+Áudio gerado: C:\Users\...\output_audio\pergunta_response_20251118_143022.mp3
+Pipeline concluída com sucesso!
+Transcrição: Qual é a capital do Brasil?
+Resposta LLM: A capital do Brasil é Brasília, localizada no Distrito Federal...
+Áudio gerado: C:\Users\...\output_audio\pergunta_response_20251118_143022.mp3
+```
+
+### Exemplo 2: Uso via CLI - Modo Batch
+
+```bash
+python main.py
+```
+
+**Estrutura da Pasta:**
+
+```
+input_audio/
+├── audio1.mp3
+├── audio2.wav
+└── audio3.m4a
+```
+
+**Saída Esperada:**
+
+```
+Iniciando Pipeline de Áudio
+Processando todos os arquivos na pasta de entrada
+Encontrados 3 arquivos para processar
+
+==================================================
+Processando: audio1.mp3
+Iniciando transcrição de: audio1.mp3
+Transcrição concluída: ...
+Enviando para LLM...
+Resposta da LLM: ...
+Convertendo resposta para áudio...
+Áudio gerado: ...
+
+==================================================
+Processando: audio2.wav
+...
+
+==================================================
+RELATÓRIO FINAL
+Sucessos: 3/3
+[OK] audio1.mp3
+[OK] audio2.wav
+[OK] audio3.m4a
+```
+
+### Exemplo 3: Uso via Streamlit - Interface Web
+
+**Passo a Passo:**
+
+1. **Iniciar aplicação:**
+
+```bash
+streamlit run streamlit_app.py
+```
+
+2. **Acessar no navegador:**
+
+```
+http://localhost:8501
+```
+
+3. **Fazer upload de áudio:**
+   * Clicar em "Browse files"
+   * Selecionar arquivo de áudio
+   * Visualizar preview do áudio
+
+4. **Processar:**
+   * Clicar em "Processar Áudio"
+   * Acompanhar status em tempo real:
+     * Upload do Áudio
+     * Transcrição (STT)
+     * Processamento LLM
+     * Síntese de Voz (TTS)
+     * Concluído
+
+5. **Ver resultado:**
+   * Mensagem do usuário aparece no chat
+   * Resposta do bot aparece no chat
+   * Player de áudio disponível
+   * Botão de download habilitado
+
+6. **Continuar conversação:**
+   * Fazer upload de novo áudio
+   * Contexto mantido automaticamente
+   * Histórico persistente
+
+### Exemplo 4: Integração Programática
+
+```python
+from pathlib import Path
+from main import AudioPipeline
+
+# Inicializar pipeline
+pipeline = AudioPipeline()
+
+# Processar áudio com contexto
+audio_file = "minha_pergunta.mp3"
+contexto = "O usuário está perguntando sobre tecnologia"
+
+sucesso, audio_resposta, transcricao, resposta = pipeline.process_audio(
+    audio_file,
+    conversation_context=contexto
+)
+
+if sucesso:
+    print("Processamento concluído com sucesso!")
+    print(f"Você disse: {transcricao}")
+    print(f"LIA respondeu: {resposta}")
+    print(f"Áudio salvo em: {audio_resposta}")
+
+    # Usar áudio gerado
+    import os
+    os.system(f"start {audio_resposta}")  # Windows
+    # os.system(f"open {audio_resposta}")  # Mac
+    # os.system(f"xdg-open {audio_resposta}")  # Linux
+else:
+    print("Falha no processamento")
+```
 
 
 # Título do Documento (/docs/sprint-3/template)
@@ -9264,7 +10133,2119 @@ await conn.datachannel.pub_sub.publish_request_new(
 * Integrar movimentação autônoma com múltiplos waypoints.
 
 
-# Arquitetura Multi-Agentes (/docs/sprint-2/sistema-multi-agentes/01-arquitetura-multi-agentes)
+# Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/wireframes)
+
+<Cards>
+  <Card title="Wireframe App Staff" description="Wireframe do aplicativo onde o staff do Inteli poderá gerenciar os tours da aplicação." href="/docs/sprint-2/wireframes/wireframe-app-staff" />
+
+  <Card title="Wireframe App Visitante" description="Wireframe do aplicativo onde o visitante irá interagir com o tour, fazendo perguntas para o robô." href="/docs/sprint-2/wireframes/wireframe-app-visitante" />
+
+  <Card title="Wireframe Dashboard Staff" description="Wireframe da dashboard onde o staff do Inteli poderá visualizar insights sobre os tours feitos e gerenciar os documentos que o modelo do robô ingere." href="/docs/sprint-2/wireframes/wireframe-dashboard-staff" />
+</Cards>
+
+
+# Wireframe App Staff (/docs/sprint-2/wireframes/wireframe-app-staff)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+ Como definido anteriormente, um dos usuários da aplicação será uma pessoa da staff do Inteli. Assim, os principais deveres desse usuário enquanto interage com a aplicação é de **criar, gerenciar e acompanhar os tours** que estão em andamento e também visualizar estatísticas sobre, por exemplo, as perguntas mais comuns que são feitas pelos visitantes, etc.
+
+## 1. Tela de Visão Geral e Agendamentos
+
+Esta é a tela inicial do aplicativo, focada na gestão de tours.
+
+* **Propósito:** Permitir que o membro da Staff visualize os tours agendados e inicie o processo de criação de um novo tour.
+* **Elementos Chave:**
+  * **Seletor de Data:** Permite filtrar a lista de tours por dia (e.g., 27, 28, 29 DEZ).
+  * **Tabela/Lista de Tours:** Exibe os tours agendados com as colunas **Horário**, **Nome** (do responsável) e **Status** (e.g., Agendado, Em Andamento, Finalizado).
+  * **Botão de Criação (+):** Localizado no canto superior direito, inicia o fluxo de criação de um novo tour.
+  * **Ação de Clique:** Clicar em um tour existente na lista leva à tela de Detalhamento do Tour (Tela 5).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Tela de Visão Geral e Agendamentos
+</p>
+
+<img alt="Tela de Visão Geral e Agendamentos" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 2. Tela de Cadastro de Visitantes
+
+Esta tela faz parte do fluxo de criação de um novo tour.
+
+* **Propósito:** Coletar as informações essenciais dos visitantes que participarão do tour.
+* **Elementos Chave:**
+  * **Responsável e Data:** Campos para identificar o responsável pelo agendamento e a data do tour.
+  * **Visitantes:** Campos para **Nome** e **E-mail** do primeiro visitante.
+  * **Adicionar Visitantes:** Opção para incluir mais participantes no tour.
+  * **Botão Confirmar:** Avança para a próxima etapa do fluxo de criação do tour.
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Tela de Cadastro de Visitantes
+</p>
+
+<img alt="Tela de Cadastro de Visitantes" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 3. Tela de Seleção de Perfil do Robô
+
+Esta tela é a etapa de personalização do tour.
+
+* **Propósito:** Definir a personalidade e o modo de interação do cachorro robótico durante o tour.
+* **Elementos Chave:**
+  * **Título:** "Selecione o perfil do cachorro".
+  * **Carrossel de Seleção:** Área central com setas laterais para navegar entre os diferentes perfis/personalidades disponíveis para o robô.
+  * **Botão Finalizar:** Conclui a seleção e avança para a tela de Resumo.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Tela de Seleção de Perfil do Robô
+</p>
+
+<img alt="Tela de Seleção de Perfil do Robô" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 4. Tela de Resumo e Criação do Tour
+
+Esta tela é o ponto final antes da criação definitiva do tour.
+
+* **Propósito:** Permitir que o membro da Staff revise todas as informações coletadas (visitantes e perfil do robô) antes de finalizar o agendamento.
+* **Elementos Chave:**
+  * **Título:** "Informações gerais".
+  * **Conteúdo:** Área de texto longo que exibe o resumo dos dados.
+  * **Opção Editar:** Permite retornar às telas anteriores para realizar ajustes.
+  * **Botão Iniciar:** Cria o tour no sistema e o marca como agendado.
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 - Tela de Resumo e Criação do Tour
+</p>
+
+<img alt="Tela de Resumo e Criação do Tour" src={__img3} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 5. Tela de Detalhamento e Início do Tour
+
+Esta tela é acessada ao clicar em um tour agendado na Tela 1.
+
+* **Propósito:** Iniciar um tour agendado e gerar o código de acesso para o visitante.
+* **Fluxo de Ação:**
+  1. O membro da Staff acessa o detalhamento do tour.
+  2. Ao iniciar o tour (ação não visível no wireframe, mas implícita), o sistema gera um **Código do Tour**.
+  3. O código (representado por `******`) é exibido para ser fornecido ao visitante, que o utilizará em seu próprio aplicativo para iniciar a experiência.
+  * **Botão Cancelar:** Permite abortar a operação.
+
+<p style={{ textAlign: "center" }}>
+  Figura 5 - Tela de Detalhamento e Início do Tour (Geração de Código)
+</p>
+
+<img alt="Tela de Detalhamento e Início do Tour" src={__img4} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 6. Tela de Acompanhamento do Tour
+
+Esta é a tela principal de monitoramento de um tour em andamento.
+
+* **Propósito:** Fornecer à Staff uma visão em tempo real do progresso do tour e das interações do robô.
+* **Elementos Chave:**
+  * **Status: Em Andamento:** Indica que o tour está ativo.
+  * **Barra de Progresso:** Exibe as etapas do tour/processo (e.g., Arquibancada, Ateliê, Casinhas, etc) e o status de cada uma.
+  * **Perguntas Feitas:** Seção para visualizar as perguntas que foram feitas pelos visitantes ao robô, permitindo a coleta de estatísticas.
+  * **Barra de Navegação Inferior:** Contém as ações de controle do tour:
+    * Ícone de Mapa: Abre a visualização do mapa (Tela 7).
+    * Botão Central (X): **Finalizar Tour**.
+    * Ícone de Parada: **Parar por Emergência**.
+
+<p style={{ textAlign: "center" }}>
+  Figura 6 - Tela de Acompanhamento do Tour
+</p>
+
+<img alt="Tela de Acompanhamento do Tour" src={__img5} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 7. Tela de Mapa do Tour
+
+Esta tela é acessada a partir da Tela 6.
+
+* **Propósito:** Visualizar a localização atual do robô e o progresso físico do tour.
+* **Elementos Chave:**
+  * **Título:** "MAPA DO INTELI + CHECKPOINTS".
+  * **Área de Mapa:** Exibe o mapa da faculdade com a rota do tour.
+  * **Localização do Robô:** Indica o checkpoint onde o robô se encontra no momento.
+  * **Barra de Navegação Inferior:** Mantém as mesmas opções de controle da Tela 6.
+
+<p style={{ textAlign: "center" }}>
+  Figura 7 - Tela de Mapa do Tour
+</p>
+
+<img alt="Tela de Mapa do Tour" src={__img6} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Fluxo de Uso Principal
+
+<Steps>
+  ### 1. Visualizar Agendamentos
+
+  O membro da Staff acessa a **Tela 1** para ver a lista de tours agendados para o dia.
+
+  ### 2. Criar Novo Tour
+
+  A partir da **Tela 1**, o Staff inicia o fluxo de criação, passando pelas **Telas 2** (Cadastro de Visitantes) e **3** (Seleção de Perfil do Robô).
+
+  ### 3. Confirmar Agendamento
+
+  Na **Tela 4** (Resumo), o Staff revisa e confirma o agendamento do tour.
+
+  ### 4. Iniciar Tour e Gerar Código
+
+  No dia do tour, o Staff seleciona o agendamento na **Tela 1** e, após iniciar, é levado à **Tela 5** para obter o código de acesso que será repassado ao visitante.
+
+  ### 5. Acompanhar o Progresso
+
+  Com o tour em andamento, o Staff monitora o progresso na **Tela 6** (Acompanhamento), podendo visualizar o mapa na **Tela 7** e intervir (Finalizar ou Parar por Emergência) quando necessário.
+</Steps>
+
+
+# Wireframe App Visitante (/docs/sprint-2/wireframes/wireframe-app-visitante)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+  Como definido anteriormente, um dos principais usuários da aplicação será o visitante do Inteli. Assim, os principais deveres desse usuário, enquanto interage com a aplicação, são compreender as informações apresentadas e informar dúvidas sobre o Inteli durante o tour.
+
+## 1. Tela de Login com Código
+
+Esta é a tela inicial do aplicativo, que permitirá ao usuário iniciar o tour.
+
+* **Propósito:** Permitir que o usuário insira um código de acesso disponibilizado pela equipe para que o tour possa ser iniciado.
+* **Elementos-Chave:**
+  * **Campo de Inserção do Código:** Localizado no centro da tela, permite iniciar o tour quando o código correto for inserido.
+  * **Botão "Entrar":** Localizado na parte inferior central, inicia o tour caso o código esteja correto.
+  * **Ação de Clique:** Clicar em "Entrar" inicia o tour e envia o usuário para a tela de Tutorial - Conversa com o Cão Robô (2).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Tela de Login com Código do Tour
+</p>
+
+<img alt="Tela de Login com Código do Tour" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 2. Tela de Tutorial - Conversa com o Cão Robô
+
+Esta é a tela inicial do tutorial, que permitirá ao usuário aprender como interagir com o cão robô.
+
+* **Propósito:** Ensinar o usuário a se comunicar com o robô por meio do chat de voz.
+* **Elementos-Chave:**
+  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário como ele pode se comunicar com o cão robô.
+  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para o próximo pop-up do Tutorial - Fluxo do Tour (3).
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Tela de Tutorial - Conversa com o Cão Robô
+</p>
+
+<img alt="Tela de Tutorial - Conversa com o Cão Robô" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 3. Tela de Tutorial - Fluxo do Tour
+
+Esta é a tela do tutorial que permitirá ao usuário entender como funcionará a dinâmica do tour.
+
+* **Propósito:** Explicar ao usuário como ele pode passar pelos checkpoints do tour e o que eles representam.
+* **Elementos-Chave:**
+  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário como seguir com o tour.
+  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para o próximo pop-up do Tutorial - Botão de Emergência (4).
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Tela de Tutorial - Fluxo do Tour
+</p>
+
+<img alt="Tela de Tutorial - Fluxo do Tour" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 4. Tela de Tutorial - Botão de Emergência
+
+Esta é a tela do tutorial que permitirá ao usuário entender o que fazer em caso de emergência.
+
+* **Propósito:** Ensinar o usuário como agir em caso de erro ou bug no sistema do cão robô.
+* **Elementos-Chave:**
+  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário onde ele deve clicar para parar o robô, evitando possíveis danos.
+  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para a Tela - Mapa do Inteli (5).
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 - Tela de Tutorial - Botão de Emergência
+</p>
+
+<img alt="Tela de Tutorial - Botão de Emergência" src={__img3} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 5. Tela Mapa do Inteli
+
+Esta é a tela que permitirá ao usuário entender em qual parte do tour ele se encontra.
+
+* **Propósito:** Permitir que o usuário saiba em qual parte da instituição e em qual etapa do tour ele está no momento.
+* **Elementos-Chave:**
+  * **Mapa Inteli:** Localizado no centro da tela, mostra ao usuário onde ele está e em qual dos checkpoints se encontra ou já passou.
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta tela do mapa.
+  * **Botão "Checkpoint":** Localizado no HUD, envia o usuário para a Tela - Prosseguir com o Tour (6).
+
+<p style={{ textAlign: "center" }}>
+  Figura 5 - Tela Mapa do Inteli
+</p>
+
+<img alt="Tela - Mapa do Inteli" src={__img4} placeholder="blur" />
+
+***
+
+## 6. Tela Prosseguir com o Tour
+
+Esta é a tela que permitirá ao usuário continuar o tour ou permanecer parado com o cão robô em um dos checkpoints.
+
+* **Propósito:** Permitir que o usuário utilize os outros elementos do HUD, como o chat de conversa com o cão robô para fazer perguntas, ou prossiga com o tour.
+* **Elementos-Chave:**
+  * **Pop-up Checkpoint:** Localizado no centro da tela, mostra ao usuário a opção de seguir para o próximo ponto do tour ou permanecer no atual para conversar com o robô.
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta tela.
+  * **Botão "Microfone":** Localizado no centro do HUD, envia o usuário para a Tela - Chat com o Cão Robô (7).
+
+<p style={{ textAlign: "center" }}>
+  Figura 6 - Tela Prosseguir com o Tour
+</p>
+
+<img alt="Tela - Prosseguir com o Tour" src={__img5} placeholder="blur" />
+
+***
+
+## 7. Tela Chat com o Cão Robô
+
+Esta é a tela que permitirá ao usuário conversar com o cão robô para tirar dúvidas.
+
+* **Propósito:** Permitir que o usuário faça perguntas ao cão robô, que serão respondidas durante as pausas nos checkpoints.
+* **Elementos-Chave:**
+  * **Tela de Conversa:** Localizada no centro da tela, mostra as perguntas feitas pelo usuário e as respostas dadas pelo cão robô.
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta.
+  * **Botão "Microfone":** Localizado à direita da tela, permite ao usuário fazer perguntas ao cão robô.
+  * **Botão "Emergência":** Localizado no HUD, permite ao usuário ir até a Tela - Botão de Emergência (8).
+
+<p style={{ textAlign: "center" }}>
+  Figura 7 - Tela Chat com o Cão Robô
+</p>
+
+<img alt="Tela - Chat com o Cão Robô" src={__img6} placeholder="blur" />
+
+***
+
+## 8. Tela Botão de Emergência
+
+Esta é a tela que permitirá ao usuário parar o robô caso ocorra algum bug.
+
+* **Propósito:** Permitir que o usuário interrompa todas as ações do robô em caso de emergência.
+* **Elementos-Chave:**
+  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta.
+  * **Botão "Emergência":** Localizado no centro da tela, permite ao usuário parar completamente o cão robô.
+
+<p style={{ textAlign: "center" }}>
+  Figura 8 - Tela Botão de Emergência
+</p>
+
+<img alt="Tela - Botão de Emergência" src={__img7} placeholder="blur" />
+
+***
+
+## Fluxo de Uso Principal
+
+<Steps>
+  ### 1. Inserir Código de Acesso
+
+  O visitante acessa a **Tela 1** (Login com Código) e insere o código fornecido pela equipe do Inteli para iniciar o tour.
+
+  ### 2. Aprender a Interagir com o Cão Robô
+
+  Após o login, o visitante é guiado pelas **Telas 2**, **3** e **4** (Tutoriais) que explicam como conversar com o cão robô, como funcionam os checkpoints e como utilizar o botão de emergência.
+
+  ### 3. Visualizar o Mapa do Inteli
+
+  Concluído o tutorial, o visitante acessa a **Tela 5** (Mapa do Inteli) para ver onde está e acompanhar seu progresso pelos checkpoints do tour.
+
+  ### 4. Prosseguir com o Tour
+
+  Na **Tela 6** (Prosseguir com o Tour), o visitante decide se continua para o próximo ponto do tour ou permanece no atual para conversar com o cão robô.
+
+  ### 5. Interagir com o Cão Robô
+
+  Ao selecionar o botão de microfone, o visitante acessa a **Tela 7** (Chat com o Cão Robô), onde pode fazer perguntas e receber respostas durante as pausas do tour.
+
+  ### 6. Parar o Robô em Caso de Emergência
+
+  Se ocorrer algum problema, o visitante pode acessar a **Tela 8** (Botão de Emergência) para interromper imediatamente as ações do cão robô.
+</Steps>
+
+
+# Wireframe Dashboard Staff (/docs/sprint-2/wireframes/wireframe-dashboard-staff)
+
+
+
+
+
+
+
+import { Steps } from "fumadocs-ui/components/steps";
+
+  Como definido anteriormente, um dos usuários da aplicação será um membro da staff do Inteli. Essa figura reaparece durante o desenvolvimento das telas, mas agora com um novo objetivo: visualizar os dados coletados durante o tour e pensar em como tirar o melhor proveito possível dessas informações.
+
+## 1. Tela Home
+
+Esta é a tela inicial do site, que permitirá ao Staff visualizar informações tanto sobre o robô quanto sobre o tour, incluindo dados sobre as perguntas realizadas.
+
+* **Propósito:** Permitir que o Staff visualize informações como a quantidade de perguntas e seus temas, além de dados sobre os tours e os visitantes.
+* **Elementos-Chave:**
+  * **Gráficos de Acompanhamento:** Localizados na parte superior e inferior central da tela, permitem ao Staff visualizar a quantidade de alertas e a demanda, respectivamente.
+  * **Tours por Mês:** Exibe a quantidade de tours realizados no mês.
+  * **Quantidade de Perguntas:** Mostra quantas perguntas foram feitas por tour.
+  * **Assuntos Mais Perguntados:** Permite ao Staff identificar os principais focos de dúvidas sobre o Inteli, como processo seletivo, programa de bolsas, clubes, etc.
+  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até outras telas do site, como a Tela Dashboard e Roteiro (2).
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Tela Home
+</p>
+
+<img alt="Tela Home" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 2. Tela Dashboard e Roteiro
+
+Esta é uma tela de controle que permitirá ao Staff atualizar ou remover informações sobre a instituição e sobre o roteiro.
+
+* **Propósito:** Permitir que o Staff faça a manutenção das informações do Inteli, mantendo o modelo de IA do cão robô atualizado, e altere informações do tour.
+* **Elementos-Chave:**
+  * **Seção Documentos:** Localizada no centro esquerdo da tela, permite ao Staff remover ou adicionar informações sobre o Inteli, mantendo o sistema sempre atualizado com as últimas informações.
+  * **Seção de Roteiro:** Localizada no centro direito da tela, permite ao Staff alterar informações sobre o roteiro, caso seja necessário.
+  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Dashboard e Roteiro
+</p>
+
+<img alt="Tela Dashboard e Roteiro" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## 3. Tela Pop-up Documentos
+
+Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o upload de novos documentos.
+
+* **Propósito:** Permitir que o Staff envie novas informações sobre o Inteli para o sistema.
+* **Elementos-Chave:**
+  * **Pop-up Documentos:** Localizado no centro da tela, permite ao usuário realizar o upload dos documentos do Inteli e inserir um título para melhor organização.
+  * **Botão "Adicionar":** Localizado na parte inferior central do pop-up, envia o documento e seu título para o sistema.
+  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - Pop-up Documentos
+</p>
+
+<img alt="Tela - Pop-up Documentos" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Fluxo de Uso Principal
+
+<Steps>
+  ### 1. Visualizar Dados Gerais
+
+  O Staff acessa a **Tela 1** (Home) para ver informações sobre os tours, perguntas feitas pelos visitantes e desempenho do robô.
+
+  ### 2. Gerenciar Informações da Instituição e do Tour
+
+  A partir da **Tela 1**, o Staff acessa a **Tela 2** (Dashboard e Roteiro) para atualizar dados do Inteli e modificar o roteiro do tour quando necessário.
+
+  ### 3. Adicionar Novos Documentos
+
+  Na **Tela 3** (Pop-up Documentos), o Staff pode realizar o upload de novos materiais e inserir títulos descritivos, mantendo o sistema de IA atualizado.
+</Steps>
+
+
+# Banco de Dados 2.0 (/docs/sprint-3/bd-v2/bd-v2)
+
+# **Banco de dados - Versão 2.0**
+
+# **Introdução**
+
+Esta documentação descreve a **Versão 2 (V2)** do banco de dados oficial do projeto **Tour Cão-Robô** , atualmente **implantado e disponível no Supabase para desenvolvimento**, pronto para inicialização de testes e integração com os dois aplicativos em desenvolvimento:
+
+* **App do Gestor (painel administrativo)**
+* **App do Visitante (tablet único por tour)**
+
+A V2 foi projetada para corrigir limitações da versão anterior, organizar melhor as entidades centrais, adicionar consistência, reforçar validações e suportar escalabilidade futura (novos robôs, novos tipos de tours, métricas, auditoria completa).
+
+O banco foi estruturado com foco em:
+
+* **Rastreamento do robô em tempo real**
+* **Fluxo de checkpoints controlados**
+* **Fila de perguntas e respostas liberadas ao final de cada ponto**
+* **Alertas e notificações internas**
+* **Controle de usuários, convites e permissões via painel**
+* **Confiabilidade para dashboards e relatórios operacionais**
+
+# **Tabelas e Campos**
+
+A seguir, cada tabela é detalhada com a explicação de **todas as colunas**, sua **função**, e seu **papel no fluxo de negócio**.
+
+# **1. `usuarios`**
+
+**Descrição:**
+Armazena todos os usuários do sistema, inclusive administradores e gestores.
+
+| Coluna       | Tipo         | Explicação                      |
+| ------------ | ------------ | ------------------------------- |
+| `id`         | SERIAL (PK)  | Identificador único do usuário. |
+| `nome`       | TEXT         | Nome completo do usuário.       |
+| `email`      | TEXT (único) | E-mail de login.                |
+| `papel`      | TEXT         | `admin` ou `manager`.           |
+| `senha_hash` | TEXT         | Senha criptografada (bcrypt).   |
+| `ativo`      | BOOLEAN      | Indica se a conta está ativa.   |
+| `criado_em`  | TIMESTAMPTZ  | Data/hora da criação.           |
+| `criado_por` | INT (FK)     | Usuário que criou esta conta.   |
+
+# **2. `convites_usuarios`**
+
+**Descrição:**
+Controla convites enviados a novos gestores.
+
+| Coluna            | Tipo        | Explicação                                    |
+| ----------------- | ----------- | --------------------------------------------- |
+| `id`              | SERIAL      | Identificador do convite.                     |
+| `email_convidado` | TEXT        | E-mail convidado.                             |
+| `papel_convidado` | TEXT        | Papel sugerido (geralmente `manager`).        |
+| `status`          | TEXT        | `pendente`, `aceito`, `expirado`, `revogado`. |
+| `convidado_por`   | INT         | Usuário que enviou o convite.                 |
+| `criado_em`       | TIMESTAMPTZ | Data de envio.                                |
+| `aceito_por`      | INT         | Usuário que aceitou o convite.                |
+| `aceito_em`       | TIMESTAMPTZ | Quando foi aceito.                            |
+
+# **3. `visitantes`**
+
+**Descrição:**
+Contém dados opcionais dos visitantes cadastrados pelo gestor.
+
+| Coluna      | Tipo        | Explicação                        |
+| ----------- | ----------- | --------------------------------- |
+| `id`        | SERIAL      | Identificador do visitante/grupo. |
+| `nome`      | TEXT        | Nome do visitante.                |
+| `email`     | TEXT        | E-mail opcional.                  |
+| `telefone`  | TEXT        | Telefone opcional.                |
+| `criado_em` | TIMESTAMPTZ | Momento do cadastro.              |
+
+# **4. `robos`**
+
+**Descrição:**
+Registra cada cão-robô apto a executar tours.
+
+| Coluna         | Tipo        | Explicação                            |
+| -------------- | ----------- | ------------------------------------- |
+| `id`           | SERIAL      | Identificador do robô.                |
+| `nome`         | TEXT        | Nome do robô (ex.: LIA).              |
+| `modelo`       | TEXT        | Modelo físico do robô.                |
+| `numero_serie` | TEXT        | Número de série do hardware.          |
+| `ativo`        | BOOLEAN     | Se o robô pode ser vinculado a tours. |
+| `criado_em`    | TIMESTAMPTZ | Cadastro.                             |
+
+# **5. `tours`**
+
+**Descrição:**
+Entidade principal do sistema. Um tour representa toda a visita guiada.
+
+| Coluna                 | Tipo        | Explicação                                             |
+| ---------------------- | ----------- | ------------------------------------------------------ |
+| `id`                   | SERIAL      | Identificador do tour.                                 |
+| `codigo`               | TEXT        | Código de 8 dígitos usado no tablet.                   |
+| `titulo`               | TEXT        | Nome do tour.                                          |
+| `data_local`           | DATE        | Data da visita.                                        |
+| `hora_inicio_prevista` | TIME        | Planejamento.                                          |
+| `hora_fim_prevista`    | TIME        | Planejamento.                                          |
+| `inicio_real`          | TIMESTAMPTZ | Quando realmente começou.                              |
+| `fim_real`             | TIMESTAMPTZ | Quando realmente terminou.                             |
+| `status`               | TEXT        | `scheduled`, `in_progress`, `paused`, `finished`, etc. |
+| `robo_id`              | INT         | Robô vinculado.                                        |
+| `responsavel_id`       | INT         | Gestor responsável.                                    |
+| `criado_por`           | INT         | Quem criou o tour.                                     |
+| `criado_em`            | TIMESTAMPTZ | Registro.                                              |
+
+# **6. `tour_visitantes`**
+
+**Descrição:**
+Relaciona visitantes com tours.
+
+| Coluna           | Tipo        | Explicação           |
+| ---------------- | ----------- | -------------------- |
+| `id`             | SERIAL      | Identificador.       |
+| `tour_id`        | INT         | Tour vinculado.      |
+| `visitante_id`   | INT         | Visitante associado. |
+| `adicionado_por` | INT         | Quem adicionou.      |
+| `adicionado_em`  | TIMESTAMPTZ | Registro.            |
+
+# **7. `checkpoints`**
+
+**Descrição:**
+Cada tour possui 5 checkpoints fixos percorridos pelo robô.
+
+| Coluna            | Tipo        | Explicação                             |
+| ----------------- | ----------- | -------------------------------------- |
+| `id`              | SERIAL      | ID do checkpoint.                      |
+| `tour_id`         | INT         | Tour ao qual pertence.                 |
+| `tipo`            | TEXT        | Nome (recepcao, auditorio, atelie...). |
+| `ordem`           | INT         | Posição no roteiro.                    |
+| `status`          | TEXT        | pending → running → finished.          |
+| `inicio_previsto` | TIMESTAMPTZ | Programado.                            |
+| `inicio_real`     | TIMESTAMPTZ | Começo real.                           |
+| `fim_real`        | TIMESTAMPTZ | Fim real.                              |
+
+# **8. `rastreios_robo`**
+
+**Descrição:**
+Telemetria do robô durante o tour (mapa dinâmico).
+
+| Coluna          | Tipo        | Explicação                   |
+| --------------- | ----------- | ---------------------------- |
+| `id`            | SERIAL      | ID do rastreio.              |
+| `tour_id`       | INT         | Tour correspondente.         |
+| `checkpoint_id` | INT         | Checkpoint atual (opcional). |
+| `waypoint`      | TEXT        | Localização textual/coord.   |
+| `progresso_pct` | NUMERIC     | Avanço no tour.              |
+| `criado_em`     | TIMESTAMPTZ | Timestamp.                   |
+
+# **9. `perguntas`**
+
+**Descrição:**
+Fila de dúvidas coletadas no tablet do visitante.
+⚠️ Não possui `visitante_id` pois há apenas **um tablet por tour**.
+
+| Coluna           | Tipo        | Explicação                                   |
+| ---------------- | ----------- | -------------------------------------------- |
+| `id`             | SERIAL      | ID da pergunta.                              |
+| `tour_id`        | INT         | A qual tour pertence.                        |
+| `checkpoint_id`  | INT         | Em qual checkpoint foi feita.                |
+| `question_topic` | TEXT        | Categoria (metodologia, processo seletivo…). |
+| `texto`          | TEXT        | Pergunta feita.                              |
+| `estado`         | TEXT        | queued → answerable → answered/discarded.    |
+| `criado_em`      | TIMESTAMPTZ | Quando foi feita.                            |
+| `liberado_em`    | TIMESTAMPTZ | Quando ficou disponível para resposta.       |
+| `respondido_em`  | TIMESTAMPTZ | Quando foi respondida.                       |
+
+# **10. `respostas`**
+
+**Descrição:**
+Respostas do robô (ou eventualmente por um gestor).
+
+| Coluna                   | Tipo        | Explicação                       |
+| ------------------------ | ----------- | -------------------------------- |
+| `id`                     | SERIAL      | ID da resposta.                  |
+| `pergunta_id`            | INT         | FK exclusiva para pergunta.      |
+| `respondido_por_tipo`    | TEXT        | robot ou manager.                |
+| `respondido_por_usuario` | INT         | Gestor que respondeu (opcional). |
+| `texto`                  | TEXT        | Resposta final.                  |
+| `criado_em`              | TIMESTAMPTZ | Quando respondeu.                |
+
+# **11. `alertas`**
+
+**Descrição:**
+Eventos críticos disparados pelo visitante, robô ou gestor.
+
+| Coluna             | Tipo        | Explicação                 |
+| ------------------ | ----------- | -------------------------- |
+| `id`               | SERIAL      | ID do alerta.              |
+| `tour_id`          | INT         | Tour associado.            |
+| `origem`           | TEXT        | visitor, robot ou manager. |
+| `nivel`            | TEXT        | info, warning, emergency.  |
+| `mensagem`         | TEXT        | Descrição do alerta.       |
+| `autor_usuario_id` | INT         | Gestor autor (opcional).   |
+| `criado_em`        | TIMESTAMPTZ | Criado em.                 |
+| `resolvido_em`     | TIMESTAMPTZ | Resolvido em.              |
+
+# **12. `notificacoes`**
+
+**Descrição:**
+Sistema interno de notificações para gestores/admins.
+
+| Coluna         | Tipo        | Explicação                             |
+| -------------- | ----------- | -------------------------------------- |
+| `id`           | SERIAL      | Identificador.                         |
+| `usuario_id`   | INT         | Usuário destinatário.                  |
+| `titulo`       | TEXT        | Título mostrado.                       |
+| `corpo`        | TEXT        | Texto adicional.                       |
+| `payload_json` | JSONB       | Dados extras (IDs, tipo do alerta...). |
+| `lido`         | BOOLEAN     | Se a notificação foi aberta.           |
+| `criado_em`    | TIMESTAMPTZ | Registro.                              |
+
+# **13. `tour_status_log`**
+
+**Descrição:**
+Auditoria completa das mudanças de status dos tours.
+
+| Coluna           | Tipo        | Explicação             |
+| ---------------- | ----------- | ---------------------- |
+| `id`             | SERIAL      | ID do log.             |
+| `tour_id`        | INT         | Tour alterado.         |
+| `status`         | TEXT        | Novo status.           |
+| `atualizado_por` | INT         | Usuário que alterou.   |
+| `atualizado_em`  | TIMESTAMPTZ | Quando foi atualizado. |
+| `observacoes`    | TEXT        | Observações opcionais. |
+
+# **Visão Geral dos Relacionamentos**
+
+* **robos (1) → (N) tours**
+* **usuarios (1) → (N) tours criados / responsáveis**
+* **tours (1) → (N) checkpoints**
+* **tours (1) → (N) rastreios\_robo**
+* **tours (1) → (N) perguntas**
+* **perguntas (1) → (1) respostas**
+* **tours (1) → (N) alertas**
+* **usuarios (1) → (N) notificacoes**
+* **tours (1) → (N) tour\_status\_log**
+
+# **Conclusão**
+
+A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar suporte a todo o ciclo funcional do **Tour Cão-Robô**, permitindo:
+
+* **Gestão robusta** de tours, usuários e robôs
+* **Operação em tempo real** via rastreio do robô
+* **Experiência rica** ao visitante, com perguntas organizadas por checkpoint
+* **Orquestração clara** de eventos como emergências e notificações
+* **Auditoria completa** via logs
+* **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
+
+O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.
+
+
+# Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG)
+
+## 1. Visão Geral
+
+O sistema de Geração Aumentada por Recuperação (**Retrieval-Augmented Generation - RAG**) é o componente central de conhecimento do guia de turismo robótico do Inteli. Ele combina a capacidade de raciocínio de um Large Language Model (LLM) com uma base de conhecimento externa e factual, garantindo que as respostas sejam precisas, atualizadas e fundamentadas.
+
+### O que é RAG?
+
+RAG é uma arquitetura que melhora a qualidade das respostas de um LLM ao integrar um mecanismo de recuperação de informações. O fluxo básico é:
+
+1. **Consulta (Query):** O LLM recebe uma pergunta do usuário.
+2. **Recuperação (Retrieval):** A pergunta é usada para buscar (recuperar) documentos ou trechos de texto relevantes de uma base de conhecimento externa.
+3. **Geração (Generation):** O LLM recebe a pergunta original **junto** com os trechos recuperados (o contexto) e usa essa informação para gerar uma resposta final.
+
+### Por que RAG é Importante para o Projeto?
+
+O RAG é crucial para este sistema por vários motivos:
+
+* **Factualidade e Atualização:** Garante que as respostas sobre o Inteli (cursos, projetos, instalações, etc.) sejam baseadas em dados reais e atualizados, contidos na base de conhecimento.
+* **Redução de Alucinações:** Ao forçar o LLM a usar o contexto recuperado, o RAG mitiga a tendência do modelo de "alucinar" ou inventar fatos.
+* **Cobertura de Tours e Q\&A:** Permite que o robô-guia responda a perguntas complexas e específicas, oferecendo informações detalhadas durante os tours ou sessões de Q\&A.
+* **Apoio ao Persona:** Fornece o conteúdo factual necessário para que o **Knowledge Agent** sintetize a resposta, que será então adaptada pelo **Personality Agent** para o tom de voz do cachorro-robô.
+
+## 2. Arquitetura do Projeto
+
+O sistema é estruturado em torno de um fluxo de agentes orquestrado, onde o RAG é a função principal do **Knowledge Agent**.
+
+### Topologia de Agentes
+
+O fluxo de agentes é composto por:
+
+* **Coordinator/Orchestrator:** Agente principal que recebe a requisição, coordena o fluxo, e direciona a pergunta para o agente apropriado (Safety, Tour, Knowledge).
+* **Safety Agent:** Filtra a entrada do usuário para garantir que a interação seja segura e apropriada.
+* **Tour Agent:** Gerencia o fluxo da visita guiada.
+* **Knowledge Agent:** O agente especialista em RAG, responsável por recuperar e sintetizar informações factuais.
+
+### O Papel do Knowledge Agent no RAG
+
+O **Knowledge Agent** (`agent_flow/agents/knowledge_agent.py`) é instruído a:
+
+1. Otimizar a consulta do usuário.
+2. Chamar a ferramenta de recuperação unificada (`retrieve_inteli_knowledge`).
+3. Interpretar os *chunks* (nós) e suas adjacências (vizinhos de grafo) retornados.
+4. Sintetizar o material recuperado em uma resposta estruturada (JSON) para o Orchestrator.
+
+### Diretórios Principais
+
+| Diretório            | Conteúdo Principal                            | Função no Sistema                                                                                |
+| :------------------- | :-------------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| `agent_flow/agents`  | `knowledge_agent.py`, `safety_agent.py`, etc. | Contém as definições e instruções dos agentes.                                                   |
+| `agent_flow/tools`   | `knowledge_tools.py`, `safety_tools.py`, etc. | Contém as implementações das ferramentas que os agentes podem chamar, incluindo a lógica do RAG. |
+| `agent_flow/prompts` | Arquivos de *guidelines* e *persona*.         | Define as instruções detalhadas e o tom de voz dos agentes.                                      |
+| `documents/`         | *Chunks* de documentos, scripts de ingestão.  | Armazena os dados brutos e processados da base de conhecimento.                                  |
+| `docs/`              | Guias e documentação conceitual.              | Contém a documentação de alto nível do projeto.                                                  |
+
+### Entrypoint e Modos de Execução
+
+O ponto de entrada do aplicativo é presumivelmente `run_app.py` ou `agent_flow/app.py`. O sistema suporta diferentes modos de execução, controlados por *flags*:
+
+* `--mode full`: Modo de execução completo, envolvendo todos os agentes (Orchestrator, Safety, Knowledge, etc.).
+* `--mode simple`: Modo simplificado (detalhes a serem confirmados, mas geralmente um fluxo direto).
+* `--mode demo`: Modo de demonstração, focado em apresentar as funcionalidades principais.
+
+## 3. Implementação do RAG: Graph RAG
+
+A implementação do RAG é baseada em uma arquitetura avançada de **Graph RAG**. Esta abordagem não apenas recupera trechos de texto (chunks) com base na similaridade vetorial, mas também incorpora o contexto relacional ao buscar vizinhos de primeiro grau no grafo de conhecimento. Isso garante que o LLM receba informações contextualmente ricas e conectadas, reduzindo a chance de respostas incompletas.
+
+O sistema utiliza o **Qdrant** como banco de dados vetorial para armazenar os nós de conhecimento e suas conexões (adjacências).
+
+### Arquivos-Chave
+
+* **Agente:** `agent_flow/agents/knowledge_agent.py`
+  * Define a instrução e o fluxo de trabalho do agente.
+  * Declara o uso da ferramenta `retrieve_inteli_knowledge`.
+* **Ferramenta de Busca:** `agent_flow/tools/knowledge_tools.py`
+  * Contém a função `retrieve_inteli_knowledge`, que é o *wrapper* da pipeline RAG.
+  * Implementa a pipeline RAG (`rag_inference_pipeline`) que encadeia a criação de *embedding* e a recuperação do Qdrant.
+
+### Pipeline RAG e Ferramenta de Busca
+
+A lógica de recuperação é encapsulada na pipeline `rag_inference_pipeline` (definida em `agent_flow/tools/knowledge_tools.py`), que orquestra três etapas principais: *Embedding*, *Retrieval* e *Payload Construction*.
+
+#### 3.1. Etapa de Embedding
+
+A função `query_embedding` é responsável por transformar a consulta em linguagem natural em um vetor numérico (embedding) usando o modelo `SentenceTransformer` configurado via `EMBEDDING_MODEL_NAME`.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+@step(enable_cache=False)
+def query_embedding(query: str) -> List[float]:
+    """Encode the user query into an embedding vector."""
+    if not query:
+        raise ValueError("query_embedding_step recebeu uma query vazia.")
+
+    model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    return model.encode(query).tolist()
+```
+
+#### 3.2. Etapa de Retrieval (Graph RAG)
+
+A função `retrieval_from_qdrant` executa a busca no banco de dados vetorial Qdrant. Esta é a parte central do **Graph RAG**:
+
+1. Busca os `top_k` nós mais similares ao `query_embedding`.
+2. Para cada nó principal, busca seus vizinhos de primeiro grau (adjacências) limitados por `adjacency_limit`.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+@step(enable_cache=False)
+def retrieval_from_qdrant(
+    query_embedding: List[float],
+    top_k: int = DEFAULT_TOP_K,
+    adjacency_limit: int = DEFAULT_ADJACENT_LIMIT,
+) -> List[Dict[str, Any]]:
+    """Retrieve the top-k chunks and their first-degree neighbors from Qdrant."""
+    # ... (código de inicialização do Qdrant)
+
+    query_result = client.query_points(
+        collection_name=QDRANT_COLLECTION,
+        query=query_embedding,
+        limit=top_k,
+        # ...
+    )
+    # ... (código para extrair adjacências e buscar seus payloads)
+
+    # ... (código para anexar adjacências aos nós principais)
+
+    return retrieved_nodes
+```
+
+#### 3.3. Orquestração da Pipeline
+
+A `rag_inference_pipeline` encadeia as etapas de *embedding* e *retrieval* e, em seguida, constrói o *payload* final que será enviado ao Knowledge Agent.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+@pipeline
+def rag_inference_pipeline(
+    query: str,
+    top_k: int = DEFAULT_TOP_K,
+    adjacency_limit: int = DEFAULT_ADJACENT_LIMIT,
+) -> Dict[str, Any]:
+    """Pipeline que encadeia embed + retrieval e retorna um grafo estruturado."""
+    query_vector = query_embedding(query=query)
+    retrieval = retrieval_from_qdrant(
+        query_embedding=query_vector,
+        top_k=top_k,
+        adjacency_limit=adjacency_limit,
+    )
+    payload = build_graph_rag_payload(
+        query=query,
+        query_embedding=query_vector,
+        retrieved_nodes=retrieval,
+    )
+    return payload
+```
+
+#### 3.4. Ferramenta `retrieve_inteli_knowledge`
+
+Esta é a função que o Knowledge Agent invoca. Ela atua como um *wrapper* para a pipeline, garantindo que os parâmetros de configuração sejam usados e que o resultado seja formatado para o sistema de agentes.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+def retrieve_inteli_knowledge(
+    query: str,
+    tool_context: ToolContext,
+) -> Dict[str, Any]:
+    """RAG tool that embeds a prompt and returns graph-based neighbors."""
+    normalized_query = (query or "").strip()
+    # ... (validação da query)
+
+    retrieval_payload = rag_inference_pipeline(
+        query=normalized_query,
+        top_k=DEFAULT_TOP_K,
+        adjacency_limit=DEFAULT_ADJACENT_LIMIT,
+    )
+
+    # ... (código para salvar o estado e retornar o payload)
+
+    return {
+        "success": True,
+        "query": normalized_query,
+        "result_count": retrieval_payload.get("result_count", 0),
+        "chunks": retrieval_payload.get("results", []),
+        "context": retrieval_payload.get("context", ""),
+        "query_embedding": retrieval_payload.get("query_embedding"),
+        "message": (
+            f"Retornados {DEFAULT_TOP_K} nós com até "
+            f"{DEFAULT_ADJACENT_LIMIT} vizinhos por nó"
+        ),
+    }
+```
+
+### Parâmetros de Configuração
+
+Os parâmetros-chave que controlam a recuperação são definidos via variáveis de ambiente (e podem ser sobrescritos na chamada da ferramenta):
+
+| Parâmetro              | Variável de Ambiente | Padrão (em `knowledge_tools.py`)                       | Descrição                                                                 |
+| :--------------------- | :------------------- | :----------------------------------------------------- | :------------------------------------------------------------------------ |
+| `top_k`                | `RAG_TOP_K`          | 300                                                    | Quantidade de nós (chunks) mais similares à consulta a serem recuperados. |
+| `adjacency_limit`      | `RAG_ADJACENT_LIMIT` | 10                                                     | Limite de vizinhos de grafo a serem recuperados para cada nó principal.   |
+| `QDRANT_COLLECTION`    | `QDRANT_COLLECTION`  | `inteli-documents-embeddings`                          | Nome da coleção no Qdrant que armazena os dados do Inteli.                |
+| `EMBEDDING_MODEL_NAME` | `EMBEDDINGS_MODEL`   | (Não especificado no código, mas carregado via `.env`) | Modelo usado para gerar os vetores de *embedding*.                        |
+
+### Retorno da Ferramenta
+
+O retorno da função `retrieve_inteli_knowledge` é um dicionário estruturado que fornece ao Knowledge Agent todos os dados necessários para a síntese:
+
+* `chunks`: Lista de nós recuperados, cada um contendo `content`, `metadata`, `score` e a lista `adjacent` (vizinhos de grafo).
+* `context`: Texto pré-formatado que concatena o conteúdo de todos os *chunks* e suas adjacências para facilitar a leitura pelo LLM.
+* `query_embedding`: O vetor de *embedding* gerado a partir da consulta.
+* `result_count`: O número total de nós recuperados.
+
+### Dados e Modelos
+
+* **Dados:** A base de conhecimento é armazenada na pasta `documents/` (contendo os *chunks* e o script de ingestão RAG). Os dados são organizados como um **grafo**, onde cada *chunk* é um nó e as relações entre eles (adjacências) são armazenadas nos metadados do nó (`adjacent_ids`).
+* **Modelo LLM Padrão:** O modelo padrão para o **Knowledge Agent** é `gemini-2.0-flash-exp` (definido em `knowledge_agent.py`).
+* **Configuração de Modelo:** O modelo pode ser trocado via *flags* de linha de comando (`--model`) ao executar o *entrypoint* ou o *script* de teste (`rag_test_agent.py`).
+
+### Exemplo de Estrutura de Nó (Chunk)
+
+Cada nó recuperado pelo Graph RAG possui uma estrutura rica em metadados, essencial para o *grounding* e a recuperação de adjacências:
+
+```json
+{
+  "id": "chunk_123",
+  "score": 0.85,
+  "content": "O Inteli oferece laboratórios de prototipagem...",
+  "metadata": {
+    "document": "manual_aluno.pdf",
+    "section": "Infraestrutura",
+    "page_number": 15,
+    "adjacent_ids": ["chunk_124", "chunk_201"] // Conexões de grafo
+  },
+  "adjacent": [
+    // Payloads dos nós vizinhos (chunk_124, chunk_201)
+  ]
+}
+```
+
+O campo `adjacent_ids` é o que permite a funcionalidade de Graph RAG, garantindo que o contexto relacionado seja sempre recuperado, mesmo que o vizinho não tenha alta similaridade vetorial com a consulta original.
+
+## 4. Fluxo Detalhado do RAG (Knowledge Agent)
+
+O fluxo de processamento da informação pelo **Knowledge Agent** é rigoroso e visa garantir a qualidade e a rastreabilidade da resposta.
+
+1. **Recebe a Pergunta:** O Orchestrator encaminha a pergunta do usuário.
+2. **Otimiza a Consulta:** O LLM do Knowledge Agent refina a pergunta (ex: extração de entidades, expansão de *query*) para maximizar a precisão da busca vetorial.
+3. **Chama a Ferramenta:** O agente invoca `retrieve_inteli_knowledge(query)`.
+4. **Recuperação e Contextualização:** A ferramenta executa a pipeline RAG (embed + Qdrant) e retorna o *payload* com `chunks` e `context`.
+5. **Interpretação:** O agente analisa o `context` (que inclui os *chunks* e seus vizinhos de grafo) para construir um modelo coerente do tópico.
+6. **Síntese da Resposta:** O agente sintetiza o conhecimento recuperado em um texto que responde à pergunta, seguindo a estratégia de síntese (relevância, controle de redundância, narrativa contextual).
+7. **Estruturação do Output:** O agente gera uma resposta estruturada em formato JSON, contendo:
+   * `answer`: A resposta sintetizada.
+   * `sources`: Lista de citações (documento, seção, `chunk_id`, `confidence`).
+   * `coverage`: Metadados sobre a completude da resposta (`question_fully_answered`, `missing_information`, `suggested_followups`).
+   * `metadata`: Informações de rastreamento (`search_queries_used`, `chunks_retrieved`, `confidence_level`).
+8. **Envio ao Orchestrator:** O JSON estruturado é enviado de volta ao Orchestrator para processamento final (ex: aplicação da persona).
+
+### Critérios de Qualidade (Grounding e Confiança)
+
+O Knowledge Agent é instruído a aplicar critérios de qualidade rigorosos:
+
+* **Grounding em Fontes:** Toda afirmação deve ser rastreável aos *chunks* recuperados.
+* **Confiança:** As afirmações são rotuladas como `high`, `medium` ou `low` com base na cobertura e concordância dos *chunks*.
+* **Gaps Reportados:** Se a informação estiver ausente, o agente deve reportar o *gap* em `coverage.missing_information` e sugerir próximos passos.
+
+## 5. Execução e Testes
+
+### Pré-requisitos
+
+Para rodar o sistema, é necessário:
+
+1. **Ativar o Ambiente Virtual:**
+   ```bash
+   source venv/bin/activate
+   ```
+2. **Instalar Dependências:** As dependências estão listadas em `requirements.txt`.
+
+### Como Rodar
+
+O *entrypoint* principal é executado com o Python 3, especificando o modo de operação:
+
+```bash
+python3 run_app.py --mode demo|full|simple
+# Ou, dependendo da estrutura do projeto:
+python3 -m agent_flow.app --mode demo|full|simple
+```
+
+### Como Testar o RAG
+
+O script `rag_test_agent.py` permite testar a pipeline RAG diretamente, sem a orquestração completa do sistema de agentes.
+
+```bash
+python3 rag_test_agent.py -q "Qual é o foco do curso de Engenharia de Software do Inteli?"
+```
+
+O script de teste aceita *flags* para *debug* e configuração:
+
+* `-q, --query`: A pergunta a ser testada (obrigatório).
+* `--top-k`: Sobrescreve o `RAG_TOP_K` padrão.
+* `--adjacency-limit`: Sobrescreve o `RAG_ADJACENT_LIMIT` padrão.
+* `--model`: Permite trocar o modelo LLM usado para gerar a resposta final (padrão é `gemini-2.0-flash-exp`).
+* `--show-json`: Exibe o *payload* completo do RAG (nós, adjacências, *scores*) em formato JSON.
+
+## 6. Persona e Segurança
+
+O RAG se integra ao sistema de agentes para garantir tanto a segurança quanto a aderência à persona.
+
+* **Integração com Safety Agent:** O **Safety Agent** atua como um filtro de entrada, garantindo que a consulta seja segura e apropriada **antes** de ser encaminhada ao Knowledge Agent. Isso protege o RAG de consultas maliciosas ou inapropriadas.
+* **Persona (Cachorro-Robô):** O Knowledge Agent foca estritamente na recuperação e síntese factual. A aplicação do tom de voz do cachorro-robô é responsabilidade do **Orchestrator** ou de um **Personality Agent** (como sugerido pelo arquivo `personality_tools.py`), que recebe a resposta factual e a reescreve com a persona definida.
+* **Mitigação de Alucinações:** O RAG é a principal técnica de mitigação de alucinações, pois força o LLM a citar fontes (`sources`) e a basear a resposta no contexto recuperado (Grounding). A combinação de RAG, Safety Agent e citações cria um sistema robusto e confiável.
+
+## 7. Referências Internas
+
+Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
+
+* **Descrição Conceitual do RAG:** `docs/04-sistema-rag-conhecimento.mdx`
+* **Arquitetura Geral, Execução e Segurança:** `docs/01-03`
+* **Guidelines e Persona:** `agent_flow/prompts/*`
+
+
+# Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag)
+
+<Cards>
+  <Card title="Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG)" description="Documentação do sistema RAG no agente" href="docs/content/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG.mdx" />
+</Cards>
+
+
+# Protótipo de Alta Fidelidade do Dashboard Staff (/docs/sprint-3/prototipo-alta)
+
+<Cards>
+  <Card href="/docs/sprint-3/prototipo-alta/paf-staff-dash" title="Protótipo de Alta Fidelidade — Dashboard Staff">
+    Visualização do layout do dashboard utilizado pelo staff para acompanhar
+    tours, documentos e usuários.
+  </Card>
+</Cards>
+
+
+# Protótipo de Alta Fidelidade - Dashboard Staff (/docs/sprint-3/prototipo-alta/paf-staff-dash)
+
+
+
+
+
+
+
+
+
+# Protótipo de Alta Fidelidade — Dashboard do Staff
+
+O Dashboard do Staff foi projetado para oferecer uma visão centralizada das operações relacionadas aos tours guiados, permitindo que os colaboradores acompanhem métricas essenciais, gerenciem documentos que alimentam o modelo de IA e administrem usuários internos. O objetivo é proporcionar uma interface clara, funcional e segura para apoiar decisões rápidas e melhorar o fluxo de trabalho do staff no campus do Inteli.
+
+***
+
+# Telas do Dashboard
+
+## 1. Tela de Acompanhamento Geral
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 — Tela de Acompanhamento Geral
+</p>
+
+<img alt="Acompanhamento Geral" src={__img0} placeholder="blur" />
+
+### Resumo
+
+Painel principal do dashboard, apresentando indicadores e gráficos referentes aos tours realizados em um determinado período.
+
+### Informações exibidas
+
+* Total de tours concluídos.
+* Número de visitantes atendidos.
+* Duração média dos tours.
+* Gráficos por horário, setor e dias da semana.
+* Métricas de performance do robô.
+
+### Funcionalidades
+
+* Seleção de intervalos de tempo.
+* Filtros dinâmicos que atualizam os gráficos automaticamente.
+* Acesso rápido às demais seções do dashboard.
+
+### Objetivo
+
+Fornecer uma visão consolidada e analítica das operações, auxiliando o staff no acompanhamento e planejamento dos tours.
+
+***
+
+## 2. Tela de Gerenciamento de Documentos
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 — Tela de Gerenciamento de Documentos
+</p>
+
+<img alt="Gerenciamento de Documentos" src={__img1} placeholder="blur" />
+
+### Resumo
+
+Área destinada ao controle dos documentos utilizados para alimentar o modelo de IA responsável pelas interações durante os tours.
+
+### Informações exibidas
+
+* Lista dos documentos já cadastrados.
+* Data de upload e tipo de arquivo.
+* Status de processamento pelo modelo.
+* Opções de visualização e remoção.
+
+### Funcionalidades
+
+* Upload de novos documentos.
+* Exclusão de arquivos obsoletos.
+* Atualização dos documentos já existentes.
+* Histórico de modificações.
+
+### Objetivo
+
+Garantir que o modelo de IA esteja atualizado com informações confiáveis e relevantes sobre o campus e suas estruturas.
+
+***
+
+## 3. Tela de Adição de Documentos
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 — Tela de Adição de Documentos
+</p>
+
+<img alt="Adicionar Documentos" src={__img2} placeholder="blur" />
+
+### Resumo
+
+Tela dedicada ao envio de novos documentos que alimentarão o roteiro e o conhecimento do modelo de IA. O conteúdo central da interface é um card de upload, onde o colaborador pode selecionar e enviar arquivos.
+
+### Informações exibidas
+
+* Card central com campo de upload.
+* Instruções sobre formatos aceitos (ex.: PDF).
+* Indicação de tamanho máximo do arquivo.
+* Botão para confirmar envio.
+
+### Funcionalidades
+
+* Selecionar arquivo pelo explorador de arquivos.
+* Arrastar e soltar documentos diretamente no card.
+* Enviar documentos para processamento pelo modelo.
+* Visualizar mensagem de sucesso ou erro após o upload.
+
+### Objetivo
+
+Simplificar o processo de adicionar novos conteúdos ao sistema, garantindo que o staff alimente o modelo de IA de forma rápida e sem complicações.
+
+***
+
+## 4. Tela de Gestão de Usuários
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 — Tela de Gestão de Usuários
+</p>
+
+<img alt="Gestão de Usuários" src={__img3} placeholder="blur" />
+
+### Resumo
+
+Tela utilizada para administrar os usuários com acesso ao dashboard, controlando permissões e atividades.
+
+### Informações exibidas
+
+* Lista de usuários cadastrados.
+* Função e nível de acesso.
+* Status da conta.
+* Último login.
+
+### Funcionalidades
+
+* Adicionar novos usuários.
+* Alterar permissões.
+* Ativar e desativar contas.
+* Remover usuários inativos.
+
+### Objetivo
+
+Proporcionar controle seguro e eficiente sobre quem pode visualizar e operar o dashboard.
+
+***
+
+# Mecanismos de Navegação
+
+### Fluxo principal
+
+| Evento                                                         | Tela apresentada            |
+| -------------------------------------------------------------- | --------------------------- |
+| Acessar o dashboard (home ou clicando no ícone de "Dashboard") | Acompanhamento Geral        |
+| Selecionar o ícone de “Documentos”                             | Gerenciamento de Documentos |
+| Clicar no botão de +, “Adicionar Docs”                         | Adição de Documentos        |
+| Selecionar o ícone de “Usuários”                               | Gestão de Usuários          |
+
+### Acesso permanente via navbar
+
+* Acompanhamento Geral
+* Documentos
+* Adicionar Documento
+* Usuários
+
+***
+
+# Conclusão
+
+O protótipo de alta fidelidade documentado representa a estrutura visual e funcional do Dashboard do Staff. Por meio de telas claras e focadas nas necessidades dos colaboradores — como acompanhamento de métricas, gestão de documentos e controle de usuários — o sistema oferece suporte direto e eficiente ao gerenciamento dos tours guiados pelo robô no campus.
+
+***
+
+
+# Título do Documento (/docs/sprint-3/prototipo-alta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
+
+
+# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
+
+# Sprint 3 – Automação de Movimentação e Integração Dinâmica
+
+## Objetivos Principais
+
+* Implementar execução automatizada de movimentos via JSON.
+* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
+* Permitir movimentação completa por **checkpoints** com áudio associado.
+* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
+* Iniciar integração com backend e percepção de obstáculos.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Implementação da fila de requisições
+
+Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
+O formato padronizado para os checkpoints segue o modelo abaixo:
+
+```json title="Exemplo de arquivo JSON de checkpoints"
+{
+  "checkpoint1": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
+    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
+  ],
+  "checkpoint2": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
+    ...
+  ]
+}
+```
+
+Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
+Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
+
+***
+
+## Execução e Testes
+
+Para executar o sistema de movimentação automatizada:
+
+1. **Inicie o ambiente virtual:**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Execute o script principal de movimentação:**
+
+   ```bash
+   python3 testes/move_path.py
+   ```
+
+   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
+
+3. **Para iniciar um checkpoint manualmente (em outro terminal):**
+
+   ```bash
+   python3 external_trigger.py play
+   ```
+
+4. **Para interromper a execução a qualquer momento:**
+
+   ```bash
+   python3 external_trigger.py stop
+   ```
+
+   Ao parar, o robô entra automaticamente em **modo estático em pé**.
+
+***
+
+## Novas Funcionalidades
+
+* Leitura e execução automática de checkpoints via JSON.
+* Execução ordenada com fila de comandos.
+* Reprodução de áudio correspondente a cada checkpoint.
+* Interrupção imediata da execução via comando externo (`stop`).
+* Conexão e controle assíncrono com o robô via **WebRTC**.
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
+
+* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
+* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
+* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
+* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
+
+Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
+
+***
+
+## Próximos Passos
+
+* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
+* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
+* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
+* Revisar parâmetros de movimentação e segurança térmica das juntas.
+
+***
+
+## Aprendizados
+
+* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
+* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
+* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
+* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Conclusão
+
+Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
+Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
+
+
+# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
+
+<Cards>
+  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
+
+  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
+</Cards>
+
+
+# Simulação (/docs/sprint-3/robo/simulacao-robo)
+
+
+
+# Sprint 3 – Simulação do Robô com ROS2
+
+## Objetivos Principais
+
+* Configurar o ambiente ROS e entender seu funcionamento;
+* Simular o robô Unitree Go2 no Gazebo;
+* Continuar testes no ambiente Unity (Autonomous Stack GO2);
+* Entender como funciona os tópicos do LiDAR do GO2;
+* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Gazebo
+
+  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
+
+### Unity
+
+  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
+
+* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
+* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
+
+### Docker
+
+  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
+
+* Estudo da viabilidade do uso do Docker;
+* Estudo da implementação do Docker com simuladores;
+* Estudo da implementação do Docker com ROS2;
+* Tentativa de implementação do simulador Unity em um container Docker.
+
+### Visualização de dados de sensores do robõ
+
+  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Visualização da Point Cloud real no RViz
+</p>
+
+<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Produzida pelos autores (2025).
+</p>
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+### Gazebo
+
+* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
+
+### Unity
+
+* Problemas de importação de modelos de espaço para o simulador;
+* Dificuldade de comunicação do ROS com o sistema;
+* Dificuldade de achar utilidade nas informações transferidas
+* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
+
+### Docker
+
+* Falta de exemplos que utilizassem todas as tecnologias juntas;
+* Uso excessivo de memória RAM ao *buildar* os simuladores;
+* Necessidade do Ubuntu 22.04 (especificamente).
+
+***
+
+## Próximos Passos
+
+* Começar testes de ROS no robô físico;
+* Começar testes de LiDAR no robô físico;
+* Começar a integração dos repositórios encontrados com o robô físico;
+* Colocar em containers os simuladores escolhidos com implementação ROS.
+
+***
+
+## Aprendizados
+
+### Gazebo
+
+* Comunicação código e robô via ROS2;
+* Como funciona a nuvem de pontos do LiDAR;
+* Diversos modelos de navegação autônoma e controle manual para o Go2.
+
+### Unity
+
+* Entendi da comunicação do ROS2;
+* Funcionamento do LiDAR;
+
+### Docker
+
+* Formas de rodar ROS em um container;
+* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
+* Formas de reduzir o uso da memória RAM ao rodar simuladores.
+
+***
+
+## Links Relevantes
+
+### Gazebo
+
+* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
+* [NAV2](https://docs.nav2.org/)
+* [RViz](https://wiki.ros.org/rviz)
+
+### Unity
+
+* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+### Docker
+
+* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
+* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
+* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
+* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+***
+
+## Conclusão
+
+Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
+Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
+
+
+# S-SDLC — Secure Software Development Life Cycle (/docs/sprint-3/secure-software)
+
+<Cards>
+  <Card title="Secure Software Development Life Cycle" description="Definição do plano de ação de segurança." href="/docs/sprint-3/secure-software/s-sdlc" />
+</Cards>
+
+
+# Secure Software Development Life Cycle (/docs/sprint-3/secure-software/s-sdlc)
+
+# **S-SDLC — Secure Software Development Life Cycle**
+
+## Projeto: Sistema de Tour Autônomo com Robô Unitree Go2
+
+***
+
+## **1. Introdução**
+
+Este documento apresenta o **S-SDLC (Secure Software Development Life Cycle)** adotado no desenvolvimento do sistema de tour autônomo do robô Unitree Go2 para o campus do Inteli. O S-SDLC estabelece práticas de segurança integradas a cada fase do ciclo de vida do software, garantindo que todos os componentes — **DevOps/UX, Backend, Modelos de IA, Robô e Segurança** — sigam princípios de proteção, confiabilidade e conformidade com normas como **ISO/IEC 25010:2011**, **OWASP Application & API Security Top 10**, recomendações de **safe AI**, além de boas práticas de **segurança operacional (safety)**.
+
+O objetivo é assegurar que o sistema seja **seguro por design**, com monitoramento contínuo, controle de riscos e mitigação preventiva de falhas, garantindo uma operação estável e livre de incidentes.
+
+***
+
+## **2. Escopo do S-SDLC**
+
+O S-SDLC cobre todo o ciclo de vida do projeto, incluindo:
+
+* Planejamento e Levantamento de Requisitos
+* Análise de Riscos
+* Arquitetura e Design Seguro
+* Implementação
+* Testes de Segurança
+* Deploy Seguro
+* Operação, Monitoramento e Resposta a Incidentes
+* Auditoria e Melhoria Contínua
+
+Cada fase incorpora controles de segurança específicos e mapeados aos requisitos funcionais (RF) e não funcionais (RNF) definidos no documento principal.
+
+***
+
+# **3. Fases do S-SDLC**
+
+***
+
+## **3.1. Fase 1 — Planejamento e Levantamento de Requisitos**
+
+### **Objetivo:**
+
+Garantir que requisitos funcionais e não funcionais incluam segurança, privacidade, confiabilidade e safety.
+
+### **Controles Aplicados:**
+
+* Identificação formal de requisitos de segurança para:
+  * Botão de emergência (E-Stop)
+  * Autenticação forte (2FA)
+  * Rate limiting
+  * Criptografia de dados
+  * Logs auditáveis e confidenciais
+  * Comunicação segura com robô e LLM
+  * Políticas de redundância a falhas
+
+* Classificação dos requisitos de risco (alto, médio, baixo).
+
+* Definição de responsáveis por área:
+  * **DevOps/UX:** acesso, CI/CD e interface segura
+  * **Backend:** API segura, STOP prioritário
+  * **Modelo:** filtragem pelo Modelo A, controle ético
+  * **Robô:** safety físico e sensores
+  * **Segurança:** governança transversal
+
+***
+
+## **3.2. Fase 2 — Análise de Riscos**
+
+### **Objetivo:**
+
+Identificar e mitigar vulnerabilidades e riscos técnicos, éticos e operacionais.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Categoria
+      </th>
+
+      <th>
+        Risco
+      </th>
+
+      <th>
+        Impacto
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Acesso não autorizado aos endpoints do robô
+      </td>
+
+      <td>
+        Alto
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Safety
+      </td>
+
+      <td>
+        Falha no botão de emergência ou atraso no STOP
+      </td>
+
+      <td>
+        Crítico
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        IA
+      </td>
+
+      <td>
+        Geração de respostas inadequadas pelo Modelo B
+      </td>
+
+      <td>
+        Alto
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        DevOps
+      </td>
+
+      <td>
+        Vazamento de segredos no repositório
+      </td>
+
+      <td>
+        Alto
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Robô
+      </td>
+
+      <td>
+        Falha de sensores gerando colisões
+      </td>
+
+      <td>
+        Crítico
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Infra
+      </td>
+
+      <td>
+        Perda de comunicação com robô (timeout, WebRTC)
+      </td>
+
+      <td>
+        Crítico
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### **Mitigações Aplicadas:**
+
+* Rate limiting (RF06-BE)
+* JWT obrigatório (RF05-BE)
+* Parada de emergência redundante (RF01-BE, RF02-BE)
+* Pipeline SAST/SCA (RF05-DO, RF11-DO)
+* Varredura de segredos (RF12-DO)
+* Detector/Respondente (Modelo A/B) para filtragem ética (RF01-MOD)
+* Auditoria completa de logs (RF07-BE, RF04-MOD)
+
+***
+
+## **3.3. Fase 3 — Arquitetura e Design Seguro**
+
+### **Objetivo:**
+
+Seguir a arquitetura segura e tolerante a falhas.
+
+### **Princípios Aplicados:**
+
+* **Defense in Depth** (múltiplas camadas de segurança)
+* **Least Privilege** para APIs, usuários e serviços
+* **Fail-Safe / Safe-Stop** para robô
+* **Zero Trust** para comunicação de rede
+* **AI Security by Design** para modelos A e B
+
+### **Pontos de Design por Área:**
+
+#### **DevOps/UX**
+
+* Interface com STOP sempre disponível (RF01-UX)
+* Feedback visual imediato
+* Acessibilidade e contrastes (RNF07-UX)
+
+#### **Backend**
+
+* APIs WebSocket e REST com:
+  * Autenticação JWT
+  * Rate limiting adaptativo (RNF04-BE)
+  * Logs de alta precisão (RF07-BE)
+
+* Canal redundante para STOP (RF02-BE)
+
+* Criticidade máxima para comandos de movimento
+
+#### **Modelo**
+
+* Dois LLMs isolados:
+  * Modelo A → Detector
+  * Modelo B → Respondente
+
+* Comunicação interna criptografada (RF03-MOD)
+
+* Auditoria de inferências (RF04-MOD)
+
+#### **Robô**
+
+* Sensores redundantes:
+  * LiDAR + câmera + proximidade (RF03-ROB)
+
+* Parada por risco (RF02-ROB)
+
+* Canal seguro via WebRTC
+
+***
+
+## **3.4. Fase 4 — Implementação com Segurança**
+
+### **Objetivo:**
+
+Garantir que todo o código siga padrões de segurança, práticas OWASP e não introduza vulnerabilidades.
+
+### **Controles Obrigatórios:**
+
+* Uso estrito de **GitFlow** (RF10-DO)
+
+* Revisões obrigatórias de PR por 2 pessoas
+
+* Commits com bloqueio automático de segredos (RF12-DO)
+
+* Pipelines:
+  * **SAST** antes de merge (RF11-DO)
+  * **SCA** antes de deploy (RF05-DO)
+
+* Criptografia de banco de dados (RNF08-DO)
+
+* Sanitização de inputs nas APIs
+
+* Controle de payload crítico (especialmente comandos do robô)
+
+***
+
+## **3.5. Fase 5 — Testes de Segurança**
+
+### **Objetivo:**
+
+Garantir que o sistema não possua vulnerabilidades e opere com segurança em cenários reais.
+
+### **Tipos de Testes:**
+
+* **Testes funcionais** dos requisitos RF
+
+* **Testes de performance** (latência, throughput, RAG, STT, TTS)
+
+* **Pentest interno**
+
+* **Fuzzing** em endpoints críticos
+
+* **Testes de carga** no fluxo de STOP
+
+* **Testes de resiliência**:
+  * queda de conexão
+  * atraso no WebRTC
+  * falha de sensores
+
+* **Testes de ética e conformidade** do Modelo B (RF05-MOD)
+
+* **Testes de operador e acessibilidade** (RNF07-UX)
+
+### **Critérios de Sucesso:**
+
+* STOP ≤ 1s (Frontend + Backend + Robô)
+* LLM ≤ 1,5s (Modelo)
+* Perda de pacotes ≤ 1%
+* Zero vulnerabilidades críticas no SAST/SCA
+* 100% de logs críticos registrados
+
+***
+
+## **3.6. Fase 6 — Deploy Seguro**
+
+### **Objetivo:**
+
+Garantir que a entrada em produção siga padrões de segurança.
+
+### **Controles:**
+
+* CI/CD obrigatório com gates de segurança (RF13-DO)
+
+* Deploy apenas após:
+  * build validado
+  * testes de segurança aprovados
+  * autorização de segurança
+
+* Rollback automático (critério de aceite)
+
+* Versionamento sem acesso direto à produção
+
+***
+
+## **3.7. Fase 7 — Operação, Monitoramento e Resposta a Incidentes**
+
+### **Objetivo:**
+
+Manter operação segura, estável e auditável durante tours e interações com visitantes.
+
+### **Monitoramentos Ativos:**
+
+* Disponibilidade (uptime ≥ 99,9%)
+* Latência dos modelos e APIs
+* Falhas e anomalias no robô
+* Tentativas de intrusão
+* Logs de auditoria → 90 dias de retenção (RNF06-BE e RNF06-MOD)
+
+### **Procedimentos de Incidente:**
+
+* Parada imediata do robô se:
+  * canal cair
+  * backend detectar inconsistência
+  * Modelo A identificar risco crítico
+
+* Notificação automática à equipe
+
+* Registro completo do incidente
+
+* Investigação e atualização do modelo ou pipeline
+
+***
+
+## **3.8. Fase 8 — Auditoria e Melhoria Contínua**
+
+### **Objetivo:**
+
+Garantir evolução do sistema, corrigindo vulnerabilidades e ajustando políticas.
+
+### **Atividades:**
+
+* Auditoria trimestral OWASP/segurança
+* Auditoria mensal do Modelo B (RF06-MOD)
+* Revisão semestral da política de segurança
+* Revalidação dos requisitos conforme evolução do projeto
+* Treinamento contínuo das equipes
+
+***
+
+# **4. Rastreabilidade entre Requisitos e o S-SDLC**
+
+Cada fase do S-SDLC cobre explicitamente os requisitos do projeto:
+
+* **STOP**: RF01-UX, RF01-BE, RF02-BE, RF02-ROB
+* **Autenticação/Autorização**: RNF06-UX, RF05-BE
+* **CI/CD Seguro**: RF05-DO, RF11-DO, RF12-DO, RF13-DO
+* **Safety do Robô**: RF01-ROB, RF02-ROB, RF03-ROB
+* **IA Segura**: RF01-MOD a RF07-MOD + RNF02-MOD
+* **Logs/Auditoria**: RF06-DO, RF07-BE, RF04-MOD, RNF06-MOD
+* **RAG e dados**: RNF01-MOD
+* **Performance**: RNF01-BE, RNF02-BE, RNF02-MOD
+
+***
+
+# **5. Conclusão**
+
+O S-SDLC apresentado estabelece uma estrutura completa, robusta e profissional para assegurar que o sistema de tour autônomo com o robô Unitree Go2 opere com:
+
+* **Segurança de software e física (safety)**
+* **Confiabilidade operacional**
+* **Integridade de dados e decisões**
+* **IA controlada, ética e verificável**
+* **Redundância aplicada aos sistemas críticos**
+
+***
+
+# **Bibliografia**
+
+**OWASP Foundation.** *OWASP Application Security Verification Standard (ASVS).* Disponível em: [https://owasp.org/ASVS/](https://owasp.org/ASVS/). Acesso em: 17 nov. 2025.
+
+**OWASP Foundation.** *OWASP API Security Top 10.* Disponível em: [https://owasp.org/API-Security/](https://owasp.org/API-Security/). Acesso em: 17 nov. 2025.
+
+**OWASP Foundation.** *OWASP Machine Learning Security Top 10.* Disponível em: [https://owasp.org/www-project-machine-learning-security-top-10/](https://owasp.org/www-project-machine-learning-security-top-10/). Acesso em: 18 nov. 2025.
+
+**ISO/IEC 27001.** *Information Security Management Systems.* Resumo técnico disponível em: [https://www.iso.org/isoiec-27001-information-security.html](https://www.iso.org/isoiec-27001-information-security.html). Acesso em: 18 nov. 2025.
+
+**SETIC-UFSC.** *Guia de Privacidade e Proteção de Dados - LGPD.* Disponível em: [https://lgpd.ufsc.br/duvidas-frequentes/](https://lgpd.ufsc.br/duvidas-frequentes/). Acesso em: 18 nov. 2025.
+
+
+# Arquitetura Multi-Agentes (/docs/sprint-3/sistema-multi-agentes/01-arquitetura-multi-agentes)
 
 # 1. Arquitetura Multi-Agentes
 
@@ -9568,7 +12549,7 @@ agent_flow/
 * **Gemini API:** [https://ai.google.dev/](https://ai.google.dev/)
 
 
-# Guia de Execução e Uso (/docs/sprint-2/sistema-multi-agentes/02-guia-execucao-uso)
+# Guia de Execução e Uso (/docs/sprint-3/sistema-multi-agentes/02-guia-execucao-uso)
 
 # 2. Guia de Execução e Uso
 
@@ -10177,7 +13158,7 @@ python3 -m agent_flow.app --mode full --model gemini-2.0-flash-exp
 * **Repositório:** [https://github.com/daviiabreu/embedding-models](https://github.com/daviiabreu/embedding-models)
 
 
-# Guia de Segurança para Equipe de Safety (/docs/sprint-2/sistema-multi-agentes/03-guia-seguranca-safety-team)
+# Guia de Segurança para Equipe de Safety (/docs/sprint-3/sistema-multi-agentes/03-guia-seguranca-safety-team)
 
 # 3. Guia de Segurança para Equipe de Safety
 
@@ -10867,7 +13848,7 @@ def get_safety_metrics(start_date: str, end_date: str) -> dict:
 4. Violações de severidade HIGH
 
 
-# Sistema Multi-Agentes (/docs/sprint-2/sistema-multi-agentes)
+# Sistema Multi-Agentes (/docs/sprint-3/sistema-multi-agentes)
 
 # Sistema Multi-Agentes
 
@@ -10890,672 +13871,6 @@ Este módulo contém toda a documentação técnica do sistema multi-agentes des
 ## Estrutura do Sistema
 
 O sistema utiliza uma arquitetura modular com múltiplos agentes especializados que trabalham em conjunto para fornecer uma experiência de tour interativa e segura.
-
-
-# Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/wireframes)
-
-<Cards>
-  <Card title="Wireframe App Staff" description="Wireframe do aplicativo onde o staff do Inteli poderá gerenciar os tours da aplicação." href="/docs/sprint-2/wireframes/wireframe-app-staff" />
-
-  <Card title="Wireframe App Visitante" description="Wireframe do aplicativo onde o visitante irá interagir com o tour, fazendo perguntas para o robô." href="/docs/sprint-2/wireframes/wireframe-app-visitante" />
-
-  <Card title="Wireframe Dashboard Staff" description="Wireframe da dashboard onde o staff do Inteli poderá visualizar insights sobre os tours feitos e gerenciar os documentos que o modelo do robô ingere." href="/docs/sprint-2/wireframes/wireframe-dashboard-staff" />
-</Cards>
-
-
-# Wireframe App Staff (/docs/sprint-2/wireframes/wireframe-app-staff)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import { Steps } from "fumadocs-ui/components/steps";
-
- Como definido anteriormente, um dos usuários da aplicação será uma pessoa da staff do Inteli. Assim, os principais deveres desse usuário enquanto interage com a aplicação é de **criar, gerenciar e acompanhar os tours** que estão em andamento e também visualizar estatísticas sobre, por exemplo, as perguntas mais comuns que são feitas pelos visitantes, etc.
-
-## 1. Tela de Visão Geral e Agendamentos
-
-Esta é a tela inicial do aplicativo, focada na gestão de tours.
-
-* **Propósito:** Permitir que o membro da Staff visualize os tours agendados e inicie o processo de criação de um novo tour.
-* **Elementos Chave:**
-  * **Seletor de Data:** Permite filtrar a lista de tours por dia (e.g., 27, 28, 29 DEZ).
-  * **Tabela/Lista de Tours:** Exibe os tours agendados com as colunas **Horário**, **Nome** (do responsável) e **Status** (e.g., Agendado, Em Andamento, Finalizado).
-  * **Botão de Criação (+):** Localizado no canto superior direito, inicia o fluxo de criação de um novo tour.
-  * **Ação de Clique:** Clicar em um tour existente na lista leva à tela de Detalhamento do Tour (Tela 5).
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Tela de Visão Geral e Agendamentos
-</p>
-
-<img alt="Tela de Visão Geral e Agendamentos" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 2. Tela de Cadastro de Visitantes
-
-Esta tela faz parte do fluxo de criação de um novo tour.
-
-* **Propósito:** Coletar as informações essenciais dos visitantes que participarão do tour.
-* **Elementos Chave:**
-  * **Responsável e Data:** Campos para identificar o responsável pelo agendamento e a data do tour.
-  * **Visitantes:** Campos para **Nome** e **E-mail** do primeiro visitante.
-  * **Adicionar Visitantes:** Opção para incluir mais participantes no tour.
-  * **Botão Confirmar:** Avança para a próxima etapa do fluxo de criação do tour.
-
-<p style={{ textAlign: "center" }}>
-  Figura 2 - Tela de Cadastro de Visitantes
-</p>
-
-<img alt="Tela de Cadastro de Visitantes" src={__img1} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 3. Tela de Seleção de Perfil do Robô
-
-Esta tela é a etapa de personalização do tour.
-
-* **Propósito:** Definir a personalidade e o modo de interação do cachorro robótico durante o tour.
-* **Elementos Chave:**
-  * **Título:** "Selecione o perfil do cachorro".
-  * **Carrossel de Seleção:** Área central com setas laterais para navegar entre os diferentes perfis/personalidades disponíveis para o robô.
-  * **Botão Finalizar:** Conclui a seleção e avança para a tela de Resumo.
-
-<p style={{ textAlign: "center" }}>
-  Figura 3 - Tela de Seleção de Perfil do Robô
-</p>
-
-<img alt="Tela de Seleção de Perfil do Robô" src={__img2} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 4. Tela de Resumo e Criação do Tour
-
-Esta tela é o ponto final antes da criação definitiva do tour.
-
-* **Propósito:** Permitir que o membro da Staff revise todas as informações coletadas (visitantes e perfil do robô) antes de finalizar o agendamento.
-* **Elementos Chave:**
-  * **Título:** "Informações gerais".
-  * **Conteúdo:** Área de texto longo que exibe o resumo dos dados.
-  * **Opção Editar:** Permite retornar às telas anteriores para realizar ajustes.
-  * **Botão Iniciar:** Cria o tour no sistema e o marca como agendado.
-
-<p style={{ textAlign: "center" }}>
-  Figura 4 - Tela de Resumo e Criação do Tour
-</p>
-
-<img alt="Tela de Resumo e Criação do Tour" src={__img3} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 5. Tela de Detalhamento e Início do Tour
-
-Esta tela é acessada ao clicar em um tour agendado na Tela 1.
-
-* **Propósito:** Iniciar um tour agendado e gerar o código de acesso para o visitante.
-* **Fluxo de Ação:**
-  1. O membro da Staff acessa o detalhamento do tour.
-  2. Ao iniciar o tour (ação não visível no wireframe, mas implícita), o sistema gera um **Código do Tour**.
-  3. O código (representado por `******`) é exibido para ser fornecido ao visitante, que o utilizará em seu próprio aplicativo para iniciar a experiência.
-  * **Botão Cancelar:** Permite abortar a operação.
-
-<p style={{ textAlign: "center" }}>
-  Figura 5 - Tela de Detalhamento e Início do Tour (Geração de Código)
-</p>
-
-<img alt="Tela de Detalhamento e Início do Tour" src={__img4} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 6. Tela de Acompanhamento do Tour
-
-Esta é a tela principal de monitoramento de um tour em andamento.
-
-* **Propósito:** Fornecer à Staff uma visão em tempo real do progresso do tour e das interações do robô.
-* **Elementos Chave:**
-  * **Status: Em Andamento:** Indica que o tour está ativo.
-  * **Barra de Progresso:** Exibe as etapas do tour/processo (e.g., Arquibancada, Ateliê, Casinhas, etc) e o status de cada uma.
-  * **Perguntas Feitas:** Seção para visualizar as perguntas que foram feitas pelos visitantes ao robô, permitindo a coleta de estatísticas.
-  * **Barra de Navegação Inferior:** Contém as ações de controle do tour:
-    * Ícone de Mapa: Abre a visualização do mapa (Tela 7).
-    * Botão Central (X): **Finalizar Tour**.
-    * Ícone de Parada: **Parar por Emergência**.
-
-<p style={{ textAlign: "center" }}>
-  Figura 6 - Tela de Acompanhamento do Tour
-</p>
-
-<img alt="Tela de Acompanhamento do Tour" src={__img5} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 7. Tela de Mapa do Tour
-
-Esta tela é acessada a partir da Tela 6.
-
-* **Propósito:** Visualizar a localização atual do robô e o progresso físico do tour.
-* **Elementos Chave:**
-  * **Título:** "MAPA DO INTELI + CHECKPOINTS".
-  * **Área de Mapa:** Exibe o mapa da faculdade com a rota do tour.
-  * **Localização do Robô:** Indica o checkpoint onde o robô se encontra no momento.
-  * **Barra de Navegação Inferior:** Mantém as mesmas opções de controle da Tela 6.
-
-<p style={{ textAlign: "center" }}>
-  Figura 7 - Tela de Mapa do Tour
-</p>
-
-<img alt="Tela de Mapa do Tour" src={__img6} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## Fluxo de Uso Principal
-
-<Steps>
-  ### 1. Visualizar Agendamentos
-
-  O membro da Staff acessa a **Tela 1** para ver a lista de tours agendados para o dia.
-
-  ### 2. Criar Novo Tour
-
-  A partir da **Tela 1**, o Staff inicia o fluxo de criação, passando pelas **Telas 2** (Cadastro de Visitantes) e **3** (Seleção de Perfil do Robô).
-
-  ### 3. Confirmar Agendamento
-
-  Na **Tela 4** (Resumo), o Staff revisa e confirma o agendamento do tour.
-
-  ### 4. Iniciar Tour e Gerar Código
-
-  No dia do tour, o Staff seleciona o agendamento na **Tela 1** e, após iniciar, é levado à **Tela 5** para obter o código de acesso que será repassado ao visitante.
-
-  ### 5. Acompanhar o Progresso
-
-  Com o tour em andamento, o Staff monitora o progresso na **Tela 6** (Acompanhamento), podendo visualizar o mapa na **Tela 7** e intervir (Finalizar ou Parar por Emergência) quando necessário.
-</Steps>
-
-
-# Wireframe App Visitante (/docs/sprint-2/wireframes/wireframe-app-visitante)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import { Steps } from "fumadocs-ui/components/steps";
-
-  Como definido anteriormente, um dos principais usuários da aplicação será o visitante do Inteli. Assim, os principais deveres desse usuário, enquanto interage com a aplicação, são compreender as informações apresentadas e informar dúvidas sobre o Inteli durante o tour.
-
-## 1. Tela de Login com Código
-
-Esta é a tela inicial do aplicativo, que permitirá ao usuário iniciar o tour.
-
-* **Propósito:** Permitir que o usuário insira um código de acesso disponibilizado pela equipe para que o tour possa ser iniciado.
-* **Elementos-Chave:**
-  * **Campo de Inserção do Código:** Localizado no centro da tela, permite iniciar o tour quando o código correto for inserido.
-  * **Botão "Entrar":** Localizado na parte inferior central, inicia o tour caso o código esteja correto.
-  * **Ação de Clique:** Clicar em "Entrar" inicia o tour e envia o usuário para a tela de Tutorial - Conversa com o Cão Robô (2).
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Tela de Login com Código do Tour
-</p>
-
-<img alt="Tela de Login com Código do Tour" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 2. Tela de Tutorial - Conversa com o Cão Robô
-
-Esta é a tela inicial do tutorial, que permitirá ao usuário aprender como interagir com o cão robô.
-
-* **Propósito:** Ensinar o usuário a se comunicar com o robô por meio do chat de voz.
-* **Elementos-Chave:**
-  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário como ele pode se comunicar com o cão robô.
-  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para o próximo pop-up do Tutorial - Fluxo do Tour (3).
-
-<p style={{ textAlign: "center" }}>
-  Figura 2 - Tela de Tutorial - Conversa com o Cão Robô
-</p>
-
-<img alt="Tela de Tutorial - Conversa com o Cão Robô" src={__img1} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 3. Tela de Tutorial - Fluxo do Tour
-
-Esta é a tela do tutorial que permitirá ao usuário entender como funcionará a dinâmica do tour.
-
-* **Propósito:** Explicar ao usuário como ele pode passar pelos checkpoints do tour e o que eles representam.
-* **Elementos-Chave:**
-  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário como seguir com o tour.
-  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para o próximo pop-up do Tutorial - Botão de Emergência (4).
-
-<p style={{ textAlign: "center" }}>
-  Figura 3 - Tela de Tutorial - Fluxo do Tour
-</p>
-
-<img alt="Tela de Tutorial - Fluxo do Tour" src={__img2} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 4. Tela de Tutorial - Botão de Emergência
-
-Esta é a tela do tutorial que permitirá ao usuário entender o que fazer em caso de emergência.
-
-* **Propósito:** Ensinar o usuário como agir em caso de erro ou bug no sistema do cão robô.
-* **Elementos-Chave:**
-  * **Pop-up Explicativo:** Localizado no centro da tela, explica ao usuário onde ele deve clicar para parar o robô, evitando possíveis danos.
-  * **Botão "OK":** Localizado na parte inferior central do pop-up, envia o usuário para a Tela - Mapa do Inteli (5).
-
-<p style={{ textAlign: "center" }}>
-  Figura 4 - Tela de Tutorial - Botão de Emergência
-</p>
-
-<img alt="Tela de Tutorial - Botão de Emergência" src={__img3} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 5. Tela Mapa do Inteli
-
-Esta é a tela que permitirá ao usuário entender em qual parte do tour ele se encontra.
-
-* **Propósito:** Permitir que o usuário saiba em qual parte da instituição e em qual etapa do tour ele está no momento.
-* **Elementos-Chave:**
-  * **Mapa Inteli:** Localizado no centro da tela, mostra ao usuário onde ele está e em qual dos checkpoints se encontra ou já passou.
-  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta tela do mapa.
-  * **Botão "Checkpoint":** Localizado no HUD, envia o usuário para a Tela - Prosseguir com o Tour (6).
-
-<p style={{ textAlign: "center" }}>
-  Figura 5 - Tela Mapa do Inteli
-</p>
-
-<img alt="Tela - Mapa do Inteli" src={__img4} placeholder="blur" />
-
-***
-
-## 6. Tela Prosseguir com o Tour
-
-Esta é a tela que permitirá ao usuário continuar o tour ou permanecer parado com o cão robô em um dos checkpoints.
-
-* **Propósito:** Permitir que o usuário utilize os outros elementos do HUD, como o chat de conversa com o cão robô para fazer perguntas, ou prossiga com o tour.
-* **Elementos-Chave:**
-  * **Pop-up Checkpoint:** Localizado no centro da tela, mostra ao usuário a opção de seguir para o próximo ponto do tour ou permanecer no atual para conversar com o robô.
-  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta tela.
-  * **Botão "Microfone":** Localizado no centro do HUD, envia o usuário para a Tela - Chat com o Cão Robô (7).
-
-<p style={{ textAlign: "center" }}>
-  Figura 6 - Tela Prosseguir com o Tour
-</p>
-
-<img alt="Tela - Prosseguir com o Tour" src={__img5} placeholder="blur" />
-
-***
-
-## 7. Tela Chat com o Cão Robô
-
-Esta é a tela que permitirá ao usuário conversar com o cão robô para tirar dúvidas.
-
-* **Propósito:** Permitir que o usuário faça perguntas ao cão robô, que serão respondidas durante as pausas nos checkpoints.
-* **Elementos-Chave:**
-  * **Tela de Conversa:** Localizada no centro da tela, mostra as perguntas feitas pelo usuário e as respostas dadas pelo cão robô.
-  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta.
-  * **Botão "Microfone":** Localizado à direita da tela, permite ao usuário fazer perguntas ao cão robô.
-  * **Botão "Emergência":** Localizado no HUD, permite ao usuário ir até a Tela - Botão de Emergência (8).
-
-<p style={{ textAlign: "center" }}>
-  Figura 7 - Tela Chat com o Cão Robô
-</p>
-
-<img alt="Tela - Chat com o Cão Robô" src={__img6} placeholder="blur" />
-
-***
-
-## 8. Tela Botão de Emergência
-
-Esta é a tela que permitirá ao usuário parar o robô caso ocorra algum bug.
-
-* **Propósito:** Permitir que o usuário interrompa todas as ações do robô em caso de emergência.
-* **Elementos-Chave:**
-  * **HUD:** Localizado na parte inferior central da tela, oferece cinco ações possíveis ao usuário, sendo uma delas voltar para esta.
-  * **Botão "Emergência":** Localizado no centro da tela, permite ao usuário parar completamente o cão robô.
-
-<p style={{ textAlign: "center" }}>
-  Figura 8 - Tela Botão de Emergência
-</p>
-
-<img alt="Tela - Botão de Emergência" src={__img7} placeholder="blur" />
-
-***
-
-## Fluxo de Uso Principal
-
-<Steps>
-  ### 1. Inserir Código de Acesso
-
-  O visitante acessa a **Tela 1** (Login com Código) e insere o código fornecido pela equipe do Inteli para iniciar o tour.
-
-  ### 2. Aprender a Interagir com o Cão Robô
-
-  Após o login, o visitante é guiado pelas **Telas 2**, **3** e **4** (Tutoriais) que explicam como conversar com o cão robô, como funcionam os checkpoints e como utilizar o botão de emergência.
-
-  ### 3. Visualizar o Mapa do Inteli
-
-  Concluído o tutorial, o visitante acessa a **Tela 5** (Mapa do Inteli) para ver onde está e acompanhar seu progresso pelos checkpoints do tour.
-
-  ### 4. Prosseguir com o Tour
-
-  Na **Tela 6** (Prosseguir com o Tour), o visitante decide se continua para o próximo ponto do tour ou permanece no atual para conversar com o cão robô.
-
-  ### 5. Interagir com o Cão Robô
-
-  Ao selecionar o botão de microfone, o visitante acessa a **Tela 7** (Chat com o Cão Robô), onde pode fazer perguntas e receber respostas durante as pausas do tour.
-
-  ### 6. Parar o Robô em Caso de Emergência
-
-  Se ocorrer algum problema, o visitante pode acessar a **Tela 8** (Botão de Emergência) para interromper imediatamente as ações do cão robô.
-</Steps>
-
-
-# Wireframe Dashboard Staff (/docs/sprint-2/wireframes/wireframe-dashboard-staff)
-
-
-
-
-
-
-
-import { Steps } from "fumadocs-ui/components/steps";
-
-  Como definido anteriormente, um dos usuários da aplicação será um membro da staff do Inteli. Essa figura reaparece durante o desenvolvimento das telas, mas agora com um novo objetivo: visualizar os dados coletados durante o tour e pensar em como tirar o melhor proveito possível dessas informações.
-
-## 1. Tela Home
-
-Esta é a tela inicial do site, que permitirá ao Staff visualizar informações tanto sobre o robô quanto sobre o tour, incluindo dados sobre as perguntas realizadas.
-
-* **Propósito:** Permitir que o Staff visualize informações como a quantidade de perguntas e seus temas, além de dados sobre os tours e os visitantes.
-* **Elementos-Chave:**
-  * **Gráficos de Acompanhamento:** Localizados na parte superior e inferior central da tela, permitem ao Staff visualizar a quantidade de alertas e a demanda, respectivamente.
-  * **Tours por Mês:** Exibe a quantidade de tours realizados no mês.
-  * **Quantidade de Perguntas:** Mostra quantas perguntas foram feitas por tour.
-  * **Assuntos Mais Perguntados:** Permite ao Staff identificar os principais focos de dúvidas sobre o Inteli, como processo seletivo, programa de bolsas, clubes, etc.
-  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até outras telas do site, como a Tela Dashboard e Roteiro (2).
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Tela Home
-</p>
-
-<img alt="Tela Home" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 2. Tela Dashboard e Roteiro
-
-Esta é uma tela de controle que permitirá ao Staff atualizar ou remover informações sobre a instituição e sobre o roteiro.
-
-* **Propósito:** Permitir que o Staff faça a manutenção das informações do Inteli, mantendo o modelo de IA do cão robô atualizado, e altere informações do tour.
-* **Elementos-Chave:**
-  * **Seção Documentos:** Localizada no centro esquerdo da tela, permite ao Staff remover ou adicionar informações sobre o Inteli, mantendo o sistema sempre atualizado com as últimas informações.
-  * **Seção de Roteiro:** Localizada no centro direito da tela, permite ao Staff alterar informações sobre o roteiro, caso seja necessário.
-  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
-
-<p style={{ textAlign: "center" }}>
-  Figura 2 - Dashboard e Roteiro
-</p>
-
-<img alt="Tela Dashboard e Roteiro" src={__img1} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## 3. Tela Pop-up Documentos
-
-Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o upload de novos documentos.
-
-* **Propósito:** Permitir que o Staff envie novas informações sobre o Inteli para o sistema.
-* **Elementos-Chave:**
-  * **Pop-up Documentos:** Localizado no centro da tela, permite ao usuário realizar o upload dos documentos do Inteli e inserir um título para melhor organização.
-  * **Botão "Adicionar":** Localizado na parte inferior central do pop-up, envia o documento e seu título para o sistema.
-  * **Navbar:** Localizada à esquerda da página, permite ao usuário navegar até as outras telas do site.
-
-<p style={{ textAlign: "center" }}>
-  Figura 3 - Pop-up Documentos
-</p>
-
-<img alt="Tela - Pop-up Documentos" src={__img2} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## Fluxo de Uso Principal
-
-<Steps>
-  ### 1. Visualizar Dados Gerais
-
-  O Staff acessa a **Tela 1** (Home) para ver informações sobre os tours, perguntas feitas pelos visitantes e desempenho do robô.
-
-  ### 2. Gerenciar Informações da Instituição e do Tour
-
-  A partir da **Tela 1**, o Staff acessa a **Tela 2** (Dashboard e Roteiro) para atualizar dados do Inteli e modificar o roteiro do tour quando necessário.
-
-  ### 3. Adicionar Novos Documentos
-
-  Na **Tela 3** (Pop-up Documentos), o Staff pode realizar o upload de novos materiais e inserir títulos descritivos, mantendo o sistema de IA atualizado.
-</Steps>
-
-
-# Template de Pasta (/docs/sprint-3/template-pasta)
-
-<Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
-</Cards>
-
-
-# Título do Documento (/docs/sprint-3/template-pasta/template)
-
-
-
-
-
-# Cabeçalho Principal
-
-## Callouts/Admonitions
-
-<Callout type="info">
-  Esta é uma nota importante para destacar algo relevante no documento.
-</Callout>
-
-<Callout type="warn">
-  Esta é uma advertência para chamar a atenção para um possível problema.
-</Callout>
-
-<Callout>
-  Hello World
-</Callout>
-
-<Callout title="Title">
-  Hello World
-</Callout>
-
-<Callout title="Title" type="error">
-  Hello World
-</Callout>
-
-## Bloco de Código
-
-```python
-# Código de exemplo em Python
-def exemplo():
-    print("Olá, Mundo!")
-```
-
-```rust title="Exemplo em Rust com título"
-// Código de exemplo em Rust
-fn exemplo() {
-    println!("Olá, Mundo!");
-}
-```
-
-## Flowcharts MermaidJS
-
-<Mermaid
-  chart="flowchart TD
-U[Usuário] --> P[Proxy Reverso]
-
-P --> FE[React.js Frontend]
-P --> C[ASP.NET Core]
-P --> FA[FastAPI]
-P --> F[Flask]
-
-B[Broker MQTT] -->|MQTT| C
-
-C -->|Query e HTTP| PG[(PostgreSQL)]
-C -->|HTTP| BUCKET[(MinIO DataLake)]
-
-FA -->|Função Direta| ML[Módulo de Retreinamento]
-FA -->|Função Direta| IF[Gerador de Inferências]
-FA -->|HTTP| BUCKET
-
-F -->|Query e HTTP| PG
-F -->|HTTP| BUCKET
-"
-/>
-
-## Imagens e Links
-
-<img alt="Imagem" src={__img0} placeholder="blur" />
-
-<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
-
-[Link](https://www.example.com)
-
-[Link Relativo](../template)
-
-## Estrutura de pastas
-
-<Files>
-  <Folder name="sprint-1" defaultOpen>
-    <Folder name="entendimento-do-negocio" defaultOpen>
-      <File name="analise-financeira.mdx" />
-
-      <File name="canvas-proposta-de-valor.mdx" />
-
-      <File name="index.mdx" />
-
-      <File name="matriz-de-risco.mdx" />
-
-      <File name="matriz-oceano-azul.mdx" />
-
-      <File name="meta.json" />
-    </Folder>
-
-    <Folder name="entendimento-do-projeto" defaultOpen>
-      <File name="index.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="proposta-de-arquitetura.mdx" />
-
-      <File name="requisitos-funcionais.mdx" />
-
-      <File name="requisitos-nao-funcionais.mdx" />
-    </Folder>
-
-    <Folder name="entendimento-do-usuario" defaultOpen>
-      <Folder name="personas" defaultOpen>
-        <File name="index.mdx" />
-
-        <File name="persona-1.mdx" />
-      </Folder>
-
-      <File name="index.mdx" />
-
-      <File name="mapa-de-jornada-do-usuario.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="user-stories.mdx" />
-    </Folder>
-
-    <File name="analise-de-impacto-etico.mdx" />
-
-    <File name="index.mdx" />
-
-    <File name="meta.json" />
-  </Folder>
-</Files>
 
 
 # Template de Pasta (/docs/sprint-4/template-pasta)
