@@ -207,6 +207,10 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
 # Sprint 3 (/docs/sprint-3)
 
 <Cards>
+  <Card href="/docs/sprint-3/sistema-multi-agentes" title="Sistema Multi-Agentes">
+    Documentação completa do sistema multi-agentes Inteli Robot Dog Tour Guide
+  </Card>
+
   <Card href="/docs/sprint-3/secure-software" title="S-SDLC">
     Secure Software Development Life Cycle
   </Card>
@@ -11241,593 +11245,6 @@ Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
 </Cards>
 
 
-# Protótipo de Alta Fidelidade do Dashboard Staff (/docs/sprint-3/prototipo-alta)
-
-<Cards>
-  <Card href="/docs/sprint-3/prototipo-alta/paf-staff-dash" title="Protótipo de Alta Fidelidade — Dashboard Staff">
-    Visualização do layout do dashboard utilizado pelo staff para acompanhar
-    tours, documentos e usuários.
-  </Card>
-</Cards>
-
-
-# Protótipo de Alta Fidelidade - Dashboard Staff (/docs/sprint-3/prototipo-alta/paf-staff-dash)
-
-
-
-
-
-
-
-
-
-# Protótipo de Alta Fidelidade — Dashboard do Staff
-
-O Dashboard do Staff foi projetado para oferecer uma visão centralizada das operações relacionadas aos tours guiados, permitindo que os colaboradores acompanhem métricas essenciais, gerenciem documentos que alimentam o modelo de IA e administrem usuários internos. O objetivo é proporcionar uma interface clara, funcional e segura para apoiar decisões rápidas e melhorar o fluxo de trabalho do staff no campus do Inteli.
-
-***
-
-# Telas do Dashboard
-
-## 1. Tela de Acompanhamento Geral
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 — Tela de Acompanhamento Geral
-</p>
-
-<img alt="Acompanhamento Geral" src={__img0} placeholder="blur" />
-
-### Resumo
-
-Painel principal do dashboard, apresentando indicadores e gráficos referentes aos tours realizados em um determinado período.
-
-### Informações exibidas
-
-* Total de tours concluídos.
-* Número de visitantes atendidos.
-* Duração média dos tours.
-* Gráficos por horário, setor e dias da semana.
-* Métricas de performance do robô.
-
-### Funcionalidades
-
-* Seleção de intervalos de tempo.
-* Filtros dinâmicos que atualizam os gráficos automaticamente.
-* Acesso rápido às demais seções do dashboard.
-
-### Objetivo
-
-Fornecer uma visão consolidada e analítica das operações, auxiliando o staff no acompanhamento e planejamento dos tours.
-
-***
-
-## 2. Tela de Gerenciamento de Documentos
-
-<p style={{ textAlign: "center" }}>
-  Figura 2 — Tela de Gerenciamento de Documentos
-</p>
-
-<img alt="Gerenciamento de Documentos" src={__img1} placeholder="blur" />
-
-### Resumo
-
-Área destinada ao controle dos documentos utilizados para alimentar o modelo de IA responsável pelas interações durante os tours.
-
-### Informações exibidas
-
-* Lista dos documentos já cadastrados.
-* Data de upload e tipo de arquivo.
-* Status de processamento pelo modelo.
-* Opções de visualização e remoção.
-
-### Funcionalidades
-
-* Upload de novos documentos.
-* Exclusão de arquivos obsoletos.
-* Atualização dos documentos já existentes.
-* Histórico de modificações.
-
-### Objetivo
-
-Garantir que o modelo de IA esteja atualizado com informações confiáveis e relevantes sobre o campus e suas estruturas.
-
-***
-
-## 3. Tela de Adição de Documentos
-
-<p style={{ textAlign: "center" }}>
-  Figura 3 — Tela de Adição de Documentos
-</p>
-
-<img alt="Adicionar Documentos" src={__img2} placeholder="blur" />
-
-### Resumo
-
-Tela dedicada ao envio de novos documentos que alimentarão o roteiro e o conhecimento do modelo de IA. O conteúdo central da interface é um card de upload, onde o colaborador pode selecionar e enviar arquivos.
-
-### Informações exibidas
-
-* Card central com campo de upload.
-* Instruções sobre formatos aceitos (ex.: PDF).
-* Indicação de tamanho máximo do arquivo.
-* Botão para confirmar envio.
-
-### Funcionalidades
-
-* Selecionar arquivo pelo explorador de arquivos.
-* Arrastar e soltar documentos diretamente no card.
-* Enviar documentos para processamento pelo modelo.
-* Visualizar mensagem de sucesso ou erro após o upload.
-
-### Objetivo
-
-Simplificar o processo de adicionar novos conteúdos ao sistema, garantindo que o staff alimente o modelo de IA de forma rápida e sem complicações.
-
-***
-
-## 4. Tela de Gestão de Usuários
-
-<p style={{ textAlign: "center" }}>
-  Figura 4 — Tela de Gestão de Usuários
-</p>
-
-<img alt="Gestão de Usuários" src={__img3} placeholder="blur" />
-
-### Resumo
-
-Tela utilizada para administrar os usuários com acesso ao dashboard, controlando permissões e atividades.
-
-### Informações exibidas
-
-* Lista de usuários cadastrados.
-* Função e nível de acesso.
-* Status da conta.
-* Último login.
-
-### Funcionalidades
-
-* Adicionar novos usuários.
-* Alterar permissões.
-* Ativar e desativar contas.
-* Remover usuários inativos.
-
-### Objetivo
-
-Proporcionar controle seguro e eficiente sobre quem pode visualizar e operar o dashboard.
-
-***
-
-# Mecanismos de Navegação
-
-### Fluxo principal
-
-| Evento                                                         | Tela apresentada            |
-| -------------------------------------------------------------- | --------------------------- |
-| Acessar o dashboard (home ou clicando no ícone de "Dashboard") | Acompanhamento Geral        |
-| Selecionar o ícone de “Documentos”                             | Gerenciamento de Documentos |
-| Clicar no botão de +, “Adicionar Docs”                         | Adição de Documentos        |
-| Selecionar o ícone de “Usuários”                               | Gestão de Usuários          |
-
-### Acesso permanente via navbar
-
-* Acompanhamento Geral
-* Documentos
-* Adicionar Documento
-* Usuários
-
-***
-
-# Conclusão
-
-O protótipo de alta fidelidade documentado representa a estrutura visual e funcional do Dashboard do Staff. Por meio de telas claras e focadas nas necessidades dos colaboradores — como acompanhamento de métricas, gestão de documentos e controle de usuários — o sistema oferece suporte direto e eficiente ao gerenciamento dos tours guiados pelo robô no campus.
-
-***
-
-
-# Título do Documento (/docs/sprint-3/prototipo-alta/template)
-
-
-
-
-
-# Cabeçalho Principal
-
-## Callouts/Admonitions
-
-<Callout type="info">
-  Esta é uma nota importante para destacar algo relevante no documento.
-</Callout>
-
-<Callout type="warn">
-  Esta é uma advertência para chamar a atenção para um possível problema.
-</Callout>
-
-<Callout>
-  Hello World
-</Callout>
-
-<Callout title="Title">
-  Hello World
-</Callout>
-
-<Callout title="Title" type="error">
-  Hello World
-</Callout>
-
-## Bloco de Código
-
-```python
-# Código de exemplo em Python
-def exemplo():
-    print("Olá, Mundo!")
-```
-
-```rust title="Exemplo em Rust com título"
-// Código de exemplo em Rust
-fn exemplo() {
-    println!("Olá, Mundo!");
-}
-```
-
-## Flowcharts MermaidJS
-
-<Mermaid
-  chart="flowchart TD
-U[Usuário] --> P[Proxy Reverso]
-
-P --> FE[React.js Frontend]
-P --> C[ASP.NET Core]
-P --> FA[FastAPI]
-P --> F[Flask]
-
-B[Broker MQTT] -->|MQTT| C
-
-C -->|Query e HTTP| PG[(PostgreSQL)]
-C -->|HTTP| BUCKET[(MinIO DataLake)]
-
-FA -->|Função Direta| ML[Módulo de Retreinamento]
-FA -->|Função Direta| IF[Gerador de Inferências]
-FA -->|HTTP| BUCKET
-
-F -->|Query e HTTP| PG
-F -->|HTTP| BUCKET
-"
-/>
-
-## Imagens e Links
-
-<img alt="Imagem" src={__img0} placeholder="blur" />
-
-<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
-
-[Link](https://www.example.com)
-
-[Link Relativo](../template)
-
-## Estrutura de pastas
-
-<Files>
-  <Folder name="sprint-1" defaultOpen>
-    <Folder name="entendimento-do-negocio" defaultOpen>
-      <File name="analise-financeira.mdx" />
-
-      <File name="canvas-proposta-de-valor.mdx" />
-
-      <File name="index.mdx" />
-
-      <File name="matriz-de-risco.mdx" />
-
-      <File name="matriz-oceano-azul.mdx" />
-
-      <File name="meta.json" />
-    </Folder>
-
-    <Folder name="entendimento-do-projeto" defaultOpen>
-      <File name="index.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="proposta-de-arquitetura.mdx" />
-
-      <File name="requisitos-funcionais.mdx" />
-
-      <File name="requisitos-nao-funcionais.mdx" />
-    </Folder>
-
-    <Folder name="entendimento-do-usuario" defaultOpen>
-      <Folder name="personas" defaultOpen>
-        <File name="index.mdx" />
-
-        <File name="persona-1.mdx" />
-      </Folder>
-
-      <File name="index.mdx" />
-
-      <File name="mapa-de-jornada-do-usuario.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="user-stories.mdx" />
-    </Folder>
-
-    <File name="analise-de-impacto-etico.mdx" />
-
-    <File name="index.mdx" />
-
-    <File name="meta.json" />
-  </Folder>
-</Files>
-
-
-# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
-
-# Sprint 3 – Automação de Movimentação e Integração Dinâmica
-
-## Objetivos Principais
-
-* Implementar execução automatizada de movimentos via JSON.
-* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
-* Permitir movimentação completa por **checkpoints** com áudio associado.
-* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
-* Iniciar integração com backend e percepção de obstáculos.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Implementação da fila de requisições
-
-Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
-O formato padronizado para os checkpoints segue o modelo abaixo:
-
-```json title="Exemplo de arquivo JSON de checkpoints"
-{
-  "checkpoint1": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
-    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
-  ],
-  "checkpoint2": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
-    ...
-  ]
-}
-```
-
-Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
-Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
-
-***
-
-## Execução e Testes
-
-Para executar o sistema de movimentação automatizada:
-
-1. **Inicie o ambiente virtual:**
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-2. **Execute o script principal de movimentação:**
-
-   ```bash
-   python3 testes/move_path.py
-   ```
-
-   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
-
-3. **Para iniciar um checkpoint manualmente (em outro terminal):**
-
-   ```bash
-   python3 external_trigger.py play
-   ```
-
-4. **Para interromper a execução a qualquer momento:**
-
-   ```bash
-   python3 external_trigger.py stop
-   ```
-
-   Ao parar, o robô entra automaticamente em **modo estático em pé**.
-
-***
-
-## Novas Funcionalidades
-
-* Leitura e execução automática de checkpoints via JSON.
-* Execução ordenada com fila de comandos.
-* Reprodução de áudio correspondente a cada checkpoint.
-* Interrupção imediata da execução via comando externo (`stop`).
-* Conexão e controle assíncrono com o robô via **WebRTC**.
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
-
-* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
-* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
-* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
-* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
-
-Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
-
-***
-
-## Próximos Passos
-
-* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
-* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
-* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
-* Revisar parâmetros de movimentação e segurança térmica das juntas.
-
-***
-
-## Aprendizados
-
-* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
-* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
-* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
-* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
-
-***
-
-## Links Relevantes
-
-* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
-
-***
-
-## Conclusão
-
-Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
-Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
-
-
-# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
-
-<Cards>
-  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
-
-  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
-</Cards>
-
-
-# Simulação (/docs/sprint-3/robo/simulacao-robo)
-
-
-
-# Sprint 3 – Simulação do Robô com ROS2
-
-## Objetivos Principais
-
-* Configurar o ambiente ROS e entender seu funcionamento;
-* Simular o robô Unitree Go2 no Gazebo;
-* Continuar testes no ambiente Unity (Autonomous Stack GO2);
-* Entender como funciona os tópicos do LiDAR do GO2;
-* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Gazebo
-
-  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
-
-### Unity
-
-  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
-
-* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
-* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
-
-### Docker
-
-  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
-
-* Estudo da viabilidade do uso do Docker;
-* Estudo da implementação do Docker com simuladores;
-* Estudo da implementação do Docker com ROS2;
-* Tentativa de implementação do simulador Unity em um container Docker.
-
-### Visualização de dados de sensores do robõ
-
-  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Visualização da Point Cloud real no RViz
-</p>
-
-<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Produzida pelos autores (2025).
-</p>
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-### Gazebo
-
-* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
-
-### Unity
-
-* Problemas de importação de modelos de espaço para o simulador;
-* Dificuldade de comunicação do ROS com o sistema;
-* Dificuldade de achar utilidade nas informações transferidas
-* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
-
-### Docker
-
-* Falta de exemplos que utilizassem todas as tecnologias juntas;
-* Uso excessivo de memória RAM ao *buildar* os simuladores;
-* Necessidade do Ubuntu 22.04 (especificamente).
-
-***
-
-## Próximos Passos
-
-* Começar testes de ROS no robô físico;
-* Começar testes de LiDAR no robô físico;
-* Começar a integração dos repositórios encontrados com o robô físico;
-* Colocar em containers os simuladores escolhidos com implementação ROS.
-
-***
-
-## Aprendizados
-
-### Gazebo
-
-* Comunicação código e robô via ROS2;
-* Como funciona a nuvem de pontos do LiDAR;
-* Diversos modelos de navegação autônoma e controle manual para o Go2.
-
-### Unity
-
-* Entendi da comunicação do ROS2;
-* Funcionamento do LiDAR;
-
-### Docker
-
-* Formas de rodar ROS em um container;
-* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
-* Formas de reduzir o uso da memória RAM ao rodar simuladores.
-
-***
-
-## Links Relevantes
-
-### Gazebo
-
-* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
-* [NAV2](https://docs.nav2.org/)
-* [RViz](https://wiki.ros.org/rviz)
-
-### Unity
-
-* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-### Docker
-
-* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
-* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
-* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
-* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-***
-
-## Conclusão
-
-Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
-Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
-
-
 # S-SDLC — Secure Software Development Life Cycle (/docs/sprint-3/secure-software)
 
 <Cards>
@@ -12243,6 +11660,593 @@ O S-SDLC apresentado estabelece uma estrutura completa, robusta e profissional p
 **ISO/IEC 27001.** *Information Security Management Systems.* Resumo técnico disponível em: [https://www.iso.org/isoiec-27001-information-security.html](https://www.iso.org/isoiec-27001-information-security.html). Acesso em: 18 nov. 2025.
 
 **SETIC-UFSC.** *Guia de Privacidade e Proteção de Dados - LGPD.* Disponível em: [https://lgpd.ufsc.br/duvidas-frequentes/](https://lgpd.ufsc.br/duvidas-frequentes/). Acesso em: 18 nov. 2025.
+
+
+# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
+
+# Sprint 3 – Automação de Movimentação e Integração Dinâmica
+
+## Objetivos Principais
+
+* Implementar execução automatizada de movimentos via JSON.
+* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
+* Permitir movimentação completa por **checkpoints** com áudio associado.
+* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
+* Iniciar integração com backend e percepção de obstáculos.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Implementação da fila de requisições
+
+Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
+O formato padronizado para os checkpoints segue o modelo abaixo:
+
+```json title="Exemplo de arquivo JSON de checkpoints"
+{
+  "checkpoint1": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
+    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
+  ],
+  "checkpoint2": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
+    ...
+  ]
+}
+```
+
+Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
+Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
+
+***
+
+## Execução e Testes
+
+Para executar o sistema de movimentação automatizada:
+
+1. **Inicie o ambiente virtual:**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Execute o script principal de movimentação:**
+
+   ```bash
+   python3 testes/move_path.py
+   ```
+
+   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
+
+3. **Para iniciar um checkpoint manualmente (em outro terminal):**
+
+   ```bash
+   python3 external_trigger.py play
+   ```
+
+4. **Para interromper a execução a qualquer momento:**
+
+   ```bash
+   python3 external_trigger.py stop
+   ```
+
+   Ao parar, o robô entra automaticamente em **modo estático em pé**.
+
+***
+
+## Novas Funcionalidades
+
+* Leitura e execução automática de checkpoints via JSON.
+* Execução ordenada com fila de comandos.
+* Reprodução de áudio correspondente a cada checkpoint.
+* Interrupção imediata da execução via comando externo (`stop`).
+* Conexão e controle assíncrono com o robô via **WebRTC**.
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
+
+* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
+* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
+* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
+* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
+
+Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
+
+***
+
+## Próximos Passos
+
+* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
+* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
+* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
+* Revisar parâmetros de movimentação e segurança térmica das juntas.
+
+***
+
+## Aprendizados
+
+* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
+* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
+* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
+* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Conclusão
+
+Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
+Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
+
+
+# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
+
+<Cards>
+  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
+
+  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
+</Cards>
+
+
+# Simulação (/docs/sprint-3/robo/simulacao-robo)
+
+
+
+# Sprint 3 – Simulação do Robô com ROS2
+
+## Objetivos Principais
+
+* Configurar o ambiente ROS e entender seu funcionamento;
+* Simular o robô Unitree Go2 no Gazebo;
+* Continuar testes no ambiente Unity (Autonomous Stack GO2);
+* Entender como funciona os tópicos do LiDAR do GO2;
+* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Gazebo
+
+  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
+
+### Unity
+
+  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
+
+* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
+* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
+
+### Docker
+
+  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
+
+* Estudo da viabilidade do uso do Docker;
+* Estudo da implementação do Docker com simuladores;
+* Estudo da implementação do Docker com ROS2;
+* Tentativa de implementação do simulador Unity em um container Docker.
+
+### Visualização de dados de sensores do robõ
+
+  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Visualização da Point Cloud real no RViz
+</p>
+
+<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Produzida pelos autores (2025).
+</p>
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+### Gazebo
+
+* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
+
+### Unity
+
+* Problemas de importação de modelos de espaço para o simulador;
+* Dificuldade de comunicação do ROS com o sistema;
+* Dificuldade de achar utilidade nas informações transferidas
+* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
+
+### Docker
+
+* Falta de exemplos que utilizassem todas as tecnologias juntas;
+* Uso excessivo de memória RAM ao *buildar* os simuladores;
+* Necessidade do Ubuntu 22.04 (especificamente).
+
+***
+
+## Próximos Passos
+
+* Começar testes de ROS no robô físico;
+* Começar testes de LiDAR no robô físico;
+* Começar a integração dos repositórios encontrados com o robô físico;
+* Colocar em containers os simuladores escolhidos com implementação ROS.
+
+***
+
+## Aprendizados
+
+### Gazebo
+
+* Comunicação código e robô via ROS2;
+* Como funciona a nuvem de pontos do LiDAR;
+* Diversos modelos de navegação autônoma e controle manual para o Go2.
+
+### Unity
+
+* Entendi da comunicação do ROS2;
+* Funcionamento do LiDAR;
+
+### Docker
+
+* Formas de rodar ROS em um container;
+* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
+* Formas de reduzir o uso da memória RAM ao rodar simuladores.
+
+***
+
+## Links Relevantes
+
+### Gazebo
+
+* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
+* [NAV2](https://docs.nav2.org/)
+* [RViz](https://wiki.ros.org/rviz)
+
+### Unity
+
+* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+### Docker
+
+* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
+* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
+* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
+* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+***
+
+## Conclusão
+
+Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
+Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
+
+
+# Protótipo de Alta Fidelidade do Dashboard Staff (/docs/sprint-3/prototipo-alta)
+
+<Cards>
+  <Card href="/docs/sprint-3/prototipo-alta/paf-staff-dash" title="Protótipo de Alta Fidelidade — Dashboard Staff">
+    Visualização do layout do dashboard utilizado pelo staff para acompanhar
+    tours, documentos e usuários.
+  </Card>
+</Cards>
+
+
+# Protótipo de Alta Fidelidade - Dashboard Staff (/docs/sprint-3/prototipo-alta/paf-staff-dash)
+
+
+
+
+
+
+
+
+
+# Protótipo de Alta Fidelidade — Dashboard do Staff
+
+O Dashboard do Staff foi projetado para oferecer uma visão centralizada das operações relacionadas aos tours guiados, permitindo que os colaboradores acompanhem métricas essenciais, gerenciem documentos que alimentam o modelo de IA e administrem usuários internos. O objetivo é proporcionar uma interface clara, funcional e segura para apoiar decisões rápidas e melhorar o fluxo de trabalho do staff no campus do Inteli.
+
+***
+
+# Telas do Dashboard
+
+## 1. Tela de Acompanhamento Geral
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 — Tela de Acompanhamento Geral
+</p>
+
+<img alt="Acompanhamento Geral" src={__img0} placeholder="blur" />
+
+### Resumo
+
+Painel principal do dashboard, apresentando indicadores e gráficos referentes aos tours realizados em um determinado período.
+
+### Informações exibidas
+
+* Total de tours concluídos.
+* Número de visitantes atendidos.
+* Duração média dos tours.
+* Gráficos por horário, setor e dias da semana.
+* Métricas de performance do robô.
+
+### Funcionalidades
+
+* Seleção de intervalos de tempo.
+* Filtros dinâmicos que atualizam os gráficos automaticamente.
+* Acesso rápido às demais seções do dashboard.
+
+### Objetivo
+
+Fornecer uma visão consolidada e analítica das operações, auxiliando o staff no acompanhamento e planejamento dos tours.
+
+***
+
+## 2. Tela de Gerenciamento de Documentos
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 — Tela de Gerenciamento de Documentos
+</p>
+
+<img alt="Gerenciamento de Documentos" src={__img1} placeholder="blur" />
+
+### Resumo
+
+Área destinada ao controle dos documentos utilizados para alimentar o modelo de IA responsável pelas interações durante os tours.
+
+### Informações exibidas
+
+* Lista dos documentos já cadastrados.
+* Data de upload e tipo de arquivo.
+* Status de processamento pelo modelo.
+* Opções de visualização e remoção.
+
+### Funcionalidades
+
+* Upload de novos documentos.
+* Exclusão de arquivos obsoletos.
+* Atualização dos documentos já existentes.
+* Histórico de modificações.
+
+### Objetivo
+
+Garantir que o modelo de IA esteja atualizado com informações confiáveis e relevantes sobre o campus e suas estruturas.
+
+***
+
+## 3. Tela de Adição de Documentos
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 — Tela de Adição de Documentos
+</p>
+
+<img alt="Adicionar Documentos" src={__img2} placeholder="blur" />
+
+### Resumo
+
+Tela dedicada ao envio de novos documentos que alimentarão o roteiro e o conhecimento do modelo de IA. O conteúdo central da interface é um card de upload, onde o colaborador pode selecionar e enviar arquivos.
+
+### Informações exibidas
+
+* Card central com campo de upload.
+* Instruções sobre formatos aceitos (ex.: PDF).
+* Indicação de tamanho máximo do arquivo.
+* Botão para confirmar envio.
+
+### Funcionalidades
+
+* Selecionar arquivo pelo explorador de arquivos.
+* Arrastar e soltar documentos diretamente no card.
+* Enviar documentos para processamento pelo modelo.
+* Visualizar mensagem de sucesso ou erro após o upload.
+
+### Objetivo
+
+Simplificar o processo de adicionar novos conteúdos ao sistema, garantindo que o staff alimente o modelo de IA de forma rápida e sem complicações.
+
+***
+
+## 4. Tela de Gestão de Usuários
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 — Tela de Gestão de Usuários
+</p>
+
+<img alt="Gestão de Usuários" src={__img3} placeholder="blur" />
+
+### Resumo
+
+Tela utilizada para administrar os usuários com acesso ao dashboard, controlando permissões e atividades.
+
+### Informações exibidas
+
+* Lista de usuários cadastrados.
+* Função e nível de acesso.
+* Status da conta.
+* Último login.
+
+### Funcionalidades
+
+* Adicionar novos usuários.
+* Alterar permissões.
+* Ativar e desativar contas.
+* Remover usuários inativos.
+
+### Objetivo
+
+Proporcionar controle seguro e eficiente sobre quem pode visualizar e operar o dashboard.
+
+***
+
+# Mecanismos de Navegação
+
+### Fluxo principal
+
+| Evento                                                         | Tela apresentada            |
+| -------------------------------------------------------------- | --------------------------- |
+| Acessar o dashboard (home ou clicando no ícone de "Dashboard") | Acompanhamento Geral        |
+| Selecionar o ícone de “Documentos”                             | Gerenciamento de Documentos |
+| Clicar no botão de +, “Adicionar Docs”                         | Adição de Documentos        |
+| Selecionar o ícone de “Usuários”                               | Gestão de Usuários          |
+
+### Acesso permanente via navbar
+
+* Acompanhamento Geral
+* Documentos
+* Adicionar Documento
+* Usuários
+
+***
+
+# Conclusão
+
+O protótipo de alta fidelidade documentado representa a estrutura visual e funcional do Dashboard do Staff. Por meio de telas claras e focadas nas necessidades dos colaboradores — como acompanhamento de métricas, gestão de documentos e controle de usuários — o sistema oferece suporte direto e eficiente ao gerenciamento dos tours guiados pelo robô no campus.
+
+***
+
+
+# Título do Documento (/docs/sprint-3/prototipo-alta/template)
+
+
+
+
+
+# Cabeçalho Principal
+
+## Callouts/Admonitions
+
+<Callout type="info">
+  Esta é uma nota importante para destacar algo relevante no documento.
+</Callout>
+
+<Callout type="warn">
+  Esta é uma advertência para chamar a atenção para um possível problema.
+</Callout>
+
+<Callout>
+  Hello World
+</Callout>
+
+<Callout title="Title">
+  Hello World
+</Callout>
+
+<Callout title="Title" type="error">
+  Hello World
+</Callout>
+
+## Bloco de Código
+
+```python
+# Código de exemplo em Python
+def exemplo():
+    print("Olá, Mundo!")
+```
+
+```rust title="Exemplo em Rust com título"
+// Código de exemplo em Rust
+fn exemplo() {
+    println!("Olá, Mundo!");
+}
+```
+
+## Flowcharts MermaidJS
+
+<Mermaid
+  chart="flowchart TD
+U[Usuário] --> P[Proxy Reverso]
+
+P --> FE[React.js Frontend]
+P --> C[ASP.NET Core]
+P --> FA[FastAPI]
+P --> F[Flask]
+
+B[Broker MQTT] -->|MQTT| C
+
+C -->|Query e HTTP| PG[(PostgreSQL)]
+C -->|HTTP| BUCKET[(MinIO DataLake)]
+
+FA -->|Função Direta| ML[Módulo de Retreinamento]
+FA -->|Função Direta| IF[Gerador de Inferências]
+FA -->|HTTP| BUCKET
+
+F -->|Query e HTTP| PG
+F -->|HTTP| BUCKET
+"
+/>
+
+## Imagens e Links
+
+<img alt="Imagem" src={__img0} placeholder="blur" />
+
+<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+
+[Link](https://www.example.com)
+
+[Link Relativo](../template)
+
+## Estrutura de pastas
+
+<Files>
+  <Folder name="sprint-1" defaultOpen>
+    <Folder name="entendimento-do-negocio" defaultOpen>
+      <File name="analise-financeira.mdx" />
+
+      <File name="canvas-proposta-de-valor.mdx" />
+
+      <File name="index.mdx" />
+
+      <File name="matriz-de-risco.mdx" />
+
+      <File name="matriz-oceano-azul.mdx" />
+
+      <File name="meta.json" />
+    </Folder>
+
+    <Folder name="entendimento-do-projeto" defaultOpen>
+      <File name="index.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="proposta-de-arquitetura.mdx" />
+
+      <File name="requisitos-funcionais.mdx" />
+
+      <File name="requisitos-nao-funcionais.mdx" />
+    </Folder>
+
+    <Folder name="entendimento-do-usuario" defaultOpen>
+      <Folder name="personas" defaultOpen>
+        <File name="index.mdx" />
+
+        <File name="persona-1.mdx" />
+      </Folder>
+
+      <File name="index.mdx" />
+
+      <File name="mapa-de-jornada-do-usuario.mdx" />
+
+      <File name="meta.json" />
+
+      <File name="user-stories.mdx" />
+    </Folder>
+
+    <File name="analise-de-impacto-etico.mdx" />
+
+    <File name="index.mdx" />
+
+    <File name="meta.json" />
+  </Folder>
+</Files>
 
 
 # Arquitetura Multi-Agentes (/docs/sprint-3/sistema-multi-agentes/01-arquitetura-multi-agentes)
