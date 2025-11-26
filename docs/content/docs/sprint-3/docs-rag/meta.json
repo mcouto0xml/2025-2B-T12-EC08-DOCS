@@ -1,5 +1,5 @@
 {
-  "title": "Files Pipeline",
-  "description": "Documentação da pipeline de documentos",
-  "pages": ["files-pipeline.mdx"]
+  "title": "Documentação Técnica do RAG",
+  "description": "Documentação do Retrieval-Augmented Generation (RAG)",
+  "pages": ["DocumentacaoTecnicaRAG.mdx"]
 }
