@@ -89,7 +89,7 @@ _Pastas Android geradas automaticamente pelo Expo_
 
 ## 3. Fluxo de Navegação
 
-### [INSERIR VÍDEO]
+### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
 
 :::note
 
@@ -125,5 +125,75 @@ _Pastas Android geradas automaticamente pelo Expo_
 
 ---
 
-## 4. Conclusão 
+## 4. Como Rodar o Projeto e Dependências
+
+&emsp; Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
+O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+
+### 4.1. Requisitos
+:::note 
+
+---
+Node.js (_Node 18 LTS ou Node 20 LTS_)
+
+Baixar em: https://nodejs.org/
+
+---
+
+Expo CLI (Será necessário intalar globalmente para que funcione)
+
+`npm install -g expo-cli`
+
+---
+
+Android Studio (para usar emulador Android)
+
+É possível usar tanto a versão CLI quanto o APK:
+https://developer.android.com/studio
+
+---
+O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+
+:::
+
+:::warning
+
+OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+
+:::
+
+### 4.2. Instalando Dependências e Executando o Projeto
+
+Na raiz do projeto:
+
+```bash
+npm install
+```
+Isso instala todas as dependências declaradas em `package.json.`
+
+Ainda no terminal:
+
+``` bash
+npx expo start
+
+```
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+![Terminal - Aplicação Staff](./imgs/terminalAplicacao.png)
+
+Entre as opções você pode escolher:
+
+- Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+- Abrir a aplicação no seu navegador web
+- Abrir a aplicação no android studio
+
+Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+
+``` bash
+npx expo run:android
+```
+
+## 5. Conclusão 
 Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
