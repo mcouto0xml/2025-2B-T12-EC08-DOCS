@@ -44,12 +44,14 @@ Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a
 Para executar o sistema de movimentação automatizada:
 
 1. **Inicie o ambiente virtual:**
+
    ```bash
    python3 -m venv venv
    source venv/bin/activate
    ```
 
 2. **Execute o script principal de movimentação:**
+
    ```bash
    python3 testes/move_path.py
    ```
@@ -57,11 +59,13 @@ Para executar o sistema de movimentação automatizada:
    Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
 
 3. **Para iniciar um checkpoint manualmente (em outro terminal):**
+
    ```bash
    python3 external_trigger.py play
    ```
 
 4. **Para interromper a execução a qualquer momento:**
+
    ```bash
    python3 external_trigger.py stop
    ```
@@ -72,10 +76,10 @@ Para executar o sistema de movimentação automatizada:
 
 ## Novas Funcionalidades
 
-- Leitura e execução automática de checkpoints via JSON.  
-- Execução ordenada com fila de comandos.  
-- Reprodução de áudio correspondente a cada checkpoint.  
-- Interrupção imediata da execução via comando externo (`stop`).  
+- Leitura e execução automática de checkpoints via JSON.
+- Execução ordenada com fila de comandos.
+- Reprodução de áudio correspondente a cada checkpoint.
+- Interrupção imediata da execução via comando externo (`stop`).
 - Conexão e controle assíncrono com o robô via **WebRTC**.
 
 ---
