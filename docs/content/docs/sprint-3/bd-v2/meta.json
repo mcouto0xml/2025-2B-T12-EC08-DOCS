@@ -1,0 +1,5 @@
+{
+  "title": "Banco de Dados",
+  "description": "Criação do novo modelo de bancod de dados para o projeto, já dentro do Supabase.",
+  "pages": ["bd-v2"]
+}
