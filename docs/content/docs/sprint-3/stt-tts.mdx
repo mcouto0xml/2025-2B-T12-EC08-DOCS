@@ -29,7 +29,7 @@ Plataforma de conversação por voz baseada em inteligência artificial que proc
   <sup>Figura 1: Interface do LIA AI Audio Assistant</sup>
 </div>
 
-![Interface da LIA](./laika-interface.png)
+![Interface da LIA](./laika-interface.jpeg)
 
 <div style={{ textAlign: "center" }}>
   <sub>Fonte: Produzida pelos Autores (2025).</sub>
@@ -195,6 +195,12 @@ streamlit run streamlit_app.py
 
 ```bash
 python main.py arquivo_audio.mp3
+```
+
+**Linux:**
+
+```bash
+python3 main.py arquivo_audio.mp3
 ```
 
 A interface web estará disponível em: http://localhost:8501
@@ -490,121 +496,7 @@ pipeline.process_all_audio_files()
 
 ---
 
-## 9. Interface do Usuário (Streamlit)
-
-### Design System
-
-#### Paleta de Cores
-
-- **Background Principal**: #ffffff (branco)
-- **Background Chat - Usuário**: #2b313e (cinza escuro)
-- **Background Chat - Bot**: #475063 (cinza médio)
-- **Mensagens**: #ffffff (branco)
-- **Status Success**: #00ff00 (verde)
-- **Status Processing**: #ffaa00 (laranja)
-- **Status Error**: #ff0000 (vermelho)
-- **Container**: #f8f9fa (cinza claro)
-
-#### Tipografia
-
-- **Fonte Principal**: System default (Streamlit)
-- **Tamanho de Fonte**: Padrão Streamlit
-- **Peso**: Regular e Bold conforme contexto
-
-### Componentes
-
-#### 1. Cabeçalho
-
-```python
-st.title("Demo LIA")
-st.markdown("### Converse com a LIA usando áudio!")
-```
-
-**Características:**
-- Título principal do aplicativo
-- Subtítulo explicativo
-- Identidade visual clara
-
-#### 2. Layout em Colunas
-
-```python
-col1, col2 = st.columns([2, 1])
-```
-
-**Divisão:**
-- **Coluna 1 (70%)**: Chat e upload de áudio
-- **Coluna 2 (30%)**: Status da pipeline e player
-
-#### 3. Área de Chat
-
-Exibe histórico completo da conversa.
-
-**Função: `display_chat_message(message, is_user=True)`**
-
-**Características:**
-- Mensagens do usuário alinhadas à direita
-- Mensagens do bot alinhadas à esquerda
-- Avatar diferenciado para usuário e bot
-- Estilização com CSS customizado
-
-#### 4. Upload de Áudio
-
-```python
-uploaded_file = st.file_uploader(
-    "Escolha um arquivo de áudio",
-    type=['mp3', 'wav', 'm4a', 'ogg', 'flac']
-)
-```
-
-**Características:**
-- Drag and drop suportado
-- Preview do áudio carregado
-- Validação de formato
-- Tooltip com formatos suportados
-
-#### 5. Status da Pipeline
-
-**Função: `display_pipeline_status()`**
-
-Mostra o progresso em tempo real de cada etapa:
-
-- Upload do Áudio
-- Transcrição (STT)
-- Processamento LLM
-- Síntese de Voz (TTS)
-- Concluído
-
-**Estados:**
-- Pending
-- Processing (laranja)
-- Completed (verde)
-- Error (vermelho)
-
-#### 6. Player de Resposta
-
-Reproduz o áudio da última resposta do bot.
-
-**Características:**
-- Player HTML5 integrado
-- Botão de download
-- Verificação de existência do arquivo
-- Informações do arquivo
-
-#### 7. Botões de Ação
-
-**Processar Áudio:**
-```python
-st.button("Processar Áudio", type="primary")
-```
-
-**Limpar Chat:**
-```python
-st.button("Limpar Chat")
-```
-
----
-
-## 10. Fluxo de Processamento
+## 9. Fluxo de Processamento
 
 ### Pipeline Completa - Detalhado
 
@@ -697,7 +589,7 @@ audio_success = text_to_speech(llm_response, str(output_path))
 
 ---
 
-## 11. Gerenciamento de Erros
+## 10. Gerenciamento de Erros
 
 ### Estratégias Implementadas
 
@@ -780,7 +672,7 @@ logging.basicConfig(
 
 ---
 
-## 12. Exemplos de Uso
+## 11. Exemplos de Uso
 
 ### Exemplo 1: Uso via CLI - Arquivo Único
 
