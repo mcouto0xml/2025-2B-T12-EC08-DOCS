@@ -9,8 +9,8 @@ description: Banco de Dados 2.0
 
 Esta documentação descreve a **Versão 2 (V2)** do banco de dados oficial do projeto **Tour Cão-Robô** , atualmente **implantado e disponível no Supabase para desenvolvimento**, pronto para inicialização de testes e integração com os dois aplicativos em desenvolvimento:
 
-* **App do Gestor (painel administrativo)**
-* **App do Visitante (tablet único por tour)**
+- **App do Gestor (painel administrativo)**
+- **App do Visitante (tablet único por tour)**
 
 A V2 foi projetada para corrigir limitações da versão anterior, organizar melhor as entidades centrais, adicionar consistência, reforçar validações e suportar escalabilidade futura (novos robôs, novos tipos de tours, métricas, auditoria completa).
 
@@ -43,7 +43,6 @@ Armazena todos os usuários do sistema, inclusive administradores e gestores.
 | `criado_em`  | TIMESTAMPTZ  | Data/hora da criação.           |
 | `criado_por` | INT (FK)     | Usuário que criou esta conta.   |
 
-
 # **2. `convites_usuarios`**
 
 **Descrição:**
@@ -60,7 +59,6 @@ Controla convites enviados a novos gestores.
 | `aceito_por`      | INT         | Usuário que aceitou o convite.                |
 | `aceito_em`       | TIMESTAMPTZ | Quando foi aceito.                            |
 
-
 # **3. `visitantes`**
 
 **Descrição:**
@@ -73,7 +71,6 @@ Contém dados opcionais dos visitantes cadastrados pelo gestor.
 | `email`     | TEXT        | E-mail opcional.                  |
 | `telefone`  | TEXT        | Telefone opcional.                |
 | `criado_em` | TIMESTAMPTZ | Momento do cadastro.              |
-
 
 # **4. `robos`**
 
@@ -88,7 +85,6 @@ Registra cada cão-robô apto a executar tours.
 | `numero_serie` | TEXT        | Número de série do hardware.          |
 | `ativo`        | BOOLEAN     | Se o robô pode ser vinculado a tours. |
 | `criado_em`    | TIMESTAMPTZ | Cadastro.                             |
-
 
 # **5. `tours`**
 
@@ -111,7 +107,6 @@ Entidade principal do sistema. Um tour representa toda a visita guiada.
 | `criado_por`           | INT         | Quem criou o tour.                                     |
 | `criado_em`            | TIMESTAMPTZ | Registro.                                              |
 
-
 # **6. `tour_visitantes`**
 
 **Descrição:**
@@ -124,7 +119,6 @@ Relaciona visitantes com tours.
 | `visitante_id`   | INT         | Visitante associado. |
 | `adicionado_por` | INT         | Quem adicionou.      |
 | `adicionado_em`  | TIMESTAMPTZ | Registro.            |
-
 
 # **7. `checkpoints`**
 
@@ -142,8 +136,6 @@ Cada tour possui 5 checkpoints fixos percorridos pelo robô.
 | `inicio_real`     | TIMESTAMPTZ | Começo real.                           |
 | `fim_real`        | TIMESTAMPTZ | Fim real.                              |
 
-
-
 # **8. `rastreios_robo`**
 
 **Descrição:**
@@ -157,7 +149,6 @@ Telemetria do robô durante o tour (mapa dinâmico).
 | `waypoint`      | TEXT        | Localização textual/coord.   |
 | `progresso_pct` | NUMERIC     | Avanço no tour.              |
 | `criado_em`     | TIMESTAMPTZ | Timestamp.                   |
-
 
 # **9. `perguntas`**
 
@@ -177,7 +168,6 @@ Fila de dúvidas coletadas no tablet do visitante.
 | `liberado_em`    | TIMESTAMPTZ | Quando ficou disponível para resposta.       |
 | `respondido_em`  | TIMESTAMPTZ | Quando foi respondida.                       |
 
-
 # **10. `respostas`**
 
 **Descrição:**
@@ -191,7 +181,6 @@ Respostas do robô (ou eventualmente por um gestor).
 | `respondido_por_usuario` | INT         | Gestor que respondeu (opcional). |
 | `texto`                  | TEXT        | Resposta final.                  |
 | `criado_em`              | TIMESTAMPTZ | Quando respondeu.                |
-
 
 # **11. `alertas`**
 
@@ -208,7 +197,6 @@ Eventos críticos disparados pelo visitante, robô ou gestor.
 | `autor_usuario_id` | INT         | Gestor autor (opcional).   |
 | `criado_em`        | TIMESTAMPTZ | Criado em.                 |
 | `resolvido_em`     | TIMESTAMPTZ | Resolvido em.              |
-
 
 # **12. `notificacoes`**
 
@@ -239,30 +227,27 @@ Auditoria completa das mudanças de status dos tours.
 | `atualizado_em`  | TIMESTAMPTZ | Quando foi atualizado. |
 | `observacoes`    | TEXT        | Observações opcionais. |
 
-
 # **Visão Geral dos Relacionamentos**
 
-* **robos (1) → (N) tours**
-* **usuarios (1) → (N) tours criados / responsáveis**
-* **tours (1) → (N) checkpoints**
-* **tours (1) → (N) rastreios_robo**
-* **tours (1) → (N) perguntas**
-* **perguntas (1) → (1) respostas**
-* **tours (1) → (N) alertas**
-* **usuarios (1) → (N) notificacoes**
-* **tours (1) → (N) tour_status_log**
-
+- **robos (1) → (N) tours**
+- **usuarios (1) → (N) tours criados / responsáveis**
+- **tours (1) → (N) checkpoints**
+- **tours (1) → (N) rastreios_robo**
+- **tours (1) → (N) perguntas**
+- **perguntas (1) → (1) respostas**
+- **tours (1) → (N) alertas**
+- **usuarios (1) → (N) notificacoes**
+- **tours (1) → (N) tour_status_log**
 
 # **Conclusão**
 
 A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar suporte a todo o ciclo funcional do **Tour Cão-Robô**, permitindo:
 
-* **Gestão robusta** de tours, usuários e robôs
-* **Operação em tempo real** via rastreio do robô
-* **Experiência rica** ao visitante, com perguntas organizadas por checkpoint
-* **Orquestração clara** de eventos como emergências e notificações
-* **Auditoria completa** via logs
-* **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
+- **Gestão robusta** de tours, usuários e robôs
+- **Operação em tempo real** via rastreio do robô
+- **Experiência rica** ao visitante, com perguntas organizadas por checkpoint
+- **Orquestração clara** de eventos como emergências e notificações
+- **Auditoria completa** via logs
+- **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
 
 O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.
-
