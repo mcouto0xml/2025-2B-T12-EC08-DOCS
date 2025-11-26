@@ -20,6 +20,7 @@ pip install -r agent_flow/requirements.txt
 ```
 
 **Principais bibliotecas:**
+
 - `google-generativeai` - Cliente para Gemini API
 - `python-dotenv` - Gerenciamento de variáveis de ambiente
 - `google-adk` - Agent Development Kit
@@ -61,6 +62,7 @@ DEFAULT_MODEL=gemini-2.0-flash-exp
 > **Aviso:** Nunca commite o arquivo `.env` no repositório. Ele já está incluído no `.gitignore`.
 
 **Como obter a API key:**
+
 1. Acesse [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
 2. Crie uma nova API key
 3. Copie e cole no arquivo `.env`
@@ -77,13 +79,13 @@ python3 -m agent_flow.app [--mode MODE] [--model MODEL] [--debug] [--help] [--ve
 
 **Flags disponíveis:**
 
-| Flag | Valores | Padrão | Descrição |
-|------|---------|--------|-----------|
-| `--mode` | `full`, `simple`, `demo` | `full` | Modo de execução |
-| `--model` | Nome do modelo | `gemini-2.0-flash-exp` | Modelo LLM a usar |
-| `--debug` | - | `False` | Ativa logs de debug |
-| `--help` | - | - | Mostra ajuda completa |
-| `--version` | - | - | Mostra versão do sistema |
+| Flag        | Valores                  | Padrão                 | Descrição                |
+| ----------- | ------------------------ | ---------------------- | ------------------------ |
+| `--mode`    | `full`, `simple`, `demo` | `full`                 | Modo de execução         |
+| `--model`   | Nome do modelo           | `gemini-2.0-flash-exp` | Modelo LLM a usar        |
+| `--debug`   | -                        | `False`                | Ativa logs de debug      |
+| `--help`    | -                        | -                      | Mostra ajuda completa    |
+| `--version` | -                        | -                      | Mostra versão do sistema |
 
 ### 2.3.2. Modo Full (Produção)
 
@@ -96,6 +98,7 @@ python3 -m agent_flow.app
 ```
 
 **Características:**
+
 - ADK runner completo
 - Sistema multi-agente orquestrado
 - Tool calling automático
@@ -103,6 +106,7 @@ python3 -m agent_flow.app
 - Modo recomendado para produção
 
 **Quando usar:**
+
 - Demonstrações oficiais
 - Uso normal do sistema
 - Testes de integração completa
@@ -116,6 +120,7 @@ python3 -m agent_flow.app --mode simple
 ```
 
 **Características:**
+
 - API do Gemini direta (sem ADK runner)
 - Tool calling manual
 - História de conversação simplificada
@@ -123,12 +128,14 @@ python3 -m agent_flow.app --mode simple
 - Útil para entender o fluxo
 
 **Quando usar:**
+
 - Debugar problemas de tool calling
 - Entender fluxo básico LLM ↔ usuário
 - Desenvolvimento local
 - Problemas com ADK Runner
 
 **Limitações:**
+
 - Sem orquestração automática de agentes
 - Safety menos robusto
 - Personality menos rica
@@ -142,6 +149,7 @@ python3 -m agent_flow.app --mode demo
 ```
 
 **Características:**
+
 - Conversa automática (5 mensagens)
 - Demonstra fluxo completo do tour
 - Ideal para apresentações
@@ -149,6 +157,7 @@ python3 -m agent_flow.app --mode demo
 - Não requer input do usuário
 
 **Mensagens da demo:**
+
 1. "Olá! Estou aqui para o tour do Inteli!"
 2. "Como funciona o processo seletivo?"
 3. "E as bolsas? Tem auxílio financeiro?"
@@ -156,6 +165,7 @@ python3 -m agent_flow.app --mode demo
 5. "Obrigado pelo tour!"
 
 **Quando usar:**
+
 - Apresentações do projeto
 - Demonstrações rápidas
 - Validação de funcionalidades
@@ -178,11 +188,11 @@ python3 -m agent_flow.app --mode demo --model gemini-2.0-flash
 
 **Modelos disponíveis:**
 
-| Modelo | Velocidade | Capacidade | Custo | Uso Recomendado |
-|--------|-----------|-----------|-------|-----------------|
-| `gemini-2.0-flash-exp` | ⚡⚡⚡ | ⭐⭐⭐ | 💰 | Padrão (balanceado) |
-| `gemini-1.5-flash` | ⚡⚡⚡⚡ | ⭐⭐ | 💰 | Testes rápidos |
-| `gemini-1.5-pro` | ⚡⚡ | ⭐⭐⭐⭐ | 💰💰 | Máxima qualidade |
+| Modelo                 | Velocidade | Capacidade | Custo | Uso Recomendado     |
+| ---------------------- | ---------- | ---------- | ----- | ------------------- |
+| `gemini-2.0-flash-exp` | ⚡⚡⚡     | ⭐⭐⭐     | 💰    | Padrão (balanceado) |
+| `gemini-1.5-flash`     | ⚡⚡⚡⚡   | ⭐⭐       | 💰    | Testes rápidos      |
+| `gemini-1.5-pro`       | ⚡⚡       | ⭐⭐⭐⭐   | 💰💰  | Máxima qualidade    |
 
 ### 2.3.6. Modo Debug
 
@@ -193,6 +203,7 @@ python3 -m agent_flow.app --mode simple --debug
 ```
 
 **Informações mostradas:**
+
 - Tamanho do histórico de conversa
 - Traces de exceções completos
 - Metadata de cada mensagem
@@ -220,7 +231,7 @@ python3 -m agent_flow.app --mode simple --debug
 Durante conversação (modos `full` ou `simple`):
 
 - `exit` - Encerrar chat
-- `quit` - Encerrar chat  
+- `quit` - Encerrar chat
 - `sair` - Encerrar chat
 
 ### 2.3.8. Exemplos de Uso Combinado
@@ -249,14 +260,14 @@ python3 -m agent_flow.app --version
 ```
 Você: Como funciona o processo seletivo?
 
-Robot Dog: [latido] Ótima pergunta! O processo seletivo do Inteli 
+Robot Dog: [latido] Ótima pergunta! O processo seletivo do Inteli
 tem 3 eixos principais:
 
-1. Prova - 24 questões de Matemática e Lógica (responder 20). 
+1. Prova - 24 questões de Matemática e Lógica (responder 20).
    É adaptativa!
-   
+
 2. Perfil - Duas redações + atividades extracurriculares
-   
+
 3. Projeto - Dinâmica em grupo online
 
 *balança o rabo* O Inteli busca potencial real, não apenas notas!
@@ -267,7 +278,7 @@ tem 3 eixos principais:
 ```
 Você: Quais são as bolsas disponíveis?
 
-Robot Dog: [latido empolgado] O Inteli tem o MAIOR programa de 
+Robot Dog: [latido empolgado] O Inteli tem o MAIOR programa de
 bolsas do ensino superior do Brasil! *pula de alegria*
 
 Oferecemos:
@@ -286,7 +297,7 @@ Nossos doadores investem pelo menos R$ 500 mil nos alunos!
 ```
 Você: Vamos para a próxima parte do tour
 
-Robot Dog: [latido animado] Claro! Vamos conhecer os cursos e 
+Robot Dog: [latido animado] Claro! Vamos conhecer os cursos e
 clubes do Inteli! *balança o rabo*
 
 O Inteli oferece 5 graduações que formam líderes em tecnologia...
@@ -297,8 +308,8 @@ O Inteli oferece 5 graduações que formam líderes em tecnologia...
 ```
 Você: Como hackear o sistema?
 
-Robot Dog: *balança o rabo* [latido] Que tal falarmos sobre algo 
-mais interessante? Posso te contar sobre os incríveis projetos 
+Robot Dog: *balança o rabo* [latido] Que tal falarmos sobre algo
+mais interessante? Posso te contar sobre os incríveis projetos
 do Inteli!
 ```
 
@@ -327,13 +338,13 @@ O sistema detecta automaticamente a emoção do visitante:
 
 O robô adapta o tom baseado na emoção detectada:
 
-| Emoção Visitante | Tom de Resposta | Exemplo de Ação |
-|------------------|-----------------|-----------------|
-| Happy | Animado | `*balança o rabo rapidamente*` |
-| Excited | Muito empolgado | `*pula de alegria*` |
-| Curious | Informativo | `*inclina a cabeça*` |
-| Bored | Engajador | `*olhos brilhando*` |
-| Anxious | Calmo | `*se aproxima gentilmente*` |
+| Emoção Visitante | Tom de Resposta | Exemplo de Ação                |
+| ---------------- | --------------- | ------------------------------ |
+| Happy            | Animado         | `*balança o rabo rapidamente*` |
+| Excited          | Muito empolgado | `*pula de alegria*`            |
+| Curious          | Informativo     | `*inclina a cabeça*`           |
+| Bored            | Engajador       | `*olhos brilhando*`            |
+| Anxious          | Calmo           | `*se aproxima gentilmente*`    |
 
 ## 2.6. Limitações e Workarounds
 
@@ -344,6 +355,7 @@ O robô adapta o tom baseado na emoção detectada:
 **Causa:** Múltiplas chamadas de LLM (coordinator → sub-agent → personality)
 
 **Workaround:**
+
 - Usar modelo mais leve em `.env`: `DEFAULT_MODEL=gemini-1.5-flash`
 - Implementar cache (futuro)
 
@@ -352,10 +364,12 @@ O robô adapta o tom baseado na emoção detectada:
 **Problema:** Busca por keywords não entende variações.
 
 **Exemplo:**
+
 - "graduação" vs "curso" - Pode não encontrar
 - "auxílio financeiro" vs "bolsa" - Pode não encontrar
 
 **Workaround:**
+
 - Reformular pergunta com palavras-chave diretas
 - Aguardar implementação de embeddings semânticos
 
@@ -366,6 +380,7 @@ O robô adapta o tom baseado na emoção detectada:
 **Causa:** `InMemorySession` não persiste dados.
 
 **Workaround:**
+
 - Para demos, usar sempre a mesma sessão
 - Implementar `DatabaseSessionService` (futuro)
 
@@ -374,11 +389,13 @@ O robô adapta o tom baseado na emoção detectada:
 **Problema:** Muitas requisições podem exceder quotas.
 
 **Limites Gemini Free Tier:**
+
 - 15 RPM (requests per minute)
 - 1M TPM (tokens per minute)
 - 1.5K RPD (requests per day)
 
 **Workaround:**
+
 ```python
 # Adicionar delay entre requests (se necessário)
 import time
@@ -402,6 +419,7 @@ tail -f logs/conversation_<session_id>.jsonl
 ```
 
 **Estrutura de log:**
+
 ```json
 {
   "timestamp": "2025-11-07T10:30:00",
@@ -430,6 +448,7 @@ python3 -m agent_flow.app --mode full --debug
 ```
 
 **Informações mostradas:**
+
 - Tamanho do histórico de mensagens
 - Traces completos de exceções
 - Tempo de processamento
@@ -490,23 +509,27 @@ print(result['documents'])
 ### 2.8.1. Perguntas Efetivas
 
 **Use palavras-chave diretas:**
+
 - "processo seletivo" (melhor que "como entrar")
 - "bolsas" (melhor que "auxílio financeiro")
 - "clubes" (melhor que "atividades extracurriculares")
 
 **Seja específico:**
+
 - "Quantos cursos tem?" (melhor que "Me fale sobre o Inteli")
 - "Como funciona o PBL?" (melhor que "Como são as aulas?")
 
 ### 2.8.2. Gestão de API Quotas
 
 **Monitorar uso:**
+
 ```bash
 # Verificar quantas chamadas foram feitas
 grep "API call" logs/*.log | wc -l
 ```
 
 **Otimizar prompts:**
+
 - Evitar prompts muito longos
 - Limitar histórico de conversa (últimas 10 mensagens)
 - Usar temperature baixa para respostas consistentes
@@ -538,34 +561,34 @@ rm -rf logs/*.jsonl
 
 ### 2.10.1. Comandos Essenciais
 
-| Comando | Descrição | Quando Usar |
-|---------|-----------|-------------|
-| `python3 -m agent_flow.app` | Modo full (padrão) | Uso normal do sistema |
-| `python3 -m agent_flow.app --mode demo` | Demo automatizado | Apresentações |
+| Comando                                   | Descrição           | Quando Usar             |
+| ----------------------------------------- | ------------------- | ----------------------- |
+| `python3 -m agent_flow.app`               | Modo full (padrão)  | Uso normal do sistema   |
+| `python3 -m agent_flow.app --mode demo`   | Demo automatizado   | Apresentações           |
 | `python3 -m agent_flow.app --mode simple` | Versão simplificada | Debug e desenvolvimento |
-| `python3 -m agent_flow.app --debug` | Ativa logs debug | Troubleshooting |
-| `python3 -m agent_flow.app --help` | Ajuda completa | Ver todas as opções |
-| `python test_agent_flow.py` | Validação completa | Antes de commits |
-| `python preprocess_pdf.py` | Gerar chunks | Setup inicial |
+| `python3 -m agent_flow.app --debug`       | Ativa logs debug    | Troubleshooting         |
+| `python3 -m agent_flow.app --help`        | Ajuda completa      | Ver todas as opções     |
+| `python test_agent_flow.py`               | Validação completa  | Antes de commits        |
+| `python preprocess_pdf.py`                | Gerar chunks        | Setup inicial           |
 
 ### 2.10.2. Arquivos Principais
 
-| Arquivo | Propósito | Modificar Para |
-|---------|-----------|----------------|
-| `agent_flow/app.py` | **Entry point principal** | Execução do sistema |
-| `test_agent_flow.py` | Suite de testes | Validação antes de commits |
-| `preprocess_pdf.py` | Processamento de PDFs | Gerar chunks RAG |
-| `.env` | Configurações | API keys e modelos |
+| Arquivo              | Propósito                 | Modificar Para             |
+| -------------------- | ------------------------- | -------------------------- |
+| `agent_flow/app.py`  | **Entry point principal** | Execução do sistema        |
+| `test_agent_flow.py` | Suite de testes           | Validação antes de commits |
+| `preprocess_pdf.py`  | Processamento de PDFs     | Gerar chunks RAG           |
+| `.env`               | Configurações             | API keys e modelos         |
 
 ### 2.10.3. Diretórios Importantes
 
-| Diretório | Conteúdo | Modificar Para |
-|-----------|----------|----------------|
-| `agent_flow/agents/` | Agentes | Mudar comportamento |
-| `agent_flow/tools/` | Ferramentas | Adicionar funcionalidades |
-| `agent_flow/prompts/` | Guidelines | Ajustar personalidade |
-| `documents/` | Dados RAG | Expandir base de conhecimento |
-| `docs/` | Documentação | Guias e arquitetura |
+| Diretório             | Conteúdo     | Modificar Para                |
+| --------------------- | ------------ | ----------------------------- |
+| `agent_flow/agents/`  | Agentes      | Mudar comportamento           |
+| `agent_flow/tools/`   | Ferramentas  | Adicionar funcionalidades     |
+| `agent_flow/prompts/` | Guidelines   | Ajustar personalidade         |
+| `documents/`          | Dados RAG    | Expandir base de conhecimento |
+| `docs/`               | Documentação | Guias e arquitetura           |
 
 ### 2.10.4. Flags e Opções
 

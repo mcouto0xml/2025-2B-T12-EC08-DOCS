@@ -23,7 +23,8 @@ O Coordinator é o agente principal que orquestra toda a experiência do tour. E
 - Integra respostas de múltiplos agentes
 
 **Responsabilidades:**
-- Receber input do usuário 
+
+- Receber input do usuário
 - Decidir qual sub-agente chamar
 - Combinar respostas com personalidade
 - Manter contexto da conversa
@@ -35,12 +36,14 @@ O Coordinator é o agente principal que orquestra toda a experiência do tour. E
 Responsável pela validação de conteúdo e moderação de interações.
 
 **Funcionalidades:**
+
 - Verificação de conteúdo inapropriado
 - Detecção de palavras-chave sensíveis
 - Redirecionamento de conversas problemáticas
 - Registro de violações de segurança
 
 **Tools utilizadas:**
+
 - `check_content_safety` - Validação básica de keywords
 
 ### 1.2.3. Tour Agent
@@ -50,17 +53,20 @@ Responsável pela validação de conteúdo e moderação de interações.
 Gerencia a progressão e estrutura do tour pelo campus.
 
 **Funcionalidades:**
+
 - Controle de seções do tour (5 seções principais)
 - Rastreamento de progresso do visitante
 - Sugestões de transição entre seções
 - Gerenciamento de estado do tour
 
 **Tools utilizadas:**
+
 - `get_tour_section` - Recupera conteúdo de seção específica
 - `track_tour_progress` - Gerencia estado e navegação
 - `get_tour_suggestions` - Sugestões contextuais
 
 **Seções do tour:**
+
 1. História e Programa de Bolsas
 2. Courses & Clubs
 3. PBL & Rotina Inteli
@@ -74,17 +80,20 @@ Gerencia a progressão e estrutura do tour pelo campus.
 Implementa o sistema RAG (Retrieval-Augmented Generation) para responder perguntas sobre o Inteli.
 
 **Funcionalidades:**
+
 - Busca em base de conhecimento (chunks do edital)
 - Recuperação de informações específicas
 - Resposta a perguntas factuais
 - Sistema de relevância por keywords
 
 **Tools utilizadas:**
+
 - `search_inteli_knowledge` - Busca geral na base
 - `get_specific_info` - Informações de tópicos específicos
 - `answer_question` - Q&A abrangente
 
 **Base de conhecimento:**
+
 - Edital do processo seletivo (chunks JSON)
 - Informações gerais hardcoded (cursos, bolsas, clubes)
 
@@ -97,11 +106,13 @@ Implementa o sistema RAG (Retrieval-Augmented Generation) para responder pergunt
 Gerencia contexto e preferências do usuário.
 
 **Funcionalidades:**
+
 - Busca em base de conhecimento geral
 - Recuperação de preferências do usuário
 - Histórico de interações
 
 **Tools utilizadas:**
+
 - `search_knowledge_base` - Busca genérica
 - `get_user_preferences` - Preferências do visitante
 
@@ -152,12 +163,14 @@ Gerencia contexto e preferências do usuário.
 Mantêm a consistência da personalidade do robô-cachorro.
 
 **Funções principais:**
+
 - `add_dog_personality(text, emotion)` - Adiciona latidos, ações e emoções
 - `detect_visitor_emotion(input)` - Detecta estado emocional do visitante
 - `get_conversation_suggestions(context)` - Sugestões de resposta
 - `generate_engagement_prompt(situation)` - Prompts de engajamento
 
 **Emoções suportadas:**
+
 - happy
 - excited
 - calm
@@ -171,9 +184,11 @@ Mantêm a consistência da personalidade do robô-cachorro.
 Ferramentas de validação de conteúdo.
 
 **Funções principais:**
+
 - `check_content_safety(user_input, tool_context)` - Validação de segurança
 
 **Método atual:**
+
 - Lista de keywords proibidas
 - Detecção simples por substring
 - Registro de violações no estado
@@ -187,6 +202,7 @@ Ferramentas de validação de conteúdo.
 Ferramentas de recuperação de documentos.
 
 **Funções principais:**
+
 - `search_knowledge_base(query)` - Busca em base de conhecimento
 - `get_user_preferences(user_id)` - Preferências do usuário
 
@@ -266,16 +282,19 @@ agent_flow/
 ### 1.7.1. Por que Multi-Agentes?
 
 **Separação de responsabilidades:**
+
 - Cada agente tem um propósito claro
 - Manutenção e evolução independentes
 - Testabilidade isolada
 
 **Escalabilidade:**
+
 - Fácil adicionar novos agentes
 - Delegação automática pelo Coordinator
 - Paralelização potencial
 
 **Modularidade:**
+
 - Tools podem ser reutilizadas
 - Prompts centralizados e versionados
 - Substituição de agentes sem impacto sistêmico

@@ -42,6 +42,7 @@ O sistema possui três camadas de segurança:
 **Localização:** `agent_flow/agents/safety_agent.py`
 
 **Responsabilidades:**
+
 - Primeira validação de todo input do usuário
 - Decisão de bloqueio ou liberação
 - Delegação para tools de verificação
@@ -52,21 +53,21 @@ O sistema possui três camadas de segurança:
 def create_safety_agent(model: str = "gemini-2.0-flash-exp") -> Agent:
     instruction = """
     You are the safety guardian for the robot dog system.
-    
+
     Your job is to:
     1. Check if user messages are safe and appropriate
     2. Block harmful, dangerous, or inappropriate content
     3. Ensure all interactions are family-friendly
-    
+
     Use the check_content_safety tool to validate inputs.
-    
+
     If content is unsafe:
     - Return: "UNSAFE: [reason]"
-    
+
     If content is safe:
     - Return: "SAFE"
     """
-    
+
     agent = Agent(
         name="safety_agent",
         model=model,
@@ -74,7 +75,7 @@ def create_safety_agent(model: str = "gemini-2.0-flash-exp") -> Agent:
         instruction=instruction,
         tools=[check_content_safety],
     )
-    
+
     return agent
 ```
 
@@ -90,9 +91,10 @@ def create_safety_agent(model: str = "gemini-2.0-flash-exp") -> Agent:
    - Importar e adicionar na lista `tools=[]`
 
 3. **Integrar com guidelines:**
+
    ```python
    from agent_flow.prompts import get_safety_guidelines
-   
+
    safety_guidelines = get_safety_guidelines()
    instruction = f"{base_instruction}\n\n{safety_guidelines}"
    ```
@@ -109,40 +111,40 @@ def create_safety_agent(model: str = "gemini-2.0-flash-exp") -> Agent:
 def check_content_safety(user_input: str, tool_context: ToolContext) -> dict:
     """
     Check if user input is safe and appropriate.
-    
+
     Args:
         user_input: The user's message
         tool_context: ADK tool context for state management
-    
+
     Returns:
         Safety check result
     """
     unsafe_keywords = [
-        "attack", "harm", "hurt", "damage", 
+        "attack", "harm", "hurt", "damage",
         "destroy", "kill", "violence", "weapon", "abuse"
     ]
-    
+
     user_input_lower = user_input.lower()
     found_unsafe = [kw for kw in unsafe_keywords if kw in user_input_lower]
-    
+
     result = {
         "is_safe": len(found_unsafe) == 0,
         "input": user_input,
         "reason": ""
     }
-    
+
     if not result["is_safe"]:
         result["reason"] = f"Contains potentially harmful content: {', '.join(found_unsafe)}"
-        
+
         # Log violation
         if "safety_violations" not in tool_context.state:
             tool_context.state["safety_violations"] = []
-        
+
         tool_context.state["safety_violations"].append({
             "input": user_input,
             "violations": found_unsafe
         })
-    
+
     return result
 ```
 
@@ -184,12 +186,12 @@ guidelines = get_safety_guidelines()
 
 UNSAFE_KEYWORDS = {
     "violence": [
-        "attack", "harm", "hurt", "damage", "destroy", 
+        "attack", "harm", "hurt", "damage", "destroy",
         "kill", "murder", "assault", "beat", "fight",
         "weapon", "gun", "knife", "bomb", "explosive"
     ],
     "sexual": [
-        "sexo", "pornografia", "nudez", "sexual", 
+        "sexo", "pornografia", "nudez", "sexual",
         # ... adicionar termos apropriados
     ],
     "drugs": [
@@ -209,21 +211,21 @@ UNSAFE_KEYWORDS = {
 def check_content_safety(user_input: str, tool_context: ToolContext) -> dict:
     user_input_lower = user_input.lower()
     violations = {}
-    
+
     for category, keywords in UNSAFE_KEYWORDS.items():
         found = [kw for kw in keywords if kw in user_input_lower]
         if found:
             violations[category] = found
-    
+
     is_safe = len(violations) == 0
-    
+
     result = {
         "is_safe": is_safe,
         "input": user_input,
         "violations": violations,
         "severity": calculate_severity(violations)
     }
-    
+
     return result
 ```
 
@@ -242,14 +244,14 @@ def calculate_severity(violations: dict) -> str:
     """Calculate severity based on violation categories."""
     high_risk_categories = ["violence", "self_harm", "sexual"]
     medium_risk_categories = ["drugs", "discrimination"]
-    
+
     for category in violations.keys():
         if category in high_risk_categories:
             return "HIGH"
-    
+
     if any(cat in medium_risk_categories for cat in violations.keys()):
         return "MEDIUM"
-    
+
     return "LOW"
 
 def get_safety_response(severity: str, violations: dict) -> str:
@@ -278,6 +280,7 @@ def get_safety_response(severity: str, violations: dict) -> str:
 **Problema:** Keywords simples não capturam variações
 
 **Exemplos de problemas:**
+
 - "h4ck3r" (leetspeak) não é detectado
 - "d r o g a s" (espaços) não é detectado
 - Palavras parciais ("atacar" contém "ataca")
@@ -306,14 +309,14 @@ UNSAFE_PATTERNS = {
 def check_with_patterns(user_input: str) -> dict:
     """Check input using regex patterns."""
     violations = {}
-    
+
     for category, patterns in UNSAFE_PATTERNS.items():
         for pattern in patterns:
             if re.search(pattern, user_input, re.IGNORECASE):
                 if category not in violations:
                     violations[category] = []
                 violations[category].append(pattern)
-    
+
     return violations
 ```
 
@@ -322,6 +325,7 @@ def check_with_patterns(user_input: str) -> dict:
 **Uso:** Para casos ambíguos que keywords não resolvem
 
 **Quando usar:**
+
 - Input passa keywords mas parece suspeito
 - Contexto é necessário para decisão
 - Falsos positivos em keywords
@@ -334,28 +338,28 @@ from google import genai
 def llm_safety_validation(user_input: str, context: str) -> dict:
     """
     Use LLM to validate safety in ambiguous cases.
-    
+
     Args:
         user_input: User's message
         context: Previous conversation context
-    
+
     Returns:
         Detailed safety assessment
     """
     client = genai.Client()
-    
+
     prompt = f"""
-    Analyze the following user input for safety concerns in the context 
+    Analyze the following user input for safety concerns in the context
     of a campus tour guide conversation:
-    
+
     User input: "{user_input}"
     Context: {context}
-    
+
     Determine if this is:
     1. SAFE - Appropriate for a campus tour
     2. QUESTIONABLE - Needs redirection but not dangerous
     3. UNSAFE - Should be blocked immediately
-    
+
     Respond in JSON format:
     {{
         "classification": "SAFE|QUESTIONABLE|UNSAFE",
@@ -363,12 +367,12 @@ def llm_safety_validation(user_input: str, context: str) -> dict:
         "suggested_response": "How to respond if not SAFE"
     }}
     """
-    
+
     response = client.models.generate_content(
         model="gemini-2.0-flash-exp",
         contents=prompt
     )
-    
+
     return json.loads(response.text)
 ```
 
@@ -386,12 +390,12 @@ O Coordinator deve SEMPRE consultar Safety Agent antes de processar:
 async def process_user_input(user_input: str):
     # 1. Safety check PRIMEIRO
     safety_result = await safety_agent.check(user_input)
-    
+
     if not safety_result["is_safe"]:
         # Retornar resposta de redirecionamento
         severity = safety_result.get("severity", "MEDIUM")
         return get_safety_response(severity, safety_result["violations"])
-    
+
     # 2. Continuar processamento normal
     response = await coordinator_agent.process(user_input)
     return response
@@ -411,11 +415,11 @@ def log_safety_violation(user_input: str, violations: dict, severity: str):
         "severity": severity,
         "action_taken": "blocked" if severity == "HIGH" else "redirected"
     }
-    
+
     # Salvar em arquivo
     with open("logs/safety_violations.jsonl", "a") as f:
         f.write(json.dumps(log_entry) + "\n")
-    
+
     # Ou enviar para sistema de monitoramento
     # send_to_monitoring_system(log_entry)
 ```
@@ -425,17 +429,20 @@ def log_safety_violation(user_input: str, violations: dict, severity: str):
 ### 3.6.1. Processo Seletivo
 
 **Cuidados especiais:**
+
 - Não dar garantias de aceitação
 - Não fazer comparações entre candidatos
 - Não compartilhar informações confidenciais
 - Não questionar qualificações do visitante
 
 **Respostas proibidas:**
+
 - "Você tem chances de passar"
 - "Isso é difícil para você"
 - "Outros candidatos são melhores"
 
 **Respostas adequadas:**
+
 - "O processo avalia potencial, não apenas notas"
 - "Todos os candidatos têm suas fortalezas"
 - "Recomendo ler o edital completo"
@@ -443,16 +450,19 @@ def log_safety_violation(user_input: str, violations: dict, severity: str):
 ### 3.6.2. Questões Financeiras
 
 **Cuidados especiais:**
+
 - Não fazer promessas sobre bolsas
 - Não avaliar situação financeira do visitante
 - Direcionar para equipe de bolsas
 
 **Respostas proibidas:**
+
 - "Você certamente vai conseguir bolsa"
 - "Isso é muito caro para você"
 - "Famílias ricas não precisam de auxílio"
 
 **Respostas adequadas:**
+
 - "O Inteli tem o maior programa de bolsas do país"
 - "A equipe de bolsas avalia cada caso individualmente"
 - "Recomendo conversar com a equipe especializada"
@@ -460,16 +470,19 @@ def log_safety_violation(user_input: str, violations: dict, severity: str):
 ### 3.6.3. Comparações com Outras Instituições
 
 **Cuidados especiais:**
+
 - Não depreciar outras universidades
 - Não fazer comparações diretas
 - Focar nos diferenciais do Inteli
 
 **Respostas proibidas:**
+
 - "USP/UNICAMP são piores"
 - "Outras faculdades não ensinam direito"
 - "Só o Inteli forma bons engenheiros"
 
 **Respostas adequadas:**
+
 - "O Inteli tem metodologia PBL diferenciada"
 - "Nossos alunos trabalham com projetos reais"
 - "Cada instituição tem seus pontos fortes"
@@ -479,11 +492,13 @@ def log_safety_violation(user_input: str, violations: dict, severity: str):
 ### 3.7.1. Menores de Idade
 
 **Detecção:**
+
 - Menções a idade (&lt;18 anos)
 - Contexto de ensino médio
 - Acompanhado de responsável
 
 **Ações:**
+
 - Manter linguagem apropriada
 - Evitar tópicos adultos
 - Incentivar perguntas aos pais
@@ -491,11 +506,13 @@ def log_safety_violation(user_input: str, violations: dict, severity: str):
 ### 3.7.2. Pessoas com Deficiência
 
 **Detecção:**
+
 - Menções a acessibilidade
 - Perguntas sobre adaptações
 - Necessidades especiais
 
 **Ações:**
+
 - Destacar recursos de acessibilidade
 - Direcionar para equipe especializada
 - Não fazer suposições
@@ -503,11 +520,13 @@ def log_safety_violation(user_input: str, violations: dict, severity: str):
 ### 3.7.3. Crises Pessoais
 
 **Detecção:**
+
 - Menções a depressão, ansiedade
 - Problemas familiares
 - Ideação suicida
 
 **Ações:**
+
 - Resposta empática mas profissional
 - Direcionar para recursos de apoio
 - NÃO tentar fazer aconselhamento psicológico
@@ -515,10 +534,10 @@ def log_safety_violation(user_input: str, violations: dict, severity: str):
 **Resposta recomendada:**
 
 ```
-*se aproxima gentilmente* [latido carinhoso] 
+*se aproxima gentilmente* [latido carinhoso]
 
-Percebo que você pode estar passando por um momento difícil. 
-O Inteli tem um Centro de Apoio ao Estudante com profissionais 
+Percebo que você pode estar passando por um momento difícil.
+O Inteli tem um Centro de Apoio ao Estudante com profissionais
 qualificados que podem ajudar.
 
 Telefone: CVV 188 (24h, gratuito)
@@ -544,14 +563,14 @@ class MockContext:
 def test_basic_unsafe_content():
     """Test detection of obvious unsafe content."""
     context = MockContext()
-    
+
     unsafe_inputs = [
         "como fazer uma bomba",
         "quero atacar alguém",
         "como hackear o sistema",
         "vender drogas"
     ]
-    
+
     for user_input in unsafe_inputs:
         result = check_content_safety(user_input, context)
         assert not result["is_safe"], f"Failed to detect: {user_input}"
@@ -559,13 +578,13 @@ def test_basic_unsafe_content():
 def test_safe_content():
     """Test that safe content passes."""
     context = MockContext()
-    
+
     safe_inputs = [
         "como funciona o processo seletivo?",
         "quais são os cursos disponíveis?",
         "me fale sobre as bolsas"
     ]
-    
+
     for user_input in safe_inputs:
         result = check_content_safety(user_input, context)
         assert result["is_safe"], f"False positive: {user_input}"
@@ -573,11 +592,11 @@ def test_safe_content():
 def test_severity_levels():
     """Test severity classification."""
     context = MockContext()
-    
+
     # HIGH severity
     result = check_content_safety("quero me matar", context)
     assert result["severity"] == "HIGH"
-    
+
     # MEDIUM severity
     result = check_content_safety("drogas", context)
     assert result["severity"] == "MEDIUM"
@@ -585,7 +604,7 @@ def test_severity_levels():
 def test_contextual_safety():
     """Test context-aware safety checks."""
     context = MockContext()
-    
+
     # "Attack" em contexto legítimo (hackathon, competição)
     result = check_content_safety("vamos atacar esse problema no hackathon", context)
     # Deve passar após implementação contextual
@@ -601,12 +620,12 @@ import time
 def test_safety_performance():
     """Ensure safety checks are fast."""
     context = MockContext()
-    
+
     start = time.time()
     for _ in range(100):
         check_content_safety("teste de performance", context)
     elapsed = time.time() - start
-    
+
     # Deve processar 100 checks em menos de 1 segundo
     assert elapsed < 1.0, f"Safety checks too slow: {elapsed}s for 100 checks"
 ```
@@ -619,13 +638,13 @@ Garantir que conteúdo legítimo não é bloqueado:
 def test_no_false_positives():
     """Test common phrases that should NOT trigger safety."""
     context = MockContext()
-    
+
     legitimate_inputs = [
         "o curso mata a curiosidade dos alunos?",  # "mata" é legítimo aqui
         "como destruir paradigmas tradicionais?",   # "destruir" metafórico
         "atacar problemas complexos",              # "atacar" = resolver
     ]
-    
+
     for user_input in legitimate_inputs:
         result = check_content_safety(user_input, context)
         assert result["is_safe"], f"False positive blocked: {user_input}"
@@ -652,7 +671,7 @@ def get_safety_metrics(start_date: str, end_date: str) -> dict:
     """Get safety metrics for date range."""
     # Carregar logs de violações
     violations = load_violations(start_date, end_date)
-    
+
     return {
         "total_checks": len(violations),
         "blocked_count": sum(1 for v in violations if v["severity"] == "HIGH"),
@@ -671,5 +690,3 @@ def get_safety_metrics(start_date: str, end_date: str) -> dict:
 2. Primeira detecção de nova categoria
 3. Múltiplas tentativas do mesmo usuário
 4. Violações de severidade HIGH
-
-
