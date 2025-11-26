@@ -280,13 +280,16 @@ Gerenciamento de sessão com histórico persistente.
 Transcreve arquivo de áudio para texto.
 
 **Parâmetros:**
+
 - `audio_filepath`: Caminho absoluto do arquivo de áudio
 
 **Retorno:**
+
 - `str`: Texto transcrito
 - `None`: Em caso de erro
 
 **Características:**
+
 - Carregamento lazy do modelo Whisper
 - Detecção automática de idioma
 - Tratamento de erros robusto
@@ -329,10 +332,12 @@ Tenta configurar diferentes versões do Gemini.
 Cria prompt otimizado para o modelo.
 
 **Parâmetros:**
+
 - `user_transcription`: Texto do usuário
 - `context`: Contexto adicional opcional
 
 **Retorno:**
+
 - `str`: Prompt formatado
 
 **`get_response(user_input: str, context: str = None, max_retries: int = 3) -> Optional[str]`**
@@ -340,11 +345,13 @@ Cria prompt otimizado para o modelo.
 Obtém resposta do Gemini com retry logic.
 
 **Parâmetros:**
+
 - `user_input`: Pergunta/texto do usuário
 - `context`: Contexto da conversa
 - `max_retries`: Número máximo de tentativas
 
 **Retorno:**
+
 - `str`: Resposta gerada
 - `None`: Em caso de falha completa
 
@@ -391,9 +398,11 @@ Cria e retorna o diretório de saída padrão.
 Normaliza e valida o caminho de saída.
 
 **Parâmetros:**
+
 - `output_path`: Caminho desejado
 
 **Retorno:**
+
 - `Path`: Caminho normalizado (sempre .mp3)
 
 **`synthesize_speech(text: str, output_path: str, voice_speed: bool = False) -> bool`**
@@ -401,11 +410,13 @@ Normaliza e valida o caminho de saída.
 Converte texto em áudio.
 
 **Parâmetros:**
+
 - `text`: Texto para sintetizar
 - `output_path`: Caminho do arquivo de saída
 - `voice_speed`: Velocidade da voz (não implementado)
 
 **Retorno:**
+
 - `bool`: True se sucesso, False caso contrário
 
 **Configuração da Voz:**
@@ -449,10 +460,12 @@ Cria os diretórios `input_audio/` e `output_audio/`.
 Processa um arquivo de áudio através da pipeline completa.
 
 **Parâmetros:**
+
 - `audio_filename`: Nome do arquivo em `input_audio/`
 - `conversation_context`: Contexto opcional da conversa
 
 **Retorno:**
+
 ```python
 (sucesso: bool, caminho_audio: str, transcrição: str, resposta_llm: str)
 ```
@@ -471,6 +484,7 @@ Processa um arquivo de áudio através da pipeline completa.
 Processa todos os arquivos de áudio na pasta `input_audio/`.
 
 **Características:**
+
 - Processa em lote
 - Gera relatório final
 - Estatísticas de sucesso/falha
@@ -514,11 +528,13 @@ pipeline.setup_directories()
 #### Fase 2: Recebimento de Áudio
 
 **Interface Streamlit:**
+
 ```python
 uploaded_file = st.file_uploader(...)
 ```
 
 **CLI:**
+
 ```python
 audio_filename = sys.argv[1]
 ```
@@ -534,6 +550,7 @@ transcription = transcribe_audio(str(audio_path))
 ```
 
 **Processo:**
+
 1. Carregar modelo Whisper (primeira execução)
 2. Preprocessar áudio
 3. Executar transcrição
@@ -549,6 +566,7 @@ llm_response = get_llm_response(transcription, conversation_context)
 ```
 
 **Processo:**
+
 1. Criar prompt contextualizado
 2. Configurar parâmetros de geração
 3. Enviar requisição ao Gemini
@@ -565,6 +583,7 @@ audio_success = text_to_speech(llm_response, str(output_path))
 ```
 
 **Processo:**
+
 1. Validar texto de entrada
 2. Configurar cliente Google Cloud
 3. Configurar voz e parâmetros
@@ -577,12 +596,14 @@ audio_success = text_to_speech(llm_response, str(output_path))
 #### Fase 6: Apresentação
 
 **Interface Streamlit:**
+
 1. Adicionar mensagens ao histórico
 2. Atualizar status da pipeline
 3. Exibir áudio no player
 4. Disponibilizar download
 
 **CLI:**
+
 1. Logar resultados no console
 2. Salvar em `pipeline.log`
 3. Exibir relatório final
@@ -602,6 +623,7 @@ if not audio_path.exists():
 ```
 
 **Verificações:**
+
 - Existência do arquivo
 - Formato válido
 - Tamanho aceitável
@@ -641,12 +663,14 @@ def get_response(self, user_input: str, context: str = None, max_retries: int = 
 #### 4. Fallback Responses
 
 **LLM bloqueado por safety:**
+
 ```python
 if finish_reason == 2:  # SAFETY
     return "Desculpe, não posso responder a essa pergunta específica."
 ```
 
 **Erro de transcrição:**
+
 ```python
 if not transcription:
     return "Não foi possível transcrever o áudio."
@@ -666,6 +690,7 @@ logging.basicConfig(
 ```
 
 **Níveis:**
+
 - **INFO**: Operações normais
 - **WARNING**: Situações anormais não críticas
 - **ERROR**: Falhas que impedem operação
@@ -747,11 +772,13 @@ Sucessos: 3/3
 **Passo a Passo:**
 
 1. **Iniciar aplicação:**
+
 ```bash
 streamlit run streamlit_app.py
 ```
 
 2. **Acessar no navegador:**
+
 ```
 http://localhost:8501
 ```
@@ -804,7 +831,7 @@ if sucesso:
     print(f"Você disse: {transcricao}")
     print(f"LIA respondeu: {resposta}")
     print(f"Áudio salvo em: {audio_resposta}")
-    
+
     # Usar áudio gerado
     import os
     os.system(f"start {audio_resposta}")  # Windows
