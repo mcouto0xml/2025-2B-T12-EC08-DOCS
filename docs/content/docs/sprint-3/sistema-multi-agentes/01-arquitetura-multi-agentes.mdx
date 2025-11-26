@@ -1,0 +1,286 @@
+---
+title: Arquitetura Multi-Agentes
+description: Visão geral da arquitetura multi-agentes do sistema Inteli Robot Dog Tour Guide
+---
+
+# 1. Arquitetura Multi-Agentes
+
+## 1.1. Visão Geral
+
+O sistema Inteli Robot Dog Tour Guide utiliza a arquitetura multi-agentes do Google ADK (Agent Development Kit) para orquestrar diferentes funcionalidades de forma modular e escalável.
+
+## 1.2. Componentes Principais
+
+### 1.2.1. Coordinator Agent
+
+**Arquivo:** `agent_flow/agents/coordinator_agent.py`
+
+O Coordinator é o agente principal que orquestra toda a experiência do tour. Ele:
+
+- Gerencia o fluxo conversacional
+- Delega tarefas para sub-agentes especializados
+- Mantém a personalidade do robô-cachorro
+- Integra respostas de múltiplos agentes
+
+**Responsabilidades:**
+- Receber input do usuário 
+- Decidir qual sub-agente chamar
+- Combinar respostas com personalidade
+- Manter contexto da conversa
+
+### 1.2.2. Safety Agent
+
+**Arquivo:** `agent_flow/agents/safety_agent.py`
+
+Responsável pela validação de conteúdo e moderação de interações.
+
+**Funcionalidades:**
+- Verificação de conteúdo inapropriado
+- Detecção de palavras-chave sensíveis
+- Redirecionamento de conversas problemáticas
+- Registro de violações de segurança
+
+**Tools utilizadas:**
+- `check_content_safety` - Validação básica de keywords
+
+### 1.2.3. Tour Agent
+
+**Arquivo:** `agent_flow/agents/tour_agent.py`
+
+Gerencia a progressão e estrutura do tour pelo campus.
+
+**Funcionalidades:**
+- Controle de seções do tour (5 seções principais)
+- Rastreamento de progresso do visitante
+- Sugestões de transição entre seções
+- Gerenciamento de estado do tour
+
+**Tools utilizadas:**
+- `get_tour_section` - Recupera conteúdo de seção específica
+- `track_tour_progress` - Gerencia estado e navegação
+- `get_tour_suggestions` - Sugestões contextuais
+
+**Seções do tour:**
+1. História e Programa de Bolsas
+2. Courses & Clubs
+3. PBL & Rotina Inteli
+4. Sala de aula invertida e infraestrutura
+5. Processo Seletivo & Conquistas da Comunidade
+
+### 1.2.4. Knowledge Agent
+
+**Arquivo:** `agent_flow/agents/knowledge_agent.py`
+
+Implementa o sistema RAG (Retrieval-Augmented Generation) para responder perguntas sobre o Inteli.
+
+**Funcionalidades:**
+- Busca em base de conhecimento (chunks do edital)
+- Recuperação de informações específicas
+- Resposta a perguntas factuais
+- Sistema de relevância por keywords
+
+**Tools utilizadas:**
+- `search_inteli_knowledge` - Busca geral na base
+- `get_specific_info` - Informações de tópicos específicos
+- `answer_question` - Q&A abrangente
+
+**Base de conhecimento:**
+- Edital do processo seletivo (chunks JSON)
+- Informações gerais hardcoded (cursos, bolsas, clubes)
+
+> **Nota:** Atualmente utiliza busca por keywords. Implementação semântica com embeddings será feita ao longo da Sprint 3.
+
+### 1.2.5. Context Agent
+
+**Arquivo:** `agent_flow/agents/context_agent.py`
+
+Gerencia contexto e preferências do usuário.
+
+**Funcionalidades:**
+- Busca em base de conhecimento geral
+- Recuperação de preferências do usuário
+- Histórico de interações
+
+**Tools utilizadas:**
+- `search_knowledge_base` - Busca genérica
+- `get_user_preferences` - Preferências do visitante
+
+## 1.3. Fluxo de Interação
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    User Input                           │
+└────────────────────┬────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│              Coordinator Agent                          │
+│  - Analisa input                                        │
+│  - Detecta emoção do visitante                          │
+│  - Decide delegação                                     │
+└────────┬────────────────────────────────────────────────┘
+         │
+         ├──────────────┬─────────────┬──────────────┐
+         │              │             │              │
+         ▼              ▼             ▼              ▼
+    ┌────────┐    ┌─────────┐   ┌─────────┐   ┌─────────┐
+    │ Safety │    │  Tour   │   │Knowledge│   │ Context │
+    │ Agent  │    │ Agent   │   │ Agent   │   │ Agent   │
+    └────┬───┘    └────┬────┘   └────┬────┘   └────┬────┘
+         │             │              │             │
+         └──────────┬──┴──────────────┴─────────────┘
+                    │
+                    ▼
+         ┌──────────────────────────┐
+         │ Personality Enhancement  │
+         │ - Add dog behaviors      │
+         │ - Adapt to emotion       │
+         └───────────┬──────────────┘
+                     │
+                     ▼
+            ┌────────────────┐
+            │ Final Response │
+            └────────────────┘
+```
+
+## 1.4. Sistema de Tools
+
+### 1.4.1. Personality Tools
+
+**Arquivo:** `agent_flow/tools/personality_tools.py`
+
+Mantêm a consistência da personalidade do robô-cachorro.
+
+**Funções principais:**
+- `add_dog_personality(text, emotion)` - Adiciona latidos, ações e emoções
+- `detect_visitor_emotion(input)` - Detecta estado emocional do visitante
+- `get_conversation_suggestions(context)` - Sugestões de resposta
+- `generate_engagement_prompt(situation)` - Prompts de engajamento
+
+**Emoções suportadas:**
+- happy
+- excited
+- calm
+- curious
+- empathetic
+
+### 1.4.2. Safety Tools
+
+**Arquivo:** `agent_flow/tools/safety_tools.py`
+
+Ferramentas de validação de conteúdo.
+
+**Funções principais:**
+- `check_content_safety(user_input, tool_context)` - Validação de segurança
+
+**Método atual:**
+- Lista de keywords proibidas
+- Detecção simples por substring
+- Registro de violações no estado
+
+> **Aviso:** Implementação atual é básica. Expansão para 100+ keywords e validação por LLM está planejada.
+
+### 1.4.3. Document Tools
+
+**Arquivo:** `agent_flow/tools/document_tools.py`
+
+Ferramentas de recuperação de documentos.
+
+**Funções principais:**
+- `search_knowledge_base(query)` - Busca em base de conhecimento
+- `get_user_preferences(user_id)` - Preferências do usuário
+
+## 1.5. Sistema de Prompts
+
+**Diretório:** `agent_flow/prompts/`
+
+### 1.5.1. Base Personality
+
+**Arquivo:** `base_personality.txt` (1.200+ palavras)
+
+Define a personalidade core do robô-cachorro:
+
+- Características caninas (latidos, ações)
+- Espectro emocional (5 estados)
+- Regras de comunicação
+- Bias permitido (orgulho de Eng. Computação)
+- Personalização por emoção do visitante
+
+### 1.5.2. Safety Guidelines
+
+**Arquivo:** `safety_guidelines.txt` (1.500+ palavras)
+
+Diretrizes de segurança:
+
+- 5 categorias de conteúdo proibido
+- Contextos sensíveis
+- Edge cases (menores, deficiências, crises)
+- Protocolo de resposta (4 passos)
+- Exceções permitidas
+
+### 1.5.3. Prompt Utilities
+
+**Arquivo:** `prompts/__init__.py`
+
+Funções auxiliares para gerenciamento de prompts:
+
+```python
+from agent_flow.prompts import (
+    load_prompt_file,
+    get_base_personality,
+    get_safety_guidelines,
+    format_instruction_with_personality,
+    format_instruction_with_safety
+)
+```
+
+## 1.6. Estrutura de Diretórios
+
+```
+agent_flow/
+├── __init__.py
+├── app.py                      # Aplicação principal (legado)
+│
+├── agents/                     # Agentes
+│   ├── __init__.py
+│   ├── coordinator_agent.py   # Orquestrador principal
+│   ├── safety_agent.py        # Validação de conteúdo
+│   ├── tour_agent.py          # Gerenciamento do tour
+│   ├── knowledge_agent.py     # Sistema RAG
+│   └── context_agent.py       # Contexto e preferências
+│
+├── tools/                      # Ferramentas
+│   ├── __init__.py
+│   ├── personality_tools.py   # Personalidade do robô
+│   ├── safety_tools.py        # Validação de segurança
+│   └── document_tools.py      # Recuperação de documentos
+│
+└── prompts/                    # Guidelines
+    ├── __init__.py
+    ├── base_personality.txt
+    └── safety_guidelines.txt
+```
+
+## 1.7. Decisões de Arquitetura
+
+### 1.7.1. Por que Multi-Agentes?
+
+**Separação de responsabilidades:**
+- Cada agente tem um propósito claro
+- Manutenção e evolução independentes
+- Testabilidade isolada
+
+**Escalabilidade:**
+- Fácil adicionar novos agentes
+- Delegação automática pelo Coordinator
+- Paralelização potencial
+
+**Modularidade:**
+- Tools podem ser reutilizadas
+- Prompts centralizados e versionados
+- Substituição de agentes sem impacto sistêmico
+
+## 1.8. Referências
+
+- **Google ADK Documentation:** [https://google.github.io/adk-toolkit/](https://google.github.io/adk-toolkit/)
+- **Gemini API:** [https://ai.google.dev/](https://ai.google.dev/)
