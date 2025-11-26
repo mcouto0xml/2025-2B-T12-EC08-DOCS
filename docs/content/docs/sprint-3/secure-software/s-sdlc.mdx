@@ -1,0 +1,330 @@
+---
+title: Secure Software Development Life Cycle
+description: Esse documento registra um plano de ação para garantir a segurança em todo o projeto.
+---
+
+# **S-SDLC — Secure Software Development Life Cycle**
+
+## Projeto: Sistema de Tour Autônomo com Robô Unitree Go2
+
+---
+
+## **1. Introdução**
+
+Este documento apresenta o **S-SDLC (Secure Software Development Life Cycle)** adotado no desenvolvimento do sistema de tour autônomo do robô Unitree Go2 para o campus do Inteli. O S-SDLC estabelece práticas de segurança integradas a cada fase do ciclo de vida do software, garantindo que todos os componentes — **DevOps/UX, Backend, Modelos de IA, Robô e Segurança** — sigam princípios de proteção, confiabilidade e conformidade com normas como **ISO/IEC 25010:2011**, **OWASP Application & API Security Top 10**, recomendações de **safe AI**, além de boas práticas de **segurança operacional (safety)**.
+
+O objetivo é assegurar que o sistema seja **seguro por design**, com monitoramento contínuo, controle de riscos e mitigação preventiva de falhas, garantindo uma operação estável e livre de incidentes.
+
+---
+
+## **2. Escopo do S-SDLC**
+
+O S-SDLC cobre todo o ciclo de vida do projeto, incluindo:
+
+- Planejamento e Levantamento de Requisitos
+- Análise de Riscos
+- Arquitetura e Design Seguro
+- Implementação
+- Testes de Segurança
+- Deploy Seguro
+- Operação, Monitoramento e Resposta a Incidentes
+- Auditoria e Melhoria Contínua
+
+Cada fase incorpora controles de segurança específicos e mapeados aos requisitos funcionais (RF) e não funcionais (RNF) definidos no documento principal.
+
+---
+
+# **3. Fases do S-SDLC**
+
+---
+
+## **3.1. Fase 1 — Planejamento e Levantamento de Requisitos**
+
+### **Objetivo:**
+
+Garantir que requisitos funcionais e não funcionais incluam segurança, privacidade, confiabilidade e safety.
+
+### **Controles Aplicados:**
+
+- Identificação formal de requisitos de segurança para:
+  - Botão de emergência (E-Stop)
+  - Autenticação forte (2FA)
+  - Rate limiting
+  - Criptografia de dados
+  - Logs auditáveis e confidenciais
+  - Comunicação segura com robô e LLM
+  - Políticas de redundância a falhas
+
+- Classificação dos requisitos de risco (alto, médio, baixo).
+- Definição de responsáveis por área:
+  - **DevOps/UX:** acesso, CI/CD e interface segura
+  - **Backend:** API segura, STOP prioritário
+  - **Modelo:** filtragem pelo Modelo A, controle ético
+  - **Robô:** safety físico e sensores
+  - **Segurança:** governança transversal
+
+---
+
+## **3.2. Fase 2 — Análise de Riscos**
+
+### **Objetivo:**
+
+Identificar e mitigar vulnerabilidades e riscos técnicos, éticos e operacionais.
+
+<table>
+  <thead>
+    <tr>
+      <th>Categoria</th>
+      <th>Risco</th>
+      <th>Impacto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Segurança</td>
+      <td>Acesso não autorizado aos endpoints do robô</td>
+      <td>Alto</td>
+    </tr>
+    <tr>
+      <td>Safety</td>
+      <td>Falha no botão de emergência ou atraso no STOP</td>
+      <td>Crítico</td>
+    </tr>
+    <tr>
+      <td>IA</td>
+      <td>Geração de respostas inadequadas pelo Modelo B</td>
+      <td>Alto</td>
+    </tr>
+    <tr>
+      <td>DevOps</td>
+      <td>Vazamento de segredos no repositório</td>
+      <td>Alto</td>
+    </tr>
+    <tr>
+      <td>Robô</td>
+      <td>Falha de sensores gerando colisões</td>
+      <td>Crítico</td>
+    </tr>
+    <tr>
+      <td>Infra</td>
+      <td>Perda de comunicação com robô (timeout, WebRTC)</td>
+      <td>Crítico</td>
+    </tr>
+  </tbody>
+</table>
+
+### **Mitigações Aplicadas:**
+
+- Rate limiting (RF06-BE)
+- JWT obrigatório (RF05-BE)
+- Parada de emergência redundante (RF01-BE, RF02-BE)
+- Pipeline SAST/SCA (RF05-DO, RF11-DO)
+- Varredura de segredos (RF12-DO)
+- Detector/Respondente (Modelo A/B) para filtragem ética (RF01-MOD)
+- Auditoria completa de logs (RF07-BE, RF04-MOD)
+
+---
+
+## **3.3. Fase 3 — Arquitetura e Design Seguro**
+
+### **Objetivo:**
+
+Seguir a arquitetura segura e tolerante a falhas.
+
+### **Princípios Aplicados:**
+
+- **Defense in Depth** (múltiplas camadas de segurança)
+- **Least Privilege** para APIs, usuários e serviços
+- **Fail-Safe / Safe-Stop** para robô
+- **Zero Trust** para comunicação de rede
+- **AI Security by Design** para modelos A e B
+
+### **Pontos de Design por Área:**
+
+#### **DevOps/UX**
+
+- Interface com STOP sempre disponível (RF01-UX)
+- Feedback visual imediato
+- Acessibilidade e contrastes (RNF07-UX)
+
+#### **Backend**
+
+- APIs WebSocket e REST com:
+  - Autenticação JWT
+  - Rate limiting adaptativo (RNF04-BE)
+  - Logs de alta precisão (RF07-BE)
+
+- Canal redundante para STOP (RF02-BE)
+- Criticidade máxima para comandos de movimento
+
+#### **Modelo**
+
+- Dois LLMs isolados:
+  - Modelo A → Detector
+  - Modelo B → Respondente
+
+- Comunicação interna criptografada (RF03-MOD)
+- Auditoria de inferências (RF04-MOD)
+
+#### **Robô**
+
+- Sensores redundantes:
+  - LiDAR + câmera + proximidade (RF03-ROB)
+
+- Parada por risco (RF02-ROB)
+- Canal seguro via WebRTC
+
+---
+
+## **3.4. Fase 4 — Implementação com Segurança**
+
+### **Objetivo:**
+
+Garantir que todo o código siga padrões de segurança, práticas OWASP e não introduza vulnerabilidades.
+
+### **Controles Obrigatórios:**
+
+- Uso estrito de **GitFlow** (RF10-DO)
+- Revisões obrigatórias de PR por 2 pessoas
+- Commits com bloqueio automático de segredos (RF12-DO)
+- Pipelines:
+  - **SAST** antes de merge (RF11-DO)
+  - **SCA** antes de deploy (RF05-DO)
+
+- Criptografia de banco de dados (RNF08-DO)
+- Sanitização de inputs nas APIs
+- Controle de payload crítico (especialmente comandos do robô)
+
+---
+
+## **3.5. Fase 5 — Testes de Segurança**
+
+### **Objetivo:**
+
+Garantir que o sistema não possua vulnerabilidades e opere com segurança em cenários reais.
+
+### **Tipos de Testes:**
+
+- **Testes funcionais** dos requisitos RF
+- **Testes de performance** (latência, throughput, RAG, STT, TTS)
+- **Pentest interno**
+- **Fuzzing** em endpoints críticos
+- **Testes de carga** no fluxo de STOP
+- **Testes de resiliência**:
+  - queda de conexão
+  - atraso no WebRTC
+  - falha de sensores
+
+- **Testes de ética e conformidade** do Modelo B (RF05-MOD)
+- **Testes de operador e acessibilidade** (RNF07-UX)
+
+### **Critérios de Sucesso:**
+
+- STOP ≤ 1s (Frontend + Backend + Robô)
+- LLM ≤ 1,5s (Modelo)
+- Perda de pacotes ≤ 1%
+- Zero vulnerabilidades críticas no SAST/SCA
+- 100% de logs críticos registrados
+
+---
+
+## **3.6. Fase 6 — Deploy Seguro**
+
+### **Objetivo:**
+
+Garantir que a entrada em produção siga padrões de segurança.
+
+### **Controles:**
+
+- CI/CD obrigatório com gates de segurança (RF13-DO)
+- Deploy apenas após:
+  - build validado
+  - testes de segurança aprovados
+  - autorização de segurança
+
+- Rollback automático (critério de aceite)
+- Versionamento sem acesso direto à produção
+
+---
+
+## **3.7. Fase 7 — Operação, Monitoramento e Resposta a Incidentes**
+
+### **Objetivo:**
+
+Manter operação segura, estável e auditável durante tours e interações com visitantes.
+
+### **Monitoramentos Ativos:**
+
+- Disponibilidade (uptime ≥ 99,9%)
+- Latência dos modelos e APIs
+- Falhas e anomalias no robô
+- Tentativas de intrusão
+- Logs de auditoria → 90 dias de retenção (RNF06-BE e RNF06-MOD)
+
+### **Procedimentos de Incidente:**
+
+- Parada imediata do robô se:
+  - canal cair
+  - backend detectar inconsistência
+  - Modelo A identificar risco crítico
+
+- Notificação automática à equipe
+- Registro completo do incidente
+- Investigação e atualização do modelo ou pipeline
+
+---
+
+## **3.8. Fase 8 — Auditoria e Melhoria Contínua**
+
+### **Objetivo:**
+
+Garantir evolução do sistema, corrigindo vulnerabilidades e ajustando políticas.
+
+### **Atividades:**
+
+- Auditoria trimestral OWASP/segurança
+- Auditoria mensal do Modelo B (RF06-MOD)
+- Revisão semestral da política de segurança
+- Revalidação dos requisitos conforme evolução do projeto
+- Treinamento contínuo das equipes
+
+---
+
+# **4. Rastreabilidade entre Requisitos e o S-SDLC**
+
+Cada fase do S-SDLC cobre explicitamente os requisitos do projeto:
+
+- **STOP**: RF01-UX, RF01-BE, RF02-BE, RF02-ROB
+- **Autenticação/Autorização**: RNF06-UX, RF05-BE
+- **CI/CD Seguro**: RF05-DO, RF11-DO, RF12-DO, RF13-DO
+- **Safety do Robô**: RF01-ROB, RF02-ROB, RF03-ROB
+- **IA Segura**: RF01-MOD a RF07-MOD + RNF02-MOD
+- **Logs/Auditoria**: RF06-DO, RF07-BE, RF04-MOD, RNF06-MOD
+- **RAG e dados**: RNF01-MOD
+- **Performance**: RNF01-BE, RNF02-BE, RNF02-MOD
+
+---
+
+# **5. Conclusão**
+
+O S-SDLC apresentado estabelece uma estrutura completa, robusta e profissional para assegurar que o sistema de tour autônomo com o robô Unitree Go2 opere com:
+
+- **Segurança de software e física (safety)**
+- **Confiabilidade operacional**
+- **Integridade de dados e decisões**
+- **IA controlada, ética e verificável**
+- **Redundância aplicada aos sistemas críticos**
+
+---
+
+# **Bibliografia**
+
+**OWASP Foundation.** _OWASP Application Security Verification Standard (ASVS)._ Disponível em: [https://owasp.org/ASVS/](https://owasp.org/ASVS/). Acesso em: 17 nov. 2025.
+
+**OWASP Foundation.** _OWASP API Security Top 10._ Disponível em: [https://owasp.org/API-Security/](https://owasp.org/API-Security/). Acesso em: 17 nov. 2025.
+
+**OWASP Foundation.** _OWASP Machine Learning Security Top 10._ Disponível em: [https://owasp.org/www-project-machine-learning-security-top-10/](https://owasp.org/www-project-machine-learning-security-top-10/). Acesso em: 18 nov. 2025.
+
+**ISO/IEC 27001.** _Information Security Management Systems._ Resumo técnico disponível em: [https://www.iso.org/isoiec-27001-information-security.html](https://www.iso.org/isoiec-27001-information-security.html). Acesso em: 18 nov. 2025.
+
+**SETIC-UFSC.** _Guia de Privacidade e Proteção de Dados - LGPD._ Disponível em: [https://lgpd.ufsc.br/duvidas-frequentes/](https://lgpd.ufsc.br/duvidas-frequentes/). Acesso em: 18 nov. 2025.
