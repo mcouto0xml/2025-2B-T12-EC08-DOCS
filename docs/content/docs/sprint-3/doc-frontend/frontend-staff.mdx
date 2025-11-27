@@ -2,14 +2,13 @@
 title: Frontend - App Staff
 ---
 
-
 ## 1. Introdução
 
 &emsp; O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
 
 ---
 
-## 2. Arquitetura do Projeto 
+## 2. Arquitetura do Projeto
 
 &emsp; Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
 
@@ -23,11 +22,11 @@ A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo
 
 .
 ├── android/
-│   
+│
 ├── app
 │   ├── _layout.tsx
 │   └── (tabs)/
-│       
+│
 ├── assets
 │   └── images
 │       └── icons/
@@ -45,7 +44,7 @@ A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo
 
 ```
 
-- **`/app`** -   Gerenciamento das páginas
+- **`/app`** - Gerenciamento das páginas
 
 - **`/assets`** Ícones, imagens e o logotipo do Inteli
 
@@ -55,14 +54,13 @@ A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo
 
 - **`/hooks`** - Hooks auxiliares como detecção de tema
 
-- **`/scripts`** -  Scripts internos do projeto
+- **`/scripts`** - Scripts internos do projeto
 
-- **`README`** -  Instruções para rodar o projeto
-
+- **`README`** - Instruções para rodar o projeto
 
 _Pastas Android geradas automaticamente pelo Expo_
 
-&emsp; Para a realização deste projeto a estrutura de pastas utilizada  permite:
+&emsp; Para a realização deste projeto a estrutura de pastas utilizada permite:
 
 - Melhor organização entre rotas, componentes e estilos
 
@@ -72,12 +70,11 @@ _Pastas Android geradas automaticamente pelo Expo_
 
 - Padrão de Componentes Reutilizáveis
 
-
 ### 2.2 Componentes
 
 &emsp; Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
 
-- **CardTour** -  Cartão de exibição de tours na lista da home
+- **CardTour** - Cartão de exibição de tours na lista da home
 
 - **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
 
@@ -131,9 +128,11 @@ _Pastas Android geradas automaticamente pelo Expo_
 O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
 
 ### 4.1. Requisitos
-:::note 
+
+:::note
 
 ---
+
 Node.js (_Node 18 LTS ou Node 20 LTS_)
 
 Baixar em: https://nodejs.org/
@@ -152,6 +151,7 @@ Android Studio (para usar emulador Android)
 https://developer.android.com/studio
 
 ---
+
 O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
 
 :::
@@ -169,14 +169,16 @@ Na raiz do projeto:
 ```bash
 npm install
 ```
+
 Isso instala todas as dependências declaradas em `package.json.`
 
 Ainda no terminal:
 
-``` bash
+```bash
 npx expo start
 
 ```
+
 Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
 
 As informações que aparecerem no seu terminal devem ser semelhantes a esta:
@@ -191,9 +193,10 @@ Entre as opções você pode escolher:
 
 Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
 
-``` bash
+```bash
 npx expo run:android
 ```
 
-## 5. Conclusão 
+## 5. Conclusão
+
 Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.

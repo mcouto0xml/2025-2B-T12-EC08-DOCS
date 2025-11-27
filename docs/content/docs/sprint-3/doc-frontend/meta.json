@@ -1,6 +1,5 @@
 {
-    "title": "Frontend",
-    "description": "Documentação inicial das primeira versão dos Apps Staff e Visitante.",
-    "pages": ["frontend-staff"]
-  }
-  
+  "title": "Frontend",
+  "description": "Documentação inicial das primeira versão dos Apps Staff e Visitante.",
+  "pages": ["frontend-staff"]
+}
