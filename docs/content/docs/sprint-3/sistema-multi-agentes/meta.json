@@ -1,0 +1,9 @@
+{
+  "title": "Sistema Multi-Agentes",
+  "pages": [
+    "01-arquitetura-multi-agentes",
+    "02-guia-execucao-uso",
+    "03-guia-seguranca-safety-team",
+    "04-sistema-rag-conhecimento"
+  ]
+}

@@ -1,0 +1,253 @@
+---
+title: Banco de Dados 2.0
+description: Banco de Dados 2.0
+---
+
+# **Banco de dados - Versão 2.0**
+
+# **Introdução**
+
+Esta documentação descreve a **Versão 2 (V2)** do banco de dados oficial do projeto **Tour Cão-Robô** , atualmente **implantado e disponível no Supabase para desenvolvimento**, pronto para inicialização de testes e integração com os dois aplicativos em desenvolvimento:
+
+- **App do Gestor (painel administrativo)**
+- **App do Visitante (tablet único por tour)**
+
+A V2 foi projetada para corrigir limitações da versão anterior, organizar melhor as entidades centrais, adicionar consistência, reforçar validações e suportar escalabilidade futura (novos robôs, novos tipos de tours, métricas, auditoria completa).
+
+O banco foi estruturado com foco em:
+
+- **Rastreamento do robô em tempo real**
+- **Fluxo de checkpoints controlados**
+- **Fila de perguntas e respostas liberadas ao final de cada ponto**
+- **Alertas e notificações internas**
+- **Controle de usuários, convites e permissões via painel**
+- **Confiabilidade para dashboards e relatórios operacionais**
+
+# **Tabelas e Campos**
+
+A seguir, cada tabela é detalhada com a explicação de **todas as colunas**, sua **função**, e seu **papel no fluxo de negócio**.
+
+# **1. `usuarios`**
+
+**Descrição:**
+Armazena todos os usuários do sistema, inclusive administradores e gestores.
+
+| Coluna       | Tipo         | Explicação                      |
+| ------------ | ------------ | ------------------------------- |
+| `id`         | SERIAL (PK)  | Identificador único do usuário. |
+| `nome`       | TEXT         | Nome completo do usuário.       |
+| `email`      | TEXT (único) | E-mail de login.                |
+| `papel`      | TEXT         | `admin` ou `manager`.           |
+| `senha_hash` | TEXT         | Senha criptografada (bcrypt).   |
+| `ativo`      | BOOLEAN      | Indica se a conta está ativa.   |
+| `criado_em`  | TIMESTAMPTZ  | Data/hora da criação.           |
+| `criado_por` | INT (FK)     | Usuário que criou esta conta.   |
+
+# **2. `convites_usuarios`**
+
+**Descrição:**
+Controla convites enviados a novos gestores.
+
+| Coluna            | Tipo        | Explicação                                    |
+| ----------------- | ----------- | --------------------------------------------- |
+| `id`              | SERIAL      | Identificador do convite.                     |
+| `email_convidado` | TEXT        | E-mail convidado.                             |
+| `papel_convidado` | TEXT        | Papel sugerido (geralmente `manager`).        |
+| `status`          | TEXT        | `pendente`, `aceito`, `expirado`, `revogado`. |
+| `convidado_por`   | INT         | Usuário que enviou o convite.                 |
+| `criado_em`       | TIMESTAMPTZ | Data de envio.                                |
+| `aceito_por`      | INT         | Usuário que aceitou o convite.                |
+| `aceito_em`       | TIMESTAMPTZ | Quando foi aceito.                            |
+
+# **3. `visitantes`**
+
+**Descrição:**
+Contém dados opcionais dos visitantes cadastrados pelo gestor.
+
+| Coluna      | Tipo        | Explicação                        |
+| ----------- | ----------- | --------------------------------- |
+| `id`        | SERIAL      | Identificador do visitante/grupo. |
+| `nome`      | TEXT        | Nome do visitante.                |
+| `email`     | TEXT        | E-mail opcional.                  |
+| `telefone`  | TEXT        | Telefone opcional.                |
+| `criado_em` | TIMESTAMPTZ | Momento do cadastro.              |
+
+# **4. `robos`**
+
+**Descrição:**
+Registra cada cão-robô apto a executar tours.
+
+| Coluna         | Tipo        | Explicação                            |
+| -------------- | ----------- | ------------------------------------- |
+| `id`           | SERIAL      | Identificador do robô.                |
+| `nome`         | TEXT        | Nome do robô (ex.: LIA).              |
+| `modelo`       | TEXT        | Modelo físico do robô.                |
+| `numero_serie` | TEXT        | Número de série do hardware.          |
+| `ativo`        | BOOLEAN     | Se o robô pode ser vinculado a tours. |
+| `criado_em`    | TIMESTAMPTZ | Cadastro.                             |
+
+# **5. `tours`**
+
+**Descrição:**
+Entidade principal do sistema. Um tour representa toda a visita guiada.
+
+| Coluna                 | Tipo        | Explicação                                             |
+| ---------------------- | ----------- | ------------------------------------------------------ |
+| `id`                   | SERIAL      | Identificador do tour.                                 |
+| `codigo`               | TEXT        | Código de 8 dígitos usado no tablet.                   |
+| `titulo`               | TEXT        | Nome do tour.                                          |
+| `data_local`           | DATE        | Data da visita.                                        |
+| `hora_inicio_prevista` | TIME        | Planejamento.                                          |
+| `hora_fim_prevista`    | TIME        | Planejamento.                                          |
+| `inicio_real`          | TIMESTAMPTZ | Quando realmente começou.                              |
+| `fim_real`             | TIMESTAMPTZ | Quando realmente terminou.                             |
+| `status`               | TEXT        | `scheduled`, `in_progress`, `paused`, `finished`, etc. |
+| `robo_id`              | INT         | Robô vinculado.                                        |
+| `responsavel_id`       | INT         | Gestor responsável.                                    |
+| `criado_por`           | INT         | Quem criou o tour.                                     |
+| `criado_em`            | TIMESTAMPTZ | Registro.                                              |
+
+# **6. `tour_visitantes`**
+
+**Descrição:**
+Relaciona visitantes com tours.
+
+| Coluna           | Tipo        | Explicação           |
+| ---------------- | ----------- | -------------------- |
+| `id`             | SERIAL      | Identificador.       |
+| `tour_id`        | INT         | Tour vinculado.      |
+| `visitante_id`   | INT         | Visitante associado. |
+| `adicionado_por` | INT         | Quem adicionou.      |
+| `adicionado_em`  | TIMESTAMPTZ | Registro.            |
+
+# **7. `checkpoints`**
+
+**Descrição:**
+Cada tour possui 5 checkpoints fixos percorridos pelo robô.
+
+| Coluna            | Tipo        | Explicação                             |
+| ----------------- | ----------- | -------------------------------------- |
+| `id`              | SERIAL      | ID do checkpoint.                      |
+| `tour_id`         | INT         | Tour ao qual pertence.                 |
+| `tipo`            | TEXT        | Nome (recepcao, auditorio, atelie...). |
+| `ordem`           | INT         | Posição no roteiro.                    |
+| `status`          | TEXT        | pending → running → finished.          |
+| `inicio_previsto` | TIMESTAMPTZ | Programado.                            |
+| `inicio_real`     | TIMESTAMPTZ | Começo real.                           |
+| `fim_real`        | TIMESTAMPTZ | Fim real.                              |
+
+# **8. `rastreios_robo`**
+
+**Descrição:**
+Telemetria do robô durante o tour (mapa dinâmico).
+
+| Coluna          | Tipo        | Explicação                   |
+| --------------- | ----------- | ---------------------------- |
+| `id`            | SERIAL      | ID do rastreio.              |
+| `tour_id`       | INT         | Tour correspondente.         |
+| `checkpoint_id` | INT         | Checkpoint atual (opcional). |
+| `waypoint`      | TEXT        | Localização textual/coord.   |
+| `progresso_pct` | NUMERIC     | Avanço no tour.              |
+| `criado_em`     | TIMESTAMPTZ | Timestamp.                   |
+
+# **9. `perguntas`**
+
+**Descrição:**
+Fila de dúvidas coletadas no tablet do visitante.
+⚠️ Não possui `visitante_id` pois há apenas **um tablet por tour**.
+
+| Coluna           | Tipo        | Explicação                                   |
+| ---------------- | ----------- | -------------------------------------------- |
+| `id`             | SERIAL      | ID da pergunta.                              |
+| `tour_id`        | INT         | A qual tour pertence.                        |
+| `checkpoint_id`  | INT         | Em qual checkpoint foi feita.                |
+| `question_topic` | TEXT        | Categoria (metodologia, processo seletivo…). |
+| `texto`          | TEXT        | Pergunta feita.                              |
+| `estado`         | TEXT        | queued → answerable → answered/discarded.    |
+| `criado_em`      | TIMESTAMPTZ | Quando foi feita.                            |
+| `liberado_em`    | TIMESTAMPTZ | Quando ficou disponível para resposta.       |
+| `respondido_em`  | TIMESTAMPTZ | Quando foi respondida.                       |
+
+# **10. `respostas`**
+
+**Descrição:**
+Respostas do robô (ou eventualmente por um gestor).
+
+| Coluna                   | Tipo        | Explicação                       |
+| ------------------------ | ----------- | -------------------------------- |
+| `id`                     | SERIAL      | ID da resposta.                  |
+| `pergunta_id`            | INT         | FK exclusiva para pergunta.      |
+| `respondido_por_tipo`    | TEXT        | robot ou manager.                |
+| `respondido_por_usuario` | INT         | Gestor que respondeu (opcional). |
+| `texto`                  | TEXT        | Resposta final.                  |
+| `criado_em`              | TIMESTAMPTZ | Quando respondeu.                |
+
+# **11. `alertas`**
+
+**Descrição:**
+Eventos críticos disparados pelo visitante, robô ou gestor.
+
+| Coluna             | Tipo        | Explicação                 |
+| ------------------ | ----------- | -------------------------- |
+| `id`               | SERIAL      | ID do alerta.              |
+| `tour_id`          | INT         | Tour associado.            |
+| `origem`           | TEXT        | visitor, robot ou manager. |
+| `nivel`            | TEXT        | info, warning, emergency.  |
+| `mensagem`         | TEXT        | Descrição do alerta.       |
+| `autor_usuario_id` | INT         | Gestor autor (opcional).   |
+| `criado_em`        | TIMESTAMPTZ | Criado em.                 |
+| `resolvido_em`     | TIMESTAMPTZ | Resolvido em.              |
+
+# **12. `notificacoes`**
+
+**Descrição:**
+Sistema interno de notificações para gestores/admins.
+
+| Coluna         | Tipo        | Explicação                             |
+| -------------- | ----------- | -------------------------------------- |
+| `id`           | SERIAL      | Identificador.                         |
+| `usuario_id`   | INT         | Usuário destinatário.                  |
+| `titulo`       | TEXT        | Título mostrado.                       |
+| `corpo`        | TEXT        | Texto adicional.                       |
+| `payload_json` | JSONB       | Dados extras (IDs, tipo do alerta...). |
+| `lido`         | BOOLEAN     | Se a notificação foi aberta.           |
+| `criado_em`    | TIMESTAMPTZ | Registro.                              |
+
+# **13. `tour_status_log`**
+
+**Descrição:**
+Auditoria completa das mudanças de status dos tours.
+
+| Coluna           | Tipo        | Explicação             |
+| ---------------- | ----------- | ---------------------- |
+| `id`             | SERIAL      | ID do log.             |
+| `tour_id`        | INT         | Tour alterado.         |
+| `status`         | TEXT        | Novo status.           |
+| `atualizado_por` | INT         | Usuário que alterou.   |
+| `atualizado_em`  | TIMESTAMPTZ | Quando foi atualizado. |
+| `observacoes`    | TEXT        | Observações opcionais. |
+
+# **Visão Geral dos Relacionamentos**
+
+- **robos (1) → (N) tours**
+- **usuarios (1) → (N) tours criados / responsáveis**
+- **tours (1) → (N) checkpoints**
+- **tours (1) → (N) rastreios_robo**
+- **tours (1) → (N) perguntas**
+- **perguntas (1) → (1) respostas**
+- **tours (1) → (N) alertas**
+- **usuarios (1) → (N) notificacoes**
+- **tours (1) → (N) tour_status_log**
+
+# **Conclusão**
+
+A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar suporte a todo o ciclo funcional do **Tour Cão-Robô**, permitindo:
+
+- **Gestão robusta** de tours, usuários e robôs
+- **Operação em tempo real** via rastreio do robô
+- **Experiência rica** ao visitante, com perguntas organizadas por checkpoint
+- **Orquestração clara** de eventos como emergências e notificações
+- **Auditoria completa** via logs
+- **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
+
+O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.

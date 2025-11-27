@@ -1,0 +1,325 @@
+---
+title: Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG)
+---
+
+## 1. Visão Geral
+
+O sistema de Geração Aumentada por Recuperação (**Retrieval-Augmented Generation - RAG**) é o componente central de conhecimento do guia de turismo robótico do Inteli. Ele combina a capacidade de raciocínio de um Large Language Model (LLM) com uma base de conhecimento externa e factual, garantindo que as respostas sejam precisas, atualizadas e fundamentadas.
+
+### O que é RAG?
+
+RAG é uma arquitetura que melhora a qualidade das respostas de um LLM ao integrar um mecanismo de recuperação de informações. O fluxo básico é:
+
+1.  **Consulta (Query):** O LLM recebe uma pergunta do usuário.
+2.  **Recuperação (Retrieval):** A pergunta é usada para buscar (recuperar) documentos ou trechos de texto relevantes de uma base de conhecimento externa.
+3.  **Geração (Generation):** O LLM recebe a pergunta original **junto** com os trechos recuperados (o contexto) e usa essa informação para gerar uma resposta final.
+
+### Por que RAG é Importante para o Projeto?
+
+O RAG é crucial para este sistema por vários motivos:
+
+- **Factualidade e Atualização:** Garante que as respostas sobre o Inteli (cursos, projetos, instalações, etc.) sejam baseadas em dados reais e atualizados, contidos na base de conhecimento.
+- **Redução de Alucinações:** Ao forçar o LLM a usar o contexto recuperado, o RAG mitiga a tendência do modelo de "alucinar" ou inventar fatos.
+- **Cobertura de Tours e Q&A:** Permite que o robô-guia responda a perguntas complexas e específicas, oferecendo informações detalhadas durante os tours ou sessões de Q&A.
+- **Apoio ao Persona:** Fornece o conteúdo factual necessário para que o **Knowledge Agent** sintetize a resposta, que será então adaptada pelo **Personality Agent** para o tom de voz do cachorro-robô.
+
+## 2. Arquitetura do Projeto
+
+O sistema é estruturado em torno de um fluxo de agentes orquestrado, onde o RAG é a função principal do **Knowledge Agent**.
+
+### Topologia de Agentes
+
+O fluxo de agentes é composto por:
+
+- **Coordinator/Orchestrator:** Agente principal que recebe a requisição, coordena o fluxo, e direciona a pergunta para o agente apropriado (Safety, Tour, Knowledge).
+- **Safety Agent:** Filtra a entrada do usuário para garantir que a interação seja segura e apropriada.
+- **Tour Agent:** Gerencia o fluxo da visita guiada.
+- **Knowledge Agent:** O agente especialista em RAG, responsável por recuperar e sintetizar informações factuais.
+
+### O Papel do Knowledge Agent no RAG
+
+O **Knowledge Agent** (`agent_flow/agents/knowledge_agent.py`) é instruído a:
+
+1.  Otimizar a consulta do usuário.
+2.  Chamar a ferramenta de recuperação unificada (`retrieve_inteli_knowledge`).
+3.  Interpretar os _chunks_ (nós) e suas adjacências (vizinhos de grafo) retornados.
+4.  Sintetizar o material recuperado em uma resposta estruturada (JSON) para o Orchestrator.
+
+### Diretórios Principais
+
+| Diretório            | Conteúdo Principal                            | Função no Sistema                                                                                |
+| :------------------- | :-------------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| `agent_flow/agents`  | `knowledge_agent.py`, `safety_agent.py`, etc. | Contém as definições e instruções dos agentes.                                                   |
+| `agent_flow/tools`   | `knowledge_tools.py`, `safety_tools.py`, etc. | Contém as implementações das ferramentas que os agentes podem chamar, incluindo a lógica do RAG. |
+| `agent_flow/prompts` | Arquivos de _guidelines_ e _persona_.         | Define as instruções detalhadas e o tom de voz dos agentes.                                      |
+| `documents/`         | _Chunks_ de documentos, scripts de ingestão.  | Armazena os dados brutos e processados da base de conhecimento.                                  |
+| `docs/`              | Guias e documentação conceitual.              | Contém a documentação de alto nível do projeto.                                                  |
+
+### Entrypoint e Modos de Execução
+
+O ponto de entrada do aplicativo é presumivelmente `run_app.py` ou `agent_flow/app.py`. O sistema suporta diferentes modos de execução, controlados por _flags_:
+
+- `--mode full`: Modo de execução completo, envolvendo todos os agentes (Orchestrator, Safety, Knowledge, etc.).
+- `--mode simple`: Modo simplificado (detalhes a serem confirmados, mas geralmente um fluxo direto).
+- `--mode demo`: Modo de demonstração, focado em apresentar as funcionalidades principais.
+
+## 3. Implementação do RAG: Graph RAG
+
+A implementação do RAG é baseada em uma arquitetura avançada de **Graph RAG**. Esta abordagem não apenas recupera trechos de texto (chunks) com base na similaridade vetorial, mas também incorpora o contexto relacional ao buscar vizinhos de primeiro grau no grafo de conhecimento. Isso garante que o LLM receba informações contextualmente ricas e conectadas, reduzindo a chance de respostas incompletas.
+
+O sistema utiliza o **Qdrant** como banco de dados vetorial para armazenar os nós de conhecimento e suas conexões (adjacências).
+
+### Arquivos-Chave
+
+- **Agente:** `agent_flow/agents/knowledge_agent.py`
+  - Define a instrução e o fluxo de trabalho do agente.
+  - Declara o uso da ferramenta `retrieve_inteli_knowledge`.
+- **Ferramenta de Busca:** `agent_flow/tools/knowledge_tools.py`
+  - Contém a função `retrieve_inteli_knowledge`, que é o _wrapper_ da pipeline RAG.
+  - Implementa a pipeline RAG (`rag_inference_pipeline`) que encadeia a criação de _embedding_ e a recuperação do Qdrant.
+
+### Pipeline RAG e Ferramenta de Busca
+
+A lógica de recuperação é encapsulada na pipeline `rag_inference_pipeline` (definida em `agent_flow/tools/knowledge_tools.py`), que orquestra três etapas principais: _Embedding_, _Retrieval_ e _Payload Construction_.
+
+#### 3.1. Etapa de Embedding
+
+A função `query_embedding` é responsável por transformar a consulta em linguagem natural em um vetor numérico (embedding) usando o modelo `SentenceTransformer` configurado via `EMBEDDING_MODEL_NAME`.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+@step(enable_cache=False)
+def query_embedding(query: str) -> List[float]:
+    """Encode the user query into an embedding vector."""
+    if not query:
+        raise ValueError("query_embedding_step recebeu uma query vazia.")
+
+    model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    return model.encode(query).tolist()
+```
+
+#### 3.2. Etapa de Retrieval (Graph RAG)
+
+A função `retrieval_from_qdrant` executa a busca no banco de dados vetorial Qdrant. Esta é a parte central do **Graph RAG**:
+
+1.  Busca os `top_k` nós mais similares ao `query_embedding`.
+2.  Para cada nó principal, busca seus vizinhos de primeiro grau (adjacências) limitados por `adjacency_limit`.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+@step(enable_cache=False)
+def retrieval_from_qdrant(
+    query_embedding: List[float],
+    top_k: int = DEFAULT_TOP_K,
+    adjacency_limit: int = DEFAULT_ADJACENT_LIMIT,
+) -> List[Dict[str, Any]]:
+    """Retrieve the top-k chunks and their first-degree neighbors from Qdrant."""
+    # ... (código de inicialização do Qdrant)
+
+    query_result = client.query_points(
+        collection_name=QDRANT_COLLECTION,
+        query=query_embedding,
+        limit=top_k,
+        # ...
+    )
+    # ... (código para extrair adjacências e buscar seus payloads)
+
+    # ... (código para anexar adjacências aos nós principais)
+
+    return retrieved_nodes
+```
+
+#### 3.3. Orquestração da Pipeline
+
+A `rag_inference_pipeline` encadeia as etapas de _embedding_ e _retrieval_ e, em seguida, constrói o _payload_ final que será enviado ao Knowledge Agent.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+@pipeline
+def rag_inference_pipeline(
+    query: str,
+    top_k: int = DEFAULT_TOP_K,
+    adjacency_limit: int = DEFAULT_ADJACENT_LIMIT,
+) -> Dict[str, Any]:
+    """Pipeline que encadeia embed + retrieval e retorna um grafo estruturado."""
+    query_vector = query_embedding(query=query)
+    retrieval = retrieval_from_qdrant(
+        query_embedding=query_vector,
+        top_k=top_k,
+        adjacency_limit=adjacency_limit,
+    )
+    payload = build_graph_rag_payload(
+        query=query,
+        query_embedding=query_vector,
+        retrieved_nodes=retrieval,
+    )
+    return payload
+```
+
+#### 3.4. Ferramenta `retrieve_inteli_knowledge`
+
+Esta é a função que o Knowledge Agent invoca. Ela atua como um _wrapper_ para a pipeline, garantindo que os parâmetros de configuração sejam usados e que o resultado seja formatado para o sistema de agentes.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+def retrieve_inteli_knowledge(
+    query: str,
+    tool_context: ToolContext,
+) -> Dict[str, Any]:
+    """RAG tool that embeds a prompt and returns graph-based neighbors."""
+    normalized_query = (query or "").strip()
+    # ... (validação da query)
+
+    retrieval_payload = rag_inference_pipeline(
+        query=normalized_query,
+        top_k=DEFAULT_TOP_K,
+        adjacency_limit=DEFAULT_ADJACENT_LIMIT,
+    )
+
+    # ... (código para salvar o estado e retornar o payload)
+
+    return {
+        "success": True,
+        "query": normalized_query,
+        "result_count": retrieval_payload.get("result_count", 0),
+        "chunks": retrieval_payload.get("results", []),
+        "context": retrieval_payload.get("context", ""),
+        "query_embedding": retrieval_payload.get("query_embedding"),
+        "message": (
+            f"Retornados {DEFAULT_TOP_K} nós com até "
+            f"{DEFAULT_ADJACENT_LIMIT} vizinhos por nó"
+        ),
+    }
+```
+
+### Parâmetros de Configuração
+
+Os parâmetros-chave que controlam a recuperação são definidos via variáveis de ambiente (e podem ser sobrescritos na chamada da ferramenta):
+
+| Parâmetro              | Variável de Ambiente | Padrão (em `knowledge_tools.py`)                       | Descrição                                                                 |
+| :--------------------- | :------------------- | :----------------------------------------------------- | :------------------------------------------------------------------------ |
+| `top_k`                | `RAG_TOP_K`          | 300                                                    | Quantidade de nós (chunks) mais similares à consulta a serem recuperados. |
+| `adjacency_limit`      | `RAG_ADJACENT_LIMIT` | 10                                                     | Limite de vizinhos de grafo a serem recuperados para cada nó principal.   |
+| `QDRANT_COLLECTION`    | `QDRANT_COLLECTION`  | `inteli-documents-embeddings`                          | Nome da coleção no Qdrant que armazena os dados do Inteli.                |
+| `EMBEDDING_MODEL_NAME` | `EMBEDDINGS_MODEL`   | (Não especificado no código, mas carregado via `.env`) | Modelo usado para gerar os vetores de _embedding_.                        |
+
+### Retorno da Ferramenta
+
+O retorno da função `retrieve_inteli_knowledge` é um dicionário estruturado que fornece ao Knowledge Agent todos os dados necessários para a síntese:
+
+- `chunks`: Lista de nós recuperados, cada um contendo `content`, `metadata`, `score` e a lista `adjacent` (vizinhos de grafo).
+- `context`: Texto pré-formatado que concatena o conteúdo de todos os _chunks_ e suas adjacências para facilitar a leitura pelo LLM.
+- `query_embedding`: O vetor de _embedding_ gerado a partir da consulta.
+- `result_count`: O número total de nós recuperados.
+
+### Dados e Modelos
+
+- **Dados:** A base de conhecimento é armazenada na pasta `documents/` (contendo os _chunks_ e o script de ingestão RAG). Os dados são organizados como um **grafo**, onde cada _chunk_ é um nó e as relações entre eles (adjacências) são armazenadas nos metadados do nó (`adjacent_ids`).
+- **Modelo LLM Padrão:** O modelo padrão para o **Knowledge Agent** é `gemini-2.0-flash-exp` (definido em `knowledge_agent.py`).
+- **Configuração de Modelo:** O modelo pode ser trocado via _flags_ de linha de comando (`--model`) ao executar o _entrypoint_ ou o _script_ de teste (`rag_test_agent.py`).
+
+### Exemplo de Estrutura de Nó (Chunk)
+
+Cada nó recuperado pelo Graph RAG possui uma estrutura rica em metadados, essencial para o _grounding_ e a recuperação de adjacências:
+
+```json
+{
+  "id": "chunk_123",
+  "score": 0.85,
+  "content": "O Inteli oferece laboratórios de prototipagem...",
+  "metadata": {
+    "document": "manual_aluno.pdf",
+    "section": "Infraestrutura",
+    "page_number": 15,
+    "adjacent_ids": ["chunk_124", "chunk_201"] // Conexões de grafo
+  },
+  "adjacent": [
+    // Payloads dos nós vizinhos (chunk_124, chunk_201)
+  ]
+}
+```
+
+O campo `adjacent_ids` é o que permite a funcionalidade de Graph RAG, garantindo que o contexto relacionado seja sempre recuperado, mesmo que o vizinho não tenha alta similaridade vetorial com a consulta original.
+
+## 4. Fluxo Detalhado do RAG (Knowledge Agent)
+
+O fluxo de processamento da informação pelo **Knowledge Agent** é rigoroso e visa garantir a qualidade e a rastreabilidade da resposta.
+
+1.  **Recebe a Pergunta:** O Orchestrator encaminha a pergunta do usuário.
+2.  **Otimiza a Consulta:** O LLM do Knowledge Agent refina a pergunta (ex: extração de entidades, expansão de _query_) para maximizar a precisão da busca vetorial.
+3.  **Chama a Ferramenta:** O agente invoca `retrieve_inteli_knowledge(query)`.
+4.  **Recuperação e Contextualização:** A ferramenta executa a pipeline RAG (embed + Qdrant) e retorna o _payload_ com `chunks` e `context`.
+5.  **Interpretação:** O agente analisa o `context` (que inclui os _chunks_ e seus vizinhos de grafo) para construir um modelo coerente do tópico.
+6.  **Síntese da Resposta:** O agente sintetiza o conhecimento recuperado em um texto que responde à pergunta, seguindo a estratégia de síntese (relevância, controle de redundância, narrativa contextual).
+7.  **Estruturação do Output:** O agente gera uma resposta estruturada em formato JSON, contendo:
+    - `answer`: A resposta sintetizada.
+    - `sources`: Lista de citações (documento, seção, `chunk_id`, `confidence`).
+    - `coverage`: Metadados sobre a completude da resposta (`question_fully_answered`, `missing_information`, `suggested_followups`).
+    - `metadata`: Informações de rastreamento (`search_queries_used`, `chunks_retrieved`, `confidence_level`).
+8.  **Envio ao Orchestrator:** O JSON estruturado é enviado de volta ao Orchestrator para processamento final (ex: aplicação da persona).
+
+### Critérios de Qualidade (Grounding e Confiança)
+
+O Knowledge Agent é instruído a aplicar critérios de qualidade rigorosos:
+
+- **Grounding em Fontes:** Toda afirmação deve ser rastreável aos _chunks_ recuperados.
+- **Confiança:** As afirmações são rotuladas como `high`, `medium` ou `low` com base na cobertura e concordância dos _chunks_.
+- **Gaps Reportados:** Se a informação estiver ausente, o agente deve reportar o _gap_ em `coverage.missing_information` e sugerir próximos passos.
+
+## 5. Execução e Testes
+
+### Pré-requisitos
+
+Para rodar o sistema, é necessário:
+
+1.  **Ativar o Ambiente Virtual:**
+    ```bash
+    source venv/bin/activate
+    ```
+2.  **Instalar Dependências:** As dependências estão listadas em `requirements.txt`.
+
+### Como Rodar
+
+O _entrypoint_ principal é executado com o Python 3, especificando o modo de operação:
+
+```bash
+python3 run_app.py --mode demo|full|simple
+# Ou, dependendo da estrutura do projeto:
+python3 -m agent_flow.app --mode demo|full|simple
+```
+
+### Como Testar o RAG
+
+O script `rag_test_agent.py` permite testar a pipeline RAG diretamente, sem a orquestração completa do sistema de agentes.
+
+```bash
+python3 rag_test_agent.py -q "Qual é o foco do curso de Engenharia de Software do Inteli?"
+```
+
+O script de teste aceita _flags_ para _debug_ e configuração:
+
+- `-q, --query`: A pergunta a ser testada (obrigatório).
+- `--top-k`: Sobrescreve o `RAG_TOP_K` padrão.
+- `--adjacency-limit`: Sobrescreve o `RAG_ADJACENT_LIMIT` padrão.
+- `--model`: Permite trocar o modelo LLM usado para gerar a resposta final (padrão é `gemini-2.0-flash-exp`).
+- `--show-json`: Exibe o _payload_ completo do RAG (nós, adjacências, _scores_) em formato JSON.
+
+## 6. Persona e Segurança
+
+O RAG se integra ao sistema de agentes para garantir tanto a segurança quanto a aderência à persona.
+
+- **Integração com Safety Agent:** O **Safety Agent** atua como um filtro de entrada, garantindo que a consulta seja segura e apropriada **antes** de ser encaminhada ao Knowledge Agent. Isso protege o RAG de consultas maliciosas ou inapropriadas.
+- **Persona (Cachorro-Robô):** O Knowledge Agent foca estritamente na recuperação e síntese factual. A aplicação do tom de voz do cachorro-robô é responsabilidade do **Orchestrator** ou de um **Personality Agent** (como sugerido pelo arquivo `personality_tools.py`), que recebe a resposta factual e a reescreve com a persona definida.
+- **Mitigação de Alucinações:** O RAG é a principal técnica de mitigação de alucinações, pois força o LLM a citar fontes (`sources`) e a basear a resposta no contexto recuperado (Grounding). A combinação de RAG, Safety Agent e citações cria um sistema robusto e confiável.
+
+## 7. Referências Internas
+
+Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
+
+- **Descrição Conceitual do RAG:** `docs/04-sistema-rag-conhecimento.mdx`
+- **Arquitetura Geral, Execução e Segurança:** `docs/01-03`
+- **Guidelines e Persona:** `agent_flow/prompts/*`
