@@ -1,6 +1,6 @@
 {
     "title": "Frontend",
-    "description": "Frontend do projeto, onde o usuário terá o contato com a aplicação sem ter que lidar com a complexibilidade do backend.",
+    "description": "Documentação inicial das primeira versão dos Apps Staff e Visitante.",
     "pages": ["frontend-staff"]
   }
   
