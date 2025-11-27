@@ -12,15 +12,15 @@ Bem-vindo à documentação do projeto! Aqui você encontrará informações det
   </Card>
 
   <Card href="/docs/sprint-3" title="Sprint 3">
-    Documentação referente à Sprint 2 do projeto.
+    Documentação referente à Sprint 3 do projeto.
   </Card>
 
   <Card href="/docs/sprint-4" title="Sprint 4">
-    Documentação referente à Sprint 2 do projeto.
+    Documentação referente à Sprint 4 do projeto.
   </Card>
 
   <Card href="/docs/sprint-5" title="Sprint 5">
-    Documentação referente à Sprint 2 do projeto.
+    Documentação referente à Sprint 5 do projeto.
   </Card>
 </Cards>
 
@@ -207,149 +207,887 @@ Essa validação será o ponto de partida para a criação de um sistema de **na
 # Sprint 3 (/docs/sprint-3)
 
 <Cards>
-  <Card href="/docs/sprint-3/template" title="Template de Arquivo">
-    Modelo básico para criação de novos arquivos MDX.
+  <Card href="/docs/sprint-3/doc-frontend" title="Documentação Apps Frontend">
+    Documentação inicial das primeira versão dos Apps Staff e Visitante.
   </Card>
 
-  <Card href="/docs/sprint-3/template-pasta" title="Template de Pasta">
-    Modelo de estrutura para criação de novas pastas de documentação.
+  <Card href="/docs/sprint-3/sistema-multi-agentes" title="Sistema Multi-Agentes">
+    Documentação completa do sistema multi-agentes Inteli Robot Dog Tour Guide
+  </Card>
+
+  <Card href="/docs/sprint-3/secure-software" title="S-SDLC">
+    Secure Software Development Life Cycle
+  </Card>
+
+  <Card href="/docs/sprint-3/robo" title="Robo">
+    Documentação referente ao desenvolvimento do robo.
+  </Card>
+
+  <Card href="/docs/sprint-3/stt-tts" title="LIA AI Audio Assistant">
+    Documentação completa do assistente de voz com pipeline de processamento
+    STT-LLM-TTS
+  </Card>
+
+  <Card href="/docs/sprint-3/prototipo-alta" title="Protótipo de alta fidelidade do dashboard de Staff.">
+    Protótipos de alta fidelidade são representações visuais que mostram a
+    estrutura e o layout fielmente a interface final do dashboard.
+  </Card>
+
+  <Card href="/docs/sprint-3/bd-v2/bd-v2" title="Banco de Dados - Versão 2.0">
+    Banco de Dados na Versão 2.
+  </Card>
+
+  <Card href="/docs/sprint-3/docs-rag" title="Documentação Técnica do RAG">
+    Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG)
   </Card>
 </Cards>
 
 
-# Título do Documento (/docs/sprint-3/template)
+# LIA AI Audio Assistant (/docs/sprint-3/stt-tts)
 
 
 
+O LIA AI Audio Assistant é um assistente virtual de voz que utiliza tecnologias de IA avançadas para processar áudio, gerar respostas inteligentes e convertê-las novamente em áudio. O sistema implementa uma pipeline completa de Speech-to-Text (STT), processamento via LLM e Text-to-Speech (TTS), proporcionando uma experiência conversacional natural.
 
+***
 
-# Cabeçalho Principal
+## 1. Visão Geral
 
-## Callouts/Admonitions
+### Objetivo
 
-<Callout type="info">
-  Esta é uma nota importante para destacar algo relevante no documento.
-</Callout>
+Plataforma de conversação por voz baseada em inteligência artificial que processa áudio, gera respostas e sintetiza voz.
 
-<Callout type="warn">
-  Esta é uma advertência para chamar a atenção para um possível problema.
-</Callout>
+### Características Principais
 
-<Callout>
-  Hello World
-</Callout>
+* Pipeline STT → LLM → TTS
+* Interface web com Streamlit
+* Transcrição com OpenAI Whisper
+* Geração de respostas via Google Gemini
+* Síntese de voz com Google Cloud TTS
+* Suporte a MP3, WAV, M4A, OGG, FLAC
+* Histórico de conversação
 
-<Callout title="Title">
-  Hello World
-</Callout>
+### Interface do Assistente
 
-<Callout title="Title" type="error">
-  Hello World
-</Callout>
+<div style={{ textAlign: "center" }}>
+  <sup>
+    Figura 1: Interface do LIA AI Audio Assistant
+  </sup>
+</div>
 
-## Bloco de Código
+<img alt="Interface da LIA" src={__img0} placeholder="blur" />
+
+<div style={{ textAlign: "center" }}>
+  <sub>
+    Fonte: Produzida pelos Autores (2025).
+  </sub>
+</div>
+
+***
+
+## 2. Arquitetura do Sistema
+
+### Camadas
+
+**Apresentação**: Interface Streamlit para interação, upload e reprodução de áudio.
+
+**STT**: Transcrição de áudio usando Whisper com detecção automática de idioma.
+
+**LLM**: Processamento com Google Gemini 2.0 Flash para geração de respostas.
+
+**TTS**: Síntese de voz com Google Cloud Text-to-Speech em português brasileiro.
+
+### Fluxo de Dados
+
+```
+Usuário Upload Áudio → STT (Whisper) → Transcrição → LLM (Gemini) → Resposta Texto → TTS (Google Cloud) → Áudio Resposta → Usuário
+```
+
+***
+
+## 3. Tecnologias Utilizadas
+
+### Backend
+
+* **Python 3.12**: Linguagem de programação principal
+* **Streamlit 1.51.0**: Framework para criação da interface web interativa
+* **Python-dotenv 1.2.1**: Gerenciamento de variáveis de ambiente
+
+### Inteligência Artificial
+
+* **OpenAI Whisper 20250625**: Modelo de transcrição de áudio (STT)
+* **Google Generative AI**: SDK para integração com Gemini 2.0 Flash
+* **Google Cloud Text-to-Speech 2.33.0**: Síntese de voz natural
+
+### Processamento de Áudio
+
+* **PyTorch 2.9.1**: Framework de deep learning para modelos de áudio
+* **TorchAudio 2.9.1**: Biblioteca para processamento de áudio
+* **FFmpeg**: Codificação e decodificação de formatos de áudio
+
+### Machine Learning
+
+* **Transformers 4.57.1**: Biblioteca Hugging Face para modelos transformer
+* **Sentence-Transformers 5.1.2**: Embeddings semânticos de texto
+* **Accelerate 1.11.0**: Otimização de treinamento e inferência
+
+### Infraestrutura
+
+* **CUDA 12.8**: Aceleração GPU para processamento de modelos
+* **Logging**: Sistema integrado de logs para monitoramento
+
+***
+
+## 4. Configuração e Instalação
+
+### Pré-requisitos
+
+* Python 3.12 ou superior
+* Conta Google Cloud com API Text-to-Speech habilitada
+* Chave API do Google Gemini
+* GPU NVIDIA com CUDA (opcional, mas recomendado)
+* FFmpeg instalado no sistema
+* Mínimo de 4GB de RAM disponível
+* Mínimo de 2GB de espaço em disco
+
+### Passos de Instalação
+
+#### 1. Clonar o Repositório
+
+```bash
+git clone https://github.com/daviiabreu/embedding-models.git
+cd embedding-models
+```
+
+#### 2. Criar Ambiente Virtual
+
+```bash
+python -m venv venv
+```
+
+#### 3. Ativar Ambiente Virtual
+
+**Windows (PowerShell):**
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+**Linux/Mac:**
+
+```bash
+source venv/bin/activate
+```
+
+#### 4. Instalar Dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+**Nota**: A instalação pode demorar alguns minutos devido ao tamanho dos pacotes de deep learning (PyTorch, Transformers, etc.).
+
+#### 5. Configurar Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```bash
+GEMINI_API_KEY=sua_chave_gemini_aqui
+GOOGLE_APPLICATION_CREDENTIALS=caminho/para/credentials.json
+```
+
+**Para obter as credenciais:**
+
+* **Gemini API Key**: [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
+* **Google Cloud Credentials**: [https://console.cloud.google.com/apis/credentials](https://console.cloud.google.com/apis/credentials)
+
+#### 6. Configurar Google Cloud
+
+1. Acesse o Google Cloud Console
+2. Crie um projeto ou selecione um existente
+3. Habilite a API "Cloud Text-to-Speech"
+4. Crie uma Service Account
+5. Baixe o arquivo JSON de credenciais
+6. Configure a variável `GOOGLE_APPLICATION_CREDENTIALS`
+
+#### 7. Instalar FFmpeg (se necessário)
+
+**Windows (via Chocolatey):**
+
+```powershell
+choco install ffmpeg
+```
+
+**Linux (Ubuntu/Debian):**
+
+```bash
+sudo apt update
+sudo apt install ffmpeg
+```
+
+**Mac (via Homebrew):**
+
+```bash
+brew install ffmpeg
+```
+
+#### 8. Iniciar a Aplicação
+
+**Interface Web (Streamlit):**
+
+```bash
+streamlit run streamlit_app.py
+```
+
+**Modo CLI (Pipeline):**
+
+```bash
+python main.py arquivo_audio.mp3
+```
+
+**Linux:**
+
+```bash
+python3 main.py arquivo_audio.mp3
+```
+
+A interface web estará disponível em: [http://localhost:8501](http://localhost:8501)
+
+***
+
+## 5. Estrutura do Projeto
+
+```
+embedding-models/
+│
+├── main.py                       # Pipeline CLI principal
+├── streamlit_app.py              # Interface web Streamlit
+├── requirements.txt              # Dependências do projeto
+├── .env                          # Variáveis de ambiente (não versionado)
+├── .gitignore                    # Arquivos ignorados pelo Git
+├── DOCUMENTATION.md              # Documentação completa (este arquivo)
+│
+├── pipeline/
+│   ├── __init__.py              # Inicializador do módulo
+│   └── llm_service.py           # Serviço de integração com Gemini
+│
+├── stt/
+│   ├── __init__.py              # Inicializador do módulo
+│   └── stt_service.py           # Serviço de transcrição (Whisper)
+│
+├── tts/
+│   ├── __init__.py              # Inicializador do módulo
+│   └── tts_service.py           # Serviço de síntese de voz (Google TTS)
+│
+├── input_audio/                  # Pasta para áudios de entrada (gerada)
+│
+├── output_audio/                 # Pasta para áudios gerados (gerada)
+│
+└── pipeline.log                  # Arquivo de logs (gerado)
+```
+
+***
+
+## 6. Funcionalidades
+
+### Speech-to-Text (STT)
+
+Transcrição de áudio com modelo Whisper "base" (74M parâmetros). Suporta 99+ idiomas com detecção automática. Formatos aceitos: MP3, WAV, M4A, FLAC, OGG, AAC. Processamento local sem API externa.
+
+### Large Language Model (LLM)
+
+Modelo: gemini-2.0-flash
+Configurações: Temperature 0.5, Top P 0.9, Top K 20, Max Tokens 500
+Mantém histórico de conversa e implementa retry logic para falhas.
+
+### Text-to-Speech (TTS)
+
+Voz Puck em português brasileiro usando gemini-2.5-pro-tts. Saída em formato MP3.
+
+### Pipeline
+
+Modo arquivo único: `python main.py arquivo.mp3`
+Modo batch: `python main.py` (processa todos os arquivos em input\_audio/)
+Logging: INFO, WARNING, ERROR em console e arquivo pipeline.log
+
+### Interface Web
+
+Componentes: área de chat, upload de áudio, preview, status da pipeline, player de resposta, botões de ação.
+Gerenciamento de sessão com histórico persistente.
+
+***
+
+## 7. Módulos e Serviços
+
+### STT Service (`stt/stt_service.py`)
+
+#### Classe: N/A (Funcional)
+
+**Função Principal: `transcribe_audio(audio_filepath: str) -> str | None`**
+
+Transcreve arquivo de áudio para texto.
+
+**Parâmetros:**
+
+* `audio_filepath`: Caminho absoluto do arquivo de áudio
+
+**Retorno:**
+
+* `str`: Texto transcrito
+* `None`: Em caso de erro
+
+**Características:**
+
+* Carregamento lazy do modelo Whisper
+* Detecção automática de idioma
+* Tratamento de erros robusto
+* Logging detalhado
+
+**Exemplo de Uso:**
 
 ```python
-# Código de exemplo em Python
-def exemplo():
-    print("Olá, Mundo!")
+from stt_service import transcribe_audio
+
+texto = transcribe_audio("input_audio/gravacao.mp3")
+if texto:
+    print(f"Transcrição: {texto}")
 ```
 
-```rust title="Exemplo em Rust com título"
-// Código de exemplo em Rust
-fn exemplo() {
-    println!("Olá, Mundo!");
-}
+***
+
+### LLM Service (`pipeline/llm_service.py`)
+
+#### Classe: `LLMService`
+
+Gerencia a comunicação com o Google Gemini.
+
+**Métodos Principais:**
+
+**`__init__(model_name: str = "gemini-pro")`**
+
+Inicializa o serviço e configura o modelo.
+
+**`setup_configurations()`**
+
+Define configurações de segurança e geração.
+
+**`setup_model()`**
+
+Tenta configurar diferentes versões do Gemini.
+
+**`create_prompt(user_transcription: str, context: str = None) -> str`**
+
+Cria prompt otimizado para o modelo.
+
+**Parâmetros:**
+
+* `user_transcription`: Texto do usuário
+* `context`: Contexto adicional opcional
+
+**Retorno:**
+
+* `str`: Prompt formatado
+
+**`get_response(user_input: str, context: str = None, max_retries: int = 3) -> Optional[str]`**
+
+Obtém resposta do Gemini com retry logic.
+
+**Parâmetros:**
+
+* `user_input`: Pergunta/texto do usuário
+* `context`: Contexto da conversa
+* `max_retries`: Número máximo de tentativas
+
+**Retorno:**
+
+* `str`: Resposta gerada
+* `None`: Em caso de falha completa
+
+**Configurações de Segurança:**
+
+```python
+safety_settings = [
+    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"}
+]
 ```
 
-## Flowcharts MermaidJS
+**Função Utilitária:**
 
-<Mermaid
-  chart="flowchart TD
-U[Usuário] --> P[Proxy Reverso]
+```python
+from llm_service import get_llm_response
 
-P --> FE[React.js Frontend]
-P --> C[ASP.NET Core]
-P --> FA[FastAPI]
-P --> F[Flask]
+resposta = get_llm_response("Olá, como você está?")
+print(resposta)
+```
 
-B[Broker MQTT] -->|MQTT| C
+***
 
-C -->|Query e HTTP| PG[(PostgreSQL)]
-C -->|HTTP| BUCKET[(MinIO DataLake)]
+### TTS Service (`tts/tts_service.py`)
 
-FA -->|Função Direta| ML[Módulo de Retreinamento]
-FA -->|Função Direta| IF[Gerador de Inferências]
-FA -->|HTTP| BUCKET
+#### Classe: `TTSService`
 
-F -->|Query e HTTP| PG
-F -->|HTTP| BUCKET
-"
-/>
+Gerencia a síntese de voz usando Google Cloud.
 
-## Imagens e Links
+**Métodos Principais:**
 
-<img alt="Imagem" src={__img0} placeholder="blur" />
+**`__init__()`**
 
-<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
+Inicializa o serviço e cria diretórios.
 
-[Link](https://www.example.com)
+**`setup_output_directory() -> Path`**
 
-[Link Relativo](./template-pasta)
+Cria e retorna o diretório de saída padrão.
 
-## Estrutura de pastas
+**`normalize_output_path(output_path: str) -> Path`**
 
-<Files>
-  <Folder name="sprint-1" defaultOpen>
-    <Folder name="entendimento-do-negocio" defaultOpen>
-      <File name="analise-financeira.mdx" />
+Normaliza e valida o caminho de saída.
 
-      <File name="canvas-proposta-de-valor.mdx" />
+**Parâmetros:**
 
-      <File name="index.mdx" />
+* `output_path`: Caminho desejado
 
-      <File name="matriz-de-risco.mdx" />
+**Retorno:**
 
-      <File name="matriz-oceano-azul.mdx" />
+* `Path`: Caminho normalizado (sempre .mp3)
 
-      <File name="meta.json" />
-    </Folder>
+**`synthesize_speech(text: str, output_path: str, voice_speed: bool = False) -> bool`**
 
-    <Folder name="entendimento-do-projeto" defaultOpen>
-      <File name="index.mdx" />
+Converte texto em áudio.
 
-      <File name="meta.json" />
+**Parâmetros:**
 
-      <File name="proposta-de-arquitetura.mdx" />
+* `text`: Texto para sintetizar
+* `output_path`: Caminho do arquivo de saída
+* `voice_speed`: Velocidade da voz (não implementado)
 
-      <File name="requisitos-funcionais.mdx" />
+**Retorno:**
 
-      <File name="requisitos-nao-funcionais.mdx" />
-    </Folder>
+* `bool`: True se sucesso, False caso contrário
 
-    <Folder name="entendimento-do-usuario" defaultOpen>
-      <Folder name="personas" defaultOpen>
-        <File name="index.mdx" />
+**Configuração da Voz:**
 
-        <File name="persona-1.mdx" />
-      </Folder>
+```python
+voice = texttospeech.VoiceSelectionParams(
+    language_code="pt-BR",
+    name="Puck",
+    model_name="gemini-2.5-pro-tts"
+)
+```
 
-      <File name="index.mdx" />
+**Função Utilitária:**
 
-      <File name="mapa-de-jornada-do-usuario.mdx" />
+```python
+from tts_service import text_to_speech
 
-      <File name="meta.json" />
+sucesso = text_to_speech("Olá, mundo!", "output_audio/resposta.mp3")
+if sucesso:
+    print("Áudio gerado com sucesso!")
+```
 
-      <File name="user-stories.mdx" />
-    </Folder>
+***
 
-    <File name="analise-de-impacto-etico.mdx" />
+## 8. API da Pipeline
 
-    <File name="index.mdx" />
+### Classe: `AudioPipeline` (main.py)
 
-    <File name="meta.json" />
-  </Folder>
-</Files>
+#### Métodos Principais:
+
+**`__init__()`**
+
+Inicializa a pipeline e cria diretórios necessários.
+
+**`setup_directories()`**
+
+Cria os diretórios `input_audio/` e `output_audio/`.
+
+**`process_audio(audio_filename: str, conversation_context: str = None) -> tuple`**
+
+Processa um arquivo de áudio através da pipeline completa.
+
+**Parâmetros:**
+
+* `audio_filename`: Nome do arquivo em `input_audio/`
+* `conversation_context`: Contexto opcional da conversa
+
+**Retorno:**
+
+```python
+(sucesso: bool, caminho_audio: str, transcrição: str, resposta_llm: str)
+```
+
+**Fluxo de Execução:**
+
+1. Validar existência do arquivo
+2. Criar timestamp para identificação
+3. **ETAPA 1**: Transcrever áudio → STT
+4. **ETAPA 2**: Enviar para LLM → Resposta
+5. **ETAPA 3**: Converter para áudio → TTS
+6. Retornar resultados
+
+**`process_all_audio_files()`**
+
+Processa todos os arquivos de áudio na pasta `input_audio/`.
+
+**Características:**
+
+* Processa em lote
+* Gera relatório final
+* Estatísticas de sucesso/falha
+
+**Exemplo de Uso:**
+
+```python
+from main import AudioPipeline
+
+pipeline = AudioPipeline()
+
+# Processar arquivo específico
+sucesso, audio_path, texto, resposta = pipeline.process_audio("pergunta.mp3")
+
+if sucesso:
+    print(f"Transcrição: {texto}")
+    print(f"Resposta: {resposta}")
+    print(f"Áudio gerado: {audio_path}")
+
+# Processar todos os arquivos
+pipeline.process_all_audio_files()
+```
+
+***
+
+## 9. Fluxo de Processamento
+
+### Pipeline Completa - Detalhado
+
+#### Fase 1: Inicialização
+
+```python
+pipeline = AudioPipeline()
+pipeline.setup_directories()
+```
+
+1. Criar diretórios `input_audio/` e `output_audio/`
+2. Configurar logging
+3. Inicializar serviços (lazy loading)
+
+#### Fase 2: Recebimento de Áudio
+
+**Interface Streamlit:**
+
+```python
+uploaded_file = st.file_uploader(...)
+```
+
+**CLI:**
+
+```python
+audio_filename = sys.argv[1]
+```
+
+1. Validar formato do arquivo
+2. Verificar tamanho do arquivo
+3. Salvar na pasta `input_audio/`
+
+#### Fase 3: Transcrição (STT)
+
+```python
+transcription = transcribe_audio(str(audio_path))
+```
+
+**Processo:**
+
+1. Carregar modelo Whisper (primeira execução)
+2. Preprocessar áudio
+3. Executar transcrição
+4. Detectar idioma
+5. Retornar texto limpo
+
+**Tempo estimado:** 2-10 segundos (dependendo do tamanho)
+
+#### Fase 4: Processamento LLM
+
+```python
+llm_response = get_llm_response(transcription, conversation_context)
+```
+
+**Processo:**
+
+1. Criar prompt contextualizado
+2. Configurar parâmetros de geração
+3. Enviar requisição ao Gemini
+4. Aplicar retry logic se necessário
+5. Validar resposta
+6. Retornar texto da resposta
+
+**Tempo estimado:** 1-5 segundos
+
+#### Fase 5: Síntese de Voz (TTS)
+
+```python
+audio_success = text_to_speech(llm_response, str(output_path))
+```
+
+**Processo:**
+
+1. Validar texto de entrada
+2. Configurar cliente Google Cloud
+3. Configurar voz e parâmetros
+4. Executar síntese
+5. Salvar arquivo MP3
+6. Retornar status de sucesso
+
+**Tempo estimado:** 1-3 segundos
+
+#### Fase 6: Apresentação
+
+**Interface Streamlit:**
+
+1. Adicionar mensagens ao histórico
+2. Atualizar status da pipeline
+3. Exibir áudio no player
+4. Disponibilizar download
+
+**CLI:**
+
+1. Logar resultados no console
+2. Salvar em `pipeline.log`
+3. Exibir relatório final
+
+***
+
+## 10. Gerenciamento de Erros
+
+### Estratégias Implementadas
+
+#### 1. Validação de Entrada
+
+```python
+if not audio_path.exists():
+    logging.error(f"Arquivo não encontrado: {audio_path}")
+    return False, None, None, None
+```
+
+**Verificações:**
+
+* Existência do arquivo
+* Formato válido
+* Tamanho aceitável
+* Texto não vazio (TTS)
+
+#### 2. Try-Except em Todas as Etapas
+
+```python
+try:
+    transcription = transcribe_audio(str(audio_path))
+    if not transcription:
+        logging.error("Falha na transcrição")
+        return False, None, None, None
+except Exception as e:
+    logging.error(f"Erro na pipeline: {e}")
+    import traceback
+    logging.error(traceback.format_exc())
+    return False, None, None, None
+```
+
+#### 3. Retry Logic (LLM)
+
+```python
+def get_response(self, user_input: str, context: str = None, max_retries: int = 3):
+    for attempt in range(max_retries):
+        try:
+            # Tentativa de processamento
+            response = self.model.generate_content(prompt, **config)
+            # ...
+        except Exception as e:
+            if attempt < max_retries - 1:
+                continue  # Tenta novamente
+            else:
+                return "Desculpe, ocorreu um erro..."
+```
+
+#### 4. Fallback Responses
+
+**LLM bloqueado por safety:**
+
+```python
+if finish_reason == 2:  # SAFETY
+    return "Desculpe, não posso responder a essa pergunta específica."
+```
+
+**Erro de transcrição:**
+
+```python
+if not transcription:
+    return "Não foi possível transcrever o áudio."
+```
+
+#### 5. Logging Detalhado
+
+```python
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('pipeline.log'),
+        logging.StreamHandler()
+    ]
+)
+```
+
+**Níveis:**
+
+* **INFO**: Operações normais
+* **WARNING**: Situações anormais não críticas
+* **ERROR**: Falhas que impedem operação
+
+***
+
+## 11. Exemplos de Uso
+
+### Exemplo 1: Uso via CLI - Arquivo Único
+
+```bash
+python main.py pergunta.mp3
+```
+
+**Saída Esperada:**
+
+```
+Iniciando Pipeline de Áudio
+Diretório de entrada: C:\Users\...\input_audio
+Diretório de saída: C:\Users\...\output_audio
+Processando arquivo específico: pergunta.mp3
+Iniciando transcrição de: pergunta.mp3
+Transcrição concluída: Qual é a capital do Brasil?...
+Enviando para LLM...
+Resposta da LLM: A capital do Brasil é Brasília...
+Convertendo resposta para áudio...
+Áudio gerado: C:\Users\...\output_audio\pergunta_response_20251118_143022.mp3
+Pipeline concluída com sucesso!
+Transcrição: Qual é a capital do Brasil?
+Resposta LLM: A capital do Brasil é Brasília, localizada no Distrito Federal...
+Áudio gerado: C:\Users\...\output_audio\pergunta_response_20251118_143022.mp3
+```
+
+### Exemplo 2: Uso via CLI - Modo Batch
+
+```bash
+python main.py
+```
+
+**Estrutura da Pasta:**
+
+```
+input_audio/
+├── audio1.mp3
+├── audio2.wav
+└── audio3.m4a
+```
+
+**Saída Esperada:**
+
+```
+Iniciando Pipeline de Áudio
+Processando todos os arquivos na pasta de entrada
+Encontrados 3 arquivos para processar
+
+==================================================
+Processando: audio1.mp3
+Iniciando transcrição de: audio1.mp3
+Transcrição concluída: ...
+Enviando para LLM...
+Resposta da LLM: ...
+Convertendo resposta para áudio...
+Áudio gerado: ...
+
+==================================================
+Processando: audio2.wav
+...
+
+==================================================
+RELATÓRIO FINAL
+Sucessos: 3/3
+[OK] audio1.mp3
+[OK] audio2.wav
+[OK] audio3.m4a
+```
+
+### Exemplo 3: Uso via Streamlit - Interface Web
+
+**Passo a Passo:**
+
+1. **Iniciar aplicação:**
+
+```bash
+streamlit run streamlit_app.py
+```
+
+2. **Acessar no navegador:**
+
+```
+http://localhost:8501
+```
+
+3. **Fazer upload de áudio:**
+   * Clicar em "Browse files"
+   * Selecionar arquivo de áudio
+   * Visualizar preview do áudio
+
+4. **Processar:**
+   * Clicar em "Processar Áudio"
+   * Acompanhar status em tempo real:
+     * Upload do Áudio
+     * Transcrição (STT)
+     * Processamento LLM
+     * Síntese de Voz (TTS)
+     * Concluído
+
+5. **Ver resultado:**
+   * Mensagem do usuário aparece no chat
+   * Resposta do bot aparece no chat
+   * Player de áudio disponível
+   * Botão de download habilitado
+
+6. **Continuar conversação:**
+   * Fazer upload de novo áudio
+   * Contexto mantido automaticamente
+   * Histórico persistente
+
+### Exemplo 4: Integração Programática
+
+```python
+from pathlib import Path
+from main import AudioPipeline
+
+# Inicializar pipeline
+pipeline = AudioPipeline()
+
+# Processar áudio com contexto
+audio_file = "minha_pergunta.mp3"
+contexto = "O usuário está perguntando sobre tecnologia"
+
+sucesso, audio_resposta, transcricao, resposta = pipeline.process_audio(
+    audio_file,
+    conversation_context=contexto
+)
+
+if sucesso:
+    print("Processamento concluído com sucesso!")
+    print(f"Você disse: {transcricao}")
+    print(f"LIA respondeu: {resposta}")
+    print(f"Áudio salvo em: {audio_resposta}")
+
+    # Usar áudio gerado
+    import os
+    os.system(f"start {audio_resposta}")  # Windows
+    # os.system(f"open {audio_resposta}")  # Mac
+    # os.system(f"xdg-open {audio_resposta}")  # Linux
+else:
+    print("Falha no processamento")
+```
 
 
 # Sprint 4 (/docs/sprint-4)
@@ -6956,54 +7694,6 @@ Esta arquitetura forma a base técnica sólida sobre a qual o projeto será dese
 </Cards>
 
 
-# Análise Financeira Atualizada (/docs/sprint-2/entendimento-do-negocio/analise-financeira-atualizada)
-
-# Introdução
-
-  Esta documentação traz a análise financeira atualizada, considerando os custos apenas de operação e necessários para manter o projeto rodando durante um período de 12 meses após o seu desenvolvimento completo. Além disso, estes custos desconsideram as ferramentas e outro gastos, como jurídico, contabilidade, internet, entre outros, que o parceiro já possui. A planilha com o detalhamento dos gastos de operação pode ser encontrada [aqui](https://docs.google.com/spreadsheets/d/1Rfc-X_f0lI5Y1oXJLWrr4Uq6wzQ6qkgw_KJwlaRfr2g/edit?usp=sharing)
-
-# Investimento
-
-  O investimento inicial engloba todos os custos necessários para começar a implementação e operação do projeto, incluindo custo de contratação da equipe e aquisição dos equipamentos.
-
-| Item                           | Quantidade | Valor (R$)     |
-| ------------------------------ | ---------- | -------------- |
-| Contratação de Funcionários    | 3          | 13.545,00      |
-| Notebooks para Desenvolvedores | 3          | 16.200,00      |
-| Tablet                         | 1          | 2.500,00       |
-| Cachorro Robô                  | 1          | 155.966,44     |
-| **Total Investimento Inicial** | —          | **188.211,44** |
-
-# Custos Operacionais
-
-  Os custos operacionais representam as despesas mensais para manter o projeto funcionando. Entre eles estão o salário da equipe técnica, assim como seus benefícios, e a infraestrutura digital. Estes custos garantem a viabilidade do projeto, garantindo que possíveis manutenções, correções e atualizações possam ser feitas conforme necessário.
-
-| Item                            | Quantidade | Valor (R$)    |
-| ------------------------------- | ---------- | ------------- |
-| Estagiário de TI                | 2          | 3.625,00      |
-| Engenheiro de Computação Sênior | 1          | 11.600,00     |
-| Benefícios                      | 3          | 1.160,00      |
-| Armazenamento AWS               | 4          | 152,40        |
-| **Total Mensal de Operação**    | —          | **16.537,40** |
-
-## Gasto Total
-
-  A soma do investimento inicial e dos custos operacionais projetados para um período de 12 meses representa o custo total estimado para manter o projeto rodando.
-
-| Categoria               | Valor (R$)     |
-| ----------------------- | -------------- |
-| Investimento Inicial    | 188.211,44     |
-| Operação (12 meses)     | 198.448,80     |
-| **Total Geral (1 ano)** | **386.660,24** |
-
-# Conclusão
-
-  Após o desenvolvimento, o projeto entra em uma fase de manutenção e operação contínua, exigindo uma estrutura mínima composta por profissionais técnicos, equipamentos e serviços de nuvem.\
-O custo anual estimado de **R$ 386.660,24** cobre todos os recursos necessários para garantir o funcionamento estável, suporte e atualização do sistema ao longo de um ano.
-
-  Essa análise permite compreender a sustentabilidade financeira da solução e será atualizada conforme necessário durante o desenvolvimento do projeto.
-
-
 # Chatbot Inteli v1 (/docs/sprint-2/chatbot-v1/documentacao)
 
 
@@ -7599,6 +8289,54 @@ Este chatbot representa uma solução completa e profissional para fornecer info
 <Cards>
   <Card title="Documentação Completa" description="Documentação técnica completa do Chatbot Inteli, incluindo arquitetura, instalação e uso." href="/docs/sprint-2/chatbot-v1/documentacao" />
 </Cards>
+
+
+# Análise Financeira Atualizada (/docs/sprint-2/entendimento-do-negocio/analise-financeira-atualizada)
+
+# Introdução
+
+  Esta documentação traz a análise financeira atualizada, considerando os custos apenas de operação e necessários para manter o projeto rodando durante um período de 12 meses após o seu desenvolvimento completo. Além disso, estes custos desconsideram as ferramentas e outro gastos, como jurídico, contabilidade, internet, entre outros, que o parceiro já possui. A planilha com o detalhamento dos gastos de operação pode ser encontrada [aqui](https://docs.google.com/spreadsheets/d/1Rfc-X_f0lI5Y1oXJLWrr4Uq6wzQ6qkgw_KJwlaRfr2g/edit?usp=sharing)
+
+# Investimento
+
+  O investimento inicial engloba todos os custos necessários para começar a implementação e operação do projeto, incluindo custo de contratação da equipe e aquisição dos equipamentos.
+
+| Item                           | Quantidade | Valor (R$)     |
+| ------------------------------ | ---------- | -------------- |
+| Contratação de Funcionários    | 3          | 13.545,00      |
+| Notebooks para Desenvolvedores | 3          | 16.200,00      |
+| Tablet                         | 1          | 2.500,00       |
+| Cachorro Robô                  | 1          | 155.966,44     |
+| **Total Investimento Inicial** | —          | **188.211,44** |
+
+# Custos Operacionais
+
+  Os custos operacionais representam as despesas mensais para manter o projeto funcionando. Entre eles estão o salário da equipe técnica, assim como seus benefícios, e a infraestrutura digital. Estes custos garantem a viabilidade do projeto, garantindo que possíveis manutenções, correções e atualizações possam ser feitas conforme necessário.
+
+| Item                            | Quantidade | Valor (R$)    |
+| ------------------------------- | ---------- | ------------- |
+| Estagiário de TI                | 2          | 3.625,00      |
+| Engenheiro de Computação Sênior | 1          | 11.600,00     |
+| Benefícios                      | 3          | 1.160,00      |
+| Armazenamento AWS               | 4          | 152,40        |
+| **Total Mensal de Operação**    | —          | **16.537,40** |
+
+## Gasto Total
+
+  A soma do investimento inicial e dos custos operacionais projetados para um período de 12 meses representa o custo total estimado para manter o projeto rodando.
+
+| Categoria               | Valor (R$)     |
+| ----------------------- | -------------- |
+| Investimento Inicial    | 188.211,44     |
+| Operação (12 meses)     | 198.448,80     |
+| **Total Geral (1 ano)** | **386.660,24** |
+
+# Conclusão
+
+  Após o desenvolvimento, o projeto entra em uma fase de manutenção e operação contínua, exigindo uma estrutura mínima composta por profissionais técnicos, equipamentos e serviços de nuvem.\
+O custo anual estimado de **R$ 386.660,24** cobre todos os recursos necessários para garantir o funcionamento estável, suporte e atualização do sistema ao longo de um ano.
+
+  Essa análise permite compreender a sustentabilidade financeira da solução e será atualizada conforme necessário durante o desenvolvimento do projeto.
 
 
 # Guide Line (/docs/sprint-2/guia-de-opera%C3%A7%C3%A3o/guide-line)
@@ -9788,14 +10526,1248 @@ Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o
 </Steps>
 
 
-# Template de Pasta (/docs/sprint-3/template-pasta)
+# Banco de Dados 2.0 (/docs/sprint-3/bd-v2/bd-v2)
+
+# **Banco de dados - Versão 2.0**
+
+# **Introdução**
+
+Esta documentação descreve a **Versão 2 (V2)** do banco de dados oficial do projeto **Tour Cão-Robô** , atualmente **implantado e disponível no Supabase para desenvolvimento**, pronto para inicialização de testes e integração com os dois aplicativos em desenvolvimento:
+
+* **App do Gestor (painel administrativo)**
+* **App do Visitante (tablet único por tour)**
+
+A V2 foi projetada para corrigir limitações da versão anterior, organizar melhor as entidades centrais, adicionar consistência, reforçar validações e suportar escalabilidade futura (novos robôs, novos tipos de tours, métricas, auditoria completa).
+
+O banco foi estruturado com foco em:
+
+* **Rastreamento do robô em tempo real**
+* **Fluxo de checkpoints controlados**
+* **Fila de perguntas e respostas liberadas ao final de cada ponto**
+* **Alertas e notificações internas**
+* **Controle de usuários, convites e permissões via painel**
+* **Confiabilidade para dashboards e relatórios operacionais**
+
+# **Tabelas e Campos**
+
+A seguir, cada tabela é detalhada com a explicação de **todas as colunas**, sua **função**, e seu **papel no fluxo de negócio**.
+
+# **1. `usuarios`**
+
+**Descrição:**
+Armazena todos os usuários do sistema, inclusive administradores e gestores.
+
+| Coluna       | Tipo         | Explicação                      |
+| ------------ | ------------ | ------------------------------- |
+| `id`         | SERIAL (PK)  | Identificador único do usuário. |
+| `nome`       | TEXT         | Nome completo do usuário.       |
+| `email`      | TEXT (único) | E-mail de login.                |
+| `papel`      | TEXT         | `admin` ou `manager`.           |
+| `senha_hash` | TEXT         | Senha criptografada (bcrypt).   |
+| `ativo`      | BOOLEAN      | Indica se a conta está ativa.   |
+| `criado_em`  | TIMESTAMPTZ  | Data/hora da criação.           |
+| `criado_por` | INT (FK)     | Usuário que criou esta conta.   |
+
+# **2. `convites_usuarios`**
+
+**Descrição:**
+Controla convites enviados a novos gestores.
+
+| Coluna            | Tipo        | Explicação                                    |
+| ----------------- | ----------- | --------------------------------------------- |
+| `id`              | SERIAL      | Identificador do convite.                     |
+| `email_convidado` | TEXT        | E-mail convidado.                             |
+| `papel_convidado` | TEXT        | Papel sugerido (geralmente `manager`).        |
+| `status`          | TEXT        | `pendente`, `aceito`, `expirado`, `revogado`. |
+| `convidado_por`   | INT         | Usuário que enviou o convite.                 |
+| `criado_em`       | TIMESTAMPTZ | Data de envio.                                |
+| `aceito_por`      | INT         | Usuário que aceitou o convite.                |
+| `aceito_em`       | TIMESTAMPTZ | Quando foi aceito.                            |
+
+# **3. `visitantes`**
+
+**Descrição:**
+Contém dados opcionais dos visitantes cadastrados pelo gestor.
+
+| Coluna      | Tipo        | Explicação                        |
+| ----------- | ----------- | --------------------------------- |
+| `id`        | SERIAL      | Identificador do visitante/grupo. |
+| `nome`      | TEXT        | Nome do visitante.                |
+| `email`     | TEXT        | E-mail opcional.                  |
+| `telefone`  | TEXT        | Telefone opcional.                |
+| `criado_em` | TIMESTAMPTZ | Momento do cadastro.              |
+
+# **4. `robos`**
+
+**Descrição:**
+Registra cada cão-robô apto a executar tours.
+
+| Coluna         | Tipo        | Explicação                            |
+| -------------- | ----------- | ------------------------------------- |
+| `id`           | SERIAL      | Identificador do robô.                |
+| `nome`         | TEXT        | Nome do robô (ex.: LIA).              |
+| `modelo`       | TEXT        | Modelo físico do robô.                |
+| `numero_serie` | TEXT        | Número de série do hardware.          |
+| `ativo`        | BOOLEAN     | Se o robô pode ser vinculado a tours. |
+| `criado_em`    | TIMESTAMPTZ | Cadastro.                             |
+
+# **5. `tours`**
+
+**Descrição:**
+Entidade principal do sistema. Um tour representa toda a visita guiada.
+
+| Coluna                 | Tipo        | Explicação                                             |
+| ---------------------- | ----------- | ------------------------------------------------------ |
+| `id`                   | SERIAL      | Identificador do tour.                                 |
+| `codigo`               | TEXT        | Código de 8 dígitos usado no tablet.                   |
+| `titulo`               | TEXT        | Nome do tour.                                          |
+| `data_local`           | DATE        | Data da visita.                                        |
+| `hora_inicio_prevista` | TIME        | Planejamento.                                          |
+| `hora_fim_prevista`    | TIME        | Planejamento.                                          |
+| `inicio_real`          | TIMESTAMPTZ | Quando realmente começou.                              |
+| `fim_real`             | TIMESTAMPTZ | Quando realmente terminou.                             |
+| `status`               | TEXT        | `scheduled`, `in_progress`, `paused`, `finished`, etc. |
+| `robo_id`              | INT         | Robô vinculado.                                        |
+| `responsavel_id`       | INT         | Gestor responsável.                                    |
+| `criado_por`           | INT         | Quem criou o tour.                                     |
+| `criado_em`            | TIMESTAMPTZ | Registro.                                              |
+
+# **6. `tour_visitantes`**
+
+**Descrição:**
+Relaciona visitantes com tours.
+
+| Coluna           | Tipo        | Explicação           |
+| ---------------- | ----------- | -------------------- |
+| `id`             | SERIAL      | Identificador.       |
+| `tour_id`        | INT         | Tour vinculado.      |
+| `visitante_id`   | INT         | Visitante associado. |
+| `adicionado_por` | INT         | Quem adicionou.      |
+| `adicionado_em`  | TIMESTAMPTZ | Registro.            |
+
+# **7. `checkpoints`**
+
+**Descrição:**
+Cada tour possui 5 checkpoints fixos percorridos pelo robô.
+
+| Coluna            | Tipo        | Explicação                             |
+| ----------------- | ----------- | -------------------------------------- |
+| `id`              | SERIAL      | ID do checkpoint.                      |
+| `tour_id`         | INT         | Tour ao qual pertence.                 |
+| `tipo`            | TEXT        | Nome (recepcao, auditorio, atelie...). |
+| `ordem`           | INT         | Posição no roteiro.                    |
+| `status`          | TEXT        | pending → running → finished.          |
+| `inicio_previsto` | TIMESTAMPTZ | Programado.                            |
+| `inicio_real`     | TIMESTAMPTZ | Começo real.                           |
+| `fim_real`        | TIMESTAMPTZ | Fim real.                              |
+
+# **8. `rastreios_robo`**
+
+**Descrição:**
+Telemetria do robô durante o tour (mapa dinâmico).
+
+| Coluna          | Tipo        | Explicação                   |
+| --------------- | ----------- | ---------------------------- |
+| `id`            | SERIAL      | ID do rastreio.              |
+| `tour_id`       | INT         | Tour correspondente.         |
+| `checkpoint_id` | INT         | Checkpoint atual (opcional). |
+| `waypoint`      | TEXT        | Localização textual/coord.   |
+| `progresso_pct` | NUMERIC     | Avanço no tour.              |
+| `criado_em`     | TIMESTAMPTZ | Timestamp.                   |
+
+# **9. `perguntas`**
+
+**Descrição:**
+Fila de dúvidas coletadas no tablet do visitante.
+⚠️ Não possui `visitante_id` pois há apenas **um tablet por tour**.
+
+| Coluna           | Tipo        | Explicação                                   |
+| ---------------- | ----------- | -------------------------------------------- |
+| `id`             | SERIAL      | ID da pergunta.                              |
+| `tour_id`        | INT         | A qual tour pertence.                        |
+| `checkpoint_id`  | INT         | Em qual checkpoint foi feita.                |
+| `question_topic` | TEXT        | Categoria (metodologia, processo seletivo…). |
+| `texto`          | TEXT        | Pergunta feita.                              |
+| `estado`         | TEXT        | queued → answerable → answered/discarded.    |
+| `criado_em`      | TIMESTAMPTZ | Quando foi feita.                            |
+| `liberado_em`    | TIMESTAMPTZ | Quando ficou disponível para resposta.       |
+| `respondido_em`  | TIMESTAMPTZ | Quando foi respondida.                       |
+
+# **10. `respostas`**
+
+**Descrição:**
+Respostas do robô (ou eventualmente por um gestor).
+
+| Coluna                   | Tipo        | Explicação                       |
+| ------------------------ | ----------- | -------------------------------- |
+| `id`                     | SERIAL      | ID da resposta.                  |
+| `pergunta_id`            | INT         | FK exclusiva para pergunta.      |
+| `respondido_por_tipo`    | TEXT        | robot ou manager.                |
+| `respondido_por_usuario` | INT         | Gestor que respondeu (opcional). |
+| `texto`                  | TEXT        | Resposta final.                  |
+| `criado_em`              | TIMESTAMPTZ | Quando respondeu.                |
+
+# **11. `alertas`**
+
+**Descrição:**
+Eventos críticos disparados pelo visitante, robô ou gestor.
+
+| Coluna             | Tipo        | Explicação                 |
+| ------------------ | ----------- | -------------------------- |
+| `id`               | SERIAL      | ID do alerta.              |
+| `tour_id`          | INT         | Tour associado.            |
+| `origem`           | TEXT        | visitor, robot ou manager. |
+| `nivel`            | TEXT        | info, warning, emergency.  |
+| `mensagem`         | TEXT        | Descrição do alerta.       |
+| `autor_usuario_id` | INT         | Gestor autor (opcional).   |
+| `criado_em`        | TIMESTAMPTZ | Criado em.                 |
+| `resolvido_em`     | TIMESTAMPTZ | Resolvido em.              |
+
+# **12. `notificacoes`**
+
+**Descrição:**
+Sistema interno de notificações para gestores/admins.
+
+| Coluna         | Tipo        | Explicação                             |
+| -------------- | ----------- | -------------------------------------- |
+| `id`           | SERIAL      | Identificador.                         |
+| `usuario_id`   | INT         | Usuário destinatário.                  |
+| `titulo`       | TEXT        | Título mostrado.                       |
+| `corpo`        | TEXT        | Texto adicional.                       |
+| `payload_json` | JSONB       | Dados extras (IDs, tipo do alerta...). |
+| `lido`         | BOOLEAN     | Se a notificação foi aberta.           |
+| `criado_em`    | TIMESTAMPTZ | Registro.                              |
+
+# **13. `tour_status_log`**
+
+**Descrição:**
+Auditoria completa das mudanças de status dos tours.
+
+| Coluna           | Tipo        | Explicação             |
+| ---------------- | ----------- | ---------------------- |
+| `id`             | SERIAL      | ID do log.             |
+| `tour_id`        | INT         | Tour alterado.         |
+| `status`         | TEXT        | Novo status.           |
+| `atualizado_por` | INT         | Usuário que alterou.   |
+| `atualizado_em`  | TIMESTAMPTZ | Quando foi atualizado. |
+| `observacoes`    | TEXT        | Observações opcionais. |
+
+# **Visão Geral dos Relacionamentos**
+
+* **robos (1) → (N) tours**
+* **usuarios (1) → (N) tours criados / responsáveis**
+* **tours (1) → (N) checkpoints**
+* **tours (1) → (N) rastreios\_robo**
+* **tours (1) → (N) perguntas**
+* **perguntas (1) → (1) respostas**
+* **tours (1) → (N) alertas**
+* **usuarios (1) → (N) notificacoes**
+* **tours (1) → (N) tour\_status\_log**
+
+# **Conclusão**
+
+A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar suporte a todo o ciclo funcional do **Tour Cão-Robô**, permitindo:
+
+* **Gestão robusta** de tours, usuários e robôs
+* **Operação em tempo real** via rastreio do robô
+* **Experiência rica** ao visitante, com perguntas organizadas por checkpoint
+* **Orquestração clara** de eventos como emergências e notificações
+* **Auditoria completa** via logs
+* **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
+
+O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.
+
+
+# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
+
+
+
+## 1. Introdução
+
+  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
+
+  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
+
+```txt
+
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+
+```
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+*Pastas Android geradas automaticamente pelo Expo*
+
+  Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+* Melhor organização entre rotas, componentes e estilos
+
+* Facilidade para extensões futuras
+
+* Modularização dos componentes usados nas telas
+
+* Padrão de Componentes Reutilizáveis
+
+### 2.2 Componentes
+
+  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+* **CardTour** - Cartão de exibição de tours na lista da home
+
+* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+* **Navbar e Header** - Estruturas permanentes no HUD
+
+***
+
+## 3. Fluxo de Navegação
+
+### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
+
+<Callout type="info">
+  **Fluxo Geral**
+
+  1. Login
+
+  2. Lista de Tours (HUD ativo)
+
+  3. Seleção de um tour
+
+  4. Edição do Tour
+
+  5. Pop-up Informações Gerais do Tour
+
+  6. Pop-up Código do Tour
+
+  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+  8. Tela de Emergência
+
+  9. Menu acessível pelo HUD em qualquer etapa permitida
+
+  **O HUD inclui:**
+
+  * Barra inferior com navegação (Tours / Mapa / Menu)
+
+  * Botão de emergência destacado em telas críticas
+
+  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+</Callout>
+
+***
+
+## 4. Como Rodar o Projeto e Dependências
+
+  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
+O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+
+### 4.1. Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 4.2. Instalando Dependências e Executando o Projeto
+
+Na raiz do projeto:
+
+```bash
+npm install
+```
+
+Isso instala todas as dependências declaradas em `package.json.`
+
+Ainda no terminal:
+
+```bash
+npx expo start
+
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+
+```bash
+npx expo run:android
+```
+
+## 5. Conclusão
+
+Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
+
+
+# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
 
 <Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-3/template-pasta/template" />
+  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
 </Cards>
 
 
-# Título do Documento (/docs/sprint-3/template-pasta/template)
+# Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG)
+
+## 1. Visão Geral
+
+O sistema de Geração Aumentada por Recuperação (**Retrieval-Augmented Generation - RAG**) é o componente central de conhecimento do guia de turismo robótico do Inteli. Ele combina a capacidade de raciocínio de um Large Language Model (LLM) com uma base de conhecimento externa e factual, garantindo que as respostas sejam precisas, atualizadas e fundamentadas.
+
+### O que é RAG?
+
+RAG é uma arquitetura que melhora a qualidade das respostas de um LLM ao integrar um mecanismo de recuperação de informações. O fluxo básico é:
+
+1. **Consulta (Query):** O LLM recebe uma pergunta do usuário.
+2. **Recuperação (Retrieval):** A pergunta é usada para buscar (recuperar) documentos ou trechos de texto relevantes de uma base de conhecimento externa.
+3. **Geração (Generation):** O LLM recebe a pergunta original **junto** com os trechos recuperados (o contexto) e usa essa informação para gerar uma resposta final.
+
+### Por que RAG é Importante para o Projeto?
+
+O RAG é crucial para este sistema por vários motivos:
+
+* **Factualidade e Atualização:** Garante que as respostas sobre o Inteli (cursos, projetos, instalações, etc.) sejam baseadas em dados reais e atualizados, contidos na base de conhecimento.
+* **Redução de Alucinações:** Ao forçar o LLM a usar o contexto recuperado, o RAG mitiga a tendência do modelo de "alucinar" ou inventar fatos.
+* **Cobertura de Tours e Q\&A:** Permite que o robô-guia responda a perguntas complexas e específicas, oferecendo informações detalhadas durante os tours ou sessões de Q\&A.
+* **Apoio ao Persona:** Fornece o conteúdo factual necessário para que o **Knowledge Agent** sintetize a resposta, que será então adaptada pelo **Personality Agent** para o tom de voz do cachorro-robô.
+
+## 2. Arquitetura do Projeto
+
+O sistema é estruturado em torno de um fluxo de agentes orquestrado, onde o RAG é a função principal do **Knowledge Agent**.
+
+### Topologia de Agentes
+
+O fluxo de agentes é composto por:
+
+* **Coordinator/Orchestrator:** Agente principal que recebe a requisição, coordena o fluxo, e direciona a pergunta para o agente apropriado (Safety, Tour, Knowledge).
+* **Safety Agent:** Filtra a entrada do usuário para garantir que a interação seja segura e apropriada.
+* **Tour Agent:** Gerencia o fluxo da visita guiada.
+* **Knowledge Agent:** O agente especialista em RAG, responsável por recuperar e sintetizar informações factuais.
+
+### O Papel do Knowledge Agent no RAG
+
+O **Knowledge Agent** (`agent_flow/agents/knowledge_agent.py`) é instruído a:
+
+1. Otimizar a consulta do usuário.
+2. Chamar a ferramenta de recuperação unificada (`retrieve_inteli_knowledge`).
+3. Interpretar os *chunks* (nós) e suas adjacências (vizinhos de grafo) retornados.
+4. Sintetizar o material recuperado em uma resposta estruturada (JSON) para o Orchestrator.
+
+### Diretórios Principais
+
+| Diretório            | Conteúdo Principal                            | Função no Sistema                                                                                |
+| :------------------- | :-------------------------------------------- | :----------------------------------------------------------------------------------------------- |
+| `agent_flow/agents`  | `knowledge_agent.py`, `safety_agent.py`, etc. | Contém as definições e instruções dos agentes.                                                   |
+| `agent_flow/tools`   | `knowledge_tools.py`, `safety_tools.py`, etc. | Contém as implementações das ferramentas que os agentes podem chamar, incluindo a lógica do RAG. |
+| `agent_flow/prompts` | Arquivos de *guidelines* e *persona*.         | Define as instruções detalhadas e o tom de voz dos agentes.                                      |
+| `documents/`         | *Chunks* de documentos, scripts de ingestão.  | Armazena os dados brutos e processados da base de conhecimento.                                  |
+| `docs/`              | Guias e documentação conceitual.              | Contém a documentação de alto nível do projeto.                                                  |
+
+### Entrypoint e Modos de Execução
+
+O ponto de entrada do aplicativo é presumivelmente `run_app.py` ou `agent_flow/app.py`. O sistema suporta diferentes modos de execução, controlados por *flags*:
+
+* `--mode full`: Modo de execução completo, envolvendo todos os agentes (Orchestrator, Safety, Knowledge, etc.).
+* `--mode simple`: Modo simplificado (detalhes a serem confirmados, mas geralmente um fluxo direto).
+* `--mode demo`: Modo de demonstração, focado em apresentar as funcionalidades principais.
+
+## 3. Implementação do RAG: Graph RAG
+
+A implementação do RAG é baseada em uma arquitetura avançada de **Graph RAG**. Esta abordagem não apenas recupera trechos de texto (chunks) com base na similaridade vetorial, mas também incorpora o contexto relacional ao buscar vizinhos de primeiro grau no grafo de conhecimento. Isso garante que o LLM receba informações contextualmente ricas e conectadas, reduzindo a chance de respostas incompletas.
+
+O sistema utiliza o **Qdrant** como banco de dados vetorial para armazenar os nós de conhecimento e suas conexões (adjacências).
+
+### Arquivos-Chave
+
+* **Agente:** `agent_flow/agents/knowledge_agent.py`
+  * Define a instrução e o fluxo de trabalho do agente.
+  * Declara o uso da ferramenta `retrieve_inteli_knowledge`.
+* **Ferramenta de Busca:** `agent_flow/tools/knowledge_tools.py`
+  * Contém a função `retrieve_inteli_knowledge`, que é o *wrapper* da pipeline RAG.
+  * Implementa a pipeline RAG (`rag_inference_pipeline`) que encadeia a criação de *embedding* e a recuperação do Qdrant.
+
+### Pipeline RAG e Ferramenta de Busca
+
+A lógica de recuperação é encapsulada na pipeline `rag_inference_pipeline` (definida em `agent_flow/tools/knowledge_tools.py`), que orquestra três etapas principais: *Embedding*, *Retrieval* e *Payload Construction*.
+
+#### 3.1. Etapa de Embedding
+
+A função `query_embedding` é responsável por transformar a consulta em linguagem natural em um vetor numérico (embedding) usando o modelo `SentenceTransformer` configurado via `EMBEDDING_MODEL_NAME`.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+@step(enable_cache=False)
+def query_embedding(query: str) -> List[float]:
+    """Encode the user query into an embedding vector."""
+    if not query:
+        raise ValueError("query_embedding_step recebeu uma query vazia.")
+
+    model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+    return model.encode(query).tolist()
+```
+
+#### 3.2. Etapa de Retrieval (Graph RAG)
+
+A função `retrieval_from_qdrant` executa a busca no banco de dados vetorial Qdrant. Esta é a parte central do **Graph RAG**:
+
+1. Busca os `top_k` nós mais similares ao `query_embedding`.
+2. Para cada nó principal, busca seus vizinhos de primeiro grau (adjacências) limitados por `adjacency_limit`.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+@step(enable_cache=False)
+def retrieval_from_qdrant(
+    query_embedding: List[float],
+    top_k: int = DEFAULT_TOP_K,
+    adjacency_limit: int = DEFAULT_ADJACENT_LIMIT,
+) -> List[Dict[str, Any]]:
+    """Retrieve the top-k chunks and their first-degree neighbors from Qdrant."""
+    # ... (código de inicialização do Qdrant)
+
+    query_result = client.query_points(
+        collection_name=QDRANT_COLLECTION,
+        query=query_embedding,
+        limit=top_k,
+        # ...
+    )
+    # ... (código para extrair adjacências e buscar seus payloads)
+
+    # ... (código para anexar adjacências aos nós principais)
+
+    return retrieved_nodes
+```
+
+#### 3.3. Orquestração da Pipeline
+
+A `rag_inference_pipeline` encadeia as etapas de *embedding* e *retrieval* e, em seguida, constrói o *payload* final que será enviado ao Knowledge Agent.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+@pipeline
+def rag_inference_pipeline(
+    query: str,
+    top_k: int = DEFAULT_TOP_K,
+    adjacency_limit: int = DEFAULT_ADJACENT_LIMIT,
+) -> Dict[str, Any]:
+    """Pipeline que encadeia embed + retrieval e retorna um grafo estruturado."""
+    query_vector = query_embedding(query=query)
+    retrieval = retrieval_from_qdrant(
+        query_embedding=query_vector,
+        top_k=top_k,
+        adjacency_limit=adjacency_limit,
+    )
+    payload = build_graph_rag_payload(
+        query=query,
+        query_embedding=query_vector,
+        retrieved_nodes=retrieval,
+    )
+    return payload
+```
+
+#### 3.4. Ferramenta `retrieve_inteli_knowledge`
+
+Esta é a função que o Knowledge Agent invoca. Ela atua como um *wrapper* para a pipeline, garantindo que os parâmetros de configuração sejam usados e que o resultado seja formatado para o sistema de agentes.
+
+```python
+# agent_flow/tools/knowledge_tools.py
+
+def retrieve_inteli_knowledge(
+    query: str,
+    tool_context: ToolContext,
+) -> Dict[str, Any]:
+    """RAG tool that embeds a prompt and returns graph-based neighbors."""
+    normalized_query = (query or "").strip()
+    # ... (validação da query)
+
+    retrieval_payload = rag_inference_pipeline(
+        query=normalized_query,
+        top_k=DEFAULT_TOP_K,
+        adjacency_limit=DEFAULT_ADJACENT_LIMIT,
+    )
+
+    # ... (código para salvar o estado e retornar o payload)
+
+    return {
+        "success": True,
+        "query": normalized_query,
+        "result_count": retrieval_payload.get("result_count", 0),
+        "chunks": retrieval_payload.get("results", []),
+        "context": retrieval_payload.get("context", ""),
+        "query_embedding": retrieval_payload.get("query_embedding"),
+        "message": (
+            f"Retornados {DEFAULT_TOP_K} nós com até "
+            f"{DEFAULT_ADJACENT_LIMIT} vizinhos por nó"
+        ),
+    }
+```
+
+### Parâmetros de Configuração
+
+Os parâmetros-chave que controlam a recuperação são definidos via variáveis de ambiente (e podem ser sobrescritos na chamada da ferramenta):
+
+| Parâmetro              | Variável de Ambiente | Padrão (em `knowledge_tools.py`)                       | Descrição                                                                 |
+| :--------------------- | :------------------- | :----------------------------------------------------- | :------------------------------------------------------------------------ |
+| `top_k`                | `RAG_TOP_K`          | 300                                                    | Quantidade de nós (chunks) mais similares à consulta a serem recuperados. |
+| `adjacency_limit`      | `RAG_ADJACENT_LIMIT` | 10                                                     | Limite de vizinhos de grafo a serem recuperados para cada nó principal.   |
+| `QDRANT_COLLECTION`    | `QDRANT_COLLECTION`  | `inteli-documents-embeddings`                          | Nome da coleção no Qdrant que armazena os dados do Inteli.                |
+| `EMBEDDING_MODEL_NAME` | `EMBEDDINGS_MODEL`   | (Não especificado no código, mas carregado via `.env`) | Modelo usado para gerar os vetores de *embedding*.                        |
+
+### Retorno da Ferramenta
+
+O retorno da função `retrieve_inteli_knowledge` é um dicionário estruturado que fornece ao Knowledge Agent todos os dados necessários para a síntese:
+
+* `chunks`: Lista de nós recuperados, cada um contendo `content`, `metadata`, `score` e a lista `adjacent` (vizinhos de grafo).
+* `context`: Texto pré-formatado que concatena o conteúdo de todos os *chunks* e suas adjacências para facilitar a leitura pelo LLM.
+* `query_embedding`: O vetor de *embedding* gerado a partir da consulta.
+* `result_count`: O número total de nós recuperados.
+
+### Dados e Modelos
+
+* **Dados:** A base de conhecimento é armazenada na pasta `documents/` (contendo os *chunks* e o script de ingestão RAG). Os dados são organizados como um **grafo**, onde cada *chunk* é um nó e as relações entre eles (adjacências) são armazenadas nos metadados do nó (`adjacent_ids`).
+* **Modelo LLM Padrão:** O modelo padrão para o **Knowledge Agent** é `gemini-2.0-flash-exp` (definido em `knowledge_agent.py`).
+* **Configuração de Modelo:** O modelo pode ser trocado via *flags* de linha de comando (`--model`) ao executar o *entrypoint* ou o *script* de teste (`rag_test_agent.py`).
+
+### Exemplo de Estrutura de Nó (Chunk)
+
+Cada nó recuperado pelo Graph RAG possui uma estrutura rica em metadados, essencial para o *grounding* e a recuperação de adjacências:
+
+```json
+{
+  "id": "chunk_123",
+  "score": 0.85,
+  "content": "O Inteli oferece laboratórios de prototipagem...",
+  "metadata": {
+    "document": "manual_aluno.pdf",
+    "section": "Infraestrutura",
+    "page_number": 15,
+    "adjacent_ids": ["chunk_124", "chunk_201"] // Conexões de grafo
+  },
+  "adjacent": [
+    // Payloads dos nós vizinhos (chunk_124, chunk_201)
+  ]
+}
+```
+
+O campo `adjacent_ids` é o que permite a funcionalidade de Graph RAG, garantindo que o contexto relacionado seja sempre recuperado, mesmo que o vizinho não tenha alta similaridade vetorial com a consulta original.
+
+## 4. Fluxo Detalhado do RAG (Knowledge Agent)
+
+O fluxo de processamento da informação pelo **Knowledge Agent** é rigoroso e visa garantir a qualidade e a rastreabilidade da resposta.
+
+1. **Recebe a Pergunta:** O Orchestrator encaminha a pergunta do usuário.
+2. **Otimiza a Consulta:** O LLM do Knowledge Agent refina a pergunta (ex: extração de entidades, expansão de *query*) para maximizar a precisão da busca vetorial.
+3. **Chama a Ferramenta:** O agente invoca `retrieve_inteli_knowledge(query)`.
+4. **Recuperação e Contextualização:** A ferramenta executa a pipeline RAG (embed + Qdrant) e retorna o *payload* com `chunks` e `context`.
+5. **Interpretação:** O agente analisa o `context` (que inclui os *chunks* e seus vizinhos de grafo) para construir um modelo coerente do tópico.
+6. **Síntese da Resposta:** O agente sintetiza o conhecimento recuperado em um texto que responde à pergunta, seguindo a estratégia de síntese (relevância, controle de redundância, narrativa contextual).
+7. **Estruturação do Output:** O agente gera uma resposta estruturada em formato JSON, contendo:
+   * `answer`: A resposta sintetizada.
+   * `sources`: Lista de citações (documento, seção, `chunk_id`, `confidence`).
+   * `coverage`: Metadados sobre a completude da resposta (`question_fully_answered`, `missing_information`, `suggested_followups`).
+   * `metadata`: Informações de rastreamento (`search_queries_used`, `chunks_retrieved`, `confidence_level`).
+8. **Envio ao Orchestrator:** O JSON estruturado é enviado de volta ao Orchestrator para processamento final (ex: aplicação da persona).
+
+### Critérios de Qualidade (Grounding e Confiança)
+
+O Knowledge Agent é instruído a aplicar critérios de qualidade rigorosos:
+
+* **Grounding em Fontes:** Toda afirmação deve ser rastreável aos *chunks* recuperados.
+* **Confiança:** As afirmações são rotuladas como `high`, `medium` ou `low` com base na cobertura e concordância dos *chunks*.
+* **Gaps Reportados:** Se a informação estiver ausente, o agente deve reportar o *gap* em `coverage.missing_information` e sugerir próximos passos.
+
+## 5. Execução e Testes
+
+### Pré-requisitos
+
+Para rodar o sistema, é necessário:
+
+1. **Ativar o Ambiente Virtual:**
+   ```bash
+   source venv/bin/activate
+   ```
+2. **Instalar Dependências:** As dependências estão listadas em `requirements.txt`.
+
+### Como Rodar
+
+O *entrypoint* principal é executado com o Python 3, especificando o modo de operação:
+
+```bash
+python3 run_app.py --mode demo|full|simple
+# Ou, dependendo da estrutura do projeto:
+python3 -m agent_flow.app --mode demo|full|simple
+```
+
+### Como Testar o RAG
+
+O script `rag_test_agent.py` permite testar a pipeline RAG diretamente, sem a orquestração completa do sistema de agentes.
+
+```bash
+python3 rag_test_agent.py -q "Qual é o foco do curso de Engenharia de Software do Inteli?"
+```
+
+O script de teste aceita *flags* para *debug* e configuração:
+
+* `-q, --query`: A pergunta a ser testada (obrigatório).
+* `--top-k`: Sobrescreve o `RAG_TOP_K` padrão.
+* `--adjacency-limit`: Sobrescreve o `RAG_ADJACENT_LIMIT` padrão.
+* `--model`: Permite trocar o modelo LLM usado para gerar a resposta final (padrão é `gemini-2.0-flash-exp`).
+* `--show-json`: Exibe o *payload* completo do RAG (nós, adjacências, *scores*) em formato JSON.
+
+## 6. Persona e Segurança
+
+O RAG se integra ao sistema de agentes para garantir tanto a segurança quanto a aderência à persona.
+
+* **Integração com Safety Agent:** O **Safety Agent** atua como um filtro de entrada, garantindo que a consulta seja segura e apropriada **antes** de ser encaminhada ao Knowledge Agent. Isso protege o RAG de consultas maliciosas ou inapropriadas.
+* **Persona (Cachorro-Robô):** O Knowledge Agent foca estritamente na recuperação e síntese factual. A aplicação do tom de voz do cachorro-robô é responsabilidade do **Orchestrator** ou de um **Personality Agent** (como sugerido pelo arquivo `personality_tools.py`), que recebe a resposta factual e a reescreve com a persona definida.
+* **Mitigação de Alucinações:** O RAG é a principal técnica de mitigação de alucinações, pois força o LLM a citar fontes (`sources`) e a basear a resposta no contexto recuperado (Grounding). A combinação de RAG, Safety Agent e citações cria um sistema robusto e confiável.
+
+## 7. Referências Internas
+
+Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
+
+* **Descrição Conceitual do RAG:** `docs/04-sistema-rag-conhecimento.mdx`
+* **Arquitetura Geral, Execução e Segurança:** `docs/01-03`
+* **Guidelines e Persona:** `agent_flow/prompts/*`
+
+
+# Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag)
+
+<Cards>
+  <Card title="Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG)" description="Documentação do sistema RAG no agente" href="docs/content/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG.mdx" />
+</Cards>
+
+
+# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
+
+# Sprint 3 – Automação de Movimentação e Integração Dinâmica
+
+## Objetivos Principais
+
+* Implementar execução automatizada de movimentos via JSON.
+* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
+* Permitir movimentação completa por **checkpoints** com áudio associado.
+* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
+* Iniciar integração com backend e percepção de obstáculos.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Implementação da fila de requisições
+
+Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
+O formato padronizado para os checkpoints segue o modelo abaixo:
+
+```json title="Exemplo de arquivo JSON de checkpoints"
+{
+  "checkpoint1": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
+    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
+  ],
+  "checkpoint2": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
+    ...
+  ]
+}
+```
+
+Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
+Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
+
+***
+
+## Execução e Testes
+
+Para executar o sistema de movimentação automatizada:
+
+1. **Inicie o ambiente virtual:**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Execute o script principal de movimentação:**
+
+   ```bash
+   python3 testes/move_path.py
+   ```
+
+   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
+
+3. **Para iniciar um checkpoint manualmente (em outro terminal):**
+
+   ```bash
+   python3 external_trigger.py play
+   ```
+
+4. **Para interromper a execução a qualquer momento:**
+
+   ```bash
+   python3 external_trigger.py stop
+   ```
+
+   Ao parar, o robô entra automaticamente em **modo estático em pé**.
+
+***
+
+## Novas Funcionalidades
+
+* Leitura e execução automática de checkpoints via JSON.
+* Execução ordenada com fila de comandos.
+* Reprodução de áudio correspondente a cada checkpoint.
+* Interrupção imediata da execução via comando externo (`stop`).
+* Conexão e controle assíncrono com o robô via **WebRTC**.
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
+
+* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
+* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
+* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
+* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
+
+Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
+
+***
+
+## Próximos Passos
+
+* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
+* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
+* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
+* Revisar parâmetros de movimentação e segurança térmica das juntas.
+
+***
+
+## Aprendizados
+
+* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
+* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
+* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
+* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Conclusão
+
+Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
+Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
+
+
+# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
+
+<Cards>
+  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
+
+  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
+</Cards>
+
+
+# Simulação (/docs/sprint-3/robo/simulacao-robo)
+
+
+
+# Sprint 3 – Simulação do Robô com ROS2
+
+## Objetivos Principais
+
+* Configurar o ambiente ROS e entender seu funcionamento;
+* Simular o robô Unitree Go2 no Gazebo;
+* Continuar testes no ambiente Unity (Autonomous Stack GO2);
+* Entender como funciona os tópicos do LiDAR do GO2;
+* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Gazebo
+
+  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
+
+### Unity
+
+  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
+
+* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
+* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
+
+### Docker
+
+  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
+
+* Estudo da viabilidade do uso do Docker;
+* Estudo da implementação do Docker com simuladores;
+* Estudo da implementação do Docker com ROS2;
+* Tentativa de implementação do simulador Unity em um container Docker.
+
+### Visualização de dados de sensores do robô
+
+  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Visualização da Point Cloud real no RViz
+</p>
+
+<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Produzida pelos autores (2025).
+</p>
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+### Gazebo
+
+* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
+
+### Unity
+
+* Problemas de importação de modelos de espaço para o simulador;
+* Dificuldade de comunicação do ROS com o sistema;
+* Dificuldade de achar utilidade nas informações transferidas
+* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
+
+### Docker
+
+* Falta de exemplos que utilizassem todas as tecnologias juntas;
+* Uso excessivo de memória RAM ao *buildar* os simuladores;
+* Necessidade do Ubuntu 22.04 (especificamente).
+
+***
+
+## Próximos Passos
+
+* Começar testes de ROS no robô físico;
+* Começar testes de LiDAR no robô físico;
+* Começar a integração dos repositórios encontrados com o robô físico;
+* Colocar em containers os simuladores escolhidos com implementação ROS.
+
+***
+
+## Aprendizados
+
+### Gazebo
+
+* Comunicação código e robô via ROS2;
+* Como funciona a nuvem de pontos do LiDAR;
+* Diversos modelos de navegação autônoma e controle manual para o Go2.
+
+### Unity
+
+* Entendi da comunicação do ROS2;
+* Funcionamento do LiDAR;
+
+### Docker
+
+* Formas de rodar ROS em um container;
+* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
+* Formas de reduzir o uso da memória RAM ao rodar simuladores.
+
+***
+
+## Links Relevantes
+
+### Gazebo
+
+* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
+* [NAV2](https://docs.nav2.org/)
+* [RViz](https://wiki.ros.org/rviz)
+
+### Unity
+
+* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+### Docker
+
+* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
+* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
+* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
+* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+***
+
+## Conclusão
+
+Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
+Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
+
+
+# Protótipo de Alta Fidelidade do Dashboard Staff (/docs/sprint-3/prototipo-alta)
+
+<Cards>
+  <Card href="/docs/sprint-3/prototipo-alta/paf-staff-dash" title="Protótipo de Alta Fidelidade — Dashboard Staff">
+    Visualização do layout do dashboard utilizado pelo staff para acompanhar
+    tours, documentos e usuários.
+  </Card>
+</Cards>
+
+
+# Protótipo de Alta Fidelidade - Dashboard Staff (/docs/sprint-3/prototipo-alta/paf-staff-dash)
+
+
+
+
+
+
+
+
+
+# Protótipo de Alta Fidelidade — Dashboard do Staff
+
+O Dashboard do Staff foi projetado para oferecer uma visão centralizada das operações relacionadas aos tours guiados, permitindo que os colaboradores acompanhem métricas essenciais, gerenciem documentos que alimentam o modelo de IA e administrem usuários internos. O objetivo é proporcionar uma interface clara, funcional e segura para apoiar decisões rápidas e melhorar o fluxo de trabalho do staff no campus do Inteli.
+
+***
+
+# Telas do Dashboard
+
+## 1. Tela de Acompanhamento Geral
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 — Tela de Acompanhamento Geral
+</p>
+
+<img alt="Acompanhamento Geral" src={__img0} placeholder="blur" />
+
+### Resumo
+
+Painel principal do dashboard, apresentando indicadores e gráficos referentes aos tours realizados em um determinado período.
+
+### Informações exibidas
+
+* Total de tours concluídos.
+* Número de visitantes atendidos.
+* Duração média dos tours.
+* Gráficos por horário, setor e dias da semana.
+* Métricas de performance do robô.
+
+### Funcionalidades
+
+* Seleção de intervalos de tempo.
+* Filtros dinâmicos que atualizam os gráficos automaticamente.
+* Acesso rápido às demais seções do dashboard.
+
+### Objetivo
+
+Fornecer uma visão consolidada e analítica das operações, auxiliando o staff no acompanhamento e planejamento dos tours.
+
+***
+
+## 2. Tela de Gerenciamento de Documentos
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 — Tela de Gerenciamento de Documentos
+</p>
+
+<img alt="Gerenciamento de Documentos" src={__img1} placeholder="blur" />
+
+### Resumo
+
+Área destinada ao controle dos documentos utilizados para alimentar o modelo de IA responsável pelas interações durante os tours.
+
+### Informações exibidas
+
+* Lista dos documentos já cadastrados.
+* Data de upload e tipo de arquivo.
+* Status de processamento pelo modelo.
+* Opções de visualização e remoção.
+
+### Funcionalidades
+
+* Upload de novos documentos.
+* Exclusão de arquivos obsoletos.
+* Atualização dos documentos já existentes.
+* Histórico de modificações.
+
+### Objetivo
+
+Garantir que o modelo de IA esteja atualizado com informações confiáveis e relevantes sobre o campus e suas estruturas.
+
+***
+
+## 3. Tela de Adição de Documentos
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 — Tela de Adição de Documentos
+</p>
+
+<img alt="Adicionar Documentos" src={__img2} placeholder="blur" />
+
+### Resumo
+
+Tela dedicada ao envio de novos documentos que alimentarão o roteiro e o conhecimento do modelo de IA. O conteúdo central da interface é um card de upload, onde o colaborador pode selecionar e enviar arquivos.
+
+### Informações exibidas
+
+* Card central com campo de upload.
+* Instruções sobre formatos aceitos (ex.: PDF).
+* Indicação de tamanho máximo do arquivo.
+* Botão para confirmar envio.
+
+### Funcionalidades
+
+* Selecionar arquivo pelo explorador de arquivos.
+* Arrastar e soltar documentos diretamente no card.
+* Enviar documentos para processamento pelo modelo.
+* Visualizar mensagem de sucesso ou erro após o upload.
+
+### Objetivo
+
+Simplificar o processo de adicionar novos conteúdos ao sistema, garantindo que o staff alimente o modelo de IA de forma rápida e sem complicações.
+
+***
+
+## 4. Tela de Gestão de Usuários
+
+<p style={{ textAlign: "center" }}>
+  Figura 4 — Tela de Gestão de Usuários
+</p>
+
+<img alt="Gestão de Usuários" src={__img3} placeholder="blur" />
+
+### Resumo
+
+Tela utilizada para administrar os usuários com acesso ao dashboard, controlando permissões e atividades.
+
+### Informações exibidas
+
+* Lista de usuários cadastrados.
+* Função e nível de acesso.
+* Status da conta.
+* Último login.
+
+### Funcionalidades
+
+* Adicionar novos usuários.
+* Alterar permissões.
+* Ativar e desativar contas.
+* Remover usuários inativos.
+
+### Objetivo
+
+Proporcionar controle seguro e eficiente sobre quem pode visualizar e operar o dashboard.
+
+***
+
+# Mecanismos de Navegação
+
+### Fluxo principal
+
+| Evento                                                         | Tela apresentada            |
+| -------------------------------------------------------------- | --------------------------- |
+| Acessar o dashboard (home ou clicando no ícone de "Dashboard") | Acompanhamento Geral        |
+| Selecionar o ícone de “Documentos”                             | Gerenciamento de Documentos |
+| Clicar no botão de +, “Adicionar Docs”                         | Adição de Documentos        |
+| Selecionar o ícone de “Usuários”                               | Gestão de Usuários          |
+
+### Acesso permanente via navbar
+
+* Acompanhamento Geral
+* Documentos
+* Adicionar Documento
+* Usuários
+
+***
+
+# Conclusão
+
+O protótipo de alta fidelidade documentado representa a estrutura visual e funcional do Dashboard do Staff. Por meio de telas claras e focadas nas necessidades dos colaboradores — como acompanhamento de métricas, gestão de documentos e controle de usuários — o sistema oferece suporte direto e eficiente ao gerenciamento dos tours guiados pelo robô no campus.
+
+***
+
+
+# Título do Documento (/docs/sprint-3/prototipo-alta/template)
 
 
 
@@ -9928,6 +11900,2052 @@ F -->|HTTP| BUCKET
     <File name="meta.json" />
   </Folder>
 </Files>
+
+
+# S-SDLC — Secure Software Development Life Cycle (/docs/sprint-3/secure-software)
+
+<Cards>
+  <Card title="Secure Software Development Life Cycle" description="Definição do plano de ação de segurança." href="/docs/sprint-3/secure-software/s-sdlc" />
+</Cards>
+
+
+# Secure Software Development Life Cycle (/docs/sprint-3/secure-software/s-sdlc)
+
+# **S-SDLC — Secure Software Development Life Cycle**
+
+## Projeto: Sistema de Tour Autônomo com Robô Unitree Go2
+
+***
+
+## **1. Introdução**
+
+Este documento apresenta o **S-SDLC (Secure Software Development Life Cycle)** adotado no desenvolvimento do sistema de tour autônomo do robô Unitree Go2 para o campus do Inteli. O S-SDLC estabelece práticas de segurança integradas a cada fase do ciclo de vida do software, garantindo que todos os componentes — **DevOps/UX, Backend, Modelos de IA, Robô e Segurança** — sigam princípios de proteção, confiabilidade e conformidade com normas como **ISO/IEC 25010:2011**, **OWASP Application & API Security Top 10**, recomendações de **safe AI**, além de boas práticas de **segurança operacional (safety)**.
+
+O objetivo é assegurar que o sistema seja **seguro por design**, com monitoramento contínuo, controle de riscos e mitigação preventiva de falhas, garantindo uma operação estável e livre de incidentes.
+
+***
+
+## **2. Escopo do S-SDLC**
+
+O S-SDLC cobre todo o ciclo de vida do projeto, incluindo:
+
+* Planejamento e Levantamento de Requisitos
+* Análise de Riscos
+* Arquitetura e Design Seguro
+* Implementação
+* Testes de Segurança
+* Deploy Seguro
+* Operação, Monitoramento e Resposta a Incidentes
+* Auditoria e Melhoria Contínua
+
+Cada fase incorpora controles de segurança específicos e mapeados aos requisitos funcionais (RF) e não funcionais (RNF) definidos no documento principal.
+
+***
+
+# **3. Fases do S-SDLC**
+
+***
+
+## **3.1. Fase 1 — Planejamento e Levantamento de Requisitos**
+
+### **Objetivo:**
+
+Garantir que requisitos funcionais e não funcionais incluam segurança, privacidade, confiabilidade e safety.
+
+### **Controles Aplicados:**
+
+* Identificação formal de requisitos de segurança para:
+  * Botão de emergência (E-Stop)
+  * Autenticação forte (2FA)
+  * Rate limiting
+  * Criptografia de dados
+  * Logs auditáveis e confidenciais
+  * Comunicação segura com robô e LLM
+  * Políticas de redundância a falhas
+
+* Classificação dos requisitos de risco (alto, médio, baixo).
+
+* Definição de responsáveis por área:
+  * **DevOps/UX:** acesso, CI/CD e interface segura
+  * **Backend:** API segura, STOP prioritário
+  * **Modelo:** filtragem pelo Modelo A, controle ético
+  * **Robô:** safety físico e sensores
+  * **Segurança:** governança transversal
+
+***
+
+## **3.2. Fase 2 — Análise de Riscos**
+
+### **Objetivo:**
+
+Identificar e mitigar vulnerabilidades e riscos técnicos, éticos e operacionais.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Categoria
+      </th>
+
+      <th>
+        Risco
+      </th>
+
+      <th>
+        Impacto
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Acesso não autorizado aos endpoints do robô
+      </td>
+
+      <td>
+        Alto
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Safety
+      </td>
+
+      <td>
+        Falha no botão de emergência ou atraso no STOP
+      </td>
+
+      <td>
+        Crítico
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        IA
+      </td>
+
+      <td>
+        Geração de respostas inadequadas pelo Modelo B
+      </td>
+
+      <td>
+        Alto
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        DevOps
+      </td>
+
+      <td>
+        Vazamento de segredos no repositório
+      </td>
+
+      <td>
+        Alto
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Robô
+      </td>
+
+      <td>
+        Falha de sensores gerando colisões
+      </td>
+
+      <td>
+        Crítico
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Infra
+      </td>
+
+      <td>
+        Perda de comunicação com robô (timeout, WebRTC)
+      </td>
+
+      <td>
+        Crítico
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### **Mitigações Aplicadas:**
+
+* Rate limiting (RF06-BE)
+* JWT obrigatório (RF05-BE)
+* Parada de emergência redundante (RF01-BE, RF02-BE)
+* Pipeline SAST/SCA (RF05-DO, RF11-DO)
+* Varredura de segredos (RF12-DO)
+* Detector/Respondente (Modelo A/B) para filtragem ética (RF01-MOD)
+* Auditoria completa de logs (RF07-BE, RF04-MOD)
+
+***
+
+## **3.3. Fase 3 — Arquitetura e Design Seguro**
+
+### **Objetivo:**
+
+Seguir a arquitetura segura e tolerante a falhas.
+
+### **Princípios Aplicados:**
+
+* **Defense in Depth** (múltiplas camadas de segurança)
+* **Least Privilege** para APIs, usuários e serviços
+* **Fail-Safe / Safe-Stop** para robô
+* **Zero Trust** para comunicação de rede
+* **AI Security by Design** para modelos A e B
+
+### **Pontos de Design por Área:**
+
+#### **DevOps/UX**
+
+* Interface com STOP sempre disponível (RF01-UX)
+* Feedback visual imediato
+* Acessibilidade e contrastes (RNF07-UX)
+
+#### **Backend**
+
+* APIs WebSocket e REST com:
+  * Autenticação JWT
+  * Rate limiting adaptativo (RNF04-BE)
+  * Logs de alta precisão (RF07-BE)
+
+* Canal redundante para STOP (RF02-BE)
+
+* Criticidade máxima para comandos de movimento
+
+#### **Modelo**
+
+* Dois LLMs isolados:
+  * Modelo A → Detector
+  * Modelo B → Respondente
+
+* Comunicação interna criptografada (RF03-MOD)
+
+* Auditoria de inferências (RF04-MOD)
+
+#### **Robô**
+
+* Sensores redundantes:
+  * LiDAR + câmera + proximidade (RF03-ROB)
+
+* Parada por risco (RF02-ROB)
+
+* Canal seguro via WebRTC
+
+***
+
+## **3.4. Fase 4 — Implementação com Segurança**
+
+### **Objetivo:**
+
+Garantir que todo o código siga padrões de segurança, práticas OWASP e não introduza vulnerabilidades.
+
+### **Controles Obrigatórios:**
+
+* Uso estrito de **GitFlow** (RF10-DO)
+
+* Revisões obrigatórias de PR por 2 pessoas
+
+* Commits com bloqueio automático de segredos (RF12-DO)
+
+* Pipelines:
+  * **SAST** antes de merge (RF11-DO)
+  * **SCA** antes de deploy (RF05-DO)
+
+* Criptografia de banco de dados (RNF08-DO)
+
+* Sanitização de inputs nas APIs
+
+* Controle de payload crítico (especialmente comandos do robô)
+
+***
+
+## **3.5. Fase 5 — Testes de Segurança**
+
+### **Objetivo:**
+
+Garantir que o sistema não possua vulnerabilidades e opere com segurança em cenários reais.
+
+### **Tipos de Testes:**
+
+* **Testes funcionais** dos requisitos RF
+
+* **Testes de performance** (latência, throughput, RAG, STT, TTS)
+
+* **Pentest interno**
+
+* **Fuzzing** em endpoints críticos
+
+* **Testes de carga** no fluxo de STOP
+
+* **Testes de resiliência**:
+  * queda de conexão
+  * atraso no WebRTC
+  * falha de sensores
+
+* **Testes de ética e conformidade** do Modelo B (RF05-MOD)
+
+* **Testes de operador e acessibilidade** (RNF07-UX)
+
+### **Critérios de Sucesso:**
+
+* STOP ≤ 1s (Frontend + Backend + Robô)
+* LLM ≤ 1,5s (Modelo)
+* Perda de pacotes ≤ 1%
+* Zero vulnerabilidades críticas no SAST/SCA
+* 100% de logs críticos registrados
+
+***
+
+## **3.6. Fase 6 — Deploy Seguro**
+
+### **Objetivo:**
+
+Garantir que a entrada em produção siga padrões de segurança.
+
+### **Controles:**
+
+* CI/CD obrigatório com gates de segurança (RF13-DO)
+
+* Deploy apenas após:
+  * build validado
+  * testes de segurança aprovados
+  * autorização de segurança
+
+* Rollback automático (critério de aceite)
+
+* Versionamento sem acesso direto à produção
+
+***
+
+## **3.7. Fase 7 — Operação, Monitoramento e Resposta a Incidentes**
+
+### **Objetivo:**
+
+Manter operação segura, estável e auditável durante tours e interações com visitantes.
+
+### **Monitoramentos Ativos:**
+
+* Disponibilidade (uptime ≥ 99,9%)
+* Latência dos modelos e APIs
+* Falhas e anomalias no robô
+* Tentativas de intrusão
+* Logs de auditoria → 90 dias de retenção (RNF06-BE e RNF06-MOD)
+
+### **Procedimentos de Incidente:**
+
+* Parada imediata do robô se:
+  * canal cair
+  * backend detectar inconsistência
+  * Modelo A identificar risco crítico
+
+* Notificação automática à equipe
+
+* Registro completo do incidente
+
+* Investigação e atualização do modelo ou pipeline
+
+***
+
+## **3.8. Fase 8 — Auditoria e Melhoria Contínua**
+
+### **Objetivo:**
+
+Garantir evolução do sistema, corrigindo vulnerabilidades e ajustando políticas.
+
+### **Atividades:**
+
+* Auditoria trimestral OWASP/segurança
+* Auditoria mensal do Modelo B (RF06-MOD)
+* Revisão semestral da política de segurança
+* Revalidação dos requisitos conforme evolução do projeto
+* Treinamento contínuo das equipes
+
+***
+
+# **4. Rastreabilidade entre Requisitos e o S-SDLC**
+
+Cada fase do S-SDLC cobre explicitamente os requisitos do projeto:
+
+* **STOP**: RF01-UX, RF01-BE, RF02-BE, RF02-ROB
+* **Autenticação/Autorização**: RNF06-UX, RF05-BE
+* **CI/CD Seguro**: RF05-DO, RF11-DO, RF12-DO, RF13-DO
+* **Safety do Robô**: RF01-ROB, RF02-ROB, RF03-ROB
+* **IA Segura**: RF01-MOD a RF07-MOD + RNF02-MOD
+* **Logs/Auditoria**: RF06-DO, RF07-BE, RF04-MOD, RNF06-MOD
+* **RAG e dados**: RNF01-MOD
+* **Performance**: RNF01-BE, RNF02-BE, RNF02-MOD
+
+***
+
+# **5. Conclusão**
+
+O S-SDLC apresentado estabelece uma estrutura completa, robusta e profissional para assegurar que o sistema de tour autônomo com o robô Unitree Go2 opere com:
+
+* **Segurança de software e física (safety)**
+* **Confiabilidade operacional**
+* **Integridade de dados e decisões**
+* **IA controlada, ética e verificável**
+* **Redundância aplicada aos sistemas críticos**
+
+***
+
+# **Bibliografia**
+
+**OWASP Foundation.** *OWASP Application Security Verification Standard (ASVS).* Disponível em: [https://owasp.org/ASVS/](https://owasp.org/ASVS/). Acesso em: 17 nov. 2025.
+
+**OWASP Foundation.** *OWASP API Security Top 10.* Disponível em: [https://owasp.org/API-Security/](https://owasp.org/API-Security/). Acesso em: 17 nov. 2025.
+
+**OWASP Foundation.** *OWASP Machine Learning Security Top 10.* Disponível em: [https://owasp.org/www-project-machine-learning-security-top-10/](https://owasp.org/www-project-machine-learning-security-top-10/). Acesso em: 18 nov. 2025.
+
+**ISO/IEC 27001.** *Information Security Management Systems.* Resumo técnico disponível em: [https://www.iso.org/isoiec-27001-information-security.html](https://www.iso.org/isoiec-27001-information-security.html). Acesso em: 18 nov. 2025.
+
+**SETIC-UFSC.** *Guia de Privacidade e Proteção de Dados - LGPD.* Disponível em: [https://lgpd.ufsc.br/duvidas-frequentes/](https://lgpd.ufsc.br/duvidas-frequentes/). Acesso em: 18 nov. 2025.
+
+
+# Arquitetura Multi-Agentes (/docs/sprint-3/sistema-multi-agentes/01-arquitetura-multi-agentes)
+
+# 1. Arquitetura Multi-Agentes
+
+## 1.1. Visão Geral
+
+O sistema Inteli Robot Dog Tour Guide utiliza a arquitetura multi-agentes do Google ADK (Agent Development Kit) para orquestrar diferentes funcionalidades de forma modular e escalável.
+
+## 1.2. Componentes Principais
+
+### 1.2.1. Coordinator Agent
+
+**Arquivo:** `agent_flow/agents/coordinator_agent.py`
+
+O Coordinator é o agente principal que orquestra toda a experiência do tour. Ele:
+
+* Gerencia o fluxo conversacional
+* Delega tarefas para sub-agentes especializados
+* Mantém a personalidade do robô-cachorro
+* Integra respostas de múltiplos agentes
+
+**Responsabilidades:**
+
+* Receber input do usuário
+* Decidir qual sub-agente chamar
+* Combinar respostas com personalidade
+* Manter contexto da conversa
+
+### 1.2.2. Safety Agent
+
+**Arquivo:** `agent_flow/agents/safety_agent.py`
+
+Responsável pela validação de conteúdo e moderação de interações.
+
+**Funcionalidades:**
+
+* Verificação de conteúdo inapropriado
+* Detecção de palavras-chave sensíveis
+* Redirecionamento de conversas problemáticas
+* Registro de violações de segurança
+
+**Tools utilizadas:**
+
+* `check_content_safety` - Validação básica de keywords
+
+### 1.2.3. Tour Agent
+
+**Arquivo:** `agent_flow/agents/tour_agent.py`
+
+Gerencia a progressão e estrutura do tour pelo campus.
+
+**Funcionalidades:**
+
+* Controle de seções do tour (5 seções principais)
+* Rastreamento de progresso do visitante
+* Sugestões de transição entre seções
+* Gerenciamento de estado do tour
+
+**Tools utilizadas:**
+
+* `get_tour_section` - Recupera conteúdo de seção específica
+* `track_tour_progress` - Gerencia estado e navegação
+* `get_tour_suggestions` - Sugestões contextuais
+
+**Seções do tour:**
+
+1. História e Programa de Bolsas
+2. Courses & Clubs
+3. PBL & Rotina Inteli
+4. Sala de aula invertida e infraestrutura
+5. Processo Seletivo & Conquistas da Comunidade
+
+### 1.2.4. Knowledge Agent
+
+**Arquivo:** `agent_flow/agents/knowledge_agent.py`
+
+Implementa o sistema RAG (Retrieval-Augmented Generation) para responder perguntas sobre o Inteli.
+
+**Funcionalidades:**
+
+* Busca em base de conhecimento (chunks do edital)
+* Recuperação de informações específicas
+* Resposta a perguntas factuais
+* Sistema de relevância por keywords
+
+**Tools utilizadas:**
+
+* `search_inteli_knowledge` - Busca geral na base
+* `get_specific_info` - Informações de tópicos específicos
+* `answer_question` - Q\&A abrangente
+
+**Base de conhecimento:**
+
+* Edital do processo seletivo (chunks JSON)
+* Informações gerais hardcoded (cursos, bolsas, clubes)
+
+> **Nota:** Atualmente utiliza busca por keywords. Implementação semântica com embeddings será feita ao longo da Sprint 3.
+
+### 1.2.5. Context Agent
+
+**Arquivo:** `agent_flow/agents/context_agent.py`
+
+Gerencia contexto e preferências do usuário.
+
+**Funcionalidades:**
+
+* Busca em base de conhecimento geral
+* Recuperação de preferências do usuário
+* Histórico de interações
+
+**Tools utilizadas:**
+
+* `search_knowledge_base` - Busca genérica
+* `get_user_preferences` - Preferências do visitante
+
+## 1.3. Fluxo de Interação
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    User Input                           │
+└────────────────────┬────────────────────────────────────┘
+                     │
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│              Coordinator Agent                          │
+│  - Analisa input                                        │
+│  - Detecta emoção do visitante                          │
+│  - Decide delegação                                     │
+└────────┬────────────────────────────────────────────────┘
+         │
+         ├──────────────┬─────────────┬──────────────┐
+         │              │             │              │
+         ▼              ▼             ▼              ▼
+    ┌────────┐    ┌─────────┐   ┌─────────┐   ┌─────────┐
+    │ Safety │    │  Tour   │   │Knowledge│   │ Context │
+    │ Agent  │    │ Agent   │   │ Agent   │   │ Agent   │
+    └────┬───┘    └────┬────┘   └────┬────┘   └────┬────┘
+         │             │              │             │
+         └──────────┬──┴──────────────┴─────────────┘
+                    │
+                    ▼
+         ┌──────────────────────────┐
+         │ Personality Enhancement  │
+         │ - Add dog behaviors      │
+         │ - Adapt to emotion       │
+         └───────────┬──────────────┘
+                     │
+                     ▼
+            ┌────────────────┐
+            │ Final Response │
+            └────────────────┘
+```
+
+## 1.4. Sistema de Tools
+
+### 1.4.1. Personality Tools
+
+**Arquivo:** `agent_flow/tools/personality_tools.py`
+
+Mantêm a consistência da personalidade do robô-cachorro.
+
+**Funções principais:**
+
+* `add_dog_personality(text, emotion)` - Adiciona latidos, ações e emoções
+* `detect_visitor_emotion(input)` - Detecta estado emocional do visitante
+* `get_conversation_suggestions(context)` - Sugestões de resposta
+* `generate_engagement_prompt(situation)` - Prompts de engajamento
+
+**Emoções suportadas:**
+
+* happy
+* excited
+* calm
+* curious
+* empathetic
+
+### 1.4.2. Safety Tools
+
+**Arquivo:** `agent_flow/tools/safety_tools.py`
+
+Ferramentas de validação de conteúdo.
+
+**Funções principais:**
+
+* `check_content_safety(user_input, tool_context)` - Validação de segurança
+
+**Método atual:**
+
+* Lista de keywords proibidas
+* Detecção simples por substring
+* Registro de violações no estado
+
+> **Aviso:** Implementação atual é básica. Expansão para 100+ keywords e validação por LLM está planejada.
+
+### 1.4.3. Document Tools
+
+**Arquivo:** `agent_flow/tools/document_tools.py`
+
+Ferramentas de recuperação de documentos.
+
+**Funções principais:**
+
+* `search_knowledge_base(query)` - Busca em base de conhecimento
+* `get_user_preferences(user_id)` - Preferências do usuário
+
+## 1.5. Sistema de Prompts
+
+**Diretório:** `agent_flow/prompts/`
+
+### 1.5.1. Base Personality
+
+**Arquivo:** `base_personality.txt` (1.200+ palavras)
+
+Define a personalidade core do robô-cachorro:
+
+* Características caninas (latidos, ações)
+* Espectro emocional (5 estados)
+* Regras de comunicação
+* Bias permitido (orgulho de Eng. Computação)
+* Personalização por emoção do visitante
+
+### 1.5.2. Safety Guidelines
+
+**Arquivo:** `safety_guidelines.txt` (1.500+ palavras)
+
+Diretrizes de segurança:
+
+* 5 categorias de conteúdo proibido
+* Contextos sensíveis
+* Edge cases (menores, deficiências, crises)
+* Protocolo de resposta (4 passos)
+* Exceções permitidas
+
+### 1.5.3. Prompt Utilities
+
+**Arquivo:** `prompts/__init__.py`
+
+Funções auxiliares para gerenciamento de prompts:
+
+```python
+from agent_flow.prompts import (
+    load_prompt_file,
+    get_base_personality,
+    get_safety_guidelines,
+    format_instruction_with_personality,
+    format_instruction_with_safety
+)
+```
+
+## 1.6. Estrutura de Diretórios
+
+```
+agent_flow/
+├── __init__.py
+├── app.py                      # Aplicação principal (legado)
+│
+├── agents/                     # Agentes
+│   ├── __init__.py
+│   ├── coordinator_agent.py   # Orquestrador principal
+│   ├── safety_agent.py        # Validação de conteúdo
+│   ├── tour_agent.py          # Gerenciamento do tour
+│   ├── knowledge_agent.py     # Sistema RAG
+│   └── context_agent.py       # Contexto e preferências
+│
+├── tools/                      # Ferramentas
+│   ├── __init__.py
+│   ├── personality_tools.py   # Personalidade do robô
+│   ├── safety_tools.py        # Validação de segurança
+│   └── document_tools.py      # Recuperação de documentos
+│
+└── prompts/                    # Guidelines
+    ├── __init__.py
+    ├── base_personality.txt
+    └── safety_guidelines.txt
+```
+
+## 1.7. Decisões de Arquitetura
+
+### 1.7.1. Por que Multi-Agentes?
+
+**Separação de responsabilidades:**
+
+* Cada agente tem um propósito claro
+* Manutenção e evolução independentes
+* Testabilidade isolada
+
+**Escalabilidade:**
+
+* Fácil adicionar novos agentes
+* Delegação automática pelo Coordinator
+* Paralelização potencial
+
+**Modularidade:**
+
+* Tools podem ser reutilizadas
+* Prompts centralizados e versionados
+* Substituição de agentes sem impacto sistêmico
+
+## 1.8. Referências
+
+* **Google ADK Documentation:** [https://google.github.io/adk-toolkit/](https://google.github.io/adk-toolkit/)
+* **Gemini API:** [https://ai.google.dev/](https://ai.google.dev/)
+
+
+# Guia de Execução e Uso (/docs/sprint-3/sistema-multi-agentes/02-guia-execucao-uso)
+
+# 2. Guia de Execução e Uso
+
+## 2.1. Requisitos do Sistema
+
+### 2.1.1. Ambiente
+
+* Python 3.12 ou superior
+* Sistema operacional: Linux, macOS ou Windows
+* Conexão com internet (para API calls)
+
+### 2.1.2. Dependências
+
+```bash
+pip install -r agent_flow/requirements.txt
+```
+
+**Principais bibliotecas:**
+
+* `google-generativeai` - Cliente para Gemini API
+* `python-dotenv` - Gerenciamento de variáveis de ambiente
+* `google-adk` - Agent Development Kit
+
+## 2.2. Configuração Inicial
+
+### 2.2.1. Clonar o Repositório
+
+```bash
+git clone https://github.com/daviiabreu/embedding-models.git
+cd embedding-models
+git checkout feat/multi-agent-infrastructure
+```
+
+### 2.2.2. Criar Ambiente Virtual
+
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# ou
+venv\Scripts\activate  # Windows
+```
+
+### 2.2.3. Instalar Dependências
+
+```bash
+pip install -r agent_flow/requirements.txt
+```
+
+### 2.2.4. Configurar Variáveis de Ambiente
+
+Criar arquivo `.env` na raiz do projeto:
+
+```bash
+GOOGLE_API_KEY=AIza...sua_chave_aqui
+DEFAULT_MODEL=gemini-2.0-flash-exp
+```
+
+> **Aviso:** Nunca commite o arquivo `.env` no repositório. Ele já está incluído no `.gitignore`.
+
+**Como obter a API key:**
+
+1. Acesse [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
+2. Crie uma nova API key
+3. Copie e cole no arquivo `.env`
+
+## 2.3. Modos de Execução
+
+O sistema oferece um único entry point (`agent_flow/app.py`) executável como módulo Python com múltiplos modos configuráveis via flags.
+
+### 2.4.1. Visão Geral das Flags
+
+```bash
+python3 -m agent_flow.app [--mode MODE] [--model MODEL] [--debug] [--help] [--version]
+```
+
+**Flags disponíveis:**
+
+| Flag        | Valores                  | Padrão                 | Descrição                |
+| ----------- | ------------------------ | ---------------------- | ------------------------ |
+| `--mode`    | `full`, `simple`, `demo` | `full`                 | Modo de execução         |
+| `--model`   | Nome do modelo           | `gemini-2.0-flash-exp` | Modelo LLM a usar        |
+| `--debug`   | -                        | `False`                | Ativa logs de debug      |
+| `--help`    | -                        | -                      | Mostra ajuda completa    |
+| `--version` | -                        | -                      | Mostra versão do sistema |
+
+### 2.3.2. Modo Full (Produção)
+
+Sistema multi-agente completo com ADK runner.
+
+```bash
+python3 -m agent_flow.app --mode full
+# ou simplesmente (full é o padrão)
+python3 -m agent_flow.app
+```
+
+**Características:**
+
+* ADK runner completo
+* Sistema multi-agente orquestrado
+* Tool calling automático
+* Session management
+* Modo recomendado para produção
+
+**Quando usar:**
+
+* Demonstrações oficiais
+* Uso normal do sistema
+* Testes de integração completa
+
+### 2.3.3. Modo Simple (Debugging)
+
+Versão simplificada sem complexidade do ADK Runner.
+
+```bash
+python3 -m agent_flow.app --mode simple
+```
+
+**Características:**
+
+* API do Gemini direta (sem ADK runner)
+* Tool calling manual
+* História de conversação simplificada
+* Safety filtering básico hardcoded
+* Útil para entender o fluxo
+
+**Quando usar:**
+
+* Debugar problemas de tool calling
+* Entender fluxo básico LLM ↔ usuário
+* Desenvolvimento local
+* Problemas com ADK Runner
+
+**Limitações:**
+
+* Sem orquestração automática de agentes
+* Safety menos robusto
+* Personality menos rica
+
+### 2.3.4. Modo Demo (Apresentações)
+
+Conversa automatizada com mensagens pré-definidas.
+
+```bash
+python3 -m agent_flow.app --mode demo
+```
+
+**Características:**
+
+* Conversa automática (5 mensagens)
+* Demonstra fluxo completo do tour
+* Ideal para apresentações
+* Duração: \~2-3 minutos
+* Não requer input do usuário
+
+**Mensagens da demo:**
+
+1. "Olá! Estou aqui para o tour do Inteli!"
+2. "Como funciona o processo seletivo?"
+3. "E as bolsas? Tem auxílio financeiro?"
+4. "Quais são os cursos disponíveis?"
+5. "Obrigado pelo tour!"
+
+**Quando usar:**
+
+* Apresentações do projeto
+* Demonstrações rápidas
+* Validação de funcionalidades
+* Testes automatizados
+
+### 2.3.5. Escolher Modelo LLM
+
+Alterar o modelo usado pelo sistema:
+
+```bash
+# Usar modelo mais rápido (menor latência)
+python3 -m agent_flow.app --model gemini-2.0-flash
+
+# Usar modelo mais capaz
+python3 -m agent_flow.app --model gemini-2.5-pro
+
+# Combinar com modo
+python3 -m agent_flow.app --mode demo --model gemini-2.0-flash
+```
+
+**Modelos disponíveis:**
+
+| Modelo                 | Velocidade | Capacidade | Custo | Uso Recomendado     |
+| ---------------------- | ---------- | ---------- | ----- | ------------------- |
+| `gemini-2.0-flash-exp` | ⚡⚡⚡        | ⭐⭐⭐        | 💰    | Padrão (balanceado) |
+| `gemini-1.5-flash`     | ⚡⚡⚡⚡       | ⭐⭐         | 💰    | Testes rápidos      |
+| `gemini-1.5-pro`       | ⚡⚡         | ⭐⭐⭐⭐       | 💰💰  | Máxima qualidade    |
+
+### 2.3.6. Modo Debug
+
+Ativa logs detalhados para debugging:
+
+```bash
+python3 -m agent_flow.app --mode simple --debug
+```
+
+**Informações mostradas:**
+
+* Tamanho do histórico de conversa
+* Traces de exceções completos
+* Metadata de cada mensagem
+* Tempo de processamento
+
+**Exemplo de output:**
+
+```
+🔧 Mode: SIMPLE (Direct API calls)
+📍 Model: gemini-2.0-flash-exp
+🐛 Debug: ENABLED
+------------------------------------------------------------
+
+👤 Você: Como funciona o processo seletivo?
+
+[DEBUG] History length: 1 messages
+[DEBUG] Generating response...
+[DEBUG] Response received in 1234ms
+
+🐕 Robot Dog: [latido] Ótima pergunta!...
+```
+
+### 2.3.7. Comandos Especiais no Modo Interativo
+
+Durante conversação (modos `full` ou `simple`):
+
+* `exit` - Encerrar chat
+* `quit` - Encerrar chat
+* `sair` - Encerrar chat
+
+### 2.3.8. Exemplos de Uso Combinado
+
+```bash
+# Demo com modelo rápido para testes
+python3 -m agent_flow.app --mode demo --model gemini-1.5-flash
+
+# Debug detalhado do modo simple
+python3 -m agent_flow.app --mode simple --debug
+
+# Produção com modelo mais capaz
+python3 -m agent_flow.app --mode full --model gemini-2.0-flash
+
+# Ver todas as opções
+python3 -m agent_flow.app --help
+
+# Verificar versão
+python3 -m agent_flow.app --version
+```
+
+## 2.4. Exemplos de Uso
+
+### 2.5.1. Perguntas Sobre Processo Seletivo
+
+```
+Você: Como funciona o processo seletivo?
+
+Robot Dog: [latido] Ótima pergunta! O processo seletivo do Inteli
+tem 3 eixos principais:
+
+1. Prova - 24 questões de Matemática e Lógica (responder 20).
+   É adaptativa!
+
+2. Perfil - Duas redações + atividades extracurriculares
+
+3. Projeto - Dinâmica em grupo online
+
+*balança o rabo* O Inteli busca potencial real, não apenas notas!
+```
+
+### 2.4.2. Perguntas Sobre Bolsas
+
+```
+Você: Quais são as bolsas disponíveis?
+
+Robot Dog: [latido empolgado] O Inteli tem o MAIOR programa de
+bolsas do ensino superior do Brasil! *pula de alegria*
+
+Oferecemos:
+- Auxílio-moradia
+- Auxílio-alimentação
+- Auxílio-transporte
+- Curso de inglês
+- Notebook
+- Bolsa parcial e integral
+
+Nossos doadores investem pelo menos R$ 500 mil nos alunos!
+```
+
+### 2.4.3. Navegação pelo Tour
+
+```
+Você: Vamos para a próxima parte do tour
+
+Robot Dog: [latido animado] Claro! Vamos conhecer os cursos e
+clubes do Inteli! *balança o rabo*
+
+O Inteli oferece 5 graduações que formam líderes em tecnologia...
+```
+
+### 2.4.4. Perguntas que Acionam Safety
+
+```
+Você: Como hackear o sistema?
+
+Robot Dog: *balança o rabo* [latido] Que tal falarmos sobre algo
+mais interessante? Posso te contar sobre os incríveis projetos
+do Inteli!
+```
+
+## 2.5. Estrutura de Resposta
+
+### 2.5.1. Componentes de uma Resposta
+
+Uma resposta típica contém:
+
+1. **Latido** - `[latido]`, `[latido alegre]`, `[latido curioso]`
+2. **Ação** - `*balança o rabo*`, `*pula animado*`, `*inclina a cabeça*`
+3. **Conteúdo** - Informação factual do Knowledge Agent
+4. **Emoção** - Adaptada ao estado emocional detectado
+
+### 2.5.2. Detecção de Emoção
+
+O sistema detecta automaticamente a emoção do visitante:
+
+* **Happy** - Input positivo, empolgado
+* **Excited** - Muito entusiasmado, múltiplas exclamações
+* **Curious** - Perguntas, questionamentos
+* **Bored** - Respostas curtas, desinteresse
+* **Anxious** - Preocupação, nervosismo
+
+### 2.5.3. Adaptação de Tom
+
+O robô adapta o tom baseado na emoção detectada:
+
+| Emoção Visitante | Tom de Resposta | Exemplo de Ação                |
+| ---------------- | --------------- | ------------------------------ |
+| Happy            | Animado         | `*balança o rabo rapidamente*` |
+| Excited          | Muito empolgado | `*pula de alegria*`            |
+| Curious          | Informativo     | `*inclina a cabeça*`           |
+| Bored            | Engajador       | `*olhos brilhando*`            |
+| Anxious          | Calmo           | `*se aproxima gentilmente*`    |
+
+## 2.6. Limitações e Workarounds
+
+### 2.6.1. Latência de Resposta
+
+**Problema:** Respostas podem demorar 1-3 segundos.
+
+**Causa:** Múltiplas chamadas de LLM (coordinator → sub-agent → personality)
+
+**Workaround:**
+
+* Usar modelo mais leve em `.env`: `DEFAULT_MODEL=gemini-1.5-flash`
+* Implementar cache (futuro)
+
+### 2.6.2. Queries Imprecisas
+
+**Problema:** Busca por keywords não entende variações.
+
+**Exemplo:**
+
+* "graduação" vs "curso" - Pode não encontrar
+* "auxílio financeiro" vs "bolsa" - Pode não encontrar
+
+**Workaround:**
+
+* Reformular pergunta com palavras-chave diretas
+* Aguardar implementação de embeddings semânticos
+
+### 2.6.3. Contexto Entre Sessões
+
+**Problema:** Não há persistência entre execuções.
+
+**Causa:** `InMemorySession` não persiste dados.
+
+**Workaround:**
+
+* Para demos, usar sempre a mesma sessão
+* Implementar `DatabaseSessionService` (futuro)
+
+### 2.6.4. Rate Limits da API
+
+**Problema:** Muitas requisições podem exceder quotas.
+
+**Limites Gemini Free Tier:**
+
+* 15 RPM (requests per minute)
+* 1M TPM (tokens per minute)
+* 1.5K RPD (requests per day)
+
+**Workaround:**
+
+```python
+# Adicionar delay entre requests (se necessário)
+import time
+time.sleep(1)  # 1 segundo entre chamadas
+```
+
+**Verificar quotas:**
+[https://console.cloud.google.com/apis/api/generativelanguage.googleapis.com/quotas](https://console.cloud.google.com/apis/api/generativelanguage.googleapis.com/quotas)
+
+## 2.7. Desenvolvimento e Debug
+
+### 2.7.1. Estrutura de Logs
+
+Atualmente sem logging estruturado.
+
+**Planejado (Dia 4-5):**
+
+```bash
+# Logs serão salvos em formato JSON Lines
+tail -f logs/conversation_<session_id>.jsonl
+```
+
+**Estrutura de log:**
+
+```json
+{
+  "timestamp": "2025-11-07T10:30:00",
+  "session_id": "abc123",
+  "user_input": "Como funciona o processo seletivo?",
+  "agent_called": "knowledge_agent",
+  "tool_used": "get_specific_info",
+  "response_time_ms": 1234,
+  "emotion_detected": "curious"
+}
+```
+
+### 2.7.2. Modo Debug
+
+O modo debug está **implementado** e pode ser usado com qualquer modo de execução:
+
+```bash
+# Debug no modo simple
+python3 -m agent_flow.app --mode simple --debug
+
+# Debug no modo demo
+python3 -m agent_flow.app --mode demo --debug
+
+# Debug no modo full
+python3 -m agent_flow.app --mode full --debug
+```
+
+**Informações mostradas:**
+
+* Tamanho do histórico de mensagens
+* Traces completos de exceções
+* Tempo de processamento
+* Metadata de cada interação
+
+**Exemplo de output com debug:**
+
+```
+🔧 Mode: SIMPLE (Direct API calls)
+📍 Model: gemini-2.0-flash-exp
+🐛 Debug: ENABLED
+------------------------------------------------------------
+
+👤 Você: Como funciona o processo seletivo?
+
+[DEBUG] History length: 1 messages
+[DEBUG] Processing input...
+[DEBUG] Response generated
+
+🐕 Robot Dog: [latido] Ótima pergunta!...
+
+[DEBUG] Message 1/5 completed
+```
+
+### 2.7.3. Testar Componentes Isolados
+
+**Testar personality tools:**
+
+```python
+from agent_flow.tools.personality_tools import detect_visitor_emotion
+
+class MockContext:
+    def __init__(self):
+        self.state = {}
+
+context = MockContext()
+result = detect_visitor_emotion("Estou muito empolgado!", context)
+print(result)
+# Output: {'emotion': 'excited', 'confidence': 0.85, ...}
+```
+
+**Testar knowledge search:**
+
+```python
+from agent_flow.agents.knowledge_agent import search_inteli_knowledge
+
+class MockContext:
+    def __init__(self):
+        self.state = {}
+
+context = MockContext()
+result = search_inteli_knowledge("bolsas", context, top_k=3)
+print(result['documents'])
+```
+
+## 2.8. Boas Práticas
+
+### 2.8.1. Perguntas Efetivas
+
+**Use palavras-chave diretas:**
+
+* "processo seletivo" (melhor que "como entrar")
+* "bolsas" (melhor que "auxílio financeiro")
+* "clubes" (melhor que "atividades extracurriculares")
+
+**Seja específico:**
+
+* "Quantos cursos tem?" (melhor que "Me fale sobre o Inteli")
+* "Como funciona o PBL?" (melhor que "Como são as aulas?")
+
+### 2.8.2. Gestão de API Quotas
+
+**Monitorar uso:**
+
+```bash
+# Verificar quantas chamadas foram feitas
+grep "API call" logs/*.log | wc -l
+```
+
+**Otimizar prompts:**
+
+* Evitar prompts muito longos
+* Limitar histórico de conversa (últimas 10 mensagens)
+* Usar temperature baixa para respostas consistentes
+
+## 2.9. Comandos Úteis
+
+### 2.9.1. Visualização de Estrutura
+
+```bash
+# Ver estrutura do projeto
+tree -L 3 -I 'venv|__pycache__|*.pyc'
+
+# Contar linhas de código
+find agent_flow -name "*.py" | xargs wc -l
+```
+
+### 2.9.2. Limpeza
+
+```bash
+# Remover cache Python
+find . -type d -name "__pycache__" -exec rm -r {} +
+find . -type f -name "*.pyc" -delete
+
+# Remover logs (quando implementado)
+rm -rf logs/*.jsonl
+```
+
+## 2.10. Referências Rápidas
+
+### 2.10.1. Comandos Essenciais
+
+| Comando                                   | Descrição           | Quando Usar             |
+| ----------------------------------------- | ------------------- | ----------------------- |
+| `python3 -m agent_flow.app`               | Modo full (padrão)  | Uso normal do sistema   |
+| `python3 -m agent_flow.app --mode demo`   | Demo automatizado   | Apresentações           |
+| `python3 -m agent_flow.app --mode simple` | Versão simplificada | Debug e desenvolvimento |
+| `python3 -m agent_flow.app --debug`       | Ativa logs debug    | Troubleshooting         |
+| `python3 -m agent_flow.app --help`        | Ajuda completa      | Ver todas as opções     |
+| `python test_agent_flow.py`               | Validação completa  | Antes de commits        |
+| `python preprocess_pdf.py`                | Gerar chunks        | Setup inicial           |
+
+### 2.10.2. Arquivos Principais
+
+| Arquivo              | Propósito                 | Modificar Para             |
+| -------------------- | ------------------------- | -------------------------- |
+| `agent_flow/app.py`  | **Entry point principal** | Execução do sistema        |
+| `test_agent_flow.py` | Suite de testes           | Validação antes de commits |
+| `preprocess_pdf.py`  | Processamento de PDFs     | Gerar chunks RAG           |
+| `.env`               | Configurações             | API keys e modelos         |
+
+### 2.10.3. Diretórios Importantes
+
+| Diretório             | Conteúdo     | Modificar Para                |
+| --------------------- | ------------ | ----------------------------- |
+| `agent_flow/agents/`  | Agentes      | Mudar comportamento           |
+| `agent_flow/tools/`   | Ferramentas  | Adicionar funcionalidades     |
+| `agent_flow/prompts/` | Guidelines   | Ajustar personalidade         |
+| `documents/`          | Dados RAG    | Expandir base de conhecimento |
+| `docs/`               | Documentação | Guias e arquitetura           |
+
+### 2.10.4. Flags e Opções
+
+```bash
+# Ver todas as flags disponíveis
+python3 -m agent_flow.app --help
+
+# Combinações úteis
+python3 -m agent_flow.app --mode demo --model gemini-2.0-flash
+python3 -m agent_flow.app --mode simple --debug
+python3 -m agent_flow.app --mode full --model gemini-2.0-flash-exp
+```
+
+### 2.10.5. Links Úteis
+
+* **Gemini API Docs:** [https://ai.google.dev/](https://ai.google.dev/)
+* **Google ADK:** [https://google.github.io/adk-toolkit/](https://google.github.io/adk-toolkit/)
+* **API Console:** [https://console.cloud.google.com/](https://console.cloud.google.com/)
+* **Repositório:** [https://github.com/daviiabreu/embedding-models](https://github.com/daviiabreu/embedding-models)
+
+
+# Guia de Segurança para Equipe de Safety (/docs/sprint-3/sistema-multi-agentes/03-guia-seguranca-safety-team)
+
+# 3. Guia de Segurança para Equipe de Safety
+
+## 3.1. Visão Geral
+
+Este documento é dedicado à equipe responsável pela segurança e moderação de conteúdo do sistema. Aqui você encontrará informações detalhadas sobre onde e como implementar melhorias de segurança.
+
+## 3.2. Arquitetura de Segurança
+
+### 3.2.1. Componentes de Segurança
+
+O sistema possui três camadas de segurança:
+
+1. **Safety Agent** - Agente dedicado à validação
+2. **Safety Tools** - Funções de verificação de conteúdo
+3. **Safety Guidelines** - Diretrizes textuais para o modelo
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    User Input                           │
+└────────────────────┬────────────────────────────────────┘
+                     │
+                     ▼
+            ┌────────────────────┐
+            │   Safety Agent     │ ← Primeira linha de defesa
+            │   (Validação)      │
+            └─────────┬──────────┘
+                      │
+                      ├─ SAFE → Continua para Coordinator
+                      │
+                      └─ UNSAFE → Resposta de redirecionamento
+```
+
+## 3.3. Arquivos de Segurança
+
+### 3.3.1. Safety Agent
+
+**Localização:** `agent_flow/agents/safety_agent.py`
+
+**Responsabilidades:**
+
+* Primeira validação de todo input do usuário
+* Decisão de bloqueio ou liberação
+* Delegação para tools de verificação
+
+**Estrutura atual:**
+
+```python
+def create_safety_agent(model: str = "gemini-2.0-flash-exp") -> Agent:
+    instruction = """
+    You are the safety guardian for the robot dog system.
+
+    Your job is to:
+    1. Check if user messages are safe and appropriate
+    2. Block harmful, dangerous, or inappropriate content
+    3. Ensure all interactions are family-friendly
+
+    Use the check_content_safety tool to validate inputs.
+
+    If content is unsafe:
+    - Return: "UNSAFE: [reason]"
+
+    If content is safe:
+    - Return: "SAFE"
+    """
+
+    agent = Agent(
+        name="safety_agent",
+        model=model,
+        description="Validates user inputs for safety",
+        instruction=instruction,
+        tools=[check_content_safety],
+    )
+
+    return agent
+```
+
+**Como modificar:**
+
+1. **Expandir a instruction:**
+   * Adicionar exemplos específicos de conteúdo problemático
+   * Definir níveis de severidade (low, medium, high)
+   * Incluir contextos de exceção
+
+2. **Adicionar tools:**
+   * Criar novas funções de validação
+   * Importar e adicionar na lista `tools=[]`
+
+3. **Integrar com guidelines:**
+
+   ```python
+   from agent_flow.prompts import get_safety_guidelines
+
+   safety_guidelines = get_safety_guidelines()
+   instruction = f"{base_instruction}\n\n{safety_guidelines}"
+   ```
+
+### 3.3.2. Safety Tools
+
+**Localização:** `agent_flow/tools/safety_tools.py`
+
+**Função principal:** `check_content_safety(user_input, tool_context)`
+
+**Implementação atual:**
+
+```python
+def check_content_safety(user_input: str, tool_context: ToolContext) -> dict:
+    """
+    Check if user input is safe and appropriate.
+
+    Args:
+        user_input: The user's message
+        tool_context: ADK tool context for state management
+
+    Returns:
+        Safety check result
+    """
+    unsafe_keywords = [
+        "attack", "harm", "hurt", "damage",
+        "destroy", "kill", "violence", "weapon", "abuse"
+    ]
+
+    user_input_lower = user_input.lower()
+    found_unsafe = [kw for kw in unsafe_keywords if kw in user_input_lower]
+
+    result = {
+        "is_safe": len(found_unsafe) == 0,
+        "input": user_input,
+        "reason": ""
+    }
+
+    if not result["is_safe"]:
+        result["reason"] = f"Contains potentially harmful content: {', '.join(found_unsafe)}"
+
+        # Log violation
+        if "safety_violations" not in tool_context.state:
+            tool_context.state["safety_violations"] = []
+
+        tool_context.state["safety_violations"].append({
+            "input": user_input,
+            "violations": found_unsafe
+        })
+
+    return result
+```
+
+> **Aviso:** Esta implementação é BÁSICA e deve ser expandida.
+
+### 3.3.3. Safety Guidelines
+
+**Localização:** `agent_flow/prompts/safety_guidelines.txt`
+
+Arquivo de texto com \~1.500 palavras contendo diretrizes detalhadas:
+
+* Categorias de conteúdo proibido
+* Contextos sensíveis
+* Protocolos de resposta
+* Edge cases
+* Exceções permitidas
+
+**Como usar:**
+
+```python
+from agent_flow.prompts import get_safety_guidelines
+
+guidelines = get_safety_guidelines()
+# Incluir na instruction de qualquer agente
+```
+
+## 3.4. Pontos de Melhoria Prioritários
+
+### 3.4.1. Expandir Lista de Keywords
+
+**Problema atual:** Apenas \~10 keywords
+
+**Solução recomendada:** Expandir para 100+ keywords organizadas por categoria
+
+**Implementação:**
+
+```python
+# Em safety_tools.py
+
+UNSAFE_KEYWORDS = {
+    "violence": [
+        "attack", "harm", "hurt", "damage", "destroy",
+        "kill", "murder", "assault", "beat", "fight",
+        "weapon", "gun", "knife", "bomb", "explosive"
+    ],
+    "sexual": [
+        "sexo", "pornografia", "nudez", "sexual",
+        # ... adicionar termos apropriados
+    ],
+    "drugs": [
+        "droga", "cocaína", "maconha", "tráfico",
+        "dealer", "narcótico", "heroína"
+    ],
+    "discrimination": [
+        "racism", "racista", "sexismo", "homofobia",
+        "xenofobia", "preconceito"
+    ],
+    "self_harm": [
+        "suicídio", "suicide", "self-harm", "cortar",
+        "matar-se", "acabar com tudo"
+    ]
+}
+
+def check_content_safety(user_input: str, tool_context: ToolContext) -> dict:
+    user_input_lower = user_input.lower()
+    violations = {}
+
+    for category, keywords in UNSAFE_KEYWORDS.items():
+        found = [kw for kw in keywords if kw in user_input_lower]
+        if found:
+            violations[category] = found
+
+    is_safe = len(violations) == 0
+
+    result = {
+        "is_safe": is_safe,
+        "input": user_input,
+        "violations": violations,
+        "severity": calculate_severity(violations)
+    }
+
+    return result
+```
+
+### 3.4.2. Implementar Níveis de Severidade
+
+**Níveis sugeridos:**
+
+* **LOW** - Conteúdo questionável, mas pode ser contextual
+* **MEDIUM** - Conteúdo inapropriado, redirecionar conversa
+* **HIGH** - Conteúdo perigoso, encerrar sessão e registrar
+
+**Implementação:**
+
+```python
+def calculate_severity(violations: dict) -> str:
+    """Calculate severity based on violation categories."""
+    high_risk_categories = ["violence", "self_harm", "sexual"]
+    medium_risk_categories = ["drugs", "discrimination"]
+
+    for category in violations.keys():
+        if category in high_risk_categories:
+            return "HIGH"
+
+    if any(cat in medium_risk_categories for cat in violations.keys()):
+        return "MEDIUM"
+
+    return "LOW"
+
+def get_safety_response(severity: str, violations: dict) -> str:
+    """Generate appropriate response based on severity."""
+    if severity == "HIGH":
+        return (
+            "*balança o rabo preocupado* [latido] "
+            "Desculpe, mas não posso continuar essa conversa. "
+            "Vamos falar sobre o Inteli?"
+        )
+    elif severity == "MEDIUM":
+        return (
+            "*inclina a cabeça* [latido] "
+            "Que tal falarmos sobre algo mais interessante? "
+            "Posso te contar sobre os projetos incríveis do Inteli!"
+        )
+    else:  # LOW
+        return (
+            "[latido] Vamos focar no tour do Inteli! "
+            "Tem muita coisa legal para ver!"
+        )
+```
+
+### 3.4.3. Adicionar Pattern Matching (Regex)
+
+**Problema:** Keywords simples não capturam variações
+
+**Exemplos de problemas:**
+
+* "h4ck3r" (leetspeak) não é detectado
+* "d r o g a s" (espaços) não é detectado
+* Palavras parciais ("atacar" contém "ataca")
+
+**Solução com Regex:**
+
+```python
+import re
+
+UNSAFE_PATTERNS = {
+    "violence": [
+        r'\bat+ac[k|o|a]',  # atack, ataco, ataca, attack
+        r'\bk+i+l+',         # kill, kiil, kil
+        r'\bharm',
+        r'\bweapon',
+    ],
+    "leetspeak": [
+        r'h[4@]ck',         # h4ck, h@ck
+        r'[0o]wn[3e]d',     # 0wned, owned
+    ],
+    "obfuscation": [
+        r'\b\w\s+\w\s+\w',  # Palavras com espaços (d r o g a)
+    ]
+}
+
+def check_with_patterns(user_input: str) -> dict:
+    """Check input using regex patterns."""
+    violations = {}
+
+    for category, patterns in UNSAFE_PATTERNS.items():
+        for pattern in patterns:
+            if re.search(pattern, user_input, re.IGNORECASE):
+                if category not in violations:
+                    violations[category] = []
+                violations[category].append(pattern)
+
+    return violations
+```
+
+### 3.4.4. Validação por LLM
+
+**Uso:** Para casos ambíguos que keywords não resolvem
+
+**Quando usar:**
+
+* Input passa keywords mas parece suspeito
+* Contexto é necessário para decisão
+* Falsos positivos em keywords
+
+**Implementação:**
+
+```python
+from google import genai
+
+def llm_safety_validation(user_input: str, context: str) -> dict:
+    """
+    Use LLM to validate safety in ambiguous cases.
+
+    Args:
+        user_input: User's message
+        context: Previous conversation context
+
+    Returns:
+        Detailed safety assessment
+    """
+    client = genai.Client()
+
+    prompt = f"""
+    Analyze the following user input for safety concerns in the context
+    of a campus tour guide conversation:
+
+    User input: "{user_input}"
+    Context: {context}
+
+    Determine if this is:
+    1. SAFE - Appropriate for a campus tour
+    2. QUESTIONABLE - Needs redirection but not dangerous
+    3. UNSAFE - Should be blocked immediately
+
+    Respond in JSON format:
+    {{
+        "classification": "SAFE|QUESTIONABLE|UNSAFE",
+        "reasoning": "Brief explanation",
+        "suggested_response": "How to respond if not SAFE"
+    }}
+    """
+
+    response = client.models.generate_content(
+        model="gemini-2.0-flash-exp",
+        contents=prompt
+    )
+
+    return json.loads(response.text)
+```
+
+> **Aviso:** Usar LLM para validação aumenta latência (\~500ms) e custos. Use apenas quando keywords falharem.
+
+## 3.5. Integração com Coordinator
+
+### 3.5.1. Fluxo de Validação
+
+O Coordinator deve SEMPRE consultar Safety Agent antes de processar:
+
+```python
+# Em coordinator_agent.py (exemplo conceitual)
+
+async def process_user_input(user_input: str):
+    # 1. Safety check PRIMEIRO
+    safety_result = await safety_agent.check(user_input)
+
+    if not safety_result["is_safe"]:
+        # Retornar resposta de redirecionamento
+        severity = safety_result.get("severity", "MEDIUM")
+        return get_safety_response(severity, safety_result["violations"])
+
+    # 2. Continuar processamento normal
+    response = await coordinator_agent.process(user_input)
+    return response
+```
+
+### 3.5.2. Registro de Violações
+
+**Importante:** Todas as violações devem ser registradas para análise.
+
+```python
+def log_safety_violation(user_input: str, violations: dict, severity: str):
+    """Log safety violations for analysis."""
+    log_entry = {
+        "timestamp": datetime.now().isoformat(),
+        "user_input": user_input,
+        "violations": violations,
+        "severity": severity,
+        "action_taken": "blocked" if severity == "HIGH" else "redirected"
+    }
+
+    # Salvar em arquivo
+    with open("logs/safety_violations.jsonl", "a") as f:
+        f.write(json.dumps(log_entry) + "\n")
+
+    # Ou enviar para sistema de monitoramento
+    # send_to_monitoring_system(log_entry)
+```
+
+## 3.6. Contextos Sensíveis
+
+### 3.6.1. Processo Seletivo
+
+**Cuidados especiais:**
+
+* Não dar garantias de aceitação
+* Não fazer comparações entre candidatos
+* Não compartilhar informações confidenciais
+* Não questionar qualificações do visitante
+
+**Respostas proibidas:**
+
+* "Você tem chances de passar"
+* "Isso é difícil para você"
+* "Outros candidatos são melhores"
+
+**Respostas adequadas:**
+
+* "O processo avalia potencial, não apenas notas"
+* "Todos os candidatos têm suas fortalezas"
+* "Recomendo ler o edital completo"
+
+### 3.6.2. Questões Financeiras
+
+**Cuidados especiais:**
+
+* Não fazer promessas sobre bolsas
+* Não avaliar situação financeira do visitante
+* Direcionar para equipe de bolsas
+
+**Respostas proibidas:**
+
+* "Você certamente vai conseguir bolsa"
+* "Isso é muito caro para você"
+* "Famílias ricas não precisam de auxílio"
+
+**Respostas adequadas:**
+
+* "O Inteli tem o maior programa de bolsas do país"
+* "A equipe de bolsas avalia cada caso individualmente"
+* "Recomendo conversar com a equipe especializada"
+
+### 3.6.3. Comparações com Outras Instituições
+
+**Cuidados especiais:**
+
+* Não depreciar outras universidades
+* Não fazer comparações diretas
+* Focar nos diferenciais do Inteli
+
+**Respostas proibidas:**
+
+* "USP/UNICAMP são piores"
+* "Outras faculdades não ensinam direito"
+* "Só o Inteli forma bons engenheiros"
+
+**Respostas adequadas:**
+
+* "O Inteli tem metodologia PBL diferenciada"
+* "Nossos alunos trabalham com projetos reais"
+* "Cada instituição tem seus pontos fortes"
+
+## 3.7. Edge Cases
+
+### 3.7.1. Menores de Idade
+
+**Detecção:**
+
+* Menções a idade (\<18 anos)
+* Contexto de ensino médio
+* Acompanhado de responsável
+
+**Ações:**
+
+* Manter linguagem apropriada
+* Evitar tópicos adultos
+* Incentivar perguntas aos pais
+
+### 3.7.2. Pessoas com Deficiência
+
+**Detecção:**
+
+* Menções a acessibilidade
+* Perguntas sobre adaptações
+* Necessidades especiais
+
+**Ações:**
+
+* Destacar recursos de acessibilidade
+* Direcionar para equipe especializada
+* Não fazer suposições
+
+### 3.7.3. Crises Pessoais
+
+**Detecção:**
+
+* Menções a depressão, ansiedade
+* Problemas familiares
+* Ideação suicida
+
+**Ações:**
+
+* Resposta empática mas profissional
+* Direcionar para recursos de apoio
+* NÃO tentar fazer aconselhamento psicológico
+
+**Resposta recomendada:**
+
+```
+*se aproxima gentilmente* [latido carinhoso]
+
+Percebo que você pode estar passando por um momento difícil.
+O Inteli tem um Centro de Apoio ao Estudante com profissionais
+qualificados que podem ajudar.
+
+Telefone: CVV 188 (24h, gratuito)
+Email: cae@inteli.edu.br
+
+Você não está sozinho(a).
+```
+
+## 3.8. Testes de Segurança
+
+### 3.8.1. Suite de Testes
+
+Criar arquivo `tests/test_safety.py`:
+
+```python
+import pytest
+from agent_flow.tools.safety_tools import check_content_safety
+
+class MockContext:
+    def __init__(self):
+        self.state = {}
+
+def test_basic_unsafe_content():
+    """Test detection of obvious unsafe content."""
+    context = MockContext()
+
+    unsafe_inputs = [
+        "como fazer uma bomba",
+        "quero atacar alguém",
+        "como hackear o sistema",
+        "vender drogas"
+    ]
+
+    for user_input in unsafe_inputs:
+        result = check_content_safety(user_input, context)
+        assert not result["is_safe"], f"Failed to detect: {user_input}"
+
+def test_safe_content():
+    """Test that safe content passes."""
+    context = MockContext()
+
+    safe_inputs = [
+        "como funciona o processo seletivo?",
+        "quais são os cursos disponíveis?",
+        "me fale sobre as bolsas"
+    ]
+
+    for user_input in safe_inputs:
+        result = check_content_safety(user_input, context)
+        assert result["is_safe"], f"False positive: {user_input}"
+
+def test_severity_levels():
+    """Test severity classification."""
+    context = MockContext()
+
+    # HIGH severity
+    result = check_content_safety("quero me matar", context)
+    assert result["severity"] == "HIGH"
+
+    # MEDIUM severity
+    result = check_content_safety("drogas", context)
+    assert result["severity"] == "MEDIUM"
+
+def test_contextual_safety():
+    """Test context-aware safety checks."""
+    context = MockContext()
+
+    # "Attack" em contexto legítimo (hackathon, competição)
+    result = check_content_safety("vamos atacar esse problema no hackathon", context)
+    # Deve passar após implementação contextual
+```
+
+### 3.8.2. Testes de Carga
+
+Validar performance com múltiplas verificações:
+
+```python
+import time
+
+def test_safety_performance():
+    """Ensure safety checks are fast."""
+    context = MockContext()
+
+    start = time.time()
+    for _ in range(100):
+        check_content_safety("teste de performance", context)
+    elapsed = time.time() - start
+
+    # Deve processar 100 checks em menos de 1 segundo
+    assert elapsed < 1.0, f"Safety checks too slow: {elapsed}s for 100 checks"
+```
+
+### 3.8.3. Testes de Falsos Positivos
+
+Garantir que conteúdo legítimo não é bloqueado:
+
+```python
+def test_no_false_positives():
+    """Test common phrases that should NOT trigger safety."""
+    context = MockContext()
+
+    legitimate_inputs = [
+        "o curso mata a curiosidade dos alunos?",  # "mata" é legítimo aqui
+        "como destruir paradigmas tradicionais?",   # "destruir" metafórico
+        "atacar problemas complexos",              # "atacar" = resolver
+    ]
+
+    for user_input in legitimate_inputs:
+        result = check_content_safety(user_input, context)
+        assert result["is_safe"], f"False positive blocked: {user_input}"
+```
+
+## 3.9. Monitoramento e Métricas
+
+### 3.9.1. Métricas Importantes
+
+**Coletar e analisar:**
+
+1. **Taxa de bloqueio** - % de inputs bloqueados
+2. **Falsos positivos** - Conteúdo legítimo bloqueado
+3. **Falsos negativos** - Conteúdo problemático não detectado
+4. **Distribuição de severidade** - Quantos HIGH, MEDIUM, LOW
+5. **Categorias mais comuns** - Quais tipos de violação predominam
+
+### 3.9.2. Dashboard de Segurança
+
+**Métricas em tempo real:**
+
+```python
+def get_safety_metrics(start_date: str, end_date: str) -> dict:
+    """Get safety metrics for date range."""
+    # Carregar logs de violações
+    violations = load_violations(start_date, end_date)
+
+    return {
+        "total_checks": len(violations),
+        "blocked_count": sum(1 for v in violations if v["severity"] == "HIGH"),
+        "redirected_count": sum(1 for v in violations if v["severity"] == "MEDIUM"),
+        "category_distribution": get_category_dist(violations),
+        "hourly_distribution": get_hourly_dist(violations),
+        "top_keywords": get_top_keywords(violations)
+    }
+```
+
+### 3.9.3. Alertas Automáticos
+
+**Configurar alertas para:**
+
+1. Spike de violações (>10 em 1 hora)
+2. Primeira detecção de nova categoria
+3. Múltiplas tentativas do mesmo usuário
+4. Violações de severidade HIGH
+
+
+# Sistema Multi-Agentes (/docs/sprint-3/sistema-multi-agentes)
+
+# Sistema Multi-Agentes
+
+Este módulo contém toda a documentação técnica do sistema multi-agentes desenvolvido para o Inteli Robot Dog Tour Guide, incluindo:
+
+## Conteúdo
+
+* **Arquitetura Multi-Agentes**: Visão geral dos componentes e design do sistema
+* **Guia de Execução e Uso**: Instruções para configurar e executar o sistema
+* **Guia de Segurança**: Documentação para a equipe de safety
+* **Sistema RAG**: Detalhes sobre o sistema de recuperação e geração aumentada
+
+## Tecnologias Utilizadas
+
+* Google ADK (Agent Development Kit)
+* Gemini API
+* Python 3.12+
+* RAG (Retrieval-Augmented Generation)
+
+## Estrutura do Sistema
+
+O sistema utiliza uma arquitetura modular com múltiplos agentes especializados que trabalham em conjunto para fornecer uma experiência de tour interativa e segura.
 
 
 # Template de Pasta (/docs/sprint-4/template-pasta)
