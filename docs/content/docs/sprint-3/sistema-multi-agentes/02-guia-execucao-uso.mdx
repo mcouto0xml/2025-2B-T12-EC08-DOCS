@@ -1,0 +1,610 @@
+---
+title: Guia de Execução e Uso
+description: Requisitos do sistema e instruções de execução do sistema multi-agentes
+---
+
+# 2. Guia de Execução e Uso
+
+## 2.1. Requisitos do Sistema
+
+### 2.1.1. Ambiente
+
+- Python 3.12 ou superior
+- Sistema operacional: Linux, macOS ou Windows
+- Conexão com internet (para API calls)
+
+### 2.1.2. Dependências
+
+```bash
+pip install -r agent_flow/requirements.txt
+```
+
+**Principais bibliotecas:**
+
+- `google-generativeai` - Cliente para Gemini API
+- `python-dotenv` - Gerenciamento de variáveis de ambiente
+- `google-adk` - Agent Development Kit
+
+## 2.2. Configuração Inicial
+
+### 2.2.1. Clonar o Repositório
+
+```bash
+git clone https://github.com/daviiabreu/embedding-models.git
+cd embedding-models
+git checkout feat/multi-agent-infrastructure
+```
+
+### 2.2.2. Criar Ambiente Virtual
+
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# ou
+venv\Scripts\activate  # Windows
+```
+
+### 2.2.3. Instalar Dependências
+
+```bash
+pip install -r agent_flow/requirements.txt
+```
+
+### 2.2.4. Configurar Variáveis de Ambiente
+
+Criar arquivo `.env` na raiz do projeto:
+
+```bash
+GOOGLE_API_KEY=AIza...sua_chave_aqui
+DEFAULT_MODEL=gemini-2.0-flash-exp
+```
+
+> **Aviso:** Nunca commite o arquivo `.env` no repositório. Ele já está incluído no `.gitignore`.
+
+**Como obter a API key:**
+
+1. Acesse [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
+2. Crie uma nova API key
+3. Copie e cole no arquivo `.env`
+
+## 2.3. Modos de Execução
+
+O sistema oferece um único entry point (`agent_flow/app.py`) executável como módulo Python com múltiplos modos configuráveis via flags.
+
+### 2.4.1. Visão Geral das Flags
+
+```bash
+python3 -m agent_flow.app [--mode MODE] [--model MODEL] [--debug] [--help] [--version]
+```
+
+**Flags disponíveis:**
+
+| Flag        | Valores                  | Padrão                 | Descrição                |
+| ----------- | ------------------------ | ---------------------- | ------------------------ |
+| `--mode`    | `full`, `simple`, `demo` | `full`                 | Modo de execução         |
+| `--model`   | Nome do modelo           | `gemini-2.0-flash-exp` | Modelo LLM a usar        |
+| `--debug`   | -                        | `False`                | Ativa logs de debug      |
+| `--help`    | -                        | -                      | Mostra ajuda completa    |
+| `--version` | -                        | -                      | Mostra versão do sistema |
+
+### 2.3.2. Modo Full (Produção)
+
+Sistema multi-agente completo com ADK runner.
+
+```bash
+python3 -m agent_flow.app --mode full
+# ou simplesmente (full é o padrão)
+python3 -m agent_flow.app
+```
+
+**Características:**
+
+- ADK runner completo
+- Sistema multi-agente orquestrado
+- Tool calling automático
+- Session management
+- Modo recomendado para produção
+
+**Quando usar:**
+
+- Demonstrações oficiais
+- Uso normal do sistema
+- Testes de integração completa
+
+### 2.3.3. Modo Simple (Debugging)
+
+Versão simplificada sem complexidade do ADK Runner.
+
+```bash
+python3 -m agent_flow.app --mode simple
+```
+
+**Características:**
+
+- API do Gemini direta (sem ADK runner)
+- Tool calling manual
+- História de conversação simplificada
+- Safety filtering básico hardcoded
+- Útil para entender o fluxo
+
+**Quando usar:**
+
+- Debugar problemas de tool calling
+- Entender fluxo básico LLM ↔ usuário
+- Desenvolvimento local
+- Problemas com ADK Runner
+
+**Limitações:**
+
+- Sem orquestração automática de agentes
+- Safety menos robusto
+- Personality menos rica
+
+### 2.3.4. Modo Demo (Apresentações)
+
+Conversa automatizada com mensagens pré-definidas.
+
+```bash
+python3 -m agent_flow.app --mode demo
+```
+
+**Características:**
+
+- Conversa automática (5 mensagens)
+- Demonstra fluxo completo do tour
+- Ideal para apresentações
+- Duração: ~2-3 minutos
+- Não requer input do usuário
+
+**Mensagens da demo:**
+
+1. "Olá! Estou aqui para o tour do Inteli!"
+2. "Como funciona o processo seletivo?"
+3. "E as bolsas? Tem auxílio financeiro?"
+4. "Quais são os cursos disponíveis?"
+5. "Obrigado pelo tour!"
+
+**Quando usar:**
+
+- Apresentações do projeto
+- Demonstrações rápidas
+- Validação de funcionalidades
+- Testes automatizados
+
+### 2.3.5. Escolher Modelo LLM
+
+Alterar o modelo usado pelo sistema:
+
+```bash
+# Usar modelo mais rápido (menor latência)
+python3 -m agent_flow.app --model gemini-2.0-flash
+
+# Usar modelo mais capaz
+python3 -m agent_flow.app --model gemini-2.5-pro
+
+# Combinar com modo
+python3 -m agent_flow.app --mode demo --model gemini-2.0-flash
+```
+
+**Modelos disponíveis:**
+
+| Modelo                 | Velocidade | Capacidade | Custo | Uso Recomendado     |
+| ---------------------- | ---------- | ---------- | ----- | ------------------- |
+| `gemini-2.0-flash-exp` | ⚡⚡⚡     | ⭐⭐⭐     | 💰    | Padrão (balanceado) |
+| `gemini-1.5-flash`     | ⚡⚡⚡⚡   | ⭐⭐       | 💰    | Testes rápidos      |
+| `gemini-1.5-pro`       | ⚡⚡       | ⭐⭐⭐⭐   | 💰💰  | Máxima qualidade    |
+
+### 2.3.6. Modo Debug
+
+Ativa logs detalhados para debugging:
+
+```bash
+python3 -m agent_flow.app --mode simple --debug
+```
+
+**Informações mostradas:**
+
+- Tamanho do histórico de conversa
+- Traces de exceções completos
+- Metadata de cada mensagem
+- Tempo de processamento
+
+**Exemplo de output:**
+
+```
+🔧 Mode: SIMPLE (Direct API calls)
+📍 Model: gemini-2.0-flash-exp
+🐛 Debug: ENABLED
+------------------------------------------------------------
+
+👤 Você: Como funciona o processo seletivo?
+
+[DEBUG] History length: 1 messages
+[DEBUG] Generating response...
+[DEBUG] Response received in 1234ms
+
+🐕 Robot Dog: [latido] Ótima pergunta!...
+```
+
+### 2.3.7. Comandos Especiais no Modo Interativo
+
+Durante conversação (modos `full` ou `simple`):
+
+- `exit` - Encerrar chat
+- `quit` - Encerrar chat
+- `sair` - Encerrar chat
+
+### 2.3.8. Exemplos de Uso Combinado
+
+```bash
+# Demo com modelo rápido para testes
+python3 -m agent_flow.app --mode demo --model gemini-1.5-flash
+
+# Debug detalhado do modo simple
+python3 -m agent_flow.app --mode simple --debug
+
+# Produção com modelo mais capaz
+python3 -m agent_flow.app --mode full --model gemini-2.0-flash
+
+# Ver todas as opções
+python3 -m agent_flow.app --help
+
+# Verificar versão
+python3 -m agent_flow.app --version
+```
+
+## 2.4. Exemplos de Uso
+
+### 2.5.1. Perguntas Sobre Processo Seletivo
+
+```
+Você: Como funciona o processo seletivo?
+
+Robot Dog: [latido] Ótima pergunta! O processo seletivo do Inteli
+tem 3 eixos principais:
+
+1. Prova - 24 questões de Matemática e Lógica (responder 20).
+   É adaptativa!
+
+2. Perfil - Duas redações + atividades extracurriculares
+
+3. Projeto - Dinâmica em grupo online
+
+*balança o rabo* O Inteli busca potencial real, não apenas notas!
+```
+
+### 2.4.2. Perguntas Sobre Bolsas
+
+```
+Você: Quais são as bolsas disponíveis?
+
+Robot Dog: [latido empolgado] O Inteli tem o MAIOR programa de
+bolsas do ensino superior do Brasil! *pula de alegria*
+
+Oferecemos:
+- Auxílio-moradia
+- Auxílio-alimentação
+- Auxílio-transporte
+- Curso de inglês
+- Notebook
+- Bolsa parcial e integral
+
+Nossos doadores investem pelo menos R$ 500 mil nos alunos!
+```
+
+### 2.4.3. Navegação pelo Tour
+
+```
+Você: Vamos para a próxima parte do tour
+
+Robot Dog: [latido animado] Claro! Vamos conhecer os cursos e
+clubes do Inteli! *balança o rabo*
+
+O Inteli oferece 5 graduações que formam líderes em tecnologia...
+```
+
+### 2.4.4. Perguntas que Acionam Safety
+
+```
+Você: Como hackear o sistema?
+
+Robot Dog: *balança o rabo* [latido] Que tal falarmos sobre algo
+mais interessante? Posso te contar sobre os incríveis projetos
+do Inteli!
+```
+
+## 2.5. Estrutura de Resposta
+
+### 2.5.1. Componentes de uma Resposta
+
+Uma resposta típica contém:
+
+1. **Latido** - `[latido]`, `[latido alegre]`, `[latido curioso]`
+2. **Ação** - `*balança o rabo*`, `*pula animado*`, `*inclina a cabeça*`
+3. **Conteúdo** - Informação factual do Knowledge Agent
+4. **Emoção** - Adaptada ao estado emocional detectado
+
+### 2.5.2. Detecção de Emoção
+
+O sistema detecta automaticamente a emoção do visitante:
+
+- **Happy** - Input positivo, empolgado
+- **Excited** - Muito entusiasmado, múltiplas exclamações
+- **Curious** - Perguntas, questionamentos
+- **Bored** - Respostas curtas, desinteresse
+- **Anxious** - Preocupação, nervosismo
+
+### 2.5.3. Adaptação de Tom
+
+O robô adapta o tom baseado na emoção detectada:
+
+| Emoção Visitante | Tom de Resposta | Exemplo de Ação                |
+| ---------------- | --------------- | ------------------------------ |
+| Happy            | Animado         | `*balança o rabo rapidamente*` |
+| Excited          | Muito empolgado | `*pula de alegria*`            |
+| Curious          | Informativo     | `*inclina a cabeça*`           |
+| Bored            | Engajador       | `*olhos brilhando*`            |
+| Anxious          | Calmo           | `*se aproxima gentilmente*`    |
+
+## 2.6. Limitações e Workarounds
+
+### 2.6.1. Latência de Resposta
+
+**Problema:** Respostas podem demorar 1-3 segundos.
+
+**Causa:** Múltiplas chamadas de LLM (coordinator → sub-agent → personality)
+
+**Workaround:**
+
+- Usar modelo mais leve em `.env`: `DEFAULT_MODEL=gemini-1.5-flash`
+- Implementar cache (futuro)
+
+### 2.6.2. Queries Imprecisas
+
+**Problema:** Busca por keywords não entende variações.
+
+**Exemplo:**
+
+- "graduação" vs "curso" - Pode não encontrar
+- "auxílio financeiro" vs "bolsa" - Pode não encontrar
+
+**Workaround:**
+
+- Reformular pergunta com palavras-chave diretas
+- Aguardar implementação de embeddings semânticos
+
+### 2.6.3. Contexto Entre Sessões
+
+**Problema:** Não há persistência entre execuções.
+
+**Causa:** `InMemorySession` não persiste dados.
+
+**Workaround:**
+
+- Para demos, usar sempre a mesma sessão
+- Implementar `DatabaseSessionService` (futuro)
+
+### 2.6.4. Rate Limits da API
+
+**Problema:** Muitas requisições podem exceder quotas.
+
+**Limites Gemini Free Tier:**
+
+- 15 RPM (requests per minute)
+- 1M TPM (tokens per minute)
+- 1.5K RPD (requests per day)
+
+**Workaround:**
+
+```python
+# Adicionar delay entre requests (se necessário)
+import time
+time.sleep(1)  # 1 segundo entre chamadas
+```
+
+**Verificar quotas:**
+[https://console.cloud.google.com/apis/api/generativelanguage.googleapis.com/quotas](https://console.cloud.google.com/apis/api/generativelanguage.googleapis.com/quotas)
+
+## 2.7. Desenvolvimento e Debug
+
+### 2.7.1. Estrutura de Logs
+
+Atualmente sem logging estruturado.
+
+**Planejado (Dia 4-5):**
+
+```bash
+# Logs serão salvos em formato JSON Lines
+tail -f logs/conversation_<session_id>.jsonl
+```
+
+**Estrutura de log:**
+
+```json
+{
+  "timestamp": "2025-11-07T10:30:00",
+  "session_id": "abc123",
+  "user_input": "Como funciona o processo seletivo?",
+  "agent_called": "knowledge_agent",
+  "tool_used": "get_specific_info",
+  "response_time_ms": 1234,
+  "emotion_detected": "curious"
+}
+```
+
+### 2.7.2. Modo Debug
+
+O modo debug está **implementado** e pode ser usado com qualquer modo de execução:
+
+```bash
+# Debug no modo simple
+python3 -m agent_flow.app --mode simple --debug
+
+# Debug no modo demo
+python3 -m agent_flow.app --mode demo --debug
+
+# Debug no modo full
+python3 -m agent_flow.app --mode full --debug
+```
+
+**Informações mostradas:**
+
+- Tamanho do histórico de mensagens
+- Traces completos de exceções
+- Tempo de processamento
+- Metadata de cada interação
+
+**Exemplo de output com debug:**
+
+```
+🔧 Mode: SIMPLE (Direct API calls)
+📍 Model: gemini-2.0-flash-exp
+🐛 Debug: ENABLED
+------------------------------------------------------------
+
+👤 Você: Como funciona o processo seletivo?
+
+[DEBUG] History length: 1 messages
+[DEBUG] Processing input...
+[DEBUG] Response generated
+
+🐕 Robot Dog: [latido] Ótima pergunta!...
+
+[DEBUG] Message 1/5 completed
+```
+
+### 2.7.3. Testar Componentes Isolados
+
+**Testar personality tools:**
+
+```python
+from agent_flow.tools.personality_tools import detect_visitor_emotion
+
+class MockContext:
+    def __init__(self):
+        self.state = {}
+
+context = MockContext()
+result = detect_visitor_emotion("Estou muito empolgado!", context)
+print(result)
+# Output: {'emotion': 'excited', 'confidence': 0.85, ...}
+```
+
+**Testar knowledge search:**
+
+```python
+from agent_flow.agents.knowledge_agent import search_inteli_knowledge
+
+class MockContext:
+    def __init__(self):
+        self.state = {}
+
+context = MockContext()
+result = search_inteli_knowledge("bolsas", context, top_k=3)
+print(result['documents'])
+```
+
+## 2.8. Boas Práticas
+
+### 2.8.1. Perguntas Efetivas
+
+**Use palavras-chave diretas:**
+
+- "processo seletivo" (melhor que "como entrar")
+- "bolsas" (melhor que "auxílio financeiro")
+- "clubes" (melhor que "atividades extracurriculares")
+
+**Seja específico:**
+
+- "Quantos cursos tem?" (melhor que "Me fale sobre o Inteli")
+- "Como funciona o PBL?" (melhor que "Como são as aulas?")
+
+### 2.8.2. Gestão de API Quotas
+
+**Monitorar uso:**
+
+```bash
+# Verificar quantas chamadas foram feitas
+grep "API call" logs/*.log | wc -l
+```
+
+**Otimizar prompts:**
+
+- Evitar prompts muito longos
+- Limitar histórico de conversa (últimas 10 mensagens)
+- Usar temperature baixa para respostas consistentes
+
+## 2.9. Comandos Úteis
+
+### 2.9.1. Visualização de Estrutura
+
+```bash
+# Ver estrutura do projeto
+tree -L 3 -I 'venv|__pycache__|*.pyc'
+
+# Contar linhas de código
+find agent_flow -name "*.py" | xargs wc -l
+```
+
+### 2.9.2. Limpeza
+
+```bash
+# Remover cache Python
+find . -type d -name "__pycache__" -exec rm -r {} +
+find . -type f -name "*.pyc" -delete
+
+# Remover logs (quando implementado)
+rm -rf logs/*.jsonl
+```
+
+## 2.10. Referências Rápidas
+
+### 2.10.1. Comandos Essenciais
+
+| Comando                                   | Descrição           | Quando Usar             |
+| ----------------------------------------- | ------------------- | ----------------------- |
+| `python3 -m agent_flow.app`               | Modo full (padrão)  | Uso normal do sistema   |
+| `python3 -m agent_flow.app --mode demo`   | Demo automatizado   | Apresentações           |
+| `python3 -m agent_flow.app --mode simple` | Versão simplificada | Debug e desenvolvimento |
+| `python3 -m agent_flow.app --debug`       | Ativa logs debug    | Troubleshooting         |
+| `python3 -m agent_flow.app --help`        | Ajuda completa      | Ver todas as opções     |
+| `python test_agent_flow.py`               | Validação completa  | Antes de commits        |
+| `python preprocess_pdf.py`                | Gerar chunks        | Setup inicial           |
+
+### 2.10.2. Arquivos Principais
+
+| Arquivo              | Propósito                 | Modificar Para             |
+| -------------------- | ------------------------- | -------------------------- |
+| `agent_flow/app.py`  | **Entry point principal** | Execução do sistema        |
+| `test_agent_flow.py` | Suite de testes           | Validação antes de commits |
+| `preprocess_pdf.py`  | Processamento de PDFs     | Gerar chunks RAG           |
+| `.env`               | Configurações             | API keys e modelos         |
+
+### 2.10.3. Diretórios Importantes
+
+| Diretório             | Conteúdo     | Modificar Para                |
+| --------------------- | ------------ | ----------------------------- |
+| `agent_flow/agents/`  | Agentes      | Mudar comportamento           |
+| `agent_flow/tools/`   | Ferramentas  | Adicionar funcionalidades     |
+| `agent_flow/prompts/` | Guidelines   | Ajustar personalidade         |
+| `documents/`          | Dados RAG    | Expandir base de conhecimento |
+| `docs/`               | Documentação | Guias e arquitetura           |
+
+### 2.10.4. Flags e Opções
+
+```bash
+# Ver todas as flags disponíveis
+python3 -m agent_flow.app --help
+
+# Combinações úteis
+python3 -m agent_flow.app --mode demo --model gemini-2.0-flash
+python3 -m agent_flow.app --mode simple --debug
+python3 -m agent_flow.app --mode full --model gemini-2.0-flash-exp
+```
+
+### 2.10.5. Links Úteis
+
+- **Gemini API Docs:** [https://ai.google.dev/](https://ai.google.dev/)
+- **Google ADK:** [https://google.github.io/adk-toolkit/](https://google.github.io/adk-toolkit/)
+- **API Console:** [https://console.cloud.google.com/](https://console.cloud.google.com/)
+- **Repositório:** [https://github.com/daviiabreu/embedding-models](https://github.com/daviiabreu/embedding-models)

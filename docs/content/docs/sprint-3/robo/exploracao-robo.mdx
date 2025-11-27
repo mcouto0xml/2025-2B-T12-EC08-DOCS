@@ -1,0 +1,128 @@
+---
+title: Exploração e Integração
+---
+
+# Sprint 3 – Automação de Movimentação e Integração Dinâmica
+
+## Objetivos Principais
+
+- Implementar execução automatizada de movimentos via JSON.
+- Criar sistema de **fila de requisições** para execução ordenada dos comandos.
+- Permitir movimentação completa por **checkpoints** com áudio associado.
+- Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
+- Iniciar integração com backend e percepção de obstáculos.
+
+---
+
+## Atividades Realizadas na Sprint 3
+
+### Implementação da fila de requisições
+
+Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.  
+O formato padronizado para os checkpoints segue o modelo abaixo:
+
+```json title="Exemplo de arquivo JSON de checkpoints"
+{
+  "checkpoint1": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
+    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
+  ],
+  "checkpoint2": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
+    ...
+  ]
+}
+```
+
+Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.  
+Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
+
+---
+
+## Execução e Testes
+
+Para executar o sistema de movimentação automatizada:
+
+1. **Inicie o ambiente virtual:**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Execute o script principal de movimentação:**
+
+   ```bash
+   python3 testes/move_path.py
+   ```
+
+   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
+
+3. **Para iniciar um checkpoint manualmente (em outro terminal):**
+
+   ```bash
+   python3 external_trigger.py play
+   ```
+
+4. **Para interromper a execução a qualquer momento:**
+
+   ```bash
+   python3 external_trigger.py stop
+   ```
+
+   Ao parar, o robô entra automaticamente em **modo estático em pé**.
+
+---
+
+## Novas Funcionalidades
+
+- Leitura e execução automática de checkpoints via JSON.
+- Execução ordenada com fila de comandos.
+- Reprodução de áudio correspondente a cada checkpoint.
+- Interrupção imediata da execução via comando externo (`stop`).
+- Conexão e controle assíncrono com o robô via **WebRTC**.
+
+---
+
+## Problemas e Impeditivos Encontrados
+
+Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
+
+- O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
+- Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
+- Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
+- A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
+
+Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
+
+---
+
+## Próximos Passos
+
+- Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
+- Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
+- Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
+- Revisar parâmetros de movimentação e segurança térmica das juntas.
+
+---
+
+## Aprendizados
+
+- A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
+- O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
+- Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
+- A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
+
+---
+
+## Links Relevantes
+
+- [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+- [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+---
+
+## Conclusão
+
+Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.  
+Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
