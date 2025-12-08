@@ -8,21 +8,19 @@ description: Sistema responsável por permitir que o robô do projeto Tour Intel
 &emsp;Este documento descreve a arquitetura, os componentes e os fluxos do sistema de comunicação em tempo real do robô do Inteli.
 O objetivo do módulo de WebSockets é permitir que o robô:
 
-* receba perguntas dos visitantes (texto ou áudio),
-* envie respostas em texto e áudio,
-* sincronize múltiplos dispositivos (painel do operador, robô, turista),
-* faça transcrição de fala (STT) e síntese de voz (TTS).
+- receba perguntas dos visitantes (texto ou áudio),
+- envie respostas em texto e áudio,
+- sincronize múltiplos dispositivos (painel do operador, robô, turista),
+- faça transcrição de fala (STT) e síntese de voz (TTS).
 
 &emsp;A comunicação ocorre em tempo real via WebSockets, centralizada por um servidor de broadcast implementado em Rust com Actix-Web.
-
-
 
 ## **2. Visão Geral da Arquitetura**
 
 &emsp;O sistema utiliza dois canais de WebSockets:
 
-* **Text WebSocket** → para mensagens em texto
-* **Audio WebSocket** → para mensagens de áudio (entrada e saída)
+- **Text WebSocket** → para mensagens em texto
+- **Audio WebSocket** → para mensagens de áudio (entrada e saída)
 
 &emsp;Ambos são gerenciados por um **Broadcast Server** central, responsável pela sincronização entre clientes.
 
@@ -68,25 +66,24 @@ O objetivo do módulo de WebSockets é permitir que o robô:
 
 ### **O que é?**
 
-&emsp;O *Broadcast Server* é o “cérebro” do sistema de comunicação.
+&emsp;O _Broadcast Server_ é o “cérebro” do sistema de comunicação.
 Ele funciona como um **ponto central** que recebe mensagens e distribui para todos os clientes conectados.
 
 ### **O que ele faz?**
 
-* **Gerencia clientes conectados**
+- **Gerencia clientes conectados**
+  - Clientes de texto
+  - Clientes de áudio
 
-  * Clientes de texto
-  * Clientes de áudio
-* **Distribui mensagens**
+- **Distribui mensagens**
+  - Texto → todos clientes de texto
+  - Áudio → todos clientes de áudio
 
-  * Texto → todos clientes de texto
-  * Áudio → todos clientes de áudio
-* **Converte texto em áudio**
+- **Converte texto em áudio**
+  - Usando o serviço ML de TTS, quando necessário
 
-  * Usando o serviço ML de TTS, quando necessário
-* **Evita eco**
-
-  * O cliente que enviou a mensagem não recebe sua própria mensagem (evitando duplicação).
+- **Evita eco**
+  - O cliente que enviou a mensagem não recebe sua própria mensagem (evitando duplicação).
 
 ### **Estrutura interna (simplificada)**
 
@@ -109,8 +106,6 @@ pub struct BroadcastServer {
 | `BroadcastAudioMessage` | Enviar áudio para todos             |
 | `RequestTTS`            | Transformar texto em áudio e enviar |
 
-
-
 ## **3.2 Text WebSocket Handler (`text_ws.rs`)**
 
 ### **O que é?**
@@ -125,7 +120,6 @@ pub struct BroadcastServer {
 4. Retorna a resposta ao cliente.
 5. Envia essa mesma resposta para conversão TTS (para que os clientes de áudio também a recebam).
 6. Usa o Broadcast Server para sincronizar a resposta com todos os dispositivos.
-
 
 ### **Exemplo de mensagem enviada pelo cliente**
 
@@ -185,19 +179,18 @@ Cliente envia texto
 
 ### **O que ele faz?**
 
-* Recebe uma pergunta via POST
-* Salva a pergunta no banco.
-* Envia para o modelo externo.
-* Salva a resposta no banco.
-* Atualiza o estado da pergunta.
-* Retorna a resposta ao WebSocket.
+- Recebe uma pergunta via POST
+- Salva a pergunta no banco.
+- Envia para o modelo externo.
+- Salva a resposta no banco.
+- Atualiza o estado da pergunta.
+- Retorna a resposta ao WebSocket.
 
 ### **Endpoint**
 
 ```
 POST /v1/modelo
 ```
-
 
 ## **5. Sincronização Entre Clientes**
 
@@ -214,7 +207,6 @@ POST /v1/modelo
    - Cada mensagem broadcast pode especificar um `exclude_client`
    - O cliente que originou a mensagem não recebe seu próprio broadcast
    - Evita feedback loops e duplicação de mensagens
-
 
 ## **6. Formatos de Mensagens**
 
@@ -243,8 +235,7 @@ Ele integra vários serviços inteligentes (STT, TTS e modelo de IA) e distribui
 
 A arquitetura foi construída para ser:
 
-* simples de entender,
-* escalável,
-* extensível,
-* e fácil de manter.
-
+- simples de entender,
+- escalável,
+- extensível,
+- e fácil de manter.
