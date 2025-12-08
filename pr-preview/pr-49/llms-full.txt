@@ -1093,149 +1093,10 @@ else:
 # Sprint 4 (/docs/sprint-4)
 
 <Cards>
-  <Card href="/docs/sprint-4/template" title="Template de Arquivo">
-    Modelo básico para criação de novos arquivos MDX.
-  </Card>
-
-  <Card href="/docs/sprint-4/template-pasta" title="Template de Pasta">
-    Modelo de estrutura para criação de novas pastas de documentação.
+  <Card href="/docs/sprint-4/backend" title="Backend">
+    Desenvolvimento do backend na sprint 4.
   </Card>
 </Cards>
-
-
-# Título do Documento (/docs/sprint-4/template)
-
-
-
-
-
-# Cabeçalho Principal
-
-## Callouts/Admonitions
-
-<Callout type="info">
-  Esta é uma nota importante para destacar algo relevante no documento.
-</Callout>
-
-<Callout type="warn">
-  Esta é uma advertência para chamar a atenção para um possível problema.
-</Callout>
-
-<Callout>
-  Hello World
-</Callout>
-
-<Callout title="Title">
-  Hello World
-</Callout>
-
-<Callout title="Title" type="error">
-  Hello World
-</Callout>
-
-## Bloco de Código
-
-```python
-# Código de exemplo em Python
-def exemplo():
-    print("Olá, Mundo!")
-```
-
-```rust title="Exemplo em Rust com título"
-// Código de exemplo em Rust
-fn exemplo() {
-    println!("Olá, Mundo!");
-}
-```
-
-## Flowcharts MermaidJS
-
-<Mermaid
-  chart="flowchart TD
-U[Usuário] --> P[Proxy Reverso]
-
-P --> FE[React.js Frontend]
-P --> C[ASP.NET Core]
-P --> FA[FastAPI]
-P --> F[Flask]
-
-B[Broker MQTT] -->|MQTT| C
-
-C -->|Query e HTTP| PG[(PostgreSQL)]
-C -->|HTTP| BUCKET[(MinIO DataLake)]
-
-FA -->|Função Direta| ML[Módulo de Retreinamento]
-FA -->|Função Direta| IF[Gerador de Inferências]
-FA -->|HTTP| BUCKET
-
-F -->|Query e HTTP| PG
-F -->|HTTP| BUCKET
-"
-/>
-
-## Imagens e Links
-
-<img alt="Imagem" src={__img0} placeholder="blur" />
-
-<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
-
-[Link](https://www.example.com)
-
-[Link Relativo](./template-pasta)
-
-## Estrutura de pastas
-
-<Files>
-  <Folder name="sprint-1" defaultOpen>
-    <Folder name="entendimento-do-negocio" defaultOpen>
-      <File name="analise-financeira.mdx" />
-
-      <File name="canvas-proposta-de-valor.mdx" />
-
-      <File name="index.mdx" />
-
-      <File name="matriz-de-risco.mdx" />
-
-      <File name="matriz-oceano-azul.mdx" />
-
-      <File name="meta.json" />
-    </Folder>
-
-    <Folder name="entendimento-do-projeto" defaultOpen>
-      <File name="index.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="proposta-de-arquitetura.mdx" />
-
-      <File name="requisitos-funcionais.mdx" />
-
-      <File name="requisitos-nao-funcionais.mdx" />
-    </Folder>
-
-    <Folder name="entendimento-do-usuario" defaultOpen>
-      <Folder name="personas" defaultOpen>
-        <File name="index.mdx" />
-
-        <File name="persona-1.mdx" />
-      </Folder>
-
-      <File name="index.mdx" />
-
-      <File name="mapa-de-jornada-do-usuario.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="user-stories.mdx" />
-    </Folder>
-
-    <File name="analise-de-impacto-etico.mdx" />
-
-    <File name="index.mdx" />
-
-    <File name="meta.json" />
-  </Folder>
-</Files>
 
 
 # Sprint 5 (/docs/sprint-5)
@@ -9835,173 +9696,6 @@ Via navbar:
 O protótipo de alta fidelidade documentado aqui representa a versão visual final do aplicativo do visitante. Ele estabelece como será a experiência completa, desde a chegada do usuário ao tour até sua interação com a LIA e a navegação pelas informações exibidas. Esta documentação serve como referência para designers, desenvolvedores e avaliadores durante a construção oficial do aplicativo.
 
 
-# Exploração e Integração (/docs/sprint-2/robo/exploracao-robo)
-
-
-
-
-
-
-
-# Sprint 2 – Exploração e Integração com WebRTC
-
-## Objetivos Principais
-
-* Estabelecer comunicação estável com o robô via WebRTC.
-* Validar movimentações nos eixos X, Y e Z.
-* Compreender e aplicar parâmetros corretos de velocidade e rotação.
-* Criar abstração de código e leitura via JSON.
-* Testar tópicos adicionais como `OBSTACLES_AVOID`.
-
-***
-
-## Atividades Realizadas na semana 3
-
-### Primeiros testes com WebRTC
-
-* Fizemos a implementação inicial do WebRTC com sucesso nas primeiras movimentações.
-
-#### Exemplo de Requisição via WebRTC
-
-```python title="Exemplo de requisição WebRTC para movimentação"
-await conn.datachannel.pub_sub.publish_request_new(
-    RTC_TOPIC["SPORT_MOD"],
-    {
-        "api_id": SPORT_CMD["Move"],
-        "parameter": {"x": 1, "y": 0, "z": 0}
-    }
-)
-```
-
-* Testes manuais dos eixos:
-  * X = 1 → movimentação de 1 metro
-  * Y = 1 → movimentação de 0,5 metro
-  * Z = 1 → rotação de 90°
-
-* Direções observadas durante os testes:
-  * X > 0: frente | X \< 0: trás
-  * Y, Z > 0: direita | Y, Z \< 0: esquerda
-
-### Testes no térreo
-
-* Testamos o robô no térreo para validarmos em trajetórias mais longas.
-* Problemas encontrados:
-  * Identificamos que as distâncias percorridas eram constantes, independentemente do valor de X e Y.
-  * O robô se movimenta em velocidades excessivas quando aumentamos os valores de X e Y.
-* Tentamos ajustar a velocidade via tópico `SpeedLevel`, mas não tivemos nenhum sucesso devido à falta de documentação.
-
-### Pesquisa e descoberta
-
-* Estudamos a arquitetura do sistema e identificamos os fluxos de comunicação.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Arquitetura Unitree Go2
-</p>
-
-<img alt="Arquitetura Unitree" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte:
-  [support.unitree](https://support.unitree.com/home/en/developer/Architecture%20Description)
-</p>
-
-<p style={{ textAlign: "center" }}>
-  Figura 2 - Arquitetura de hardware Unitree Go2
-</p>
-
-<img alt="Arquitetura Unitree" src={__img1} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte:
-  [support.unitree](https://support.unitree.com/home/en/developer/about_Go2)
-</p>
-
-* Descobrimos que o modo `Sport Mode` precisa estar desativado para o SDK operar.
-
-<p style={{ textAlign: "center" }}>
-  Figura 3 - SportMode
-</p>
-
-<img alt="SportMode" src={__img2} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte:
-  [support.unitree](https://support.unitree.com/home/en/developer/Quick_start)
-</p>
-
-* Descoberta de documentação técnica do SDK (com parâmetros e APIs idênticas ao WebRTC):
-  * [Motion Services Interface V2.0](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* Descobrimos que os parâmetros X, Y e Z esperam receber valores de velocidade em metros por segundo (m/s) e que todas as requisições enviadas para o robô duram apenas um segundo.
-* Sendo assim, precisamos enviar a mesma requisição durante mais tempo caso precisemos de movimentações mais longas.
-
-<Callout type="info">
-  Após uma conversa com o professor Nicola, constatamos que o WebRTC é uma engenharia reversa do SDK, portanto, é possível utilizar os mesmos parâmetros descritos na documentação oficial.
-</Callout>
-
-### Aplicação e calibração
-
-* Após as descobertas fizemos a implementação dos parâmetros descobertos.
-* A movimentação foi bem-sucedida e o robô se movimenta em múltiplas distâncias
-* Testamos com waypoints múltiplos e conseguimos validar a movimentação encadeada.
-
-### Abstração e leitura dinâmica
-
-* Resolvemos criar uma camada de abstração para comunicação com o robô, permitindo colocarmos a distância em metros ao invés de metros por segundo.
-* Também resolvemos implementar a leitura de waypoints via JSON.
-* Código concluído, testes pendentes.
-
-***
-
-## Atividades Realizadas na semana 3
-
-### Apoio ao time de Security
-
-* Colaboração direta com a equipe de Security no uso do LiDAR do robô.
-* Auxiliamos na coleta e análise dos dados brutos provenientes do sensor, garantindo que o time conseguisse interpretar corretamente os valores e padrões retornados.
-* Nosso foco foi apoiar a equipe na identificação de padrões espaciais (distâncias, ângulos e presença de obstáculos) para que pudessem desenvolver soluções de prevenção de colisões com pessoas ou objetos no ambiente.
-* Esse trabalho contribuiu para conectar os dados do sensor à camada de controle do robô, servindo de base para futuras implementações de detecção e desvio automático de obstáculos.
-
-### Testes para evitar colisões
-
-* Utilizando da documentação tentamos enviar uma requisição para um tópico chamado `OBSTACLES_AVOID`
-* Testamos os seguintes tópicos:
-  * API ID 1001 → Set parameters (True / False) → Habilitamos ou desabilitamos a colisão
-  * API ID 1002 → Get current parameter → Verificamos o estado atual da funcionalidade (se está ativa ou não)
-* Resultado: o robô ainda colide, sem efeito prático.
-
-***
-
-## Links Relevantes
-
-* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* [Repositório utilizado pelo grupo](https://github.com/DaniloMartinsMerlo/go2_webrtc)
-
-***
-
-## Aprendizados
-
-* O **WebRTC** utiliza os mesmos parâmetros de controle do SDK oficial da Unitree, apenas variando o tópico em que devemos enviar as requisições.
-* A calibração prática foi essencial para definir a relação entre valores e deslocamento real.
-* Movimentações tornaram-se mais previsíveis e controladas após a aplicação correta dos parâmetros.
-* Documentações técnicas do SDK são referências fundamentais mesmo para implementações via WebRTC.
-
-***
-
-## Dificuldades Encontradas
-
-* Ausência de documentação específica do WebRTC.
-* Tópico `OBSTACLES_AVOID` sem funcionamento aparente.
-* Calibração dependente de testes empíricos.
-
-***
-
-## Próximos Passos
-
-* Finalizar e testar a abstração JSON.
-* Explorar alternativas para o `OBSTACLES_AVOID`.
-* Integrar movimentação autônoma com múltiplos waypoints.
-
-
 # Wireframes dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/wireframes)
 
 <Cards>
@@ -10526,6 +10220,173 @@ Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o
 </Steps>
 
 
+# Exploração e Integração (/docs/sprint-2/robo/exploracao-robo)
+
+
+
+
+
+
+
+# Sprint 2 – Exploração e Integração com WebRTC
+
+## Objetivos Principais
+
+* Estabelecer comunicação estável com o robô via WebRTC.
+* Validar movimentações nos eixos X, Y e Z.
+* Compreender e aplicar parâmetros corretos de velocidade e rotação.
+* Criar abstração de código e leitura via JSON.
+* Testar tópicos adicionais como `OBSTACLES_AVOID`.
+
+***
+
+## Atividades Realizadas na semana 3
+
+### Primeiros testes com WebRTC
+
+* Fizemos a implementação inicial do WebRTC com sucesso nas primeiras movimentações.
+
+#### Exemplo de Requisição via WebRTC
+
+```python title="Exemplo de requisição WebRTC para movimentação"
+await conn.datachannel.pub_sub.publish_request_new(
+    RTC_TOPIC["SPORT_MOD"],
+    {
+        "api_id": SPORT_CMD["Move"],
+        "parameter": {"x": 1, "y": 0, "z": 0}
+    }
+)
+```
+
+* Testes manuais dos eixos:
+  * X = 1 → movimentação de 1 metro
+  * Y = 1 → movimentação de 0,5 metro
+  * Z = 1 → rotação de 90°
+
+* Direções observadas durante os testes:
+  * X > 0: frente | X \< 0: trás
+  * Y, Z > 0: direita | Y, Z \< 0: esquerda
+
+### Testes no térreo
+
+* Testamos o robô no térreo para validarmos em trajetórias mais longas.
+* Problemas encontrados:
+  * Identificamos que as distâncias percorridas eram constantes, independentemente do valor de X e Y.
+  * O robô se movimenta em velocidades excessivas quando aumentamos os valores de X e Y.
+* Tentamos ajustar a velocidade via tópico `SpeedLevel`, mas não tivemos nenhum sucesso devido à falta de documentação.
+
+### Pesquisa e descoberta
+
+* Estudamos a arquitetura do sistema e identificamos os fluxos de comunicação.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Arquitetura Unitree Go2
+</p>
+
+<img alt="Arquitetura Unitree" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte:
+  [support.unitree](https://support.unitree.com/home/en/developer/Architecture%20Description)
+</p>
+
+<p style={{ textAlign: "center" }}>
+  Figura 2 - Arquitetura de hardware Unitree Go2
+</p>
+
+<img alt="Arquitetura Unitree" src={__img1} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte:
+  [support.unitree](https://support.unitree.com/home/en/developer/about_Go2)
+</p>
+
+* Descobrimos que o modo `Sport Mode` precisa estar desativado para o SDK operar.
+
+<p style={{ textAlign: "center" }}>
+  Figura 3 - SportMode
+</p>
+
+<img alt="SportMode" src={__img2} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte:
+  [support.unitree](https://support.unitree.com/home/en/developer/Quick_start)
+</p>
+
+* Descoberta de documentação técnica do SDK (com parâmetros e APIs idênticas ao WebRTC):
+  * [Motion Services Interface V2.0](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* Descobrimos que os parâmetros X, Y e Z esperam receber valores de velocidade em metros por segundo (m/s) e que todas as requisições enviadas para o robô duram apenas um segundo.
+* Sendo assim, precisamos enviar a mesma requisição durante mais tempo caso precisemos de movimentações mais longas.
+
+<Callout type="info">
+  Após uma conversa com o professor Nicola, constatamos que o WebRTC é uma engenharia reversa do SDK, portanto, é possível utilizar os mesmos parâmetros descritos na documentação oficial.
+</Callout>
+
+### Aplicação e calibração
+
+* Após as descobertas fizemos a implementação dos parâmetros descobertos.
+* A movimentação foi bem-sucedida e o robô se movimenta em múltiplas distâncias
+* Testamos com waypoints múltiplos e conseguimos validar a movimentação encadeada.
+
+### Abstração e leitura dinâmica
+
+* Resolvemos criar uma camada de abstração para comunicação com o robô, permitindo colocarmos a distância em metros ao invés de metros por segundo.
+* Também resolvemos implementar a leitura de waypoints via JSON.
+* Código concluído, testes pendentes.
+
+***
+
+## Atividades Realizadas na semana 3
+
+### Apoio ao time de Security
+
+* Colaboração direta com a equipe de Security no uso do LiDAR do robô.
+* Auxiliamos na coleta e análise dos dados brutos provenientes do sensor, garantindo que o time conseguisse interpretar corretamente os valores e padrões retornados.
+* Nosso foco foi apoiar a equipe na identificação de padrões espaciais (distâncias, ângulos e presença de obstáculos) para que pudessem desenvolver soluções de prevenção de colisões com pessoas ou objetos no ambiente.
+* Esse trabalho contribuiu para conectar os dados do sensor à camada de controle do robô, servindo de base para futuras implementações de detecção e desvio automático de obstáculos.
+
+### Testes para evitar colisões
+
+* Utilizando da documentação tentamos enviar uma requisição para um tópico chamado `OBSTACLES_AVOID`
+* Testamos os seguintes tópicos:
+  * API ID 1001 → Set parameters (True / False) → Habilitamos ou desabilitamos a colisão
+  * API ID 1002 → Get current parameter → Verificamos o estado atual da funcionalidade (se está ativa ou não)
+* Resultado: o robô ainda colide, sem efeito prático.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório utilizado pelo grupo](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Aprendizados
+
+* O **WebRTC** utiliza os mesmos parâmetros de controle do SDK oficial da Unitree, apenas variando o tópico em que devemos enviar as requisições.
+* A calibração prática foi essencial para definir a relação entre valores e deslocamento real.
+* Movimentações tornaram-se mais previsíveis e controladas após a aplicação correta dos parâmetros.
+* Documentações técnicas do SDK são referências fundamentais mesmo para implementações via WebRTC.
+
+***
+
+## Dificuldades Encontradas
+
+* Ausência de documentação específica do WebRTC.
+* Tópico `OBSTACLES_AVOID` sem funcionamento aparente.
+* Calibração dependente de testes empíricos.
+
+***
+
+## Próximos Passos
+
+* Finalizar e testar a abstração JSON.
+* Explorar alternativas para o `OBSTACLES_AVOID`.
+* Integrar movimentação autônoma com múltiplos waypoints.
+
+
 # Banco de Dados 2.0 (/docs/sprint-3/bd-v2/bd-v2)
 
 # **Banco de dados - Versão 2.0**
@@ -10776,6 +10637,211 @@ A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar s
 * **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
 
 O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.
+
+
+# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
+
+
+
+## 1. Introdução
+
+  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
+
+  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
+
+```txt
+
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+
+```
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+*Pastas Android geradas automaticamente pelo Expo*
+
+  Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+* Melhor organização entre rotas, componentes e estilos
+
+* Facilidade para extensões futuras
+
+* Modularização dos componentes usados nas telas
+
+* Padrão de Componentes Reutilizáveis
+
+### 2.2 Componentes
+
+  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+* **CardTour** - Cartão de exibição de tours na lista da home
+
+* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+* **Navbar e Header** - Estruturas permanentes no HUD
+
+***
+
+## 3. Fluxo de Navegação
+
+### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
+
+<Callout type="info">
+  **Fluxo Geral**
+
+  1. Login
+
+  2. Lista de Tours (HUD ativo)
+
+  3. Seleção de um tour
+
+  4. Edição do Tour
+
+  5. Pop-up Informações Gerais do Tour
+
+  6. Pop-up Código do Tour
+
+  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+  8. Tela de Emergência
+
+  9. Menu acessível pelo HUD em qualquer etapa permitida
+
+  **O HUD inclui:**
+
+  * Barra inferior com navegação (Tours / Mapa / Menu)
+
+  * Botão de emergência destacado em telas críticas
+
+  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+</Callout>
+
+***
+
+## 4. Como Rodar o Projeto e Dependências
+
+  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
+O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+
+### 4.1. Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 4.2. Instalando Dependências e Executando o Projeto
+
+Na raiz do projeto:
+
+```bash
+npm install
+```
+
+Isso instala todas as dependências declaradas em `package.json.`
+
+Ainda no terminal:
+
+```bash
+npx expo start
+
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+
+```bash
+npx expo run:android
+```
+
+## 5. Conclusão
+
+Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
+
+
+# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
+
+<Cards>
+  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
+</Cards>
 
 
 # Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG)
@@ -11110,211 +11176,6 @@ Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
 </Cards>
 
 
-# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
-
-
-
-## 1. Introdução
-
-  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
-
-***
-
-## 2. Arquitetura do Projeto
-
-  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
-
-  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
-
-### 2.1 Estrutura de Pastas
-
-A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
-
-```txt
-
-.
-├── android/
-│
-├── app
-│   ├── _layout.tsx
-│   └── (tabs)/
-│
-├── assets
-│   └── images
-│       └── icons/
-│
-├── components
-│   └── ui/
-│
-├── constants/
-│
-├── hooks/
-│
-├── scripts/
-│
-└── README.md
-
-```
-
-* **`/app`** - Gerenciamento das páginas
-
-* **`/assets`** Ícones, imagens e o logotipo do Inteli
-
-* **`/components`** - Componentes reutilizáveis
-
-* **`/constants`** - Temas de cores e variáveis globais
-
-* **`/hooks`** - Hooks auxiliares como detecção de tema
-
-* **`/scripts`** - Scripts internos do projeto
-
-* **`README`** - Instruções para rodar o projeto
-
-*Pastas Android geradas automaticamente pelo Expo*
-
-  Para a realização deste projeto a estrutura de pastas utilizada permite:
-
-* Melhor organização entre rotas, componentes e estilos
-
-* Facilidade para extensões futuras
-
-* Modularização dos componentes usados nas telas
-
-* Padrão de Componentes Reutilizáveis
-
-### 2.2 Componentes
-
-  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
-
-* **CardTour** - Cartão de exibição de tours na lista da home
-
-* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
-
-* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
-
-* **Navbar e Header** - Estruturas permanentes no HUD
-
-***
-
-## 3. Fluxo de Navegação
-
-### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
-
-<Callout type="info">
-  **Fluxo Geral**
-
-  1. Login
-
-  2. Lista de Tours (HUD ativo)
-
-  3. Seleção de um tour
-
-  4. Edição do Tour
-
-  5. Pop-up Informações Gerais do Tour
-
-  6. Pop-up Código do Tour
-
-  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
-
-  8. Tela de Emergência
-
-  9. Menu acessível pelo HUD em qualquer etapa permitida
-
-  **O HUD inclui:**
-
-  * Barra inferior com navegação (Tours / Mapa / Menu)
-
-  * Botão de emergência destacado em telas críticas
-
-  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
-</Callout>
-
-***
-
-## 4. Como Rodar o Projeto e Dependências
-
-  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
-O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
-
-### 4.1. Requisitos
-
-<Callout type="info">
-  ***
-
-  Node.js (*Node 18 LTS ou Node 20 LTS*)
-
-  Baixar em: [https://nodejs.org/](https://nodejs.org/)
-
-  ***
-
-  Expo CLI (Será necessário intalar globalmente para que funcione)
-
-  `npm install -g expo-cli`
-
-  ***
-
-  Android Studio (para usar emulador Android)
-
-  É possível usar tanto a versão CLI quanto o APK:
-  [https://developer.android.com/studio](https://developer.android.com/studio)
-
-  ***
-
-  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
-</Callout>
-
-<Callout type="warn">
-  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
-</Callout>
-
-### 4.2. Instalando Dependências e Executando o Projeto
-
-Na raiz do projeto:
-
-```bash
-npm install
-```
-
-Isso instala todas as dependências declaradas em `package.json.`
-
-Ainda no terminal:
-
-```bash
-npx expo start
-
-```
-
-Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
-
-As informações que aparecerem no seu terminal devem ser semelhantes a esta:
-
-<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
-
-Entre as opções você pode escolher:
-
-* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
-* Abrir a aplicação no seu navegador web
-* Abrir a aplicação no android studio
-
-Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
-
-```bash
-npx expo run:android
-```
-
-## 5. Conclusão
-
-Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
-
-
-# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
-
-<Cards>
-  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
-</Cards>
-
-
 # Protótipo de Alta Fidelidade do Dashboard Staff (/docs/sprint-3/prototipo-alta)
 
 <Cards>
@@ -11631,6 +11492,275 @@ F -->|HTTP| BUCKET
     <File name="meta.json" />
   </Folder>
 </Files>
+
+
+# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
+
+# Sprint 3 – Automação de Movimentação e Integração Dinâmica
+
+## Objetivos Principais
+
+* Implementar execução automatizada de movimentos via JSON.
+* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
+* Permitir movimentação completa por **checkpoints** com áudio associado.
+* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
+* Iniciar integração com backend e percepção de obstáculos.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Implementação da fila de requisições
+
+Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
+O formato padronizado para os checkpoints segue o modelo abaixo:
+
+```json title="Exemplo de arquivo JSON de checkpoints"
+{
+  "checkpoint1": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
+    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
+  ],
+  "checkpoint2": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
+    ...
+  ]
+}
+```
+
+Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
+Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
+
+***
+
+## Execução e Testes
+
+Para executar o sistema de movimentação automatizada:
+
+1. **Inicie o ambiente virtual:**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Execute o script principal de movimentação:**
+
+   ```bash
+   python3 testes/move_path.py
+   ```
+
+   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
+
+3. **Para iniciar um checkpoint manualmente (em outro terminal):**
+
+   ```bash
+   python3 external_trigger.py play
+   ```
+
+4. **Para interromper a execução a qualquer momento:**
+
+   ```bash
+   python3 external_trigger.py stop
+   ```
+
+   Ao parar, o robô entra automaticamente em **modo estático em pé**.
+
+***
+
+## Novas Funcionalidades
+
+* Leitura e execução automática de checkpoints via JSON.
+* Execução ordenada com fila de comandos.
+* Reprodução de áudio correspondente a cada checkpoint.
+* Interrupção imediata da execução via comando externo (`stop`).
+* Conexão e controle assíncrono com o robô via **WebRTC**.
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
+
+* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
+* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
+* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
+* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
+
+Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
+
+***
+
+## Próximos Passos
+
+* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
+* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
+* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
+* Revisar parâmetros de movimentação e segurança térmica das juntas.
+
+***
+
+## Aprendizados
+
+* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
+* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
+* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
+* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Conclusão
+
+Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
+Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
+
+
+# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
+
+<Cards>
+  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
+
+  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
+</Cards>
+
+
+# Simulação (/docs/sprint-3/robo/simulacao-robo)
+
+
+
+# Sprint 3 – Simulação do Robô com ROS2
+
+## Objetivos Principais
+
+* Configurar o ambiente ROS e entender seu funcionamento;
+* Simular o robô Unitree Go2 no Gazebo;
+* Continuar testes no ambiente Unity (Autonomous Stack GO2);
+* Entender como funciona os tópicos do LiDAR do GO2;
+* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Gazebo
+
+  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
+
+### Unity
+
+  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
+
+* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
+* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
+
+### Docker
+
+  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
+
+* Estudo da viabilidade do uso do Docker;
+* Estudo da implementação do Docker com simuladores;
+* Estudo da implementação do Docker com ROS2;
+* Tentativa de implementação do simulador Unity em um container Docker.
+
+### Visualização de dados de sensores do robô
+
+  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Visualização da Point Cloud real no RViz
+</p>
+
+<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Produzida pelos autores (2025).
+</p>
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+### Gazebo
+
+* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
+
+### Unity
+
+* Problemas de importação de modelos de espaço para o simulador;
+* Dificuldade de comunicação do ROS com o sistema;
+* Dificuldade de achar utilidade nas informações transferidas
+* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
+
+### Docker
+
+* Falta de exemplos que utilizassem todas as tecnologias juntas;
+* Uso excessivo de memória RAM ao *buildar* os simuladores;
+* Necessidade do Ubuntu 22.04 (especificamente).
+
+***
+
+## Próximos Passos
+
+* Começar testes de ROS no robô físico;
+* Começar testes de LiDAR no robô físico;
+* Começar a integração dos repositórios encontrados com o robô físico;
+* Colocar em containers os simuladores escolhidos com implementação ROS.
+
+***
+
+## Aprendizados
+
+### Gazebo
+
+* Comunicação código e robô via ROS2;
+* Como funciona a nuvem de pontos do LiDAR;
+* Diversos modelos de navegação autônoma e controle manual para o Go2.
+
+### Unity
+
+* Entendi da comunicação do ROS2;
+* Funcionamento do LiDAR;
+
+### Docker
+
+* Formas de rodar ROS em um container;
+* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
+* Formas de reduzir o uso da memória RAM ao rodar simuladores.
+
+***
+
+## Links Relevantes
+
+### Gazebo
+
+* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
+* [NAV2](https://docs.nav2.org/)
+* [RViz](https://wiki.ros.org/rviz)
+
+### Unity
+
+* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+### Docker
+
+* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
+* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
+* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
+* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+***
+
+## Conclusão
+
+Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
+Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
 
 
 # S-SDLC — Secure Software Development Life Cycle (/docs/sprint-3/secure-software)
@@ -13679,279 +13809,10 @@ Este módulo contém toda a documentação técnica do sistema multi-agentes des
 O sistema utiliza uma arquitetura modular com múltiplos agentes especializados que trabalham em conjunto para fornecer uma experiência de tour interativa e segura.
 
 
-# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
-
-# Sprint 3 – Automação de Movimentação e Integração Dinâmica
-
-## Objetivos Principais
-
-* Implementar execução automatizada de movimentos via JSON.
-* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
-* Permitir movimentação completa por **checkpoints** com áudio associado.
-* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
-* Iniciar integração com backend e percepção de obstáculos.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Implementação da fila de requisições
-
-Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
-O formato padronizado para os checkpoints segue o modelo abaixo:
-
-```json title="Exemplo de arquivo JSON de checkpoints"
-{
-  "checkpoint1": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
-    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
-  ],
-  "checkpoint2": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
-    ...
-  ]
-}
-```
-
-Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
-Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
-
-***
-
-## Execução e Testes
-
-Para executar o sistema de movimentação automatizada:
-
-1. **Inicie o ambiente virtual:**
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-2. **Execute o script principal de movimentação:**
-
-   ```bash
-   python3 testes/move_path.py
-   ```
-
-   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
-
-3. **Para iniciar um checkpoint manualmente (em outro terminal):**
-
-   ```bash
-   python3 external_trigger.py play
-   ```
-
-4. **Para interromper a execução a qualquer momento:**
-
-   ```bash
-   python3 external_trigger.py stop
-   ```
-
-   Ao parar, o robô entra automaticamente em **modo estático em pé**.
-
-***
-
-## Novas Funcionalidades
-
-* Leitura e execução automática de checkpoints via JSON.
-* Execução ordenada com fila de comandos.
-* Reprodução de áudio correspondente a cada checkpoint.
-* Interrupção imediata da execução via comando externo (`stop`).
-* Conexão e controle assíncrono com o robô via **WebRTC**.
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
-
-* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
-* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
-* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
-* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
-
-Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
-
-***
-
-## Próximos Passos
-
-* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
-* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
-* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
-* Revisar parâmetros de movimentação e segurança térmica das juntas.
-
-***
-
-## Aprendizados
-
-* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
-* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
-* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
-* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
-
-***
-
-## Links Relevantes
-
-* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
-
-***
-
-## Conclusão
-
-Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
-Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
-
-
-# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
-
-<Cards>
-  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
-
-  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
-</Cards>
-
-
-# Simulação (/docs/sprint-3/robo/simulacao-robo)
-
-
-
-# Sprint 3 – Simulação do Robô com ROS2
-
-## Objetivos Principais
-
-* Configurar o ambiente ROS e entender seu funcionamento;
-* Simular o robô Unitree Go2 no Gazebo;
-* Continuar testes no ambiente Unity (Autonomous Stack GO2);
-* Entender como funciona os tópicos do LiDAR do GO2;
-* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Gazebo
-
-  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
-
-### Unity
-
-  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
-
-* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
-* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
-
-### Docker
-
-  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
-
-* Estudo da viabilidade do uso do Docker;
-* Estudo da implementação do Docker com simuladores;
-* Estudo da implementação do Docker com ROS2;
-* Tentativa de implementação do simulador Unity em um container Docker.
-
-### Visualização de dados de sensores do robô
-
-  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Visualização da Point Cloud real no RViz
-</p>
-
-<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Produzida pelos autores (2025).
-</p>
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-### Gazebo
-
-* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
-
-### Unity
-
-* Problemas de importação de modelos de espaço para o simulador;
-* Dificuldade de comunicação do ROS com o sistema;
-* Dificuldade de achar utilidade nas informações transferidas
-* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
-
-### Docker
-
-* Falta de exemplos que utilizassem todas as tecnologias juntas;
-* Uso excessivo de memória RAM ao *buildar* os simuladores;
-* Necessidade do Ubuntu 22.04 (especificamente).
-
-***
-
-## Próximos Passos
-
-* Começar testes de ROS no robô físico;
-* Começar testes de LiDAR no robô físico;
-* Começar a integração dos repositórios encontrados com o robô físico;
-* Colocar em containers os simuladores escolhidos com implementação ROS.
-
-***
-
-## Aprendizados
-
-### Gazebo
-
-* Comunicação código e robô via ROS2;
-* Como funciona a nuvem de pontos do LiDAR;
-* Diversos modelos de navegação autônoma e controle manual para o Go2.
-
-### Unity
-
-* Entendi da comunicação do ROS2;
-* Funcionamento do LiDAR;
-
-### Docker
-
-* Formas de rodar ROS em um container;
-* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
-* Formas de reduzir o uso da memória RAM ao rodar simuladores.
-
-***
-
-## Links Relevantes
-
-### Gazebo
-
-* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
-* [NAV2](https://docs.nav2.org/)
-* [RViz](https://wiki.ros.org/rviz)
-
-### Unity
-
-* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-### Docker
-
-* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
-* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
-* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
-* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-***
-
-## Conclusão
-
-Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
-Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
-
-
 # Sistema de Comunicação por WebSockets (/docs/sprint-4/backend)
 
 <Cards>
-  <Card title="Backend - Sistema de Comunicação por WebSockets" description=" É um protocolo de comunicação moderno que estabelece uma conexão persistente e bidirecional entre um cliente e um servidor através de uma única conexão TCP." href="/docs/sprint-3/backend/websocket" />
+  <Card title="Backend - Sistema de Comunicação por WebSockets" description=" É um protocolo de comunicação moderno que estabelece uma conexão persistente e bidirecional entre um cliente e um servidor através de uma única conexão TCP." href="/docs/sprint-4/backend/websocket" />
 </Cards>
 
 
@@ -14194,148 +14055,6 @@ A arquitetura foi construída para ser:
 * escalável,
 * extensível,
 * e fácil de manter.
-
-
-# Template de Pasta (/docs/sprint-4/template-pasta)
-
-<Cards>
-  <Card title="Template" description="Modelo básico para criação de novos arquivos MDX." href="/docs/sprint-2/template-pasta/template" />
-</Cards>
-
-
-# Título do Documento (/docs/sprint-4/template-pasta/template)
-
-
-
-
-
-# Cabeçalho Principal
-
-## Callouts/Admonitions
-
-<Callout type="info">
-  Esta é uma nota importante para destacar algo relevante no documento.
-</Callout>
-
-<Callout type="warn">
-  Esta é uma advertência para chamar a atenção para um possível problema.
-</Callout>
-
-<Callout>
-  Hello World
-</Callout>
-
-<Callout title="Title">
-  Hello World
-</Callout>
-
-<Callout title="Title" type="error">
-  Hello World
-</Callout>
-
-## Bloco de Código
-
-```python
-# Código de exemplo em Python
-def exemplo():
-    print("Olá, Mundo!")
-```
-
-```rust title="Exemplo em Rust com título"
-// Código de exemplo em Rust
-fn exemplo() {
-    println!("Olá, Mundo!");
-}
-```
-
-## Flowcharts MermaidJS
-
-<Mermaid
-  chart="flowchart TD
-U[Usuário] --> P[Proxy Reverso]
-
-P --> FE[React.js Frontend]
-P --> C[ASP.NET Core]
-P --> FA[FastAPI]
-P --> F[Flask]
-
-B[Broker MQTT] -->|MQTT| C
-
-C -->|Query e HTTP| PG[(PostgreSQL)]
-C -->|HTTP| BUCKET[(MinIO DataLake)]
-
-FA -->|Função Direta| ML[Módulo de Retreinamento]
-FA -->|Função Direta| IF[Gerador de Inferências]
-FA -->|HTTP| BUCKET
-
-F -->|Query e HTTP| PG
-F -->|HTTP| BUCKET
-"
-/>
-
-## Imagens e Links
-
-<img alt="Imagem" src={__img0} placeholder="blur" />
-
-<img alt="Imagem Relativa" src={__img1} placeholder="blur" />
-
-[Link](https://www.example.com)
-
-[Link Relativo](../template)
-
-## Estrutura de pastas
-
-<Files>
-  <Folder name="sprint-1" defaultOpen>
-    <Folder name="entendimento-do-negocio" defaultOpen>
-      <File name="analise-financeira.mdx" />
-
-      <File name="canvas-proposta-de-valor.mdx" />
-
-      <File name="index.mdx" />
-
-      <File name="matriz-de-risco.mdx" />
-
-      <File name="matriz-oceano-azul.mdx" />
-
-      <File name="meta.json" />
-    </Folder>
-
-    <Folder name="entendimento-do-projeto" defaultOpen>
-      <File name="index.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="proposta-de-arquitetura.mdx" />
-
-      <File name="requisitos-funcionais.mdx" />
-
-      <File name="requisitos-nao-funcionais.mdx" />
-    </Folder>
-
-    <Folder name="entendimento-do-usuario" defaultOpen>
-      <Folder name="personas" defaultOpen>
-        <File name="index.mdx" />
-
-        <File name="persona-1.mdx" />
-      </Folder>
-
-      <File name="index.mdx" />
-
-      <File name="mapa-de-jornada-do-usuario.mdx" />
-
-      <File name="meta.json" />
-
-      <File name="user-stories.mdx" />
-    </Folder>
-
-    <File name="analise-de-impacto-etico.mdx" />
-
-    <File name="index.mdx" />
-
-    <File name="meta.json" />
-  </Folder>
-</Files>
 
 
 # Template de Pasta (/docs/sprint-5/template-pasta)
