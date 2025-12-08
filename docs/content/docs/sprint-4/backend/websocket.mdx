@@ -1,0 +1,250 @@
+---
+title: Sistema de Comunicação por WebSockets
+description: Sistema responsável por permitir que o robô do projeto Tour Inteli converse com as pessoas, tanto por texto quanto por áudio.
+---
+
+## **1. Introdução**
+
+&emsp;Este documento descreve a arquitetura, os componentes e os fluxos do sistema de comunicação em tempo real do robô do Inteli.
+O objetivo do módulo de WebSockets é permitir que o robô:
+
+* receba perguntas dos visitantes (texto ou áudio),
+* envie respostas em texto e áudio,
+* sincronize múltiplos dispositivos (painel do operador, robô, turista),
+* faça transcrição de fala (STT) e síntese de voz (TTS).
+
+&emsp;A comunicação ocorre em tempo real via WebSockets, centralizada por um servidor de broadcast implementado em Rust com Actix-Web.
+
+
+
+## **2. Visão Geral da Arquitetura**
+
+&emsp;O sistema utiliza dois canais de WebSockets:
+
+* **Text WebSocket** → para mensagens em texto
+* **Audio WebSocket** → para mensagens de áudio (entrada e saída)
+
+&emsp;Ambos são gerenciados por um **Broadcast Server** central, responsável pela sincronização entre clientes.
+
+### **Diagrama da Arquitetura**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         FRONTEND                                 │
+│  ┌──────────────────┐              ┌──────────────────┐        │
+│  │  Text WebSocket  │              │ Audio WebSocket  │        │
+│  └────────┬─────────┘              └────────┬─────────┘        │
+└───────────┼──────────────────────────────────┼──────────────────┘
+            │                                   │
+            ▼                                   ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                      BACKEND (Actix-Web)                         │
+│  ┌──────────────────────────────────────────────────────────┐  │
+│  │              Broadcast Server (Central Hub)               │  │
+│  │  - Conexões de texto e áudio                             │  │
+│  │  - Broadcast de mensagens                                 │  │
+│  │  - Conversão Texto→Áudio (TTS)                            │  │
+│  │  - Exclusão de eco por cliente                            │  │
+│  └─────┬────────────────────────────────────────────┬───────┘  │
+│        │                                             │           │
+│  ┌─────▼─────────────┐                    ┌────────▼────────┐  │
+│  │  Text WebSocket   │                    │ Audio WebSocket │  │
+│  │  Handler          │                    │ Handler         │  │
+│  └─────┬─────────────┘                    └────────┬────────┘  │
+└────────┼──────────────────────────────────────────┼────────────┘
+         │                                           │
+         ▼                                           ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    SERVIÇOS EXTERNOS                             │
+│        /v1/modelo     /ml/stt (STT)       /ml/tts (TTS)          │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## **3. Componentes Principais**
+
+&emsp;A seguir, cada componente é explicado de forma clara e acessível.
+
+## **3.1 Broadcast Server (`broadcast.rs`)**
+
+### **O que é?**
+
+&emsp;O *Broadcast Server* é o “cérebro” do sistema de comunicação.
+Ele funciona como um **ponto central** que recebe mensagens e distribui para todos os clientes conectados.
+
+### **O que ele faz?**
+
+* **Gerencia clientes conectados**
+
+  * Clientes de texto
+  * Clientes de áudio
+* **Distribui mensagens**
+
+  * Texto → todos clientes de texto
+  * Áudio → todos clientes de áudio
+* **Converte texto em áudio**
+
+  * Usando o serviço ML de TTS, quando necessário
+* **Evita eco**
+
+  * O cliente que enviou a mensagem não recebe sua própria mensagem (evitando duplicação).
+
+### **Estrutura interna (simplificada)**
+
+```rust
+pub struct BroadcastServer {
+    text_clients: HashMap<String, Recipient<BroadcastMessage>>,
+    audio_clients: HashMap<String, Recipient<BroadcastAudio>>,
+    ml_endpoint: String,
+}
+```
+
+### **Mensagens que ele entende**
+
+| Mensagem                | Significado                         |
+| ----------------------- | ----------------------------------- |
+| `Connect`               | Cliente de texto entrou             |
+| `ConnectAudio`          | Cliente de áudio entrou             |
+| `Disconnect`            | Cliente saiu                        |
+| `Broadcast`             | Enviar texto para todos             |
+| `BroadcastAudioMessage` | Enviar áudio para todos             |
+| `RequestTTS`            | Transformar texto em áudio e enviar |
+
+
+
+## **3.2 Text WebSocket Handler (`text_ws.rs`)**
+
+### **O que é?**
+
+&emsp;É o componente responsável por lidar com mensagens de texto enviadas pelos clientes.
+
+### **O que ele faz?**
+
+1. TextWebSocket recebe uma mensagem de texto do cliente.
+2. Envia essa mensagem para o endpoint `/v1/modelo`.
+3. Recebe a resposta do modelo.
+4. Retorna a resposta ao cliente.
+5. Envia essa mesma resposta para conversão TTS (para que os clientes de áudio também a recebam).
+6. Usa o Broadcast Server para sincronizar a resposta com todos os dispositivos.
+
+
+### **Exemplo de mensagem enviada pelo cliente**
+
+```json
+{
+  "type": "text",
+  "texto": "Qual é a história deste lugar?",
+  "checkpoint_id": 123,
+  "estado": "active",
+  "question_topic": "história",
+  "tour_id": 456
+}
+```
+
+### **Exemplo de resposta**
+
+```json
+{
+  "texto": "Este lugar tem uma história fascinante...",
+  "message_type": "resposta"
+}
+```
+
+## **3.3 Audio WebSocket Handler (`audio_ws.rs`)**
+
+### **O que é?**
+
+&emsp;Esse componente recebe áudios dos usuários, realiza transcrição (STT), envia texto para o modelo e depois converte a resposta em áudio (TTS).
+
+### **Fluxo 1: Usuário fala (STT)**
+
+```
+Cliente envia áudio (base64)
+→ AudioWebSocket decodifica áudio
+→ Modelo recebe texto
+→ Modelo retorna resposta
+→ TTS converte resposta em áudio
+→ Texto e áudio retornam ao cliente
+→ Broadcast para outros clientes
+```
+
+### **Fluxo 2: Usuário envia texto pelo Audio WS**
+
+```
+Cliente envia texto
+→ Modelo retorna resposta
+→ TTS converte resposta em áudio
+→ Sistema envia texto e áudio ao cliente
+→ Broadcast para todos os clientes
+```
+
+## **4. Modelo Endpoint (`modelo.rs`)**
+
+### **O que é?**
+
+&emsp;Um endpoint HTTP usado para enviar perguntas ao modelo de IA responsável por gerar respostas.
+
+### **O que ele faz?**
+
+* Recebe uma pergunta via POST
+* Salva a pergunta no banco.
+* Envia para o modelo externo.
+* Salva a resposta no banco.
+* Atualiza o estado da pergunta.
+* Retorna a resposta ao WebSocket.
+
+### **Endpoint**
+
+```
+POST /v1/modelo
+```
+
+
+## **5. Sincronização Entre Clientes**
+
+&emsp;O sistema implementa um padrão publish-subscribe através do `BroadcastServer`:
+
+1. **Clientes de Texto** recebem:
+   - Perguntas de outros usuários
+   - Respostas do modelo (tanto de clientes de texto quanto de áudio)
+
+2. **Clientes de Áudio** recebem:
+   - Áudio das respostas (convertidas via TTS)
+
+3. **Exclusão de Eco:**
+   - Cada mensagem broadcast pode especificar um `exclude_client`
+   - O cliente que originou a mensagem não recebe seu próprio broadcast
+   - Evita feedback loops e duplicação de mensagens
+
+
+## **6. Formatos de Mensagens**
+
+### **Broadcast de texto**
+
+```json
+{
+  "message_type": "broadcast_text",
+  "texto": "Resposta do modelo..."
+}
+```
+
+### **Broadcast de áudio**
+
+```json
+{
+  "message_type": "broadcast_audio",
+  "audio_base64": "AAAAFJDSAIWEA..."
+}
+```
+
+## **9. Conclusão**
+
+O sistema de WebSockets deste projeto é o que permite que o robô converse com os visitantes de maneira natural, rápida e sincronizada.
+Ele integra vários serviços inteligentes (STT, TTS e modelo de IA) e distribui respostas para todos os dispositivos conectados em tempo real.
+
+A arquitetura foi construída para ser:
+
+* simples de entender,
+* escalável,
+* extensível,
+* e fácil de manter.
+
