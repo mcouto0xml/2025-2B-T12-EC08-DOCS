@@ -1,0 +1,151 @@
+---
+title: Manual de Operação e Segurança do Robô 
+description: Manual de instruções para uso do Robô.
+---
+
+# Guia de Operação e Segurança - Robô Unitree Go2
+
+**Projeto:** Tour Autônomo - Inteli Instituto de Tecnologia e Liderança  
+**Equipe:** Segurança e Robô  
+**Versão:** Sprint 05  
+
+---
+
+## 1. Introdução
+
+Este manual descreve os procedimentos necessários para operar o robô Unitree Go2 com segurança e consistência.  
+Inclui orientações de preparação do robô e do ambiente, checklists, instruções de operação, botões de parada emergencial, cuidados com a rede Wi-Fi e manutenção em caso de falhas.
+
+Leia o documento integralmente **antes** da primeira operação e mantenha-o acessível durante todo uso do robô.
+
+---
+
+## 2. Componentes e Controles Físicos
+
+### 2.1 Componentes principais
+- Estrutura corporal rígida.  
+- Quatro patas com articulações e servomotores.  
+- Sensores frontais (Câmeras, LiDAR).
+- Processador embarcado (Jetson).  
+- Conexão Wi-Fi.  
+- Controle remoto para comandos básicos.
+- Duas formas de parada emergencial:
+  - Botão físico acoplado ao corpo do robô.  
+  - Botão avulso conectado via Wi-Fi.
+
+### 2.2 Controles físicos
+- **Botão avulso:** Interrompe imediatamente qualquer movimento.
+- **Botão de parada física:** Interrompe imediatamente qualquer movimento.  
+- **Controle remoto:** Permite comandos básicos como iniciar/parar movimentos.  
+
+---
+
+## 3. Requisitos de Ambiente e Rede
+
+### 3.1 Ambiente físico mínimo
+
+Para que o robô funcione de maneira segura, o ambiente onde ele será operado deve estar completamente adequado. Durante a inicialização, é necessário que haja pelo menos 0,5 metro de distância entre o robô e qualquer objeto ao seu redor, garantindo que as patas tenham espaço livre para estabilização e que os sensores identifiquem corretamente o ambiente. Além disso, durante toda a operação, deve haver um afastamento mínimo de 1,5 metro entre o robô e qualquer visitante, evitando interferências, toques acidentais e riscos à segurança tanto do equipamento quanto das pessoas próximas.
+
+### 3.2 Rede Wi-Fi necessária
+
+O robô e o computador do operador devem estar conectados exatamente à mesma rede Wi-Fi para que a comunicação funcione corretamente. A rede obrigatória utilizada na operação deve ser: **`[INSERIR_SSID_DO_PROJETO]`**. A estabilidade da rede é essencial para que o tuor autônomo funcione sem interrupções. 
+
+Uma característica fundamental do robô é o seu comportamento durante a reconexão: caso ocorra qualquer perda de sinal — seja por queda da rede, desligamento ou falha temporária — ele **só conseguirá restabelecer a conexão se permanecer exatamente no mesmo local onde estava no momento em que foi interrompido**. Por isso, é indispensável que o robô não seja movido durante o processo de reconexão. Caso tenha sido deslocado, caído ou alterado de posição por qualquer motivo, será necessário seguir o procedimento formal descrito na seção “Recuperação após perda de conexão”.
+
+---
+
+## 4. Checklist de Pré-Operação
+
+Antes de iniciar qualquer sessão, siga este checklist **sem pular etapas**:
+
+1. [ ] Área segura.  
+2. [ ] Robô colocado na **Posição Padrão**.  
+3. [ ] Robô conectado a rede: `[INSERIR_SSID_DO_PROJETO]`.  
+4. [ ] Operador conectado a mesma rede.  
+
+### Posição Padrão (detalhada)
+- Patas flexionadas para a lateral e alinhadas.  
+- Frente do robô apontando para o início do trajeto.  
+- Sem obstáculos a menos de 0,5 m.  
+- Sensores frontais completamente livres.
+
+---
+
+## 6. Sequência Completa de Inicialização
+
+o que colocar aqui?
+
+---
+
+## 8. Operação Segura
+
+### 8.1 Trajetória
+- Utilize rotas mapeadas e validadas.  
+- Evite áreas com escadas, rampas íngremes ou superfícies irregulares.  
+
+### 8.2 Visitantes
+- Visitantes não devem tocar no robô.  
+- Se alguém se aproximar demais, use **parada remota** ou STOP no painel.
+
+### 8.3 Supervisão constante
+- Operador deve ficar a até 10 m do robô.  
+- Checar visualmente sempre. 
+
+---
+
+## 9. Segurança — Paradas de Emergência
+
+O robô possui duas formas de ser interrompido **instantaneamente**, ambas com o mesmo efeito:
+
+### ✔ Parada Física (botão no corpo)
+Usada quando o operador está próximo.
+
+### ✔ Parada Remota (via Wi-Fi)
+Usada quando o operador não consegue alcançá-lo fisicamente.
+
+### Quando usar:
+- Movimentos inesperados  
+- Risco de colisão  
+- Visitante muito próximo  
+- Falha de sensores  
+- Perda de controle  
+- Superaquecimento  
+
+### Após acionar qualquer parada:
+1. Verifique se o robô realmente parou.  
+2. Desligue pelo botão de energia se necessário.  
+3. Só religue após colocar na **Posição Padrão**.  
+4. Registre o evento no log da sessão.  
+
+---
+
+## 10. Recuperação Após Problemas Comuns
+
+### 10.1 Perda de conexão
+Se o robô não se mover após a queda de conexão:
+
+- Ele tentará reconectar sozinho **apenas se estiver no mesmo local** da primeira conexão.  
+- Aguarde alguns segundos sem movê-lo.
+
+Se ele foi movido ou caiu:
+
+- Desligue.  
+- Recoloque na Posição Padrão.  
+- Ligue novamente.  
+- Refaça o checklist.
+
+### 10.2 Robô caiu
+1. Desligue.  
+2. Verifique danos visíveis.  
+3. Coloque na Posição Padrão.  
+4. Religue.  
+5. Teste sensores e mobilidade.
+
+### 10.3 Parada remota não funciona
+- Verifique se computador e robô estão no mesmo SSID.  
+- Se continuar sem resposta, use a parada física.
+
+---
+
+
+
