@@ -1,5 +1,5 @@
 ---
-title: Arquitetura Refatorada para STT e TTS 
+title: Arquitetura Refatorada para STT e TTS
 ---
 
 # Sprint 4 – Melhorias e Evolução dos serviços de Voz e Linguagem
@@ -24,6 +24,7 @@ Na sprint anterior, tanto o STT quanto o TTS sofriam de um gargalo crítico:
 **Carregamento repetido dos modelos a cada requisição**
 
 A arquitetura anterior carregava o modelo (STT ou TTS) **toda vez** que um endpoint era chamado. Esse carregamento dos modelos era a parte mais lenta, causando:
+
 - altos tempos de resposta;
 - lentidão perceptível;
 - um fluxo ineficiente onde:
@@ -32,6 +33,7 @@ A arquitetura anterior carregava o modelo (STT ou TTS) **toda vez** que um endpo
   - só então enviava o resultado.
 
 Esse problema impactava diretamente:
+
 - STT (transcrição de áudio para texto)
 - TTS (geração de áudio a partir de texto)
 
@@ -43,7 +45,7 @@ Esse comportamento tornava o uso dos serviços lento e inviável em situações 
 
 Nesta sprint fizemos uma refatoração da arquitetura dos serviços.
 
-### Carregamento dos modelos apenas uma vez 
+### Carregamento dos modelos apenas uma vez
 
 Ao iniciar o servidor (`main.py`), os modelos são carregados apenas uma vez:
 
@@ -58,19 +60,21 @@ chat = ChatService()
 ```
 
 Com isso:
+
 - o delay provocado pelo carregamento do modelo é reduzido,
 - as chamadas agora executam apenas a inferência,
 - o backend se torna mais rápido, leve e preparado para uso contínuo.
 
-
 ### Reorganização dos serviços em Classes (POO)
 
 Os serviços STT, TTS e Chat foram reorganizados em classes específicas:
+
 - `STT_service`
 - `TTS_service`
 - `Chatservice`
 
 Cada classe contém:
+
 - o setup do modelo
 - métodos de inferência
 - utilitários específicos (ex.: text breaker do TTS)
@@ -84,10 +88,12 @@ Após a refatoração, cada serviço usa o protocolo ideal para sua natureza.
 **WebSocket – Comunicação Contínua (Streaming)**
 
 Utilizado em:
+
 - /tts (Text-to-Speech)
 - /stt (Speech-to-Text)
 
 Motivos:
+
 - O TTS envia **chunks de áudio** conforme gerados.
 - O STT recebe **partes de áudio progressivamente.**
 - WebSocket permite **comunicação bidirecional e contínua.**
@@ -95,9 +101,11 @@ Motivos:
 **HTTP – Comunicação Pontual**
 
 Utilizado em:
+
 - POST /chat
 
 Motivo:
+
 - A comunicação com a LLM não exige streaming; é uma operação simples de requisição e resposta.
 
 #### Funcionamento dos Endpoints
@@ -105,6 +113,7 @@ Motivo:
 **POST /chat (HTTP)**
 
 Fluxo:
+
 1. Recebe mensagem do usuário
 2. Encaminha para a LLM via `ChatService`
 3. Retorna o texto gerado
@@ -114,6 +123,7 @@ Simples e eficiente por não exigir streaming.
 **TTS → WebSocket**
 
 Fluxo:
+
 1. Recebe texto via WebSocket
 2. Divide o texto em frases
 3. Converte cada frase em áudio
@@ -125,6 +135,7 @@ Esse formato permite resposta contínua e mais rápida.
 **STT → WebSocket**
 
 Fluxo:
+
 1. Recebe segmentos de áudio do cliente
 2. Transcreve cada segmento
 3. Devolve texto progressivamente
@@ -136,14 +147,14 @@ Permite transcrição em tempo quase real.
 ## Benefícios na nova arquitetura
 
 - **Redução significativa da latência**
-Ao carregar os modelos apenas uma vez, o backend evita o tempo de inicialização a cada requisição.
+  Ao carregar os modelos apenas uma vez, o backend evita o tempo de inicialização a cada requisição.
 
 - **Streaming otimizado para TTS e STT**
   - TTS envia áudio por partes conforme gerado.
   - STT recebe áudio incrementalmente para transcrição contínua.
 
 - **Arquitetura modular, clara e escalável**
-A separação em classes melhora manutenção, testes e evolução do sistema.
+  A separação em classes melhora manutenção, testes e evolução do sistema.
 
 - **Uso correto de protocolos**
   - WebSocket para fluxos contínuos
@@ -151,12 +162,13 @@ A separação em classes melhora manutenção, testes e evolução do sistema.
 
 ---
 
-## Conclusão 
+## Conclusão
 
 A mudança desta sprint representou uma melhoria estrutural importante no backend.
 Os modelos agora operam de forma eficiente, a arquitetura está mais organizada e os serviços de STT, TTS e LLM contam com uma base sólida para evolução.
 
 As melhorias implementadas:
+
 - reduziram gargalos estruturais,
 - estabeleceu uma forma correta de expor serviços via API,
 - padronizou o código interno com POO,
