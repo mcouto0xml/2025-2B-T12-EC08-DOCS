@@ -1,0 +1,251 @@
+---
+title: Monitoramento, Segurança e Conformidade
+description: Eventos, logs, alertas, ameaças, controles e conformidade do Kill Switch
+---
+
+# Kill Switch - Monitoramento, Segurança e Conformidade
+
+## 1. Monitoramento e Observabilidade
+
+### Esquema Canônico de Logs
+
+Todos os eventos de Kill Switch devem ser registrados com o seguinte esquema:
+
+```json title="Estrutura de Log Padrão"
+{
+  "timestamp": "2025-12-10T16:30:45.123Z",
+  "trace_id": "550e8400-e29b-41d4-a716-446655440000",
+  "span_id": "f4a8c5b1-2d9e-4f7a-b3c2-1a5d8e9f0c4b",
+  "correlation_id": "tour-session-20251210-001",
+  "environment": "production",
+  "asset_id": "unitree-robot-001",
+  "component": "kill-switch-system",
+  "service.name": "rust-serial-emergency-button",
+  "event.category": "kill-switch",
+  "event.type": "activation",
+  "severity": "CRITICAL",
+  "message": "Emergency stop button activated via serial port",
+  "latency_ms": 245,
+  "ack_stop_ms": 450,
+  "source_channel": "serial",
+  "operator_id": "op-001",
+  "session_id": "session-20251210-16-30-45"
+}
+```
+
+### Campos Obrigatórios
+
+| Campo | Tipo | Descrição | Exemplo |
+| :--- | :--- | :--- | :--- |
+| **timestamp** | ISO 8601 | Data/hora UTC | 2025-12-10T16:30:45.123Z |
+| **trace_id** | UUID | Identificador único do evento | 550e8400-e29b-41d4-a716-446655440000 |
+| **severity** | String | Nível de severidade | CRITICAL, HIGH, MEDIUM, LOW |
+| **event.type** | String | Tipo de evento | activation, release, error |
+| **source_channel** | String | Canal de origem | serial |
+| **latency_ms** | Integer | Latência em milissegundos | 245 |
+
+:::note
+
+O trace_id é essencial para rastrear o evento através de múltiplos serviços e facilitar debugging.
+
+:::
+
+### Eventos Importantes
+
+<Callout title="Eventos Monitorados pelo SIEM">
+
+| Evento | Severidade | Descrição | Ação |
+| :--- | :--- | :--- | :--- |
+| **KILL_SWITCH_ACTIVATED** | CRITICAL | Botão pressionado, Dump Mode ativado | Alerta imediato, log crítico |
+| **KILL_SWITCH_RELEASED** | HIGH | Botão liberado, Recover Mode iniciado | Log, correlação com telemetria |
+| **KILL_SWITCH_ACK_TIMEOUT** | CRITICAL | ACK não recebido em 1s | Escalação imediata |
+| **SERIAL_DISCONNECTED** | CRITICAL | Perda de conexão serial | Alerta grave, investigar |
+| **BUTTON_STUCK** | CRITICAL | Botão permanece pressionado > 30s | Investigar hardware, isolar |
+| **FALSE_POSITIVE_RATE_HIGH** | MEDIUM | Taxa de falsos positivos > 1/hora | Revisar logs, ajustar threshold |
+
+</Callout>
+
+### Alertas e SLAs
+
+| Alerta | Condição | SLA | Ação | Escalação |
+| :--- | :--- | :--- | :--- | :--- |
+| **Kill Switch Acionado** | Evento KILL_SWITCH_ACTIVATED | Imediato | Notificar operador | Analista 4 |
+| **ACK Timeout** | ACK não recebido em 1s | 60s | Escalar para Analista 4 | Coordenação |
+| **Serial Desconectado** | Perda de conexão > 5s | 60s | Investigar e restaurar | Analista 4 |
+| **Botão Preso** | Pressionado > 30s | 2min | Investigar hardware | Operador |
+| **Taxa de Falsos Positivos** | > 1 por hora | 5min | Revisar logs, ajustar | Analista 4 |
+| **Latência Elevada** | > 1s (serial) | 5min | Investigar causa | Analista 4 |
+
+:::warning
+
+Qualquer evento CRITICAL dispara notificação automática via ChatOps (Slack/Teams) com SLA de 60 segundos.
+
+:::
+
+## 2. Análise de Ameaças
+
+### Modelo de Ameaças STRIDE
+
+<Callout title="Ameaças Identificadas">
+
+| Ameaça | Categoria | Impacto | Probabilidade | Mitigação |
+| :--- | :--- | :--- | :--- | :--- |
+| **Spoofing de Sinal** | Spoofing | Acionamento falso | Média | Validação de trace_id, autenticação JWT |
+| **Tampering de Botão** | Tampering | Desativação intencional | Baixa | Monitoramento contínuo, detecção de anomalias |
+| **Replay Attack** | Tampering | Acionamento repetido | Média | Timestamp validation, detecção de seqüência |
+| **Perda de Conexão** | Denial of Service | Falha de comunicação | Alta | Failsafe mecânico, monitoramento |
+| **Injection em Serial** | Injection | Comando malicioso | Baixa | Validação de caracteres, detecção de anomalias |
+| **Eavesdropping** | Information Disclosure | Exposição de dados | Baixa | Conexão física USB-C, logs mascarados |
+| **Privilege Escalation** | Elevation of Privilege | Acesso não autorizado | Baixa | RBAC, ACLs entre serviços |
+| **Man-in-the-Middle** | Tampering | Interceptação de sinal | Baixa | Conexão física dedicada |
+
+</Callout>
+
+### Matriz de Risco
+
+| Ameaça | Severidade | Detectabilidade | Score | Prioridade |
+| :--- | :--- | :--- | :--- | :--- |
+| **Perda de Conexão** | GRAVE | Fácil | 9/10 | GRAVE |
+| **Spoofing de Sinal** | ALTA | Média | 7/10 | ALTA |
+| **Injection em Serial** | MÉDIA | Fácil | 4/10 | MÉDIA |
+| **Man-in-the-Middle** | MÉDIA | Difícil | 3/10 | BAIXA |
+| **Tampering de Botão** | MÉDIA | Fácil | 4/10 | MÉDIA |
+| **Replay Attack** | MÉDIA | Média | 5/10 | MÉDIA |
+
+:::warning
+
+Ameaças com score ≥ 7/10 requerem mitigação imediata e monitoramento contínuo.
+
+:::
+
+## 3. Controles de Segurança
+
+### Controles Implementados
+
+| Controle | Tipo | Implementação | Status |
+| :--- | :--- | :--- | :--- |
+| **Failsafe Mecânico** | Preventivo | Desliga motores se falhar | ✓ Implementado |
+| **Validação de Entrada** | Preventivo | Validação de caracteres serial | ✓ Implementado |
+| **Detecção de Anomalias** | Detectivo | Monitoramento de taxa de acionamentos | ✓ Implementado |
+| **Logging Estruturado** | Detectivo | Esquema canônico com trace_id | ✓ Implementado |
+| **Monitoramento SIEM** | Detectivo | Alertas em tempo real | ✓ Implementado |
+| **Proteção Física** | Preventivo | Conexão USB-C dedicada | ✓ Implementado |
+| **Autenticação Serial** | Preventivo | Validação de trace_id | ✓ Implementado |
+| **Auditoria Completa** | Detectivo | Trilha de eventos com trace_id | ✓ Implementado |
+
+### Controles Recomendados
+
+| Controle | Benefício | Esforço | Prioridade |
+| :--- | :--- | :--- | :--- |
+| **Failsafe Mecânico** | Segurança adicional se eletrônico falhar | Alto | ALTA |
+| **Encriptação End-to-End** | Proteção contra MITM | Médio | ALTA |
+| **Testes de Penetração** | Validação de segurança | Médio | MÉDIA |
+| **Certificados Digitais** | Autenticação mútua (mTLS) | Médio | MÉDIA |
+| **Backup Redundante** | Recuperação de desastres | Médio | MÉDIA |
+
+## 4. Mapeamento NIST CSF
+
+O sistema Kill Switch está alinhado com o NIST Cybersecurity Framework em suas 5 funções principais:
+
+### 1. Identify (Identificar)
+
+| Atividade | Implementação |
+| :--- | :--- |
+| **Asset Inventory** | ESP32C3 + Botão Metaltex registrados em CMDB |
+| **Risk Assessment** | Análise STRIDE completa |
+| **Data Classification** | Logs classificados como CRÍTICOS |
+| **Access Control** | RBAC definido por função (Operador, Dev, Analista) |
+
+### 2. Protect (Proteger)
+
+| Atividade | Implementação |
+| :--- | :--- |
+| **Access Control** | RBAC para acesso a logs e configurações |
+| **Encryption** | AES-256 para logs at-rest |
+| **Secure Configuration** | Hardening de ESP32C3 e serviço Rust |
+| **Supply Chain Security** | Validação de bibliotecas via SCA (Dependabot) |
+
+### 3. Detect (Detectar)
+
+| Atividade | Implementação |
+| :--- | :--- |
+| **Anomaly Detection** | SIEM monitora taxa de acionamentos |
+| **Continuous Monitoring** | Logs em tempo real via OTel |
+| **Security Testing** | Testes automatizados em CI/CD |
+| **Event Logging** | Esquema canônico com trace_id |
+
+### 4. Respond (Responder)
+
+| Atividade | Implementação |
+| :--- | :--- |
+| **Incident Response** | Playbooks KS-001/002/003 documentados |
+| **Communication Plan** | Alertas via ChatOps (Slack/Teams) |
+| **Containment** | Isolamento automático em caso de falha |
+| **Recovery Plan** | Failsafe mecânico se eletrônico falhar |
+
+### 5. Recover (Recuperar)
+
+| Atividade | Implementação |
+| :--- | :--- |
+| **Recovery Procedures** | Recover from Fall automático |
+| **Backup & Restore** | Logs retidos por 90 dias |
+| **Disaster Recovery** | Plano DR com RTO 15min, RPO 1min |
+| **Lessons Learned** | Post-mortems após cada incidente |
+
+:::note
+
+O sistema Kill Switch está alinhado com NIST CSF v1.1. Revisão anual recomendada para manter conformidade.
+
+:::
+
+## 5. Conformidade com Padrões
+
+### Padrões Aplicáveis
+
+| Padrão | Seção | Conformidade |
+| :--- | :--- | :--- |
+| **ISO 13849-1** | Safety-related parts of control systems | Parcial (Nível PLd) |
+| **IEC 61508** | Functional safety of electrical/electronic systems | Parcial (SIL 2) |
+| **OWASP Top 10** | Web Application Security | Completo |
+| **CIS Controls** | Critical Security Controls | Completo (v8) |
+
+### Certificações Recomendadas
+
+- **SOC 2 Type II**: Para conformidade com clientes
+- **ISO 27001**: Para gerenciamento de informações de segurança
+- **ISO 13849-1 PLe**: Para segurança de máquinas (upgrade futuro)
+
+## 6. Testes de Segurança
+
+### SAST (Static Application Security Testing)
+
+```bash
+# Análise estática do código
+semgrep --config=p/security-audit robot-button.cpp
+
+# Esperado: Nenhum problema grave
+```
+
+### Teste de Comunicação Serial
+
+```bash
+# Monitorar porta serial
+screen /dev/ttyAM0 115200
+
+# Esperado:
+# 0
+# 0
+# 1  (botão pressionado)
+# 1
+# 0  (botão liberado)
+```
+
+:::warning
+
+Sempre teste em ambiente seguro antes de usar em produção com o robô ativo.
+
+:::
+
+## Resumo
+
+O Kill Switch implementa controles de segurança robustos, está alinhado com NIST CSF, e segue padrões internacionais de segurança funcional. O monitoramento contínuo via SIEM garante detecção rápida de anomalias e resposta imediata a incidentes.

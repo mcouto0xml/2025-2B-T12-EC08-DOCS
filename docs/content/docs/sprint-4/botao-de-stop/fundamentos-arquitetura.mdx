@@ -1,0 +1,155 @@
+---
+title: Fundamentos, Arquitetura e Especificações
+description: Visão geral, requisitos, arquitetura e especificações técnicas do Kill Switch
+---
+
+# Kill Switch - Fundamentos, Arquitetura e Especificações
+
+:::warning
+
+**AVISO**: O acionamento deste botão de emergência resulta em uma **parada brusca** (Dump Mode) que pode causar danos mecânicos ao robô. Esta é uma medida de **último recurso**, mas **obrigatória** para garantir a segurança física dos humanos presentes durante o tour. A segurança humana tem prioridade absoluta sobre a preservação do equipamento.
+
+:::
+
+## 1. Fundamentos e Requisitos
+
+### Objetivo do Sistema
+
+O Kill Switch é um mecanismo essencial de segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente. O sistema utiliza comunicação serial via USB-C para garantir confiabilidade máxima, com tempo de resposta garantido em menos de 1 segundo.
+
+### Requisitos Funcionais (RF)
+
+| ID | Descrição | Prioridade |
+| :--- | :--- | :--- |
+| **RF-KS-001** | Sistema deve detectar pressão do botão em ≤ 50ms | GRAVE |
+| **RF-KS-002** | Sistema deve enviar sinal via serial em ≤ 100ms | GRAVE |
+| **RF-KS-003** | Serviço Rust deve processar sinal em ≤ 150ms | GRAVE |
+| **RF-KS-004** | ROS 2 deve publicar comando em ≤ 200ms | GRAVE |
+| **RF-KS-005** | Robô deve ativar Dump Mode em ≤ 500ms | GRAVE |
+| **RF-KS-006** | ACK total deve ser recebido em ≤ 1 segundo | GRAVE |
+
+### Requisitos Não-Funcionais (RNF)
+
+| ID | Descrição | Valor |
+| :--- | :--- | :--- |
+| **RNF-KS-001** | Disponibilidade | ≥ 99% |
+| **RNF-KS-002** | Latência p95 | ≤ 500ms |
+| **RNF-KS-003** | Taxa de falsos positivos | < 1/hora |
+| **RNF-KS-004** | MTTR | ≤ 5 minutos |
+| **RNF-KS-005** | Retenção de logs | 90 dias |
+
+## 2. Arquitetura do Sistema
+
+### Visão Geral
+
+O sistema é composto por três camadas: **Sensor** (botão + microcontrolador), **Transmissão** (Serial), e **Atuação** (Rust + ROS 2).
+
+<Mermaid chart="flowchart TD
+  A[Operador Pressiona Botão] --> B[ESP32C3 Detecta GPIO 0]
+  B --> C[Serial TTY AM0<br/>115200 baud]
+  C --> D[Rust Service<br/>Monitora Serial]
+  D --> E[Flip-Flop Logic<br/>Detecta Transição]
+  E --> F[ROS 2 Topic<br/>/cmd/dump]
+  F --> G[Robot State Machine]
+  G --> H[DUMP MODE ATIVADO]
+  H --> I[Motores Desligados]
+  I --> J[Robô Colapsado<br/>Estado Seguro]
+" />
+
+### Componentes de Hardware
+
+| Componente | Modelo | Função | Especificação |
+| :--- | :--- | :--- | :--- |
+| **Botão** | Metaltex CP1-E | Sensor físico | Cogumelo amarelo, IP65 |
+| **Microcontrolador** | ESP32C3 Super Mini | Processamento | RISC-V 32-bit, 160 MHz |
+| **Conexão Serial** | USB-C (tty AM0) | Comunicação | 115200 baud, CDC |
+
+### Componentes de Software
+
+| Componente | Tecnologia | Responsabilidade |
+| :--- | :--- | :--- |
+| **Firmware Serial** | C++ (Arduino) | Leitura de GPIO e envio serial |
+| **Serviço Rust** | Rust | Monitoramento serial e publicação ROS |
+| **ROS 2 Node** | ROS 2 (C++) | Comando de dump e state machine |
+
+## 3. Especificações Técnicas
+
+### Microcontrolador ESP32C3
+
+| Parâmetro | Valor |
+| :--- | :--- |
+| **Processador** | RISC-V 32-bit single-core |
+| **Frequência de Clock** | 160 MHz |
+| **Memória RAM** | 400 KB |
+| **Flash** | 4 MB |
+| **Tensão de Operação** | 3.3V |
+| **Corrente Típica** | 80 mA |
+
+### Configuração de Pinagem
+
+| Pino | Função | Configuração | Notas |
+| :--- | :--- | :--- | :--- |
+| **GPIO 0** | Entrada do Botão | INPUT_PULLUP (ativo em LOW) | Resistor interno 10kΩ |
+| **USB D+/D-** | Comunicação Serial | CDC @ 115200 baud | Porta virtual tty AM0 |
+| **3V3** | Alimentação Positiva | 3.3V | Máximo 500mA |
+| **GND** | Referência de Terra | 0V | Comum a todos |
+
+### Botão Metaltex CP1-E
+
+| Aspecto | Especificação |
+| :--- | :--- |
+| **Tipo** | Cogumelo com trava |
+| **Acionamento** | Push-lock (pressionar para ativar) |
+| **Liberação** | Turn-reset (girar para desativar) |
+| **Cor** | Amarelo (segurança industrial) |
+| **Grau de Proteção** | IP65 |
+| **Diâmetro** | ~60mm |
+
+### Mapeamento de Conexões
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    BOTÃO METALTEX                       │
+│  Terminal 1 ────────────────┐                          │
+│  (Entrada)                  │                          │
+│                        ┌────▼────┐                     │
+│                        │ Contato │                     │
+│                        │  (NC)   │                     │
+│                        └────┬────┘                     │
+│  Terminal 2 ────────────────┘                          │
+│  (Saída)                                               │
+└─────────────────────────────────────────────────────────┘
+                        │
+        ┌───────────────┴───────────────┐
+        │                               │
+   ┌────▼────┐                   ┌──────▼─────┐
+   │ GPIO 0  │                   │    GND     │
+   │ (3.3V)  │                   │   (0V)     │
+   │ Pull-up │                   │ Referência │
+   └─────────┘                   └────────────┘
+        │                               │
+        └───────────────┬───────────────┘
+                        │
+                   ┌────▼────────┐
+                   │  ESP32C3    │
+                   │  INPUT_     │
+                   │  PULLUP     │
+                   └─────────────┘
+```
+
+| Componente | Pino | Conexão | Tipo |
+| :--- | :--- | :--- | :--- |
+| **Botão Terminal 1** | GPIO 0 | ESP32C3 GPIO 0 | Sinal |
+| **Botão Terminal 2** | GND | ESP32C3 GND | Terra |
+| **USB-C** | D+/D- | Computador/Robô | Serial |
+| **Alimentação** | 3V3/GND | Fonte 3.3V | Power |
+
+:::warning
+
+Nunca conecte tensões superiores a 3.3V aos pinos do ESP32C3. Isso pode danificar o microcontrolador permanentemente.
+
+:::
+
+## Resumo
+
+O Kill Switch é um sistema simples mas robusto que combina hardware confiável (botão industrial + microcontrolador) com software bem estruturado (Rust + ROS 2) para garantir parada de emergência segura e rápida do robô Unitree.
