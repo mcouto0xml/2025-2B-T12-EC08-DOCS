@@ -1,0 +1,176 @@
+---
+title: Arquitetura Refatorada para STT e TTS
+---
+
+# Sprint 4 – Melhorias e Evolução dos serviços de Voz e Linguagem
+
+## Objetivo da Sprint
+
+O objetivo desta sprint foi reorganizar a arquitetura do backend para melhorar:
+
+- a forma como os serviços de STT e TTS são executados,
+- a organização interna do código,
+- a forma como os modelos são carregados e utilizados pelos endpoints.
+- a clareza e separação entre endpoints WebSocket e HTTP.
+
+A principal motivação foi reduzir o delay causado pelo carregamento repetido dos modelos e criar uma estrutura mais profissional e escalável.
+
+---
+
+## Problema Identificado na Sprint Anterior
+
+Na sprint anterior, tanto o STT quanto o TTS sofriam de um gargalo crítico:
+
+**Carregamento repetido dos modelos a cada requisição**
+
+A arquitetura anterior carregava o modelo (STT ou TTS) **toda vez** que um endpoint era chamado. Esse carregamento dos modelos era a parte mais lenta, causando:
+
+- altos tempos de resposta;
+- lentidão perceptível;
+- um fluxo ineficiente onde:
+  - o modelo era carregado,
+  - só depois executava a inferência,
+  - só então enviava o resultado.
+
+Esse problema impactava diretamente:
+
+- STT (transcrição de áudio para texto)
+- TTS (geração de áudio a partir de texto)
+
+Esse comportamento tornava o uso dos serviços lento e inviável em situações de uso contínuo.
+
+---
+
+## Melhorias Implementadas
+
+Nesta sprint fizemos uma refatoração da arquitetura dos serviços.
+
+### Carregamento dos modelos apenas uma vez
+
+Ao iniciar o servidor (`main.py`), os modelos são carregados apenas uma vez:
+
+```python
+stt = STTService()
+stt.setup_model()
+
+tts = TTSService()
+tts.setup_model()
+
+chat = ChatService()
+```
+
+Com isso:
+
+- o delay provocado pelo carregamento do modelo é reduzido,
+- as chamadas agora executam apenas a inferência,
+- o backend se torna mais rápido, leve e preparado para uso contínuo.
+
+### Reorganização dos serviços em Classes (POO)
+
+Os serviços STT, TTS e Chat foram reorganizados em classes específicas:
+
+- `STT_service`
+- `TTS_service`
+- `Chatservice`
+
+Cada classe contém:
+
+- o setup do modelo
+- métodos de inferência
+- utilitários específicos (ex.: text breaker do TTS)
+
+Isso cria uma estrutura modular, reutilizável e fácil de expandir.
+
+### Separação correta entre WebSocket e HTTP
+
+Após a refatoração, cada serviço usa o protocolo ideal para sua natureza.
+
+**WebSocket – Comunicação Contínua (Streaming)**
+
+Utilizado em:
+
+- /tts (Text-to-Speech)
+- /stt (Speech-to-Text)
+
+Motivos:
+
+- O TTS envia **chunks de áudio** conforme gerados.
+- O STT recebe **partes de áudio progressivamente.**
+- WebSocket permite **comunicação bidirecional e contínua.**
+
+**HTTP – Comunicação Pontual**
+
+Utilizado em:
+
+- POST /chat
+
+Motivo:
+
+- A comunicação com a LLM não exige streaming; é uma operação simples de requisição e resposta.
+
+#### Funcionamento dos Endpoints
+
+**POST /chat (HTTP)**
+
+Fluxo:
+
+1. Recebe mensagem do usuário
+2. Encaminha para a LLM via `ChatService`
+3. Retorna o texto gerado
+
+Simples e eficiente por não exigir streaming.
+
+**TTS → WebSocket**
+
+Fluxo:
+
+1. Recebe texto via WebSocket
+2. Divide o texto em frases
+3. Converte cada frase em áudio
+4. Envia cada chunk imediatamente
+5. Finaliza o streaming com a mensagem `"END"`
+
+Esse formato permite resposta contínua e mais rápida.
+
+**STT → WebSocket**
+
+Fluxo:
+
+1. Recebe segmentos de áudio do cliente
+2. Transcreve cada segmento
+3. Devolve texto progressivamente
+
+Permite transcrição em tempo quase real.
+
+---
+
+## Benefícios na nova arquitetura
+
+- **Redução significativa da latência**
+  Ao carregar os modelos apenas uma vez, o backend evita o tempo de inicialização a cada requisição.
+
+- **Streaming otimizado para TTS e STT**
+  - TTS envia áudio por partes conforme gerado.
+  - STT recebe áudio incrementalmente para transcrição contínua.
+
+- **Arquitetura modular, clara e escalável**
+  A separação em classes melhora manutenção, testes e evolução do sistema.
+
+- **Uso correto de protocolos**
+  - WebSocket para fluxos contínuos
+  - HTTP para operações pontuais
+
+---
+
+## Conclusão
+
+A mudança desta sprint representou uma melhoria estrutural importante no backend.
+Os modelos agora operam de forma eficiente, a arquitetura está mais organizada e os serviços de STT, TTS e LLM contam com uma base sólida para evolução.
+
+As melhorias implementadas:
+
+- reduziram gargalos estruturais,
+- estabeleceu uma forma correta de expor serviços via API,
+- padronizou o código interno com POO,
+- habilitou streaming eficiente para TTS e STT,
+- deixou o sistema mais rápido e escalável.
