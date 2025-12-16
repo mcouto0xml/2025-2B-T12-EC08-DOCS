@@ -1,0 +1,185 @@
+---
+title: Hardware e Protocolos de Comunicação
+description: Detalhes de hardware, protocolo serial e comunicação do Kill Switch
+---
+
+# Kill Switch - Hardware e Protocolos de Comunicação
+
+## 1. Hardware - Detalhes de Implementação
+
+### Circuito de Entrada
+
+O botão Metaltex está conectado ao GPIO 0 do ESP32C3 com pull-up interno:
+
+```
+Botão Metaltex CP1-E
+│
+├─ Terminal 1 ──────────────► GPIO 0 (INPUT_PULLUP)
+│                             │
+│                             ├─ Resistor Pull-up 10kΩ (interno)
+│                             │
+│                             └─ Lê estado: HIGH (solto) ou LOW (pressionado)
+│
+└─ Terminal 2 ──────────────► GND (0V)
+```
+
+### Estados do GPIO
+
+| Estado          | Botão       | Valor Lido | Significado           |
+| :-------------- | :---------- | :--------- | :-------------------- |
+| **HIGH (3.3V)** | Solto       | 1          | Botão não pressionado |
+| **LOW (0V)**    | Pressionado | 0          | Botão pressionado     |
+
+### Consumo de Energia
+
+| Componente          | Corrente Típica | Modo            |
+| :------------------ | :-------------- | :-------------- |
+| **ESP32C3 (ativo)** | 80 mA           | Polling @ 20 Hz |
+| **Botão Metaltex**  | < 1 mA          | Passivo         |
+| **Serial USB**      | 50 mA           | Transmissão     |
+| **Total**           | ~130 mA         | Operação normal |
+
+## 2. Protocolo de Comunicação Serial
+
+### Especificação Geral
+
+| Parâmetro             | Valor                                  |
+| :-------------------- | :------------------------------------- |
+| **Tipo**              | Serial UART via USB-C (CDC)            |
+| **Porta**             | /dev/ttyAM0 (Linux) ou COM\* (Windows) |
+| **Baud Rate**         | 115200                                 |
+| **Data Bits**         | 8                                      |
+| **Stop Bits**         | 1                                      |
+| **Paridade**          | Nenhuma                                |
+| **Controle de Fluxo** | Nenhum                                 |
+
+### Formato de Dados
+
+O ESP32C3 envia um caractere por linha a cada 50ms:
+
+```
+Formato: <ESTADO>\n
+
+ESTADO:
+  '1' = Botão pressionado (GPIO 0 = LOW)
+  '0' = Botão solto (GPIO 0 = HIGH)
+
+Exemplo de sequência:
+0
+0
+1  ← Botão pressionado
+1
+1
+0  ← Botão liberado
+0
+```
+
+### Timeline de Transmissão
+
+| Evento          | Tempo                    | Descrição                          |
+| :-------------- | :----------------------- | :--------------------------------- |
+| **T+0ms**       | Operador pressiona botão | GPIO 0 muda de HIGH para LOW       |
+| **T+0-50ms**    | Próxima leitura          | ESP32C3 detecta transição          |
+| **T+50-100ms**  | Envio serial             | Caractere '1' enviado via serial   |
+| **T+100-150ms** | Recebimento Rust         | Serviço Rust recebe '1'            |
+| **T+150-200ms** | ROS publicação           | Comando publicado em /cmd/dump     |
+| **T+200-300ms** | Motor controller         | Recebe comando ROS                 |
+| **T+300-500ms** | Dump Mode ativo          | Torque cortado, motores desligados |
+
+**SLA Total**: ACK ≤ 1 segundo
+
+### Lógica de Flip-Flop
+
+O Rust service implementa detecção de transição para evitar falsos positivos:
+
+```rust
+previous_state = '0';
+
+loop {
+  current_byte = serial_port.read();
+
+  if current_byte == '1' && previous_state == '0' {
+    // Transição 0→1: Botão pressionado
+    trigger_kill_switch();
+  } else if current_byte == '0' && previous_state == '1' {
+    // Transição 1→0: Botão liberado
+    trigger_recover();
+  }
+
+  previous_state = current_byte;
+}
+```
+
+### Benefícios da Flip-Flop Logic
+
+- **Evita Bouncing**: Ruído mecânico do botão não causa múltiplos acionamentos
+- **Detecta Transições**: Apenas mudanças de estado são processadas
+- **Reduz Falsos Positivos**: Valores ruidosos são ignorados
+- **Eficiência**: Menos processamento desnecessário
+
+## 3. Comunicação Serial - Implementação
+
+### Teste de Comunicação
+
+```bash
+# Monitorar porta serial em Linux
+screen /dev/ttyAM0 115200
+
+# Esperado:
+# 0
+# 0
+# 1  (botão pressionado)
+# 1
+# 0  (botão liberado)
+# 0
+
+# Para sair do screen: Ctrl+A, depois X
+```
+
+### Diagnóstico de Problemas
+
+| Problema                 | Causa Provável        | Solução                    |
+| :----------------------- | :-------------------- | :------------------------- |
+| **Nenhuma saída serial** | Porta não encontrada  | Verificar conexão USB-C    |
+| **Caracteres ilegíveis** | Baud rate incorreto   | Confirmar 115200 baud      |
+| **Valores constantes**   | GPIO preso            | Verificar contato do botão |
+| **Transições lentas**    | Debouncing inadequado | Aumentar delay de 50ms     |
+
+### Integração com ROS 2
+
+O serviço Rust se inscreve na porta serial e publica em dois tópicos:
+
+```rust
+// Pseudocódigo
+match serial_port.read() {
+    Ok(byte) => {
+        if byte == '1' && previous_state == '0' {
+            ros_publisher.publish(EmergencyStopCommand {
+                action: "DUMP",
+                timestamp: get_current_time_utc(),
+                trace_id: generate_trace_id(),
+            });
+        }
+    }
+    Err(e) => {
+        log_error("SERIAL_READ_ERROR", e);
+    }
+}
+```
+
+### Tópicos ROS 2
+
+| Tópico           | Mensagem             | Frequência  | Descrição               |
+| :--------------- | :------------------- | :---------- | :---------------------- |
+| **/cmd/dump**    | EmergencyStopCommand | Sob demanda | Ativa Dump Mode         |
+| **/cmd/recover** | RecoverCommand       | Sob demanda | Ativa Recover from Fall |
+
+:::note
+
+O trace_id é essencial para rastrear o evento através de múltiplos serviços e facilitar debugging.
+
+:::
+
+## Resumo
+
+O protocolo serial é simples, robusto e confiável. A comunicação ocorre a 115200 baud com polling a cada 50ms, garantindo detecção rápida de pressão do botão e acionamento do Kill Switch imediato.

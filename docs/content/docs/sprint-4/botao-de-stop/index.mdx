@@ -1,0 +1,22 @@
+---
+title: Kill Switch - Sistema de Parada de Emergência
+description: Documentação técnica completa do Kill Switch (botão de emergência) para o robô Unitree
+---
+
+# Kill Switch - Sistema de Parada de Emergência
+
+:::warning
+
+**AVISO**: O acionamento deste botão de emergência resulta em uma **parada brusca** (Dump Mode) que pode causar danos mecânicos ao robô. Esta é uma medida de **último recurso**, mas **obrigatória** para garantir a segurança física dos humanos presentes durante o tour. A segurança humana tem prioridade absoluta sobre a preservação do equipamento.
+
+:::
+
+## Visão Geral
+
+O Kill Switch é um mecanismo nessesário para garantir a segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente. O sistema utiliza comunicação serial via USB-C para garantir confiabilidade máxima, com tempo de resposta garantido em menos de 1 segundo.
+
+Este documento fornece a documentação técnica completa, incluindo especificações de hardware, protocolos de comunicação, firmware, procedimentos operacionais e conformidade com padrões de segurança.
+
+## Próximas Fases
+
+Na próxima sprint, será adicionado um **protocolo HTTP/WiFi** como canal redundante. Isso permitirá acionamento do Kill Switch sem dependência da conexão USB-C, aumentando a disponibilidade do sistema.
