@@ -25,13 +25,13 @@ void loop() {
 
 ### Explicação da Lógica
 
-| Linha | Explicação |
-| :--- | :--- |
+| Linha                      | Explicação                                        |
+| :------------------------- | :------------------------------------------------ |
 | `pinMode(0, INPUT_PULLUP)` | Configura GPIO 0 como entrada com pull-up interno |
-| `Serial.begin(115200)` | Inicializa comunicação serial a 115200 baud |
-| `digitalRead(0)` | Lê o estado atual do GPIO 0 |
-| `state == LOW ? "1" : "0"` | Se LOW (pressionado), envia "1"; senão envia "0" |
-| `delay(50)` | Aguarda 50ms antes de próxima leitura (~20 Hz) |
+| `Serial.begin(115200)`     | Inicializa comunicação serial a 115200 baud       |
+| `digitalRead(0)`           | Lê o estado atual do GPIO 0                       |
+| `state == LOW ? "1" : "0"` | Se LOW (pressionado), envia "1"; senão envia "0"  |
+| `delay(50)`                | Aguarda 50ms antes de próxima leitura (~20 Hz)    |
 
 ### Comportamento
 
@@ -66,23 +66,23 @@ use ros2_client;
 fn main() {
     let mut serial_port = serialport::open("/dev/ttyAM0")
         .expect("Failed to open serial port");
-    
+
     serial_port.set_baud_rate(115200)
         .expect("Failed to set baud rate");
-    
+
     let mut ros_publisher = ros2_client::create_publisher("/cmd/dump");
     let mut previous_state = '0';
-    
+
     loop {
         let mut buffer = [0; 1];
         match serial_port.read_exact(&mut buffer) {
             Ok(_) => {
                 let current_byte = buffer[0] as char;
-                
+
                 if current_byte == '1' && previous_state == '0' {
                     // Transição 0→1: Botão pressionado
                     log_event("KILL_SWITCH_ACTIVATED", "CRITICAL");
-                    
+
                     ros_publisher.publish(EmergencyStopCommand {
                         action: "DUMP".to_string(),
                         timestamp: get_current_time_utc(),
@@ -91,13 +91,13 @@ fn main() {
                 } else if current_byte == '0' && previous_state == '1' {
                     // Transição 1→0: Botão liberado
                     log_event("KILL_SWITCH_RELEASED", "HIGH");
-                    
+
                     ros_publisher.publish(RecoverCommand {
                         action: "RECOVER_FROM_FALL".to_string(),
                         timestamp: get_current_time_utc(),
                     });
                 }
-                
+
                 previous_state = current_byte;
             }
             Err(e) => {
@@ -138,10 +138,10 @@ fn main() {
 
 O serviço Rust publica em dois tópicos ROS 2:
 
-| Tópico | Mensagem | Frequência | Descrição |
-| :--- | :--- | :--- | :--- |
-| `/cmd/dump` | EmergencyStopCommand | Sob demanda | Ativa Dump Mode |
-| `/cmd/recover` | RecoverCommand | Sob demanda | Ativa Recover from Fall |
+| Tópico         | Mensagem             | Frequência  | Descrição               |
+| :------------- | :------------------- | :---------- | :---------------------- |
+| `/cmd/dump`    | EmergencyStopCommand | Sob demanda | Ativa Dump Mode         |
+| `/cmd/recover` | RecoverCommand       | Sob demanda | Ativa Recover from Fall |
 
 ### Subscribers ROS 2
 
@@ -170,22 +170,23 @@ void recover_callback(const RecoverCommand& msg) {
 
 A sequência de acionamento segue 8 etapas principais:
 
-| Etapa | Ação | Tempo | Responsável | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | Operador pressiona botão | T+0ms | Operador | Crítica |
-| 2 | ESP32C3 detecta transição GPIO | T+0-50ms | Microcontrolador | Crítica |
-| 3 | Transmissão Serial iniciada | T+50-100ms | ESP32C3 | Crítica |
-| 4 | Serviço Rust recebe sinal serial | T+100-150ms | Rust Service | Crítica |
-| 5 | ROS Topic `/cmd/dump` publicado | T+150-200ms | ROS 2 | Crítica |
-| 6 | Motor controllers recebem comando | T+200-300ms | Robot Hardware | Crítica |
-| 7 | Torque cortado (Dump Mode ativado) | T+300-500ms | Robot Motors | Crítica |
-| 8 | Dump Mode confirmado | T+500-1000ms | Robot | Crítica |
+| Etapa | Ação                               | Tempo        | Responsável      | Status  |
+| :---- | :--------------------------------- | :----------- | :--------------- | :------ |
+| 1     | Operador pressiona botão           | T+0ms        | Operador         | Crítica |
+| 2     | ESP32C3 detecta transição GPIO     | T+0-50ms     | Microcontrolador | Crítica |
+| 3     | Transmissão Serial iniciada        | T+50-100ms   | ESP32C3          | Crítica |
+| 4     | Serviço Rust recebe sinal serial   | T+100-150ms  | Rust Service     | Crítica |
+| 5     | ROS Topic `/cmd/dump` publicado    | T+150-200ms  | ROS 2            | Crítica |
+| 6     | Motor controllers recebem comando  | T+200-300ms  | Robot Hardware   | Crítica |
+| 7     | Torque cortado (Dump Mode ativado) | T+300-500ms  | Robot Motors     | Crítica |
+| 8     | Dump Mode confirmado               | T+500-1000ms | Robot            | Crítica |
 
 **SLA**: ACK ≤ 1 segundo (RF-KS-006)
 
 ### Diagrama de Sequência
 
-<Mermaid chart="sequenceDiagram
+<Mermaid
+  chart="sequenceDiagram
   participant O as Operador
   participant E as ESP32C3
   participant R as Rust Service
@@ -201,7 +202,8 @@ A sequência de acionamento segue 8 etapas principais:
   M->>M: Desliga Torque
   M->>O: Dump Mode Ativado
   O->>O: Robô Seguro
-" />
+"
+/>
 
 ### Playbooks de Resposta
 
@@ -247,6 +249,7 @@ A sequência de acionamento segue 8 etapas principais:
 **Responsável**: Analista 4 (SIEM-ROB)
 
 **Investigação**:
+
 - Verificar logs de erro do ESP32C3
 - Testar conexão USB-C
 - Validar baud rate e configuração serial
@@ -274,6 +277,7 @@ A sequência de acionamento segue 8 etapas principais:
 **Responsável**: Operador + Analista 4
 
 **Análise**:
+
 - Taxa de falsos positivos por hora
 - Padrão de acionamentos (acidental vs. intencional)
 - Necessidade de ajuste de sensibilidade

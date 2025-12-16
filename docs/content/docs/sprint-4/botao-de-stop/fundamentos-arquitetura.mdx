@@ -19,24 +19,24 @@ O Kill Switch é um mecanismo essencial de segurança projetado para interromper
 
 ### Requisitos Funcionais (RF)
 
-| ID | Descrição | Prioridade |
-| :--- | :--- | :--- |
-| **RF-KS-001** | Sistema deve detectar pressão do botão em ≤ 50ms | GRAVE |
-| **RF-KS-002** | Sistema deve enviar sinal via serial em ≤ 100ms | GRAVE |
-| **RF-KS-003** | Serviço Rust deve processar sinal em ≤ 150ms | GRAVE |
-| **RF-KS-004** | ROS 2 deve publicar comando em ≤ 200ms | GRAVE |
-| **RF-KS-005** | Robô deve ativar Dump Mode em ≤ 500ms | GRAVE |
-| **RF-KS-006** | ACK total deve ser recebido em ≤ 1 segundo | GRAVE |
+| ID            | Descrição                                        | Prioridade |
+| :------------ | :----------------------------------------------- | :--------- |
+| **RF-KS-001** | Sistema deve detectar pressão do botão em ≤ 50ms | GRAVE      |
+| **RF-KS-002** | Sistema deve enviar sinal via serial em ≤ 100ms  | GRAVE      |
+| **RF-KS-003** | Serviço Rust deve processar sinal em ≤ 150ms     | GRAVE      |
+| **RF-KS-004** | ROS 2 deve publicar comando em ≤ 200ms           | GRAVE      |
+| **RF-KS-005** | Robô deve ativar Dump Mode em ≤ 500ms            | GRAVE      |
+| **RF-KS-006** | ACK total deve ser recebido em ≤ 1 segundo       | GRAVE      |
 
 ### Requisitos Não-Funcionais (RNF)
 
-| ID | Descrição | Valor |
-| :--- | :--- | :--- |
-| **RNF-KS-001** | Disponibilidade | ≥ 99% |
-| **RNF-KS-002** | Latência p95 | ≤ 500ms |
-| **RNF-KS-003** | Taxa de falsos positivos | < 1/hora |
-| **RNF-KS-004** | MTTR | ≤ 5 minutos |
-| **RNF-KS-005** | Retenção de logs | 90 dias |
+| ID             | Descrição                | Valor       |
+| :------------- | :----------------------- | :---------- |
+| **RNF-KS-001** | Disponibilidade          | ≥ 99%       |
+| **RNF-KS-002** | Latência p95             | ≤ 500ms     |
+| **RNF-KS-003** | Taxa de falsos positivos | < 1/hora    |
+| **RNF-KS-004** | MTTR                     | ≤ 5 minutos |
+| **RNF-KS-005** | Retenção de logs         | 90 dias     |
 
 ## 2. Arquitetura do Sistema
 
@@ -44,7 +44,8 @@ O Kill Switch é um mecanismo essencial de segurança projetado para interromper
 
 O sistema é composto por três camadas: **Sensor** (botão + microcontrolador), **Transmissão** (Serial), e **Atuação** (Rust + ROS 2).
 
-<Mermaid chart="flowchart TD
+<Mermaid
+  chart="flowchart TD
   A[Operador Pressiona Botão] --> B[ESP32C3 Detecta GPIO 0]
   B --> C[Serial TTY AM0<br/>115200 baud]
   C --> D[Rust Service<br/>Monitora Serial]
@@ -54,56 +55,57 @@ O sistema é composto por três camadas: **Sensor** (botão + microcontrolador),
   G --> H[DUMP MODE ATIVADO]
   H --> I[Motores Desligados]
   I --> J[Robô Colapsado<br/>Estado Seguro]
-" />
+"
+/>
 
 ### Componentes de Hardware
 
-| Componente | Modelo | Função | Especificação |
-| :--- | :--- | :--- | :--- |
-| **Botão** | Metaltex CP1-E | Sensor físico | Cogumelo amarelo, IP65 |
+| Componente           | Modelo             | Função        | Especificação          |
+| :------------------- | :----------------- | :------------ | :--------------------- |
+| **Botão**            | Metaltex CP1-E     | Sensor físico | Cogumelo amarelo, IP65 |
 | **Microcontrolador** | ESP32C3 Super Mini | Processamento | RISC-V 32-bit, 160 MHz |
-| **Conexão Serial** | USB-C (tty AM0) | Comunicação | 115200 baud, CDC |
+| **Conexão Serial**   | USB-C (tty AM0)    | Comunicação   | 115200 baud, CDC       |
 
 ### Componentes de Software
 
-| Componente | Tecnologia | Responsabilidade |
-| :--- | :--- | :--- |
-| **Firmware Serial** | C++ (Arduino) | Leitura de GPIO e envio serial |
-| **Serviço Rust** | Rust | Monitoramento serial e publicação ROS |
-| **ROS 2 Node** | ROS 2 (C++) | Comando de dump e state machine |
+| Componente          | Tecnologia    | Responsabilidade                      |
+| :------------------ | :------------ | :------------------------------------ |
+| **Firmware Serial** | C++ (Arduino) | Leitura de GPIO e envio serial        |
+| **Serviço Rust**    | Rust          | Monitoramento serial e publicação ROS |
+| **ROS 2 Node**      | ROS 2 (C++)   | Comando de dump e state machine       |
 
 ## 3. Especificações Técnicas
 
 ### Microcontrolador ESP32C3
 
-| Parâmetro | Valor |
-| :--- | :--- |
-| **Processador** | RISC-V 32-bit single-core |
-| **Frequência de Clock** | 160 MHz |
-| **Memória RAM** | 400 KB |
-| **Flash** | 4 MB |
-| **Tensão de Operação** | 3.3V |
-| **Corrente Típica** | 80 mA |
+| Parâmetro               | Valor                     |
+| :---------------------- | :------------------------ |
+| **Processador**         | RISC-V 32-bit single-core |
+| **Frequência de Clock** | 160 MHz                   |
+| **Memória RAM**         | 400 KB                    |
+| **Flash**               | 4 MB                      |
+| **Tensão de Operação**  | 3.3V                      |
+| **Corrente Típica**     | 80 mA                     |
 
 ### Configuração de Pinagem
 
-| Pino | Função | Configuração | Notas |
-| :--- | :--- | :--- | :--- |
-| **GPIO 0** | Entrada do Botão | INPUT_PULLUP (ativo em LOW) | Resistor interno 10kΩ |
-| **USB D+/D-** | Comunicação Serial | CDC @ 115200 baud | Porta virtual tty AM0 |
-| **3V3** | Alimentação Positiva | 3.3V | Máximo 500mA |
-| **GND** | Referência de Terra | 0V | Comum a todos |
+| Pino          | Função               | Configuração                | Notas                 |
+| :------------ | :------------------- | :-------------------------- | :-------------------- |
+| **GPIO 0**    | Entrada do Botão     | INPUT_PULLUP (ativo em LOW) | Resistor interno 10kΩ |
+| **USB D+/D-** | Comunicação Serial   | CDC @ 115200 baud           | Porta virtual tty AM0 |
+| **3V3**       | Alimentação Positiva | 3.3V                        | Máximo 500mA          |
+| **GND**       | Referência de Terra  | 0V                          | Comum a todos         |
 
 ### Botão Metaltex CP1-E
 
-| Aspecto | Especificação |
-| :--- | :--- |
-| **Tipo** | Cogumelo com trava |
-| **Acionamento** | Push-lock (pressionar para ativar) |
-| **Liberação** | Turn-reset (girar para desativar) |
-| **Cor** | Amarelo (segurança industrial) |
-| **Grau de Proteção** | IP65 |
-| **Diâmetro** | ~60mm |
+| Aspecto              | Especificação                      |
+| :------------------- | :--------------------------------- |
+| **Tipo**             | Cogumelo com trava                 |
+| **Acionamento**      | Push-lock (pressionar para ativar) |
+| **Liberação**        | Turn-reset (girar para desativar)  |
+| **Cor**              | Amarelo (segurança industrial)     |
+| **Grau de Proteção** | IP65                               |
+| **Diâmetro**         | ~60mm                              |
 
 ### Mapeamento de Conexões
 
@@ -137,12 +139,12 @@ O sistema é composto por três camadas: **Sensor** (botão + microcontrolador),
                    └─────────────┘
 ```
 
-| Componente | Pino | Conexão | Tipo |
-| :--- | :--- | :--- | :--- |
-| **Botão Terminal 1** | GPIO 0 | ESP32C3 GPIO 0 | Sinal |
-| **Botão Terminal 2** | GND | ESP32C3 GND | Terra |
-| **USB-C** | D+/D- | Computador/Robô | Serial |
-| **Alimentação** | 3V3/GND | Fonte 3.3V | Power |
+| Componente           | Pino    | Conexão         | Tipo   |
+| :------------------- | :------ | :-------------- | :----- |
+| **Botão Terminal 1** | GPIO 0  | ESP32C3 GPIO 0  | Sinal  |
+| **Botão Terminal 2** | GND     | ESP32C3 GND     | Terra  |
+| **USB-C**            | D+/D-   | Computador/Robô | Serial |
+| **Alimentação**      | 3V3/GND | Fonte 3.3V      | Power  |
 
 :::warning
 

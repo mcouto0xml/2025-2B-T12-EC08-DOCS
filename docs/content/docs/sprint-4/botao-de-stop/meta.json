@@ -1,6 +1,10 @@
 {
   "title": "Kill Switch - Sistema de Parada de Emergência",
   "description": "Documentação técnica completa do Kill Switch (botão de emergência) para o robô Unitree",
-  "pages": ["fundamentos-arquitetura", "hardware-protocolos", "software-operacao", "seguranca-conformidade"]
+  "pages": [
+    "fundamentos-arquitetura",
+    "hardware-protocolos",
+    "software-operacao",
+    "seguranca-conformidade"
+  ]
 }
-

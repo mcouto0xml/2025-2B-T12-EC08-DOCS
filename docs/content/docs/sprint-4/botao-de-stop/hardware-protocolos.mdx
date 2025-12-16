@@ -25,33 +25,33 @@ Botão Metaltex CP1-E
 
 ### Estados do GPIO
 
-| Estado | Botão | Valor Lido | Significado |
-| :--- | :--- | :--- | :--- |
-| **HIGH (3.3V)** | Solto | 1 | Botão não pressionado |
-| **LOW (0V)** | Pressionado | 0 | Botão pressionado |
+| Estado          | Botão       | Valor Lido | Significado           |
+| :-------------- | :---------- | :--------- | :-------------------- |
+| **HIGH (3.3V)** | Solto       | 1          | Botão não pressionado |
+| **LOW (0V)**    | Pressionado | 0          | Botão pressionado     |
 
 ### Consumo de Energia
 
-| Componente | Corrente Típica | Modo |
-| :--- | :--- | :--- |
-| **ESP32C3 (ativo)** | 80 mA | Polling @ 20 Hz |
-| **Botão Metaltex** | < 1 mA | Passivo |
-| **Serial USB** | 50 mA | Transmissão |
-| **Total** | ~130 mA | Operação normal |
+| Componente          | Corrente Típica | Modo            |
+| :------------------ | :-------------- | :-------------- |
+| **ESP32C3 (ativo)** | 80 mA           | Polling @ 20 Hz |
+| **Botão Metaltex**  | < 1 mA          | Passivo         |
+| **Serial USB**      | 50 mA           | Transmissão     |
+| **Total**           | ~130 mA         | Operação normal |
 
 ## 2. Protocolo de Comunicação Serial
 
 ### Especificação Geral
 
-| Parâmetro | Valor |
-| :--- | :--- |
-| **Tipo** | Serial UART via USB-C (CDC) |
-| **Porta** | /dev/ttyAM0 (Linux) ou COM* (Windows) |
-| **Baud Rate** | 115200 |
-| **Data Bits** | 8 |
-| **Stop Bits** | 1 |
-| **Paridade** | Nenhuma |
-| **Controle de Fluxo** | Nenhum |
+| Parâmetro             | Valor                                  |
+| :-------------------- | :------------------------------------- |
+| **Tipo**              | Serial UART via USB-C (CDC)            |
+| **Porta**             | /dev/ttyAM0 (Linux) ou COM\* (Windows) |
+| **Baud Rate**         | 115200                                 |
+| **Data Bits**         | 8                                      |
+| **Stop Bits**         | 1                                      |
+| **Paridade**          | Nenhuma                                |
+| **Controle de Fluxo** | Nenhum                                 |
 
 ### Formato de Dados
 
@@ -76,15 +76,15 @@ Exemplo de sequência:
 
 ### Timeline de Transmissão
 
-| Evento | Tempo | Descrição |
-| :--- | :--- | :--- |
-| **T+0ms** | Operador pressiona botão | GPIO 0 muda de HIGH para LOW |
-| **T+0-50ms** | Próxima leitura | ESP32C3 detecta transição |
-| **T+50-100ms** | Envio serial | Caractere '1' enviado via serial |
-| **T+100-150ms** | Recebimento Rust | Serviço Rust recebe '1' |
-| **T+150-200ms** | ROS publicação | Comando publicado em /cmd/dump |
-| **T+200-300ms** | Motor controller | Recebe comando ROS |
-| **T+300-500ms** | Dump Mode ativo | Torque cortado, motores desligados |
+| Evento          | Tempo                    | Descrição                          |
+| :-------------- | :----------------------- | :--------------------------------- |
+| **T+0ms**       | Operador pressiona botão | GPIO 0 muda de HIGH para LOW       |
+| **T+0-50ms**    | Próxima leitura          | ESP32C3 detecta transição          |
+| **T+50-100ms**  | Envio serial             | Caractere '1' enviado via serial   |
+| **T+100-150ms** | Recebimento Rust         | Serviço Rust recebe '1'            |
+| **T+150-200ms** | ROS publicação           | Comando publicado em /cmd/dump     |
+| **T+200-300ms** | Motor controller         | Recebe comando ROS                 |
+| **T+300-500ms** | Dump Mode ativo          | Torque cortado, motores desligados |
 
 **SLA Total**: ACK ≤ 1 segundo
 
@@ -97,7 +97,7 @@ previous_state = '0';
 
 loop {
   current_byte = serial_port.read();
-  
+
   if current_byte == '1' && previous_state == '0' {
     // Transição 0→1: Botão pressionado
     trigger_kill_switch();
@@ -105,7 +105,7 @@ loop {
     // Transição 1→0: Botão liberado
     trigger_recover();
   }
-  
+
   previous_state = current_byte;
 }
 ```
@@ -138,12 +138,12 @@ screen /dev/ttyAM0 115200
 
 ### Diagnóstico de Problemas
 
-| Problema | Causa Provável | Solução |
-| :--- | :--- | :--- |
-| **Nenhuma saída serial** | Porta não encontrada | Verificar conexão USB-C |
-| **Caracteres ilegíveis** | Baud rate incorreto | Confirmar 115200 baud |
-| **Valores constantes** | GPIO preso | Verificar contato do botão |
-| **Transições lentas** | Debouncing inadequado | Aumentar delay de 50ms |
+| Problema                 | Causa Provável        | Solução                    |
+| :----------------------- | :-------------------- | :------------------------- |
+| **Nenhuma saída serial** | Porta não encontrada  | Verificar conexão USB-C    |
+| **Caracteres ilegíveis** | Baud rate incorreto   | Confirmar 115200 baud      |
+| **Valores constantes**   | GPIO preso            | Verificar contato do botão |
+| **Transições lentas**    | Debouncing inadequado | Aumentar delay de 50ms     |
 
 ### Integração com ROS 2
 
@@ -169,10 +169,10 @@ match serial_port.read() {
 
 ### Tópicos ROS 2
 
-| Tópico | Mensagem | Frequência | Descrição |
-| :--- | :--- | :--- | :--- |
-| **/cmd/dump** | EmergencyStopCommand | Sob demanda | Ativa Dump Mode |
-| **/cmd/recover** | RecoverCommand | Sob demanda | Ativa Recover from Fall |
+| Tópico           | Mensagem             | Frequência  | Descrição               |
+| :--------------- | :------------------- | :---------- | :---------------------- |
+| **/cmd/dump**    | EmergencyStopCommand | Sob demanda | Ativa Dump Mode         |
+| **/cmd/recover** | RecoverCommand       | Sob demanda | Ativa Recover from Fall |
 
 :::note
 
