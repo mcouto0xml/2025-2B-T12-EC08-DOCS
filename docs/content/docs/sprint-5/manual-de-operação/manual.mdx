@@ -23,7 +23,7 @@ Por se tratar de um sistema robótico em ambiente público, todas as orientaçõ
 Antes de qualquer inicialização ou teste, é obrigatório garantir que:
 
 - O robô esteja posicionado em sua **posição padrão recomendada**, com as patas alinhadas e postura estável, conforme orientação do fabricante.
-- O **robô e o sistema de controle** estejam conectados ao **Wi-Fi específico do projeto ()**, previamente configurado.
+- O **robô e o sistema de controle** estejam conectados ao **Wi-Fi específico do projeto (InteliRobo)**, previamente configurado.
 - O ambiente esteja livre de obstáculos imediatos e com **zona de segurança mínima de 1 metro** ao redor do robô.
 - Um responsável esteja designado exclusivamente para o **acompanhamento do tour** e para o **controle do botão remoto de emergência** em casos de necessidade.
 
@@ -35,11 +35,7 @@ A não conformidade com qualquer um desses pontos **impede o início do tour**.
 
 - A sequência de inicialização deve ser sempre respeitada: **controle → robô**.
 - Durante o tour, o robô deve se deslocar em **velocidade reduzida e constante**, priorizando estabilidade e previsibilidade dos movimentos.
-- **Não é permitido movimentar fisicamente o robô** caso sua atividade seja interrompida.
-
-> **Importante:**  
-> Caso o robô seja movido manualmente após uma interrupção, a **continuidade do tour é impossibilitada**, pois o sistema perde a referência do ponto exato onde a atividade foi pausada.
-
+- Toda vez que iniciar o robô ele deve estar no mesmo local de ínicio do tuor para realizar o mapeamento.
 - Comandos repetidos, simultâneos ou fora do fluxo esperado devem ser evitados, pois podem gerar comportamentos não determinísticos.
 - Testes devem ser realizados previamente em ambientes controlados, antes de qualquer operação com visitantes.
 
@@ -80,10 +76,9 @@ O projeto conta com **dois botões físicos de emergência**, ambos capazes de i
 
 Após qualquer parada de emergência:
 
-1. Não movimentar o robô manualmente.
-2. Avaliar visualmente possíveis danos.
-3. Verificar diagnósticos no aplicativo/sistema.
-4. Registrar o ocorrido antes de qualquer nova tentativa de operação.
+1. Avaliar visualmente possíveis danos.
+2. Verificar diagnósticos no aplicativo/sistema.
+3. Registrar o ocorrido antes de qualquer nova tentativa de operação.
 
 ### O que NÃO deve ser feito
 
@@ -100,7 +95,7 @@ Após qualquer parada de emergência:
 | ID   | Área       | Procedimento / Situação                                               | Resultado Esperado                                   |
 |------|------------|-----------------------------------------------------------------------|------------------------------------------------------|
 | OP01 | Operação   | Ligar o controle antes do robô.                                       | Pareamento realizado sem falhas.                     |
-| OP02 | Operação   | Ligar o controle (pressionar, soltar, pressionar, soltar, segurar).                       | Controle ativo e reconhecido.                        |
+| OP02 | Operação   | Ligar o controle (pressionar, soltar, pressionar, soltar, segurar).   | Controle ativo e reconhecido.                        |
 | OP03 | Operação   | Ligar o robô (pressionar, soltar, segurar).                           | Robô inicia e responde aos comandos.                 |
 | OP04 | Operação   | Em perda parcial de controle, pressionar L2 + A.                      | Robô trava movimentos e estabiliza.                  |
 | OP05 | Segurança  | Em risco iminente, pressionar L2 + B.                                 | Parada forçada imediata.                             |
