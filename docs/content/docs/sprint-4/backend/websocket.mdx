@@ -9,12 +9,14 @@ description: Sistema responsável pela comunicação em tempo real entre robô, 
 O sistema de WebSockets possui dois módulos principais:
 
 ### **1.1 Módulo de Chat e Conversação**
+
 - Recebe perguntas dos visitantes (texto ou áudio)
 - Envia respostas em texto e áudio
 - Sincroniza múltiplos dispositivos (painel do operador, robô, turista)
 - Realiza transcrição de fala (STT) e síntese de voz (TTS)
 
 ### **1.2 Módulo de Controle de Checkpoints**
+
 - Comunica eventos de navegação do robô (início/fim de checkpoints)
 - Sincroniza status do robô em tempo real com o backend e frontend
 - Atualiza automaticamente o banco de dados com timestamps reais
@@ -247,13 +249,13 @@ pub struct RobotClient {
 
 ### **Eventos recebidos do robô**
 
-| Evento                 | Quando ocorre                        | Ação no Backend                                    |
-| ---------------------- | ------------------------------------ | -------------------------------------------------- |
-| `connected`            | Conexão inicial estabelecida         | Envia status inicial para frontend                 |
+| Evento                 | Quando ocorre                         | Ação no Backend                                     |
+| ---------------------- | ------------------------------------- | --------------------------------------------------- |
+| `connected`            | Conexão inicial estabelecida          | Envia status inicial para frontend                  |
 | `checkpoint_started`   | Robô inicia movimento para checkpoint | UPDATE banco: `status='running', inicio_real=NOW()` |
-| `checkpoint_completed` | Robô chega no checkpoint             | UPDATE banco: `status='finished', fim_real=NOW()`  |
-| `emergency_stop`       | Parada de emergência acionada        | UPDATE banco: `status='skipped'` (checkpoint atual) |
-| `robot_connected`      | Robô físico conecta via WebRTC       | Notifica frontend que robô está online             |
+| `checkpoint_completed` | Robô chega no checkpoint              | UPDATE banco: `status='finished', fim_real=NOW()`   |
+| `emergency_stop`       | Parada de emergência acionada         | UPDATE banco: `status='skipped'` (checkpoint atual) |
+| `robot_connected`      | Robô físico conecta via WebRTC        | Notifica frontend que robô está online              |
 
 ### **Comandos enviados ao robô**
 
@@ -268,8 +270,8 @@ RobotCommand::get_status()  // Consultar status atual
 ```rust
 // Quando checkpoint inicia
 sqlx::query(
-    "UPDATE checkpoints 
-     SET status = $1, inicio_real = $2 
+    "UPDATE checkpoints
+     SET status = $1, inicio_real = $2
      WHERE tipo = $3 AND ordem = $4"
 )
 .bind("running")
@@ -281,8 +283,8 @@ sqlx::query(
 
 // Quando checkpoint completa
 sqlx::query(
-    "UPDATE checkpoints 
-     SET status = $1, fim_real = $2 
+    "UPDATE checkpoints
+     SET status = $1, fim_real = $2
      WHERE tipo = $3 AND ordem = $4"
 )
 .bind("finished")
@@ -325,7 +327,7 @@ tokio::select! {
     Ok(event) = frontend_rx.recv() => {
         session.text(json).await?;
     }
-    
+
     // Recebe comandos do frontend → Envia para robô
     Some(Ok(msg)) = msg_stream.next() => {
         let cmd = serde_json::from_str::<FrontendCommand>(&text)?;
@@ -452,25 +454,25 @@ pub enum FrontendCommand {
 
 ### **Tabela: checkpoints**
 
-| Coluna            | Tipo         | Preenchimento                                          |
-| ----------------- | ------------ | ------------------------------------------------------ |
-| `id`              | SERIAL (PK)  | Auto-gerado                                            |
-| `tour_id`         | INT (FK)     | Criação do tour                                        |
-| `tipo`            | TEXT         | Criação do tour (recepcao, auditorio, atelie, etc.)   |
-| `ordem`           | INT          | Criação do tour (1, 2, 3, 4, 5)                        |
-| `status`          | TEXT         | Inicial: `pending` → `running` → `finished`/`skipped`  |
-| `inicio_previsto` | TIMESTAMPTZ  | Criação do tour (horário estimado)                    |
-| `inicio_real`     | TIMESTAMPTZ  | **Evento `checkpoint_started`** (timestamp real)       |
-| `fim_real`        | TIMESTAMPTZ  | **Evento `checkpoint_completed`** (timestamp real)     |
+| Coluna            | Tipo        | Preenchimento                                         |
+| ----------------- | ----------- | ----------------------------------------------------- |
+| `id`              | SERIAL (PK) | Auto-gerado                                           |
+| `tour_id`         | INT (FK)    | Criação do tour                                       |
+| `tipo`            | TEXT        | Criação do tour (recepcao, auditorio, atelie, etc.)   |
+| `ordem`           | INT         | Criação do tour (1, 2, 3, 4, 5)                       |
+| `status`          | TEXT        | Inicial: `pending` → `running` → `finished`/`skipped` |
+| `inicio_previsto` | TIMESTAMPTZ | Criação do tour (horário estimado)                    |
+| `inicio_real`     | TIMESTAMPTZ | **Evento `checkpoint_started`** (timestamp real)      |
+| `fim_real`        | TIMESTAMPTZ | **Evento `checkpoint_completed`** (timestamp real)    |
 
 ### **Estados do checkpoint**
 
-| Status     | Quando ocorre                         |
-| ---------- | ------------------------------------- |
+| Status     | Quando ocorre                          |
+| ---------- | -------------------------------------- |
 | `pending`  | Checkpoint criado, aguardando execução |
-| `running`  | Robô em movimento para o checkpoint   |
-| `finished` | Robô chegou e completou o checkpoint  |
-| `skipped`  | Emergency stop durante execução       |
+| `running`  | Robô em movimento para o checkpoint    |
+| `finished` | Robô chegou e completou o checkpoint   |
+| `skipped`  | Emergency stop durante execução        |
 
 ## **6. Formatos de Mensagens**
 
@@ -551,11 +553,11 @@ ip = "127.0.0.1"  # IP do servidor Python do robô (localhost para testes)
 
 ### **7.2 Portas utilizadas**
 
-| Serviço                | Porta | Protocolo |
-| ---------------------- | ----- | --------- |
-| Backend Rust           | 8081  | HTTP/WS   |
-| Robot Python Server    | 8080  | HTTP/WS   |
-| PostgreSQL (Supabase)  | 5432  | TCP       |
+| Serviço               | Porta | Protocolo |
+| --------------------- | ----- | --------- |
+| Backend Rust          | 8081  | HTTP/WS   |
+| Robot Python Server   | 8080  | HTTP/WS   |
+| PostgreSQL (Supabase) | 5432  | TCP       |
 
 ## **8. Testando o Sistema**
 
@@ -576,6 +578,7 @@ python test_websocket.py interactive --url ws://localhost:8081/ws
 ```
 
 **Comandos disponíveis:**
+
 - `status` - Consultar status do robô
 - `play` - Executar próximo checkpoint
 - `stop` - Parada de emergência
@@ -584,6 +587,7 @@ python test_websocket.py interactive --url ws://localhost:8081/ws
 ### **8.2 Observando logs**
 
 **Backend logs esperados:**
+
 ```
 ✅ Conectado ao robô!
 📡 Iniciando listener de eventos do robô
@@ -619,17 +623,20 @@ python test_websocket.py interactive --url ws://localhost:8081/ws
 O sistema de WebSockets deste projeto é o que permite:
 
 ### **Módulo de Chat:**
+
 - Conversação natural com visitantes via texto e áudio
 - Sincronização em tempo real entre múltiplos dispositivos
 - Integração inteligente com STT, TTS e modelo de IA
 
 ### **Módulo de Checkpoints:**
+
 - Controle preciso da navegação do robô
 - Atualização automática do banco com timestamps reais
 - Sincronização perfeita entre robô físico, backend e frontend
 - Gerenciamento de estados e paradas de emergência
 
 A arquitetura foi construída para ser:
+
 - **Simples de entender** - Componentes bem separados e documentados
 - **Escalável** - Usa broadcast channels e WebSockets eficientes
 - **Resiliente** - Retry automático e tratamento de erros
