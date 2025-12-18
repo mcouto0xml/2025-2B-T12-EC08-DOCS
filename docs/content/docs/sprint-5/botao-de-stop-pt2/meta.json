@@ -2,9 +2,9 @@
   "title": "Kill Switch - Atualização do Sistema de Parada de Emergência",
   "description": "Documentação técnica completa do Kill Switch (botão de emergência) para o robô Unitree",
   "pages": [
-    "fundamentos-arquitetura.mdx",
-    "hardware-protocolos.mdx",
-    "software-operacao.mdx",
-    "seguranca-conformidade.mdx"
+    "fundamentos-arquitetura",
+    "hardware-protocolos",
+    "software-operacao",
+    "seguranca-conformidade"
   ]
 }
