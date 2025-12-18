@@ -1,0 +1,377 @@
+---
+title: Documentação da API
+description: Documentação de todos os endpoints que foram desenvolvidos ao longo do módulo.
+---
+
+## Recursos Principais
+
+### 1. **Visitantes** (`/v1/visitante`)
+
+Gerenciamento de visitantes que participam dos tours.
+
+#### Modelo de Dados
+- `nome` (string, opcional): Nome do visitante
+- `cpf` (string, opcional): CPF do visitante
+- `email` (string, opcional): Email de contato
+- `telefone` (string, opcional): Telefone de contato
+- `cidade` (string, opcional): Cidade de origem
+- `estado` (string, opcional): Estado de origem
+- `perfil` (enum, obrigatório): Tipo de perfil
+  - `student`: Estudante
+  - `executive`: Executivo
+
+#### Endpoints
+
+**GET /v1/visitante** - Retorna todos os visitantes cadastrados
+
+**POST /v1/visitante** - Cria um novo visitante
+
+**GET /v1/visitante/&#123;id&#125;** - Busca um visitante específico
+
+**PUT /v1/visitante/&#123;id&#125;** - Atualiza dados de um visitante
+
+**DELETE /v1/visitante/&#123;id&#125;** - Remove um visitante
+
+### 2. **Acompanhantes** (`/v1/acompanhante`)
+
+Gerenciamento de acompanhantes vinculados aos visitantes.
+
+#### Modelo de Dados
+- `nome` (string, opcional): Nome do acompanhante
+- `cpf` (string, opcional): CPF do acompanhante
+- `visitante_id` (integer, opcional): ID do visitante principal
+
+#### Endpoints
+
+**GET /v1/acompanhante** - Lista todos os acompanhantes
+
+**POST /v1/acompanhante** - Cria novo acompanhante
+
+**GET /v1/acompanhante/&#123;id&#125;** - Busca acompanhante específico
+
+**PUT /v1/acompanhante/&#123;id&#125;** - Atualiza acompanhante
+
+**DELETE /v1/acompanhante/&#123;id&#125;** - Remove acompanhante
+
+### 3. **Robôs** (`/v1/robo`)
+
+Gerenciamento dos robôs que conduzem os tours.
+
+#### Modelo de Dados
+- `nome` (string, opcional): Nome do robô
+- `modelo` (string, opcional): Modelo do robô
+- `numero_serie` (string, opcional): Número de série
+- `ativo` (boolean, opcional): Status de ativação
+
+#### Endpoints
+
+**GET /v1/robo** - Lista todos os robôs
+
+**POST /v1/robo** - Cadastra novo robô
+
+**GET /v1/robo/&#123;id&#125;** - Busca robô específico
+
+**PUT /v1/robo/&#123;id&#125;** - Atualiza dados do robô
+
+**DELETE /v1/robo/&#123;id&#125;** - Remove robô
+
+### 4. **Tours** (`/v1/tour`)
+
+Gerenciamento dos tours agendados e em andamento.
+
+#### Modelo de Dados
+- `codigo` (string, obrigatório): Código único do tour
+- `titulo` (string, opcional): Título do tour
+- `data_local` (date, obrigatório): Data do tour
+- `hora_inicio_prevista` (string, opcional): Hora de início prevista
+- `hora_fim_prevista` (string, opcional): Hora de término prevista
+- `inicio_real` (datetime, opcional): Timestamp real de início
+- `fim_real` (datetime, opcional): Timestamp real de término
+- `status` (enum, obrigatório): Status atual
+  - `scheduled`: Agendado
+  - `in_progress`: Em andamento
+  - `completed`: Concluído
+  - `cancelled`: Cancelado
+- `robo_id` (integer, obrigatório): ID do robô designado
+- `responsavel_id` (integer, opcional): ID do responsável
+
+#### Endpoints
+
+**GET /v1/tour** - Lista todos os tours
+
+**POST /v1/tour** - Cria novo tour
+
+**GET /v1/tour/&#123;id&#125;** - Busca tour específico
+
+**PUT /v1/tour/&#123;id&#125;** - Atualiza tour
+
+**DELETE /v1/tour/&#123;id&#125;** - Remove tour
+
+### 5. **Tour-Visitante** (`/v1/tour-visitante`)
+
+Relacionamento many-to-many entre tours e visitantes.
+
+#### Modelo de Dados
+- `tour_id` (integer, obrigatório): ID do tour
+- `visitante_id` (integer, obrigatório): ID do visitante
+
+#### Endpoints
+
+**GET /v1/tour-visitante** - Lista todas as associações
+
+**POST /v1/tour-visitante** - Adiciona visitante ao tour
+
+**GET /v1/tour-visitante/&#123;id&#125;** - Busca associação específica
+
+**GET /v1/tour-visitante/tour/&#123;tour_id&#125;** - Lista visitantes de um tour
+
+**GET /v1/tour-visitante/visitante/&#123;visitante_id&#125;** - Lista tours de um visitante
+
+**DELETE /v1/tour-visitante/&#123;id&#125;** - Remove associação
+
+### 6. **Checkpoints** (`/v1/checkpoint`)
+
+Pontos de parada durante o tour.
+
+#### Modelo de Dados
+- `tour_id` (integer, obrigatório): ID do tour
+- `tipo` (enum, obrigatório): Tipo do checkpoint
+  - `recepcao`: Recepção
+  - `auditorio`: Auditório
+  - `atelie`: Ateliê
+  - `casinhas`: Casinhas
+  - `dog_house`: Dog House
+- `ordem` (integer, obrigatório): Ordem de visita
+- `status` (enum, obrigatório): Status atual
+  - `pending`: Pendente
+  - `running`: Em andamento
+  - `finished`: Finalizado
+  - `skipped`: Pulado
+- `inicio_previsto` (datetime, opcional): Hora prevista de início
+- `inicio_real` (datetime, opcional): Hora real de início
+- `fim_real` (datetime, opcional): Hora real de término
+
+#### Endpoints
+
+**GET /v1/checkpoint** - Lista todos os checkpoints
+
+**POST /v1/checkpoint** - Cria novo checkpoint
+
+**GET /v1/checkpoint/&#123;id&#125;** - Busca checkpoint específico
+
+**GET /v1/checkpoint/tour/&#123;tour_id&#125;** - Lista checkpoints de um tour
+
+**PUT /v1/checkpoint/&#123;id&#125;** - Atualiza checkpoint
+
+**DELETE /v1/checkpoint/&#123;id&#125;** - Remove checkpoint
+
+### 7. **Perguntas** (`/v1/perguntas`)
+
+Perguntas feitas durante os checkpoints.
+
+#### Modelo de Dados
+- `checkpoint_id` (integer, obrigatório): ID do checkpoint
+- `tour_id` (integer, opcional): ID do tour
+- `texto` (string, obrigatório): Texto da pergunta
+- `question_topic` (string, opcional): Tópico da pergunta
+- `estado` (enum, obrigatório): Estado da pergunta
+  - `queued`: Na fila
+  - `answerable`: Pode ser respondida
+  - `answered`: Respondida
+  - `discarded`: Descartada
+- `liberado_em` (datetime, opcional): Quando foi liberada
+- `respondido_em` (datetime, opcional): Quando foi respondida
+
+#### Endpoints
+
+**GET /v1/perguntas** - Lista todas as perguntas
+
+**POST /v1/perguntas** - Cria nova pergunta
+
+**GET /v1/perguntas/&#123;id&#125;** - Busca pergunta específica
+
+**GET /v1/perguntas/tour/&#123;tour_id&#125;** - Lista perguntas de um tour
+
+**PUT /v1/perguntas/&#123;id&#125;** - Atualiza pergunta
+
+**DELETE /v1/perguntas/&#123;id&#125;** - Remove pergunta
+
+### 8. **Respostas** (`/v1/respostas`)
+
+Respostas às perguntas feitas.
+
+#### Modelo de Dados
+- `pergunta_id` (integer, obrigatório): ID da pergunta
+- `texto` (string, obrigatório): Texto da resposta
+- `respondido_por_tipo` (string, obrigatório): Tipo de respondente
+- `respondido_por_usuario` (integer, opcional): ID do usuário que respondeu
+
+#### Endpoints
+
+**GET /v1/respostas** - Lista todas as respostas
+
+**POST /v1/respostas** - Cria nova resposta
+
+**GET /v1/respostas/&#123;id&#125;** - Busca resposta específica
+
+**GET /v1/respostas/pergunta/&#123;pergunta_id&#125;** - Lista respostas de uma pergunta
+
+**PUT /v1/respostas/&#123;id&#125;** - Atualiza resposta
+
+**DELETE /v1/respostas/&#123;id&#125;** - Remove resposta
+
+### 9. **Modelo de IA** (`/v1/modelo`)
+
+Processamento de perguntas via IA.
+
+#### Endpoints
+
+**POST /v1/modelo**
+- Processa uma pergunta e gera resposta automática
+- Body: objeto `Pergunta`
+- Resposta 200: `SingleItemResponse_Resposta`
+
+### 10. **Rastreio do Robô** (`/v1/rastreio-robo`)
+
+Rastreamento em tempo real da posição do robô.
+
+#### Modelo de Dados
+- `tour_id` (integer, opcional): ID do tour
+- `checkpoint_id` (integer, opcional): Checkpoint atual
+- `waypoint` (string, opcional): Ponto de passagem
+- `progresso_pct` (double, opcional): Percentual de progresso
+
+#### Endpoints
+
+**GET /v1/rastreio-robo** - Lista todos os registros de rastreio
+
+**POST /v1/rastreio-robo** - Cria novo registro de rastreio
+
+**GET /v1/rastreio-robo/&#123;id&#125;** - Busca registro específico
+
+**PUT /v1/rastreio-robo/&#123;id&#125;** - Atualiza rastreio
+
+**DELETE /v1/rastreio-robo/&#123;id&#125;** - Remove registro
+
+### 11. **Alertas** (`/v1/alertas`)
+
+Sistema de alertas e notificações.
+
+#### Modelo de Dados
+- `tour_id` (integer, opcional): Tour relacionado
+- `nivel` (enum, obrigatório): Nível de severidade
+  - `baixo`: Baixo
+  - `medio`: Médio
+  - `alto`: Alto
+- `mensagem` (string, opcional): Mensagem do alerta
+- `origem` (string, opcional): Origem do alerta
+- `resolvido_em` (datetime, opcional): Quando foi resolvido
+
+#### Endpoints
+
+**GET /v1/alertas** - Lista todos os alertas
+
+**POST /v1/alertas** - Cria novo alerta
+
+**GET /v1/alertas/&#123;id&#125;** - Busca alerta específico
+
+**PUT /v1/alertas/&#123;id&#125;** - Atualiza alerta
+
+**DELETE /v1/alertas/&#123;id&#125;** - Remove alerta
+
+### 12. **Notificações** (`/v1/notificacoes`)
+
+Notificações para usuários do sistema.
+
+#### Modelo de Dados
+- `usuario_id` (integer, opcional): ID do usuário
+- `titulo` (string, opcional): Título da notificação
+- `corpo` (string, opcional): Corpo da mensagem
+- `lido` (boolean, obrigatório): Status de leitura
+- `payload_json` (object, opcional): Dados adicionais em JSON
+
+#### Endpoints
+
+**GET /v1/notificacoes** - Lista todas as notificações
+
+**POST /v1/notificacoes** - Cria nova notificação
+
+**GET /v1/notificacoes/&#123;id&#125;** - Busca notificação específica
+
+**PUT /v1/notificacoes/&#123;id&#125;** - Atualiza notificação (ex: marcar como lida)
+
+**DELETE /v1/notificacoes/&#123;id&#125;** - Remove notificação
+
+### 13. **Log de Status do Tour** (`/v1/tour-status-log`)
+
+Histórico de mudanças de status dos tours.
+
+#### Modelo de Dados
+- `tour_id` (integer, obrigatório): ID do tour
+- `status` (string, obrigatório): Status registrado
+- `atualizado_em` (datetime, opcional): Timestamp da mudança
+- `observacoes` (string, opcional): Observações sobre a mudança
+
+#### Endpoints
+
+**GET /v1/tour-status-log** - Lista todos os logs
+
+**POST /v1/tour-status-log** - Cria novo log de status
+
+**GET /v1/tour-status-log/&#123;id&#125;** - Busca log específico
+
+**GET /v1/tour-status-log/tour/&#123;tour_id&#125;** - Lista logs de um tour
+
+**PUT /v1/tour-status-log/&#123;id&#125;** - Atualiza log
+
+**DELETE /v1/tour-status-log/&#123;id&#125;** - Remove log
+
+## Respostas Padrão
+
+### Sucesso
+```json
+{
+  "message": "Mensagem descritiva",
+  "data": { /* objeto ou array de dados */ }
+}
+```
+
+### Erro 404
+```json
+{
+  "message": "Recurso não encontrado"
+}
+```
+
+### Erro 500
+```json
+{
+  "message": "Erro interno do servidor"
+}
+```
+
+## Códigos de Status HTTP
+
+- **200 OK**: Operação bem-sucedida
+- **201 Created**: Recurso criado com sucesso
+- **404 Not Found**: Recurso não encontrado
+- **500 Internal Server Error**: Erro inesperado no servidor
+
+## Fluxo Típico de um Tour
+
+1. **Criar Visitante** → `POST /v1/visitante`
+2. **Criar Tour** → `POST /v1/tour`
+3. **Associar Visitante ao Tour** → `POST /v1/tour-visitante`
+4. **Criar Checkpoints** → `POST /v1/checkpoint`
+5. **Iniciar Tour** → `PUT /v1/tour/&#123;id&#125;` (atualizar status)
+6. **Rastrear Robô** → `POST /v1/rastreio-robo`
+7. **Processar Perguntas** → `POST /v1/perguntas` → `POST /v1/modelo`
+8. **Finalizar Tour** → `PUT /v1/tour/&#123;id&#125;` (atualizar status)
+
+## Notas de Implementação
+
+- Todos os IDs são integers de 32 bits
+- Datas seguem formato ISO 8601
+- Campos marcados como `null` são opcionais
+- Enums devem usar exatamente os valores especificados
+- A API usa JSON para request/response bodies
