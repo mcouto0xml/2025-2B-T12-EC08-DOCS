@@ -1,0 +1,306 @@
+---
+title: Software HTTP e Emotes
+description: Serviço HTTP, sistema de emotes e integração dual-channel
+---
+
+# Kill Switch - Software HTTP e Emotes
+
+## 1. Serviço HTTP Kill Switch
+
+### Arquitetura
+
+O serviço HTTP é implementado em Rust usando Axum e funciona paralelamente ao serviço Serial:
+
+```rust
+#[derive(Debug, Clone, Copy)]
+enum RosCommand {
+    StartDamp,      // Inicia envio contínuo de DAMP
+    StopAndRecover, // Para DAMP e envia RECOVER
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Carrega configuração
+    let config = load_config("config/config.yaml")?;
+
+    // Cria cliente ROS 2
+    let ros_client = Arc::new(Mutex::new(EmergencyStopClient::new(
+        &config.ros_namespace,
+        "/api/sport/request",
+    )?));
+
+    // Inicializa servidor HTTP
+    let web_client = WebClient::new("0.0.0.0:3000");
+
+    // Canal para comandos ROS (thread-safe)
+    let (tx, rx) = mpsc::channel::<RosCommand>();
+
+    // Thread que processa comandos ROS
+    let ros_for_commands = Arc::clone(&ros_client);
+    std::thread::spawn(move || {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        let mut damp_active = false;
+
+        loop {
+            match rx.recv_timeout(std::time::Duration::from_millis(10)) {
+                Ok(RosCommand::StartDamp) => {
+                    info!("*** HTTP: Start continuous DAMP ***");
+                    damp_active = true;
+                }
+                Ok(RosCommand::StopAndRecover) => {
+                    info!("*** HTTP: Stop DAMP and send RECOVER ***");
+                    damp_active = false;
+                    
+                    rt.block_on(async {
+                        let guard = ros_for_commands.lock().await;
+                        let _ = guard.trigger_recovery().await;
+                    });
+                }
+                Err(mpsc::RecvTimeoutError::Timeout) => {
+                    if damp_active {
+                        rt.block_on(async {
+                            let guard = ros_for_commands.lock().await;
+                            let _ = guard.trigger_emergency_stop(true).await;
+                        });
+                    }
+                }
+                Err(_) => break,
+            }
+        }
+    });
+
+    // Callback HTTP: detecta transição Released→Pressed ou Pressed→Released
+    let tx_web = tx.clone();
+    let web_callback = move |prev_state: ButtonState, new_state: ButtonState| {
+        use web::web_client::ButtonState;
+        match (prev_state, new_state) {
+            (ButtonState::Released, ButtonState::Pressed) => {
+                info!("*** HTTP BUTTON PRESSED ***");
+                let _ = tx_web.send(RosCommand::StartDamp);
+            }
+            (ButtonState::Pressed, ButtonState::Released) => {
+                info!("*** HTTP BUTTON RELEASED ***");
+                let _ = tx_web.send(RosCommand::StopAndRecover);
+            }
+            _ => {}
+        }
+    };
+
+    // Inicia servidor HTTP
+    web_client.start_server(web_callback).await;
+
+    Ok(())
+}
+```
+
+## 2. Serviço HTTP Emotes
+
+### Arquitetura
+
+O serviço de emotes é um servidor HTTP separado na porta 3001:
+
+```rust
+#[derive(Debug, Clone, Copy)]
+enum RosCommand {
+    Hello,    // ID 1016
+    Stretch,  // ID 1017
+    Content,  // ID 1020
+    Wallow,   // ID 1021
+    Dance1,   // ID 1022
+    Dance2,   // ID 1023
+    Pose,     // ID 1028
+    Scrape,   // ID 1029
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Carrega configuração
+    let config_content = std::fs::read_to_string("config/config.yaml")?;
+    let config: Config = serde_yaml::from_str(&config_content)?;
+
+    // Cria cliente ROS 2
+    let ros_client = Arc::new(Mutex::new(RobotClient::new(
+        &config.ros_namespace,
+        "/api/sport/request",
+    )?));
+
+    // Inicializa servidor HTTP
+    let web_client = WebClient::new("0.0.0.0:3001");
+
+    // Canal para comandos ROS
+    let (tx, rx) = mpsc::channel::<RosCommand>();
+
+    // Thread que processa comandos de emote
+    let ros_for_commands = Arc::clone(&ros_client);
+    std::thread::spawn(move || {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+
+        loop {
+            match rx.recv() {
+                Ok(RosCommand::Hello) => {
+                    rt.block_on(async {
+                        let guard = ros_for_commands.lock().await;
+                        let _ = guard.trigger_emote(1016, "Hello").await;
+                    });
+                }
+                Ok(RosCommand::Stretch) => {
+                    rt.block_on(async {
+                        let guard = ros_for_commands.lock().await;
+                        let _ = guard.trigger_emote(1017, "Stretch").await;
+                    });
+                }
+                // ... outros emotes ...
+                Err(_) => break,
+            }
+        }
+    });
+
+    // Callback que dispara emotes via HTTP
+    let tx_emote = tx.clone();
+    let web_emote_callback = move |emote: EmoteCommand| {
+        match emote {
+            EmoteCommand::Hello => {
+                let _ = tx_emote.send(RosCommand::Hello);
+            }
+            EmoteCommand::Stretch => {
+                let _ = tx_emote.send(RosCommand::Stretch);
+            }
+            // ... outros emotes ...
+        }
+    };
+
+    // Inicia servidor HTTP de emotes
+    web_client.start_emote_server(web_emote_callback).await;
+
+    Ok(())
+}
+```
+
+## 3. Fluxos Operacionais
+
+### Fluxo 1: Kill Switch via HTTP
+
+```
+┌─────────┐
+│  App    │
+└────┬────┘
+     │ POST /emergency/press
+     ▼
+┌──────────────┐
+│ HTTP Server  │
+│ :3000        │
+└────┬─────────┘
+     │ Callback
+     ▼
+┌──────────────┐
+│ Rust Service │
+└────┬─────────┘
+     │ RosCommand::StartDamp
+     ▼
+┌──────────────┐
+│ ROS 2 Topic  │
+│ /api/sport/  │
+│ request      │
+└────┬─────────┘
+     │
+     ▼
+┌──────────────┐
+│ Robot        │
+│ DUMP MODE    │
+└──────────────┘
+```
+
+### Fluxo 2: Emote via HTTP
+
+```
+┌─────────┐
+│  App    │
+└────┬────┘
+     │ POST /emote/hello
+     ▼
+┌──────────────┐
+│ HTTP Server  │
+│ :3001        │
+│ Rate Limit?  │
+└────┬─────────┘
+     │ OK
+     ▼
+┌──────────────┐
+│ Rust Service │
+└────┬─────────┘
+     │ RosCommand::Hello
+     ▼
+┌──────────────┐
+│ ROS 2 Topic  │
+│ /api/sport/  │
+│ request      │
+└────┬─────────┘
+     │
+     ▼
+┌──────────────┐
+│ Robot        │
+│ Executa      │
+│ Emote        │
+└──────────────┘
+```
+
+## 4. Playbooks
+
+### Playbook KS-002: Acionamento via HTTP
+
+**Objetivo**: Ativar Kill Switch usando aplicativo remoto
+
+**Pré-requisitos**:
+- Serviço HTTP em execução (porta 3000)
+- WiFi Unitree conectado
+- Aplicativo cliente disponível
+
+**Passos**:
+1. Operador abre aplicativo
+2. Operador clica em "KILL SWITCH"
+3. Aplicativo envia POST /emergency/press
+4. HTTP server recebe requisição
+5. Estado muda para Pressed
+6. Callback dispara ROS command
+7. ROS publica comando DAMP
+8. Robot ativa Dump Mode
+9. Operador clica em "RELEASE"
+10. Aplicativo envia POST /emergency/release
+11. Estado muda para Released
+12. Callback dispara ROS command
+13. ROS publica comando RECOVER
+14. Robot retorna ao estado normal
+
+### Playbook KS-003: Acionamento de Emote
+
+**Objetivo**: Executar emote no robô via HTTP
+
+**Pré-requisitos**:
+- Serviço Emotes em execução (porta 3001)
+- WiFi Unitree conectado
+- Aplicativo cliente disponível
+
+**Passos**:
+1. Operador abre aplicativo de emotes
+2. Operador seleciona "Hello"
+3. Aplicativo envia POST /emote/hello
+4. HTTP server verifica rate limit (20s)
+5. Se OK, callback dispara ROS command
+6. ROS publica comando de emote (ID 1016)
+7. Robot executa movimento de oi
+8. Aplicativo retorna 200 OK
+9. Rate limiter bloqueia próximos 20s
+10. Após 20s, novo emote pode ser acionado
+
+## 5. Integração Dual-Channel
+
+ O dual-channel onde Serial e HTTP funcionam simultaneamente:
+
+| Aspecto | Serial | HTTP |
+| :--- | :--- | :--- |
+| **Acionamento** | Botão físico | Aplicativo remoto |
+| **Confiabilidade** | Muito alta | Alta (rede interna) |
+| **Latência** | Rápida | Rápida |
+| **Redundância** | Fallback para HTTP | Fallback para Serial |
+| **Resultado** | Dump Mode | Dump Mode |
+

@@ -1,0 +1,228 @@
+---
+title: Protocolo HTTP/WiFi
+description: Especificação do protocolo HTTP/WiFi para acionamento remoto do Kill Switch
+---
+
+# Kill Switch - Protocolo HTTP/WiFi
+
+## 1. Visão Geral do Protocolo HTTP
+
+As mudanças atuais adicionam um segundo canal de comunicação via HTTP/WiFi, complementando o canal Serial da sprint passada.
+
+**Características:**
+- Protocolo: HTTP/1.1
+- Servidor: Axum (Rust async web framework)
+- Porta: 3000
+- Rede: WiFi Unitree interna
+- Autenticação: Nenhuma (rede interna)
+
+## 2. Endpoints do Kill Switch
+
+### 2.1 POST /emergency/press
+
+Inicia o Dump Mode continuamente.
+
+**Requisição:**
+```http
+POST /emergency/press HTTP/1.1
+Host: robot.local:3000
+Content-Type: application/json
+
+{}
+```
+
+**Resposta (200 OK):**
+```json
+{
+  "status": "pressed",
+  "message": "Kill Switch ativado",
+  "timestamp": "2025-12-18T10:30:45Z"
+}
+```
+
+**Comportamento:**
+1. Muda estado para Pressed
+2. Dispara callback
+3. ROS 2 publica comando DAMP
+4. Robô ativa Dump Mode
+5. Continua enviando DAMP enquanto pressionado
+
+### 2.2 POST /emergency/release
+
+Para o Dump Mode e inicia Recover.
+
+**Requisição:**
+```http
+POST /emergency/release HTTP/1.1
+Host: robot.local:3000
+Content-Type: application/json
+
+{}
+```
+
+**Resposta (200 OK):**
+```json
+{
+  "status": "released",
+  "message": "Kill Switch liberado",
+  "timestamp": "2025-12-18T10:30:46Z"
+}
+```
+
+**Comportamento:**
+1. Muda estado para Released
+2. Para envio de DAMP
+3. Dispara callback
+4. ROS 2 publica comando RECOVER
+5. Robô retorna ao estado normal
+
+### 2.3 GET /emergency/status
+
+Consulta o status atual do Kill Switch.
+
+**Requisição:**
+```http
+GET /emergency/status HTTP/1.1
+Host: robot.local:3000
+```
+
+**Resposta (200 OK):**
+```json
+{
+  "status": "released",
+  "last_pressed": "2025-12-18T10:30:45Z",
+  "uptime_seconds": 3600
+}
+```
+
+## 3. Endpoints de Emotes
+
+### 3.1 POST /emote/{emote_name}
+
+Aciona um emote específico.
+
+**Emotes Disponíveis:**
+- `/emote/hello`
+- `/emote/stretch`
+- `/emote/content`
+- `/emote/wallow`
+- `/emote/dance1`
+- `/emote/dance2`
+- `/emote/pose`
+- `/emote/scrape`
+
+**Requisição:**
+```http
+POST /emote/hello HTTP/1.1
+Host: robot.local:3001
+Content-Type: application/json
+
+{}
+```
+
+**Resposta (200 OK):**
+```json
+{
+  "emote": "hello",
+  "id": 1016,
+  "status": "executing",
+  "duration_ms": 2000
+}
+```
+
+**Resposta (429 Too Many Requests):**
+```json
+{
+  "error": "Rate limit exceeded",
+  "retry_after_seconds": 15,
+  "message": "Aguarde 20 segundos entre emotes"
+}
+```
+
+**Comportamento:**
+1. Verifica rate limit (20s)
+2. Se OK, publica comando ROS 2
+3. Robô executa emote
+4. Retorna status
+
+## 4. Máquina de Estados HTTP
+
+O serviço HTTP implementa máquina de estados para evitar duplicatas:
+
+```
+┌─────────────┐
+│  RELEASED   │ ◄─────────────────────┐
+└──────┬──────┘                       │
+       │                              │
+       │ POST /emergency/press        │
+       │                              │
+       ▼                              │
+┌─────────────┐                       │
+│  PRESSING   │                       │
+└──────┬──────┘                       │
+       │                              │
+       │ POST /emergency/release      │
+       │                              │
+       └──────────────────────────────┘
+```
+
+**Transições:**
+- RELEASED → PRESSING: POST /emergency/press
+- PRESSING → RELEASED: POST /emergency/release
+- Requisições duplicadas são ignoradas
+
+## 5. Rate Limiting para Emotes
+
+O sistema implementa rate limiting para proteger contra abuso:
+
+**Regra:**
+- Máximo 1 emote a cada 20 segundos
+- Contador por sessão/cliente
+- Retorna 429 se limite excedido
+
+**Exemplo:**
+```
+T+0s:   POST /emote/hello     → 200 OK
+T+5s:   POST /emote/stretch   → 429 Too Many Requests
+T+20s:  POST /emote/stretch   → 200 OK
+```
+
+## 6. Fluxo de Transmissão HTTP
+
+### Kill Switch via HTTP
+
+1. Cliente envia POST /emergency/press
+2. Servidor HTTP recebe requisição
+3. Estado muda para Pressed
+4. Callback dispara
+5. ROS 2 publica comando de dump
+6. Motor controller recebe comando
+7. Dump Mode ativado
+
+### Emote via HTTP
+
+1. Cliente envia POST /emote/hello
+2. Servidor verifica rate limit
+3. Se OK, callback dispara
+4. ROS 2 publica comando de emote
+5. Robô executa movimento
+6. Retorna 200 OK
+
+## 7. Integração Dual-Channel
+
+Ambos os canais (Serial + HTTP) funcionam simultaneamente:
+
+**Serial:**
+- Botão físico pressionado
+- ESP32C3 envia '1' via serial
+- Rust recebe e processa
+
+**HTTP:**
+- Cliente envia POST /emergency/press
+- Servidor HTTP recebe
+- Callback processa
+
+**Resultado:**
+- Ambos disparam o mesmo ROS command
+- Ambos ativam Dump Mode
+- Ambos têm igual prioridade

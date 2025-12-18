@@ -1,0 +1,110 @@
+---
+title: Fundamentos e Extensões
+description: Aviso de segurança, objetivo do sistema e extensões da Sprint 2 (HTTP/WiFi e emotes)
+---
+
+# Kill Switch: Fundamentos e Extensões
+
+:::warning
+
+**AVISO**: O acionamento deste botão de emergência resulta em uma **parada brusca** (Dump Mode) que pode causar danos mecânicos ao robô. Esta é uma medida de **último recurso**, mas **obrigatória** para garantir a segurança física dos humanos presentes durante o tour. A segurança humana tem prioridade absoluta sobre a preservação do equipamento.
+
+:::
+
+## 1. Objetivo do Sistema
+
+O Kill Switch é um mecanismo de segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente. 
+
+**Sprint passada** implementou o canal **Serial via USB-C** para garantir confiabilidade máxima.
+
+**Sprint atual** estende o sistema com:
+- **Canal HTTP/WiFi** para acionamento remoto
+- **Dual-channel redundância** (Serial + HTTP convergem para o mesmo resultado)
+- **Sistema de emotes** para interação com o robô
+
+## 2. Extensões da Sprint 4
+
+### 2.1 Protocolo HTTP/WiFi
+
+Foi adicionado um segundo canal de comunicação via HTTP/WiFi, permitindo acionamento remoto do Kill Switch através de aplicativo ou interface web.
+
+**Características:**
+- Comunicação via rede WiFi Unitree
+- Endpoints REST simples
+- Máquina de estados para evitar duplicatas
+- Rate limiting para proteção
+
+### 2.2 Dual-Channel Redundância
+
+Ambos os canais (Serial + HTTP) convergem para o mesmo resultado:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              Kill Switch - Dual Channel                 │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌──────────────┐              ┌──────────────┐       │
+│  │ Serial Input │              │ HTTP Server  │       │
+│  │ /dev/ttyAM0  │              │ :3000        │       │
+│  └──────┬───────┘              └──────┬───────┘       │
+│         │                             │               │
+│         └─────────────┬───────────────┘               │
+│                       │                               │
+│                ┌──────▼──────┐                        │
+│                │  Callbacks  │                        │
+│                │  (Flip-Flop)│                        │
+│                └──────┬──────┘                        │
+│                       │                               │
+│         ┌─────────────▼──────────────┐               │
+│         │  MPSC Channel (RosCommand) │               │
+│         └─────────────┬──────────────┘               │
+│                       │                               │
+│         ┌─────────────▼──────────────┐               │
+│         │  ROS 2 /api/sport/request  │               │
+│         │  - Dump Mode               │               │
+│         │  - Recover from Fall       │               │
+│         └────────────────────────────┘               │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Vantagens:**
+- **Redundância**: Se um canal falhar, o outro continua funcionando
+- **Flexibilidade**: Operador escolhe o canal mais apropriado
+- **Confiabilidade**: Ambos garantem a mesma resposta
+
+### 2.3 Sistema de Emotes
+
+Foi criado um sistema de emotes que permite ao robô expressar movimentos e emoções através de HTTP.
+
+**Emotes Disponíveis:**
+
+| Emote | ID | Descrição |
+| :--- | :--- | :--- |
+| **Hello** | 1016 | Movimento de oi |
+| **Stretch** | 1017 | Se espreguiça |
+| **Content** | 1020 | Expressão feliz |
+| **Wallow** | 1021 | Rola no chão |
+| **Dance1** | 1022 | Dança 1 |
+| **Dance2** | 1023 | Dança 2 |
+| **Pose** | 1028 | Pose |
+| **Scrape** | 1029 | Esfrega a bunda |
+
+**Características:**
+- 8 movimentos diferentes
+- Rate limiting de 20 segundos entre emotes
+- Integração com ROS 2
+- Endpoints HTTP simples
+
+## 3. Integração
+
+A Sprint 5 **estende** a Sprint 4, mantendo toda a funcionalidade anterior:
+
+| Aspecto | Sprint 4 | Sprint 5 |
+| :--- | :--- | :--- |
+| **Canal Serial** | ✅ Implementado | ✅ Mantido |
+| **Botão Físico** | ✅ Implementado | ✅ Mantido |
+| **ROS 2** | ✅ Implementado | ✅ Mantido |
+| **Canal HTTP** | ❌ Não | ✅ **NOVO** |
+| **Emotes** | ❌ Não | ✅ **NOVO** |
+| **Dual-Channel** | ❌ Não | ✅ **NOVO** |
