@@ -3,7 +3,6 @@ title: Atualizações no Banco – Gestão de Visitantes e Acompanhantes
 description: Este documento descreve as mudanças realizadas no banco de dados (Supabase) e no back-end do projeto do cachorro-robô do Inteli, com foco na criação da entidade de acompanhantes e na expansão do cadastro de visitantes, viabilizando que o gestor do Inteli tenha acesso completo às informações de visitantes principais e seus acompanhantes para controle, segurança e gestão institucional.
 ---
 
-
 # Atualizações no Banco de Dados
 
 #### Gestão de Visitantes e Acompanhantes
@@ -14,10 +13,10 @@ description: Este documento descreve as mudanças realizadas no banco de dados (
 
 &emsp;No fluxo real de visitas, um **visitante principal** pode comparecer acompanhado de outras pessoas (familiares, colegas, convidados ou equipe), e essas informações precisam estar disponíveis para:
 
-* Controle de acesso e segurança
-* Registro histórico de visitas
-* Auditoria e rastreabilidade
-* Tomada de decisão pelo gestor
+- Controle de acesso e segurança
+- Registro histórico de visitas
+- Auditoria e rastreabilidade
+- Tomada de decisão pelo gestor
 
 &emsp;A estrutura anterior do banco de dados não permitia representar esse cenário de forma adequada, pois todos os indivíduos precisariam ser cadastrados como visitantes independentes. Para resolver essa limitação, foi realizada uma **reorganização do modelo de dados no Supabase**, acompanhada de **ajustes no back-end**, possibilitando o vínculo explícito entre um visitante principal e seus acompanhantes.
 
@@ -29,18 +28,17 @@ description: Este documento descreve as mudanças realizadas no banco de dados (
 
 **Estrutura lógica da tabela:**
 
-* `id`: identificador único do acompanhante (chave primária)
-* `nome`: nome do acompanhante (opcional)
-* `cpf`: CPF do acompanhante (opcional)
-* `visitante_id`: identificador do visitante principal ao qual o acompanhante está vinculado
+- `id`: identificador único do acompanhante (chave primária)
+- `nome`: nome do acompanhante (opcional)
+- `cpf`: CPF do acompanhante (opcional)
+- `visitante_id`: identificador do visitante principal ao qual o acompanhante está vinculado
 
 &emsp;Esse relacionamento estabelece uma **relação de um-para-muitos**, onde:
 
-* Um visitante pode ter zero, um ou vários acompanhantes
-* Um acompanhante pertence sempre a um único visitante
+- Um visitante pode ter zero, um ou vários acompanhantes
+- Um acompanhante pertence sempre a um único visitante
 
 &emsp;Essa modelagem reflete fielmente o cenário real de visitas no Inteli e evita duplicação indevida de visitantes principais.
-
 
 ### 2.2 Expansão da Tabela `visitantes`
 
@@ -48,10 +46,10 @@ description: Este documento descreve as mudanças realizadas no banco de dados (
 
 **Novos campos adicionados:**
 
-* `cidade`
-* `estado`
-* `cpf`
-* `perfil`
+- `cidade`
+- `estado`
+- `cpf`
+- `perfil`
 
 &emsp;O campo `perfil` permite classificar o visitante conforme seu contexto, sendo representado no back-end por um enum e armazenado no banco como texto (`student` ou `executive`).
 
@@ -63,10 +61,10 @@ description: Este documento descreve as mudanças realizadas no banco de dados (
 
 &emsp;Foi criado o model `Acompanhante` no back-end, permitindo:
 
-* Mapeamento direto da tabela `acompanhante`
-* Integração com o SQLx para queries tipadas
-* Serialização e desserialização via `serde`
-* Documentação automática via OpenAPI (Utoipa)
+- Mapeamento direto da tabela `acompanhante`
+- Integração com o SQLx para queries tipadas
+- Serialização e desserialização via `serde`
+- Documentação automática via OpenAPI (Utoipa)
 
 &emsp;Esse model garante consistência entre o banco de dados e a API.
 
@@ -74,14 +72,14 @@ description: Este documento descreve as mudanças realizadas no banco de dados (
 
 &emsp;O model `Visitante` foi atualizado para refletir os novos campos do banco e passou a incluir:
 
-* Dados geográficos (`cidade`, `estado`)
-* Documento (`cpf`)
-* Classificação (`perfil`)
+- Dados geográficos (`cidade`, `estado`)
+- Documento (`cpf`)
+- Classificação (`perfil`)
 
 &emsp;O enum `Perfil` foi implementado com conversões explícitas entre:
 
-* Representação interna no Rust
-* Representação textual no banco de dados
+- Representação interna no Rust
+- Representação textual no banco de dados
 
 &emsp;Isso assegura tipagem forte no back-end sem comprometer a flexibilidade do armazenamento no Supabase.
 
@@ -89,11 +87,11 @@ description: Este documento descreve as mudanças realizadas no banco de dados (
 
 &emsp;Foram implementadas rotas REST completas para a entidade `acompanhante`, permitindo:
 
-* Listagem de acompanhantes
-* Consulta individual
-* Criação de novos registros
-* Atualização
-* Remoção
+- Listagem de acompanhantes
+- Consulta individual
+- Criação de novos registros
+- Atualização
+- Remoção
 
 &emsp;Essas rotas possibilitam que o aplicativo registre e gerencie acompanhantes de forma independente, sempre mantendo o vínculo com o visitante principal.
 
@@ -101,28 +99,24 @@ description: Este documento descreve as mudanças realizadas no banco de dados (
 
 &emsp;As rotas de criação e atualização de visitantes foram adaptadas para:
 
-* Inserir os novos campos no banco
-* Atualizar corretamente todas as informações do visitante
-* Persistir o campo `perfil` de forma padronizada
+- Inserir os novos campos no banco
+- Atualizar corretamente todas as informações do visitante
+- Persistir o campo `perfil` de forma padronizada
 
 &emsp;Com isso, o cadastro do visitante principal passa a ser mais completo e alinhado às necessidades do sistema.
-
 
 ## 4. Impacto Funcional no Aplicativo
 
 &emsp;Com as alterações realizadas, o aplicativo do gestor do Inteli passa a oferecer:
 
-* Visualização clara de **visitantes principais e seus acompanhantes**
-* Melhor controle de acesso às dependências
-* Maior confiabilidade nos registros de visita
-* Base de dados mais rica para relatórios e auditorias
-* Estrutura escalável para futuros requisitos (ex.: limites de acompanhantes, regras por perfil, estatísticas)
-
+- Visualização clara de **visitantes principais e seus acompanhantes**
+- Melhor controle de acesso às dependências
+- Maior confiabilidade nos registros de visita
+- Base de dados mais rica para relatórios e auditorias
+- Estrutura escalável para futuros requisitos (ex.: limites de acompanhantes, regras por perfil, estatísticas)
 
 ## 5. Conclusão
 
 &emsp;As mudanças implementadas no banco de dados e no back-end representam um avanço significativo na aderência do sistema à realidade operacional do Inteli. A introdução da entidade **`acompanhante`**, aliada à expansão do cadastro de **visitantes**, permite que o gestor tenha acesso a informações completas, organizadas e confiáveis sobre todos os indivíduos presentes no ambiente institucional.
 
 &emsp;Essa evolução torna o sistema mais robusto, seguro e preparado para crescimento, garantindo que o aplicativo do projeto do cachorro-robô atenda não apenas às necessidades técnicas, mas também às exigências práticas de gestão e controle do Inteli.
-
-
