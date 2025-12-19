@@ -129,7 +129,7 @@ pub enum Perfil {
 
 ---
 
-### Teste 5: WebSocket Zombie Connections - MITIGADO ✓
+### Teste 5: WebSocket Zombie Connections - MITIGADO
 
 **Objetivo**: Esgotar recursos com conexões inativas
 
@@ -177,7 +177,7 @@ fn hb(&self, ctx: &mut ws::WebsocketContext<Self>) {
 
 ---
 
-### Teste 6: URL Normalization / Route Canonicalization - BLOQUEADO ✓
+### Teste 6: URL Normalization / Route Canonicalization - BLOQUEADO
 
 **Vetores Testados**:
 ```bash
@@ -236,9 +236,9 @@ for i in range(10):
 **Resultado**: RATE LIMITING FUNCIONA, mas de forma **global** (todos os usuários compartilham o limite)
 
 **Classificação**: Controle PARCIALMENTE EFETIVO
-- ✓ Previne flood de um único cliente
-- ✗ Não diferencia entre usuários diferentes
-- ✗ Um usuário pode esgotar o limite de todos
+- Previne flood de um único cliente
+- Não diferencia entre usuários diferentes
+- Um usuário pode esgotar o limite de todos
 
 ---
 
@@ -362,12 +362,12 @@ requests.post(..., json={"message": "teste\r\nmalicioso"})
 
 | # | Teste | Resultado | Status Real |
 |---|-------|-----------|-------------|
-| 1 | SQL Injection | ✓ BLOQUEADO | Funciona corretamente |
-| 2 | Type Confusion | ✓ BLOQUEADO | Funciona corretamente |
-| 3 | Mass Assignment ID | ✓ BLOQUEADO | Funciona corretamente |
-| 4 | Enum Injection | ✓ BLOQUEADO | Funciona corretamente |
-| 5 | Zombie Connections | ✓ MITIGADO | Funciona corretamente |
-| 6 | Path Traversal | ✓ BLOQUEADO | Funciona corretamente |
+| 1 | SQL Injection | BLOQUEADO | Funciona corretamente |
+| 2 | Type Confusion | BLOQUEADO | Funciona corretamente |
+| 3 | Mass Assignment ID | BLOQUEADO | Funciona corretamente |
+| 4 | Enum Injection | BLOQUEADO | Funciona corretamente |
+| 5 | Zombie Connections | MITIGADO | Funciona corretamente |
+| 6 | Path Traversal | BLOQUEADO | Funciona corretamente |
 
 ### Sistema Python/IA
 
@@ -375,7 +375,7 @@ requests.post(..., json={"message": "teste\r\nmalicioso"})
 |---|-------|-----------|-------------|
 | 7 | Rate Limiting | PARCIAL | Funciona, mas global (todos = "anonymous") |
 | 8 | Input Size | COM BUG | Detecta, mas ValidationError sem user_message |
-| 9 | PII Detection | ✓ DETECTA | Loga warning, não bloqueia (delega ao safety_agent) |
+| 9 | PII Detection | DETECTA | Loga warning, não bloqueia (delega ao safety_agent) |
 | 10 | Null Byte | COM BUG | Detecta, mas tratamento pode falhar |
 | 11 | CRLF Injection | PARCIAL | Só detecta \r\n\r\n, não \r\n simples |
 
