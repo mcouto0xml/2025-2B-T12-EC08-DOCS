@@ -1,0 +1,219 @@
+---
+title: Frontend - App Staff 
+description: Documentação do Frontend do App Staff referente à Sprint 5.
+---
+
+## 1. Introdução
+
+&emsp; O **App Staff** é um aplicativo desenvolvido para apoiar os colaboradores do Inteli na operação e gerenciamento dos tours guiados realizados com o auxílio do cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours, disponibilize códigos de acesso aos visitantes e interrompa o processo em situações de emergência.
+
+&emsp; Durante a **Sprint 5**, não houve alterações estruturais significativas em relação à Sprint 4. O foco desta etapa foi o refinamento da documentação, consolidação das funcionalidades já integradas ao backend, pequenos ajustes de usabilidade e estabilização do fluxo de navegação, garantindo maior confiabilidade e clareza para manutenção futura do frontend.
+
+---
+
+## 2. Arquitetura do Projeto
+
+&emsp; O frontend do App Staff foi desenvolvido utilizando **React Native**, com o **Expo** como ambiente de desenvolvimento, execução e empacotamento. A navegação entre telas é gerenciada pelo **Expo Router**, seguindo um padrão baseado em rotas de arquivos.
+
+&emsp; A escolha dessa stack se manteve ao longo do projeto por apresentar:
+- Curva de aprendizado reduzida para a equipe;
+- Facilidade de execução em múltiplas plataformas;
+- Bom suporte a componentes reutilizáveis;
+- Integração simplificada com APIs e serviços externos.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto permanece a mesma das sprints anteriores, seguindo o padrão sugerido pelo Expo Router:
+
+```txt
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+```
+
+**Descrição das pastas principais:**
+
+
+- **`/app`** - Gerenciamento das páginas
+
+- **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+- **`/components`** - Componentes reutilizáveis
+
+- **`/constants`** - Temas de cores e variáveis globais
+
+- **`/hooks`** - Hooks auxiliares como detecção de tema
+
+- **`/scripts`** - Scripts internos do projeto
+
+- **`README`** - Instruções para rodar o projeto
+
+_Pastas Android geradas automaticamente pelo Expo_
+
+&emsp; Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+- Melhor organização entre rotas, componentes e estilos
+
+- Facilidade para extensões futuras
+
+- Modularização dos componentes usados nas telas
+
+- Padrão de Componentes Reutilizáveis
+
+
+### 2.2 Componentes
+
+&emsp; Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+- **CardTour** - Cartão de exibição de tours na lista da home
+
+- **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+- **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+- **Navbar e Header** - Estruturas permanentes no HUD
+
+Na Sprint 5, esses componentes foram mantidos, com ajustes pontuais de comportamento e estilização para melhorar a experiência do usuário e a previsibilidade das interações.
+
+---
+
+## 3. Fluxo de Navegação
+
+### [Vídeo Frontend Staff]("INSERIR O LINK AQUI DEPOIS QUE VCS SUBIREM")
+
+:::note
+
+**Fluxo Geral**
+
+1. Login
+
+2. Lista de Tours (HUD ativo)
+
+3. Seleção de um tour
+
+4. Edição do Tour
+
+5. Pop-up Informações Gerais do Tour
+
+6. Pop-up Código do Tour
+
+7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+8. Tela de Emergência
+
+9. Menu acessível pelo HUD em qualquer etapa permitida
+
+**O HUD inclui:**
+
+- Barra inferior com navegação (Tours / Mapa / Menu)
+
+- Botão de emergência destacado em telas críticas
+
+- Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+
+:::
+
+## 4. Como Rodar o Projeto e Dependências
+
+&emsp;Esta seção descreve os requisitos e o processo para configurar e executar o App Staff em ambiente de desenvolvimento utilizando Expo + Expo Router.
+
+### 4.1 Requisitos
+:::note
+
+---
+
+Node.js (_Node 18 LTS ou Node 20 LTS_)
+
+Baixar em: https://nodejs.org/
+
+---
+
+Expo CLI (Será necessário intalar globalmente para que funcione)
+
+`npm install -g expo-cli`
+
+---
+
+Android Studio (para usar emulador Android)
+
+É possível usar tanto a versão CLI quanto o APK:
+https://developer.android.com/studio
+
+---
+
+O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+
+:::
+
+:::warning
+
+OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+
+:::
+
+### 4.2 Instalando Dependências e Executando o Projeto
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/anabeggiato/2025-2B-T12-EC08-AppStaff
+```
+
+Entre na pasta do aplicativo:
+
+```bash
+cd 2025-2B-T12-EC08-AppStaff/app
+```
+
+Instale as dependências:
+```bash
+npm install
+```
+
+Inicie o projeto:
+
+```bash
+npx expo start
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+![Terminal - Aplicação Staff](../frontend//imgs/terminalAplicacao.png)
+
+Entre as opções você pode escolher:
+
+- Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+- Abrir a aplicação no seu navegador web
+- Abrir a aplicação no android studio
+
+
+Para rodar diretamente em um dispositivo Android:
+
+```bash
+npx expo run:android
+```
+5. Conclusão
+
+&emsp; A documentação da Sprint 5 consolida o estado atual do frontend do App Staff, reforçando a arquitetura, o fluxo de navegação e o processo de execução do projeto. Mesmo sem mudanças estruturais relevantes em relação à Sprint 4, esta etapa foi essencial para refinamento, estabilização e organização do material técnico.
+
+&emsp; O frontend encontra-se alinhado ao protótipo de alta fidelidade, com componentes reutilizáveis bem definidos, fluxo consistente e integração funcional com o backend, servindo como base sólida para evoluções futuras.
