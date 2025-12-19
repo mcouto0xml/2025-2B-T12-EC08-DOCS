@@ -10648,6 +10648,211 @@ A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar s
 O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.
 
 
+# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
+
+
+
+## 1. Introdução
+
+  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
+
+  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
+
+```txt
+
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+
+```
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+*Pastas Android geradas automaticamente pelo Expo*
+
+  Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+* Melhor organização entre rotas, componentes e estilos
+
+* Facilidade para extensões futuras
+
+* Modularização dos componentes usados nas telas
+
+* Padrão de Componentes Reutilizáveis
+
+### 2.2 Componentes
+
+  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+* **CardTour** - Cartão de exibição de tours na lista da home
+
+* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+* **Navbar e Header** - Estruturas permanentes no HUD
+
+***
+
+## 3. Fluxo de Navegação
+
+### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
+
+<Callout type="info">
+  **Fluxo Geral**
+
+  1. Login
+
+  2. Lista de Tours (HUD ativo)
+
+  3. Seleção de um tour
+
+  4. Edição do Tour
+
+  5. Pop-up Informações Gerais do Tour
+
+  6. Pop-up Código do Tour
+
+  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+  8. Tela de Emergência
+
+  9. Menu acessível pelo HUD em qualquer etapa permitida
+
+  **O HUD inclui:**
+
+  * Barra inferior com navegação (Tours / Mapa / Menu)
+
+  * Botão de emergência destacado em telas críticas
+
+  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+</Callout>
+
+***
+
+## 4. Como Rodar o Projeto e Dependências
+
+  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
+O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+
+### 4.1. Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 4.2. Instalando Dependências e Executando o Projeto
+
+Na raiz do projeto:
+
+```bash
+npm install
+```
+
+Isso instala todas as dependências declaradas em `package.json.`
+
+Ainda no terminal:
+
+```bash
+npx expo start
+
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+
+```bash
+npx expo run:android
+```
+
+## 5. Conclusão
+
+Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
+
+
+# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
+
+<Cards>
+  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
+</Cards>
+
+
 # Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG)
 
 ## 1. Visão Geral
@@ -10977,211 +11182,6 @@ Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
 
 <Cards>
   <Card title="Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG)" description="Documentação do sistema RAG no agente" href="docs/content/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG.mdx" />
-</Cards>
-
-
-# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
-
-
-
-## 1. Introdução
-
-  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
-
-***
-
-## 2. Arquitetura do Projeto
-
-  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
-
-  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
-
-### 2.1 Estrutura de Pastas
-
-A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
-
-```txt
-
-.
-├── android/
-│
-├── app
-│   ├── _layout.tsx
-│   └── (tabs)/
-│
-├── assets
-│   └── images
-│       └── icons/
-│
-├── components
-│   └── ui/
-│
-├── constants/
-│
-├── hooks/
-│
-├── scripts/
-│
-└── README.md
-
-```
-
-* **`/app`** - Gerenciamento das páginas
-
-* **`/assets`** Ícones, imagens e o logotipo do Inteli
-
-* **`/components`** - Componentes reutilizáveis
-
-* **`/constants`** - Temas de cores e variáveis globais
-
-* **`/hooks`** - Hooks auxiliares como detecção de tema
-
-* **`/scripts`** - Scripts internos do projeto
-
-* **`README`** - Instruções para rodar o projeto
-
-*Pastas Android geradas automaticamente pelo Expo*
-
-  Para a realização deste projeto a estrutura de pastas utilizada permite:
-
-* Melhor organização entre rotas, componentes e estilos
-
-* Facilidade para extensões futuras
-
-* Modularização dos componentes usados nas telas
-
-* Padrão de Componentes Reutilizáveis
-
-### 2.2 Componentes
-
-  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
-
-* **CardTour** - Cartão de exibição de tours na lista da home
-
-* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
-
-* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
-
-* **Navbar e Header** - Estruturas permanentes no HUD
-
-***
-
-## 3. Fluxo de Navegação
-
-### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
-
-<Callout type="info">
-  **Fluxo Geral**
-
-  1. Login
-
-  2. Lista de Tours (HUD ativo)
-
-  3. Seleção de um tour
-
-  4. Edição do Tour
-
-  5. Pop-up Informações Gerais do Tour
-
-  6. Pop-up Código do Tour
-
-  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
-
-  8. Tela de Emergência
-
-  9. Menu acessível pelo HUD em qualquer etapa permitida
-
-  **O HUD inclui:**
-
-  * Barra inferior com navegação (Tours / Mapa / Menu)
-
-  * Botão de emergência destacado em telas críticas
-
-  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
-</Callout>
-
-***
-
-## 4. Como Rodar o Projeto e Dependências
-
-  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
-O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
-
-### 4.1. Requisitos
-
-<Callout type="info">
-  ***
-
-  Node.js (*Node 18 LTS ou Node 20 LTS*)
-
-  Baixar em: [https://nodejs.org/](https://nodejs.org/)
-
-  ***
-
-  Expo CLI (Será necessário intalar globalmente para que funcione)
-
-  `npm install -g expo-cli`
-
-  ***
-
-  Android Studio (para usar emulador Android)
-
-  É possível usar tanto a versão CLI quanto o APK:
-  [https://developer.android.com/studio](https://developer.android.com/studio)
-
-  ***
-
-  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
-</Callout>
-
-<Callout type="warn">
-  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
-</Callout>
-
-### 4.2. Instalando Dependências e Executando o Projeto
-
-Na raiz do projeto:
-
-```bash
-npm install
-```
-
-Isso instala todas as dependências declaradas em `package.json.`
-
-Ainda no terminal:
-
-```bash
-npx expo start
-
-```
-
-Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
-
-As informações que aparecerem no seu terminal devem ser semelhantes a esta:
-
-<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
-
-Entre as opções você pode escolher:
-
-* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
-* Abrir a aplicação no seu navegador web
-* Abrir a aplicação no android studio
-
-Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
-
-```bash
-npx expo run:android
-```
-
-## 5. Conclusão
-
-Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
-
-
-# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
-
-<Cards>
-  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
 </Cards>
 
 
@@ -14470,147 +14470,6 @@ A arquitetura foi construída para ser:
 O sistema está pronto para uso em produção, com o robô físico ou em modo de simulação para testes.
 
 
-# App Staff (/docs/sprint-4/documentacao-frontend/app_staff)
-
-## Introdução
-
-  O aplicativo do Staff foi desenvolvido para apoiar os colaboradores responsáveis pelos tours realizados no campus do Inteli. Por meio dele, os funcionários podem criar, visualizar e gerenciar tours, acompanhar o progresso do tour e disponibilizar o código de acesso aos visitantes. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
-
-## Como Iniciar o Projeto
-
-  Para iniciar o projeto do App Staff, siga o passo a passo completo:
-
-### Pré-requisitos
-
-* Git instalado.
-* Node.js (inclui npm) instalado.
-* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
-
-### Passo a passo
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/anabeggiato/2025-2B-T12-EC08-AppStaff
-```
-
-2. Entre na pasta do app:
-
-```bash
-cd 2025-2B-T12-EC08-AppStaff/app
-```
-
-3. Instale as dependências:
-
-```bash
-npm install
-```
-
-4. Rode o app diretamente no Android (device físico via USB ou emulador):
-
-```bash
-npx expo run:android
-```
-
-5. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
-6. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
-
-
-# App Visitante (/docs/sprint-4/documentacao-frontend/app_visitante)
-
-## Introdução
-
-  O aplicativo do visitante foi desenvolvido para apoiar a experiência de pais, filhos e demais convidados que participam do tour guiado pelo robô-cachorro LIA durante visitas à faculdade Inteli. O objetivo deste aplicativo é garantir uma jornada educativa, segura e interativa, permitindo que o visitante acompanhe o tour, faça perguntas ao robô, visualize o mapa do tour. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
-
-## Como Iniciar o Projeto
-
-  Para iniciar o projeto do App Visitante, siga o passo a passo completo:
-
-### Pré-requisitos
-
-* Git instalado.
-* Node.js (inclui npm) instalado.
-* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
-
-### Passo a passo
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/Fernandoliveira05/AppTourVisitante/
-```
-
-2. Instale as dependências:
-
-```bash
-npm install
-```
-
-3. Rode o app diretamente no Android (device físico via USB ou emulador):
-
-```bash
-npx expo run:android
-```
-
-4. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
-5. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
-
-
-# Dashboard (/docs/sprint-4/documentacao-frontend/dashboard)
-
-## Introdução
-
-  O Dashboard foi desenvolvido para fornecer uma interface intuitiva e eficiente para os membros da staff do Inteli visualizarem e analisarem os dados coletados durante os tours guiados pelo robô-cachorro LIA. Através deste dashboard, os usuários podem acessar informações detalhadas sobre o desempenho dos tours, feedback dos visitantes e outras métricas relevantes que auxiliam na melhoria contínua da experiência oferecida. Durante essa sprint 4, o foco principal foi finalizar as telas principais desse dashboard e a integração com o backend é o primeiro passo na próxima sprint.
-
-## Como Iniciar o Projeto
-
-  Para iniciar o Dashboard, siga o passo a passo completo:
-
-### Pré-requisitos
-
-* Git instalado.
-* Node.js (inclui npm) instalado.
-
-### Passo a passo
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/davidijesus/2025-2B-T12-EC08-DashStaff
-```
-
-2. Entre na pasta do dashboard:
-
-```bash
-cd 2025-2B-T12-EC08-DashStaff/inteli-dashboard
-```
-
-3. Instale as dependências:
-
-```bash
-npm install
-```
-
-4. Inicie o projeto Vite:
-
-```bash
-npm run dev
-```
-
-5. Acesse no navegador: `http://localhost:8080/` (ou a porta exibida no terminal do Vite).
-
-
-# Documentação Frontend (/docs/sprint-4/documentacao-frontend)
-
-<Cards>
-  <Card title="App Staff" description="Documentação referente ao App Staff." href="/docs/sprint-4/documentacao-frontend/app_staff" />
-
-  <Card title="App Visitante" description="Documentação referente ao App Visitante." href="/docs/sprint-4/documentacao-frontend/app_visitante" />
-
-  <Card title="Dashboard" description="Documentação referente ao Dashboard." href="/docs/sprint-4/documentacao-frontend/dashboard" />
-</Cards>
-
-
 # Fundamentos, Arquitetura e Especificações (/docs/sprint-4/botao-de-stop/fundamentos-arquitetura)
 
 # Kill Switch - Fundamentos, Arquitetura e Especificações
@@ -15480,6 +15339,147 @@ O->>O: Robô Seguro
 O software do Kill Switch é composto por firmware simples no ESP32C3, um serviço Rust robusto que monitora a porta serial, e integração com ROS 2 para acionamento de Dump Mode. O fluxo operacional garante resposta em menos de 1 segundo com procedimentos bem documentados para diferentes cenários.
 
 
+# App Staff (/docs/sprint-4/documentacao-frontend/app_staff)
+
+## Introdução
+
+  O aplicativo do Staff foi desenvolvido para apoiar os colaboradores responsáveis pelos tours realizados no campus do Inteli. Por meio dele, os funcionários podem criar, visualizar e gerenciar tours, acompanhar o progresso do tour e disponibilizar o código de acesso aos visitantes. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
+
+## Como Iniciar o Projeto
+
+  Para iniciar o projeto do App Staff, siga o passo a passo completo:
+
+### Pré-requisitos
+
+* Git instalado.
+* Node.js (inclui npm) instalado.
+* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
+
+### Passo a passo
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/anabeggiato/2025-2B-T12-EC08-AppStaff
+```
+
+2. Entre na pasta do app:
+
+```bash
+cd 2025-2B-T12-EC08-AppStaff/app
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+```
+
+4. Rode o app diretamente no Android (device físico via USB ou emulador):
+
+```bash
+npx expo run:android
+```
+
+5. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
+6. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
+
+
+# App Visitante (/docs/sprint-4/documentacao-frontend/app_visitante)
+
+## Introdução
+
+  O aplicativo do visitante foi desenvolvido para apoiar a experiência de pais, filhos e demais convidados que participam do tour guiado pelo robô-cachorro LIA durante visitas à faculdade Inteli. O objetivo deste aplicativo é garantir uma jornada educativa, segura e interativa, permitindo que o visitante acompanhe o tour, faça perguntas ao robô, visualize o mapa do tour. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
+
+## Como Iniciar o Projeto
+
+  Para iniciar o projeto do App Visitante, siga o passo a passo completo:
+
+### Pré-requisitos
+
+* Git instalado.
+* Node.js (inclui npm) instalado.
+* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
+
+### Passo a passo
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/Fernandoliveira05/AppTourVisitante/
+```
+
+2. Instale as dependências:
+
+```bash
+npm install
+```
+
+3. Rode o app diretamente no Android (device físico via USB ou emulador):
+
+```bash
+npx expo run:android
+```
+
+4. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
+5. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
+
+
+# Dashboard (/docs/sprint-4/documentacao-frontend/dashboard)
+
+## Introdução
+
+  O Dashboard foi desenvolvido para fornecer uma interface intuitiva e eficiente para os membros da staff do Inteli visualizarem e analisarem os dados coletados durante os tours guiados pelo robô-cachorro LIA. Através deste dashboard, os usuários podem acessar informações detalhadas sobre o desempenho dos tours, feedback dos visitantes e outras métricas relevantes que auxiliam na melhoria contínua da experiência oferecida. Durante essa sprint 4, o foco principal foi finalizar as telas principais desse dashboard e a integração com o backend é o primeiro passo na próxima sprint.
+
+## Como Iniciar o Projeto
+
+  Para iniciar o Dashboard, siga o passo a passo completo:
+
+### Pré-requisitos
+
+* Git instalado.
+* Node.js (inclui npm) instalado.
+
+### Passo a passo
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/davidijesus/2025-2B-T12-EC08-DashStaff
+```
+
+2. Entre na pasta do dashboard:
+
+```bash
+cd 2025-2B-T12-EC08-DashStaff/inteli-dashboard
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+```
+
+4. Inicie o projeto Vite:
+
+```bash
+npm run dev
+```
+
+5. Acesse no navegador: `http://localhost:8080/` (ou a porta exibida no terminal do Vite).
+
+
+# Documentação Frontend (/docs/sprint-4/documentacao-frontend)
+
+<Cards>
+  <Card title="App Staff" description="Documentação referente ao App Staff." href="/docs/sprint-4/documentacao-frontend/app_staff" />
+
+  <Card title="App Visitante" description="Documentação referente ao App Visitante." href="/docs/sprint-4/documentacao-frontend/app_visitante" />
+
+  <Card title="Dashboard" description="Documentação referente ao Dashboard." href="/docs/sprint-4/documentacao-frontend/dashboard" />
+</Cards>
+
+
 # Refatoração dos Serviços de STT e TTS (/docs/sprint-4/modelo)
 
 <Cards>
@@ -15842,7 +15842,7 @@ A equipe precisava garantir que os dados do sistema (ROS 2) trafegassem corretam
 
 ### A Solução
 
-A equipe solucionou os impeditivos de rede através da implementação do **zenoh-bridge-ros2dds**, orquestrado pelo repositório customizado **[`zenoh-plugin-ros2dds-nix`](https://github.com/GustavoWidman/zenoh-plugin-ros2dds-nix)**.
+A equipe solucionou os impeditivos de rede através da implementação do **zenoh-bridge-ros2dds**, orquestrado pelo repositório customizado **[zenoh-plugin-ros2dds-nix](https://github.com/GustavoWidman/zenoh-plugin-ros2dds-nix)**.
 
 Essa abordagem permitiu que o robô operasse **100% conectado à rede institucional "Inteli.Iot"**. O bridge encapsula o tráfego ROS 2 e o transporta de forma eficiente pela rede, garantindo comunicação estável, segura e sem a necessidade de roteadores dedicados.
 
