@@ -6,11 +6,12 @@ description: Serviço HTTP, sistema de emotes e integração dual-channel
 # Kill Switch - Software HTTP e Emotes
 
 ## 1. Firmware ESP32C3 (Wireless)
+
 O firmware utiliza a biblioteca `WiFi.h` e `HTTPClient.h` para enviar os comandos de emergência sem fios.
 
-```cpp
+````cpp
 // Exemplo de lógica Wireless
-if (buttonState == LOW) { 
+if (buttonState == LOW) {
     HTTPClient http;
     http.begin("http://robot.local:3000/emergency/press" );
     http.POST("{}" );
@@ -62,7 +63,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 Ok(RosCommand::StopAndRecover) => {
                     info!("*** HTTP: Stop DAMP and send RECOVER ***");
                     damp_active = false;
-                    
+
                     rt.block_on(async {
                         let guard = ros_for_commands.lock().await;
                         let _ = guard.trigger_recovery().await;
@@ -103,7 +104,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-```
+````
 
 ## 3. Serviço HTTP Emotes
 
@@ -263,11 +264,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 **Objetivo**: Ativar Kill Switch usando aplicativo remoto
 
 **Pré-requisitos**:
+
 - Serviço HTTP em execução (porta 3000)
 - WiFi Unitree conectado
 - Aplicativo cliente disponível
 
 **Passos**:
+
 1. Operador abre aplicativo
 2. Operador clica em "KILL SWITCH"
 3. Aplicativo envia POST /emergency/press
@@ -288,11 +291,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 **Objetivo**: Executar emote no robô via HTTP
 
 **Pré-requisitos**:
+
 - Serviço Emotes em execução (porta 3001)
 - WiFi Unitree conectado
 - Aplicativo cliente disponível
 
 **Passos**:
+
 1. Operador abre aplicativo de emotes
 2. Operador seleciona "Hello"
 3. Aplicativo envia POST /emote/hello
@@ -306,13 +311,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## 6. Integração Dual-Channel
 
- O dual-channel onde Serial e HTTP funcionam simultaneamente:
+O dual-channel onde Serial e HTTP funcionam simultaneamente:
 
-| Aspecto | Serial | HTTP |
-| :--- | :--- | :--- |
-| **Acionamento** | Botão físico | Aplicativo remoto |
-| **Confiabilidade** | Muito alta | Alta (rede interna) |
-| **Latência** | Rápida | Rápida |
-| **Redundância** | Fallback para HTTP | Fallback para Serial |
-| **Resultado** | Dump Mode | Dump Mode |
-
+| Aspecto            | Serial             | HTTP                 |
+| :----------------- | :----------------- | :------------------- |
+| **Acionamento**    | Botão físico       | Aplicativo remoto    |
+| **Confiabilidade** | Muito alta         | Alta (rede interna)  |
+| **Latência**       | Rápida             | Rápida               |
+| **Redundância**    | Fallback para HTTP | Fallback para Serial |
+| **Resultado**      | Dump Mode          | Dump Mode            |

@@ -14,14 +14,15 @@ description: Aviso de segurança, objetivo do sistema e extensões da Sprint 4 (
 ## 1. Objetivo do Sistema
 
 ## 1. Objetivo do Sistema
-O Kill Switch é um mecanismo crítico de segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente. 
+
+O Kill Switch é um mecanismo crítico de segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente.
 
 **Sprint 4** implementou o **Botão Físico Local** conectado via USB-C.
 **Sprint 5** estende o sistema com redundância sem fio:
+
 - **Botão Físico Wireless**: Hardware independente (Metaltex + ESP32C3) que opera via WiFi.
 - **Botão do Aplicativo**: Interface de software para acionamento remoto.
 - **Sistema de Emotes**: Interação e feedback visual do robô.
-
 
 ## 2. Extensões da Sprint 4
 
@@ -36,6 +37,7 @@ O sistema agora opera em três canais que convergem para o mesmo resultado de se
 Foi adicionado um segundo canal de comunicação via HTTP/WiFi, permitindo acionamento remoto do Kill Switch através de aplicativo ou interface web.
 
 **Características:**
+
 - Comunicação via rede WiFi Unitree
 - Endpoints REST simples
 - Máquina de estados para evitar duplicatas
@@ -76,6 +78,7 @@ Ambos os canais (Serial + HTTP) convergem para o mesmo resultado:
 ```
 
 **Vantagens:**
+
 - **Redundância**: Se um canal falhar, o outro continua funcionando
 - **Flexibilidade**: Operador escolhe o canal mais apropriado
 - **Confiabilidade**: Ambos garantem a mesma resposta
@@ -86,18 +89,19 @@ Foi criado um sistema de emotes que permite ao robô expressar movimentos e emo�
 
 **Emotes Disponíveis:**
 
-| Emote | ID | Descrição |
-| :--- | :--- | :--- |
-| **Hello** | 1016 | Movimento de oi |
-| **Stretch** | 1017 | Se espreguiça |
+| Emote       | ID   | Descrição       |
+| :---------- | :--- | :-------------- |
+| **Hello**   | 1016 | Movimento de oi |
+| **Stretch** | 1017 | Se espreguiça   |
 | **Content** | 1020 | Expressão feliz |
-| **Wallow** | 1021 | Rola no chão |
-| **Dance1** | 1022 | Dança 1 |
-| **Dance2** | 1023 | Dança 2 |
-| **Pose** | 1028 | Pose |
-| **Scrape** | 1029 | Esfrega a bunda |
+| **Wallow**  | 1021 | Rola no chão    |
+| **Dance1**  | 1022 | Dança 1         |
+| **Dance2**  | 1023 | Dança 2         |
+| **Pose**    | 1028 | Pose            |
+| **Scrape**  | 1029 | Esfrega a bunda |
 
 **Características:**
+
 - 8 movimentos diferentes
 - Rate limiting de 20 segundos entre emotes
 - Integração com ROS 2
@@ -107,11 +111,11 @@ Foi criado um sistema de emotes que permite ao robô expressar movimentos e emo�
 
 A Sprint 5 **estende** a Sprint 4, mantendo toda a funcionalidade anterior:
 
-| Aspecto | Sprint 4 | Sprint 5 |
-| :--- | :--- | :--- |
-| **Canal Serial** | ✅ Implementado | ✅ Mantido |
-| **Botão Físico** | ✅ Implementado | ✅ Mantido |
-| **ROS 2** | ✅ Implementado | ✅ Mantido |
-| **Canal HTTP** | ❌ Não | ✅ **NOVO** |
-| **Emotes** | ❌ Não | ✅ **NOVO** |
-| **Dual-Channel** | ❌ Não | ✅ **NOVO** |
+| Aspecto          | Sprint 4        | Sprint 5    |
+| :--------------- | :-------------- | :---------- |
+| **Canal Serial** | ✅ Implementado | ✅ Mantido  |
+| **Botão Físico** | ✅ Implementado | ✅ Mantido  |
+| **ROS 2**        | ✅ Implementado | ✅ Mantido  |
+| **Canal HTTP**   | ❌ Não          | ✅ **NOVO** |
+| **Emotes**       | ❌ Não          | ✅ **NOVO** |
+| **Dual-Channel** | ❌ Não          | ✅ **NOVO** |
