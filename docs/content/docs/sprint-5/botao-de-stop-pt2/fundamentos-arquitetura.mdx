@@ -13,16 +13,23 @@ description: Aviso de segurança, objetivo do sistema e extensões da Sprint 4 (
 
 ## 1. Objetivo do Sistema
 
-O Kill Switch é um mecanismo de segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente. 
+## 1. Objetivo do Sistema
+O Kill Switch é um mecanismo crítico de segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente. 
 
-**Sprint passada** implementou o canal **Serial via USB-C** para garantir confiabilidade máxima.
+**Sprint 4** implementou o **Botão Físico Local** conectado via USB-C.
+**Sprint 5** estende o sistema com redundância sem fio:
+- **Botão Físico Wireless**: Hardware independente (Metaltex + ESP32C3) que opera via WiFi.
+- **Botão do Aplicativo**: Interface de software para acionamento remoto.
+- **Sistema de Emotes**: Interação e feedback visual do robô.
 
-**Sprint atual** estende o sistema com:
-- **Canal HTTP/WiFi** para acionamento remoto
-- **Dual-channel redundância** (Serial + HTTP convergem para o mesmo resultado)
-- **Sistema de emotes** para interação com o robô
 
 ## 2. Extensões da Sprint 4
+
+O sistema agora opera em três canais que convergem para o mesmo resultado de segurança:
+
+1. **Botão Físico Local (USB)**: Conexão direta via Serial.
+2. **Botão Físico Wireless (WiFi)**: Mesmo hardware da Sprint 1, mas enviando comandos via HTTP POST.
+3. **Botão do Aplicativo**: Interface digital via rede WiFi.
 
 ### 2.1 Protocolo HTTP/WiFi
 

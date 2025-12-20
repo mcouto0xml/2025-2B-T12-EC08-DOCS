@@ -5,7 +5,19 @@ description: Serviço HTTP, sistema de emotes e integração dual-channel
 
 # Kill Switch - Software HTTP e Emotes
 
-## 1. Serviço HTTP Kill Switch
+## 1. Firmware ESP32C3 (Wireless)
+O firmware utiliza a biblioteca `WiFi.h` e `HTTPClient.h` para enviar os comandos de emergência sem fios.
+
+```cpp
+// Exemplo de lógica Wireless
+if (buttonState == LOW) { 
+    HTTPClient http;
+    http.begin("http://robot.local:3000/emergency/press" );
+    http.POST("{}" );
+    http.end( );
+}
+
+## 2. Serviço HTTP Kill Switch
 
 ### Arquitetura
 
@@ -93,7 +105,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-## 2. Serviço HTTP Emotes
+## 3. Serviço HTTP Emotes
 
 ### Arquitetura
 
@@ -176,7 +188,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-## 3. Fluxos Operacionais
+## 4. Fluxos Operacionais
 
 ### Fluxo 1: Kill Switch via HTTP
 
@@ -244,7 +256,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 └──────────────┘
 ```
 
-## 4. Playbooks
+## 5. Playbooks
 
 ### Playbook KS-002: Acionamento via HTTP
 
@@ -292,7 +304,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 9. Rate limiter bloqueia próximos 20s
 10. Após 20s, novo emote pode ser acionado
 
-## 5. Integração Dual-Channel
+## 6. Integração Dual-Channel
 
  O dual-channel onde Serial e HTTP funcionam simultaneamente:
 

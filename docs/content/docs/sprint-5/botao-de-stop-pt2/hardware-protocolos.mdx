@@ -3,9 +3,18 @@ title: Protocolo HTTP/WiFi
 description: Especificação do protocolo HTTP/WiFi para acionamento remoto do Kill Switch
 ---
 
-# Kill Switch - Protocolo HTTP/WiFi
+# Kill Switch - Protocolo Wireless
 
-## 1. Visão Geral do Protocolo HTTP
+## 1. Botão Físico Wireless
+O Botão Físico Wireless utiliza o microcontrolador ESP32C3 para monitorar o botão Metaltex e enviar comandos via WiFi.
+
+### 1.1 Funcionamento do Hardware
+- **Hardware**: Metaltex CP1-E + ESP32C3 Super Mini.
+- **Conectividade**: WiFi 2.4GHz (Rede Unitree).
+- **Lógica**: Ao detectar o pressionamento (GPIO 0 -> LOW), o ESP32C3 dispara uma requisição HTTP POST para o robô.
+
+
+## 2. Visão Geral do Protocolo HTTP
 
 As mudanças atuais adicionam um segundo canal de comunicação via HTTP/WiFi, complementando o canal Serial da sprint passada.
 
@@ -16,9 +25,9 @@ As mudanças atuais adicionam um segundo canal de comunicação via HTTP/WiFi, c
 - Rede: WiFi Unitree interna
 - Autenticação: Nenhuma (rede interna)
 
-## 2. Endpoints do Kill Switch
+## 3. Endpoints do Kill Switch
 
-### 2.1 POST /emergency/press
+### 3.1 POST /emergency/press
 
 Inicia o Dump Mode continuamente.
 
@@ -47,7 +56,7 @@ Content-Type: application/json
 4. Robô ativa Dump Mode
 5. Continua enviando DAMP enquanto pressionado
 
-### 2.2 POST /emergency/release
+### 3.2 POST /emergency/release
 
 Para o Dump Mode e inicia Recover.
 
@@ -76,7 +85,7 @@ Content-Type: application/json
 4. ROS 2 publica comando RECOVER
 5. Robô retorna ao estado normal
 
-### 2.3 GET /emergency/status
+### 3.3 GET /emergency/status
 
 Consulta o status atual do Kill Switch.
 
@@ -95,9 +104,9 @@ Host: robot.local:3000
 }
 ```
 
-## 3. Endpoints de Emotes
+## 4. Endpoints de Emotes
 
-### 3.1 POST "emote_name"
+### 4.1 POST "emote_name"
 
 Aciona um emote específico.
 
@@ -145,7 +154,7 @@ Content-Type: application/json
 3. Robô executa emote
 4. Retorna status
 
-## 4. Máquina de Estados HTTP
+## 5. Máquina de Estados HTTP
 
 O serviço HTTP implementa máquina de estados para evitar duplicatas:
 
@@ -171,7 +180,7 @@ O serviço HTTP implementa máquina de estados para evitar duplicatas:
 - PRESSING → RELEASED: POST /emergency/release
 - Requisições duplicadas são ignoradas
 
-## 5. Rate Limiting para Emotes
+## 6. Rate Limiting para Emotes
 
 O sistema implementa rate limiting para proteger contra abuso:
 
@@ -187,7 +196,7 @@ T+5s:   POST /emote/stretch   → 429 Too Many Requests
 T+20s:  POST /emote/stretch   → 200 OK
 ```
 
-## 6. Fluxo de Transmissão HTTP
+## 7. Fluxo de Transmissão HTTP
 
 ### Kill Switch via HTTP
 
@@ -208,7 +217,7 @@ T+20s:  POST /emote/stretch   → 200 OK
 5. Robô executa movimento
 6. Retorna 200 OK
 
-## 7. Integração Dual-Channel
+## 8. Integração Dual-Channel
 
 Ambos os canais (Serial + HTTP) funcionam simultaneamente:
 
