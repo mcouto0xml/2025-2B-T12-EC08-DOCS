@@ -1,0 +1,146 @@
+---
+title: Arquitetura do RAG e Pipeline de Conhecimento
+---
+
+# Sprint 4 – RAG Inteligente para os Serviços de Conhecimento
+
+## Objetivo da Sprint
+
+Consolidar todo o fluxo de Recuperação Augmentada de Geração (RAG) em uma arquitetura única, rastreável e escalável. Reduzimos custo de ingestão e consulta com reuso de embeddings, cache e filtros semânticos automáticos, garantindo previsibilidade das fontes e da forma como os chunks são criados e versionados.
+
+:::note
+
+A arquitetura foi pensada para reuso máximo: uma única ingestão serve múltiplas consultas, evitando retrabalho de embeddings e mantendo rastreabilidade ponta a ponta.
+
+:::
+
+---
+
+## Problema Identificado na Sprint Anterior
+
+- Ingestão manual e sem padronização exigia reprocessar tudo a cada atualização.
+- Consultas ao Qdrant não aplicavam filtros de ano/projeto, misturando contextos e reduzindo precisão.
+- Falta de documentação de chunking, formatos aceitos e estrutura do banco vetorial dificultava evolução e troubleshooting.
+
+---
+
+## Melhorias Implementadas
+
+### Cobertura de formatos e curadoria documental
+- `extract_file_elements` autodetecta JSON estruturado, PDFs, DOCX, TXT e Markdown, usando a melhor estratégia por formato (backend/microservices/file_pipeline.py).
+- Lista explícita de extensões suportadas evita ingestão acidental (backend/microservices/file_pipeline.py).
+- A pasta `documents/` concentra a base oficial ingerida nesta sprint:
+  - Edital-Processo-Seletivo-Inteli_-Graduacao-2026_AJUSTADO_V2.pdf
+  - FAQ-Processo-Seletivo-Inteli-Graduacao-2026.pdf
+  - Livro_Inteli_PDF_distribuicao.pdf
+  - script.md
+
+### Pipeline de ingestão end-to-end
+- `embedding_pipeline` encadeia extração → limpeza → chunking → embeddings → ingestão no Qdrant (backend/microservices/file_pipeline.py).
+- `embedding_pipeline_paths` reprocessa lotes e recria a coleção uma única vez, evitando downtime (backend/microservices/file_pipeline.py).
+
+### Limpeza e enriquecimento semântico
+- `preprocess_elements` remove sumários, cabeçalhos/rodapés repetidos e bullets irregulares, enriquecendo metadados com seção e hierarquia (backend/microservices/file_pipeline.py).
+- O contexto corrente é mantido por linha, carregando `context_section`, `context_header`, categoria inferida e sinalização de tabelas.
+
+### Chunking por seção e sobreposição controlada
+- `create_smart_chunks` agrupa por (fonte, seção, cabeçalho), preserva ordem, limita por tokens e aplica overlap proporcional (backend/microservices/file_pipeline.py).
+- Cada chunk recebe prefixos de contexto, prévia textual, `chunk_tokens`, `overlap_tokens`, índice local, páginas cobertas e IDs determinísticos (`safe_name_safe_section_idx_chunk`).
+
+### Embeddings híbridos e ingestão Qdrant
+- `generate_hybrid_embeddings` combina vetor denso (sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2) e vetor esparso BM25 via fastembed (backend/microservices/file_pipeline.py).
+- `ingest_hybrid_embeddings` cria/atualiza a coleção híbrida no Qdrant com vetor denso 384-dim e vetor esparso por ponto, armazenando payload completo do chunk (backend/microservices/file_pipeline.py).
+- IDs persistentes usam UUID v5 baseado no `chunk_id`, garantindo idempotência na reexecução.
+
+#### Como os embeddings híbridos são gerados
+- Denso: o texto do chunk passa por `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` com normalização de vetor para `cosine` similarity.
+- Esparso: o mesmo texto é tokenizado e indexado com BM25 via fastembed, produzindo pesos lexicais que valorizam termos exatos, siglas e números.
+- Combinação: cada ponto no Qdrant recebe os dois vetores; na busca, o motor soma as pontuações densa + esparsa, equilibrando recall semântico e precisão lexical.
+- Idempotência e rastreio: o `chunk_id` determinístico vira UUID v5, assegurando que reprocessamentos atualizem o mesmo ponto sem duplicar.
+
+<Callout title="Por dentro do híbrido" type="info">
+O denso cobre sinônimos e paráfrases; o esparso ancora siglas, códigos e datas. Juntos, evitam tanto falso negativo semântico quanto falso positivo lexical.
+</Callout>
+
+### Configuração centralizada e banco vetorial
+- `RAGConfig` reúne URL, API Key, coleção, modelo de embedding e hiperparâmetros (TOP_K, adjacência, score mínimo) lidos do `.env` (backend/agent_flow/config.py).
+- Coleção padrão de produção: `inteli-documents-embeddings`; compatibilidade mantida com `inteli_hybrid_final` para ingestão.
+
+### Pipeline de inferência RAG
+- `rag_inference_pipeline` converte pergunta em embedding, consulta Qdrant com filtros opcionais, expande nós adjacentes e formata o payload textual (backend/agent_flow/tools/knowledge_tools.py).
+- `_extract_metadata_filters_from_query` detecta Projeto X / Módulo X (mesmo projeto) e Xº ano, aplicando filtros antes da busca (backend/agent_flow/tools/knowledge_tools.py).
+- `retrieve_inteli_knowledge` expõe a pipeline ao agente, guardando estatísticas no `ToolContext` e retornando chunks prontos para uso (backend/agent_flow/tools/knowledge_tools.py).
+
+### Caching e métricas
+- Resultados RAG cacheados por 5 min (até 200 entradas) e embeddings de consulta por 1 h (backend/agent_flow/utils/cache.py).
+- Métricas Prometheus rastreiam volume de queries, chunks retornados, acertos/erros de cache e uso de LLM (backend/agent_flow/utils/metrics.py).
+
+### Pós-processamento antes do LLM
+- O `ContextAgent` aplica `rank_context_chunks`, `filter_context_by_relevance`, `deduplicate_context` e `manage_context_window` para manter contexto compacto e anotado (backend/agent_flow/tools/context_tools.py).
+- Ranking híbrido, cortes por score e janelas de tokens respeitam `ContextConfig` (backend/agent_flow/config.py).
+
+---
+
+## Funcionamento da Pipeline
+
+1) **Coleta e validação** – `collect_input_files` lista arquivos aceitos em um diretório ou processa um arquivo isolado (backend/microservices/file_pipeline.py).
+2) **Extração** – Cada formato passa por um extrator dedicado (PyPDFLoader/PyPDF2 para PDFs, parsing direto para TXT/MD/DOCX, leitura de JSON estruturado), já com metadados básicos (backend/microservices/file_pipeline.py).
+3) **Limpeza e contexto** – Normalização de texto, remoção de sumários e repetições, enriquecimento de metadados com seção, hierarquia e categoria inferida (backend/microservices/file_pipeline.py).
+4) **Chunking** – Agrupamento por seção, prefixos semânticos e divisão respeitando `chunk_size` e `chunk_overlap`, com overlaps pelas últimas linhas do chunk anterior (backend/microservices/file_pipeline.py).
+5) **Embeddings híbridos** – Vetor denso (COSINE) + vetor esparso (BM25) para buscas semânticas e lexicais (backend/microservices/file_pipeline.py).
+6) **Ingestão Qdrant** – Pontos gravados em lotes de 64 com vetores, conteúdo e payload completo (backend/microservices/file_pipeline.py).
+7) **Consulta** – `retrieve_inteli_knowledge` gera embedding da query, aplica filtros, expande adjacências e retorna chunks enriquecidos (backend/agent_flow/tools/knowledge_tools.py).
+8) **Formatação e cache** – `build_graph_rag_payload` organiza resultados em blocos textuais com cabeçalhos e IDs; resultado é cacheado (backend/agent_flow/tools/knowledge_tools.py).
+9) **Pós-processamento para LLM** – `ContextAgent` reranqueia, deduplica, resume e formata em listas numeradas, narrativa ou bullet points (backend/agent_flow/tools/context_tools.py).
+
+<Mermaid chart="flowchart TD
+  A[Documentos em documents/] --> B[collect_input_files]
+  B --> C[extract_file_elements]
+  C --> D[preprocess_elements]
+  D --> E[create_smart_chunks]
+  E --> F[generate_hybrid_embeddings]
+  F --> G[ingest_hybrid_embeddings -> Qdrant]
+  H[Query do usuário] --> I[rag_inference_pipeline]
+  I --> J[retrieve_inteli_knowledge]
+  J --> K[ContextAgent pós-processa]
+  K --> L[Resposta para LLM/Frontend]
+" />
+
+---
+
+## Processo de Chunking em Detalhes
+
+- **Agrupamento por contexto**: cada seção/cabeçalho vira grupo lógico, preservando páginas originais (backend/microservices/file_pipeline.py).
+- **Ajuste dinâmico de tamanho**: se linhas forem curtas, o `chunk_size` local cai até 600 tokens para evitar blocos vazios (backend/microservices/file_pipeline.py).
+- **Overlap semântico**: linhas finais são reaproveitadas até o limite de tokens, mantendo continuidade (backend/microservices/file_pipeline.py).
+- **Metadados ricos**: cada chunk traz preview, páginas, `chunk_tokens`, `total_section_chunks` e hash para deduplicação (backend/microservices/file_pipeline.py).
+
+---
+
+## Banco de Dados Vetorial
+
+- **Tecnologia**: Qdrant (cloud/self-hosted) com collections híbridas (vetor denso + esparso) configuradas pela pipeline (backend/microservices/file_pipeline.py).
+- **Payload**: inclui `chunk_id`, texto completo, metadados, categoria e hierarquia para suportar filtros e heurísticas de busca (backend/microservices/file_pipeline.py).
+- **Configuração**: parâmetros de conexão e hiperparâmetros do RAG via `AppConfig` e `.env` (backend/agent_flow/config.py).
+
+:::warning
+Mantenha as credenciais do Qdrant e os limites de `TOP_K`/`score_minimo` sincronizados entre ambientes. Valores diferentes podem alterar relevância e métricas.
+:::
+
+---
+
+## Monitoramento e Governança
+
+- **Caches**: TTL de 5 min para resultados RAG e 1 h para embeddings garante frescor e economia (backend/agent_flow/utils/cache.py).
+- **Telemetria**: Prometheus contabiliza chamadas RAG, chunks retornados, hits/misses de cache e estatísticas de agentes (backend/agent_flow/utils/metrics.py).
+- **Ferramentas do ContextAgent**: ranking, filtragem por score mínimo, deduplicação e janela de contexto asseguram qualidade antes do LLM (backend/agent_flow/tools/context_tools.py).
+
+---
+
+## Conclusão
+
+A sprint consolidou um pipeline RAG completo: ingestão padronizada para todos os formatos relevantes, chunking semântico com metadados ricos, embeddings híbridos persistidos no Qdrant e um fluxo de inferência que aplica filtros automáticos, caching e pós-processamento estruturado. A base de conhecimento torna-se rastreável, eficiente e pronta para evoluções (novos documentos, filtros ou modelos) sem retrabalho.
+
+### Por que embeddings híbridos?
+
+Combinar vetor denso com BM25 entrega o melhor dos dois mundos: o embedding denso captura relações semânticas mesmo com vocabulário diferente, enquanto o vetor esparso preserva precisão lexical para termos exatos, siglas e números (ex.: “Projeto 7”, “2026”). O Qdrant soma as pontuações, aumentando recall em perguntas abertas sem perder aderência a filtros específicos e mantendo robustez em textos heterogêneos.
