@@ -10,6 +10,7 @@ description: Este documento apresenta os resultados de testes de penetração re
 **Objetivo**: Extrair dados não autorizados ou manipular queries SQL
 
 **Vetores Testados**:
+
 ```bash
 # Teste 1.1: SQL Injection clássico em path parameter
 curl "http://localhost:8080/v1/visitante/1%20OR%201=1"
@@ -24,13 +25,15 @@ curl -X POST "http://localhost:8080/v1/visitante" \
 
 **Resultado**: ATAQUE FALHOU
 
-**Controle Efetivo Identificado**: 
+**Controle Efetivo Identificado**:
+
 ```rust
 // SQLx usa prepared statements parametrizados
 sqlx::query_as!(Visitante, "SELECT * FROM visitantes WHERE id = $1", *id)
 ```
 
 **Por que funciona**:
+
 - O parâmetro `$1` é tratado como **valor**, nunca como código SQL
 - SQLx usa prepared statements em todas as queries
 - Mesmo strings maliciosas são inseridas como texto literal
@@ -44,6 +47,7 @@ sqlx::query_as!(Visitante, "SELECT * FROM visitantes WHERE id = $1", *id)
 **Objetivo**: Causar comportamento inesperado através de tipos inválidos
 
 **Vetores Testados**:
+
 ```bash
 # Teste 2.1: ID como string
 curl "http://localhost:8080/v1/visitante/abc"
@@ -57,11 +61,13 @@ curl "http://localhost:8080/v1/visitante/99999999999999999999"
 **Resultado**: ATAQUE FALHOU
 
 **Controle Efetivo Identificado**:
+
 ```rust
 async fn get_one(id: web::Path<i32>, data: Data) -> Response {
 ```
 
 **Por que funciona**:
+
 - Actix-web faz parsing do path parameter para `i32` **antes** de chamar o handler
 - Se o parsing falha, retorna 400 automaticamente
 
@@ -74,6 +80,7 @@ async fn get_one(id: web::Path<i32>, data: Data) -> Response {
 **Objetivo**: Definir ID manualmente para sobrescrever registros
 
 **Vetores Testados**:
+
 ```bash
 curl -X POST "http://localhost:8080/v1/visitante" \
   -H "Content-Type: application/json" \
@@ -84,12 +91,14 @@ curl -X POST "http://localhost:8080/v1/visitante" \
 **Resultado**: ATAQUE FALHOU
 
 **Controle Efetivo Identificado**:
+
 ```rust
 #[serde(skip_deserializing)]
 pub id: Option<i32>,
 ```
 
 **Por que funciona**:
+
 - O atributo `skip_deserializing` faz o Serde **ignorar** o campo `id` no JSON de entrada
 - O ID é sempre gerado pelo banco (SERIAL)
 
@@ -102,6 +111,7 @@ pub id: Option<i32>,
 **Objetivo**: Inserir valores inválidos em campos enum
 
 **Vetores Testados**:
+
 ```bash
 curl -X POST "http://localhost:8080/v1/visitante" \
   -H "Content-Type: application/json" \
@@ -112,6 +122,7 @@ curl -X POST "http://localhost:8080/v1/visitante" \
 **Resultado**: ATAQUE FALHOU
 
 **Controle Efetivo Identificado**:
+
 ```rust
 #[derive(Deserialize)]
 #[serde(rename_all = "lowercase")]
@@ -122,6 +133,7 @@ pub enum Perfil {
 ```
 
 **Por que funciona**:
+
 - Serde só aceita exatamente `"student"` ou `"executive"`
 - Qualquer outro valor causa erro de deserialização
 
@@ -134,6 +146,7 @@ pub enum Perfil {
 **Objetivo**: Esgotar recursos com conexões inativas
 
 **Vetores Testados**:
+
 ```python
 import asyncio
 import websockets
@@ -156,6 +169,7 @@ asyncio.run(test_zombie())
 **Resultado**: ATAQUE MITIGADO
 
 **Controle Efetivo Identificado**:
+
 ```rust
 fn hb(&self, ctx: &mut ws::WebsocketContext<Self>) {
     ctx.run_interval(Duration::from_secs(5), |act, ctx| {
@@ -169,6 +183,7 @@ fn hb(&self, ctx: &mut ws::WebsocketContext<Self>) {
 ```
 
 **Por que funciona**:
+
 - Servidor envia ping a cada 5 segundos
 - Se cliente não responde em 10 segundos, conexão é fechada
 - Recursos são liberados automaticamente
@@ -180,6 +195,7 @@ fn hb(&self, ctx: &mut ws::WebsocketContext<Self>) {
 ### Teste 6: URL Normalization / Route Canonicalization - BLOQUEADO
 
 **Vetores Testados**:
+
 ```bash
 curl "http://localhost:8080/v1/visitante/"
 curl "http://localhost:8080/v1/visitante"
@@ -211,6 +227,7 @@ if user_id is None:
 **Problema Identificado**: O endpoint `/chat` em `main.py` **não passa `user_id`** para `give_response()`. Isso significa que **todas as requisições usam `user_id="anonymous"`**.
 
 **Teste Real**:
+
 ```python
 import requests
 import concurrent.futures
@@ -236,6 +253,7 @@ for i in range(10):
 **Resultado**: RATE LIMITING FUNCIONA, mas de forma **global** (todos os usuários compartilham o limite)
 
 **Classificação**: Controle PARCIALMENTE EFETIVO
+
 - Previne flood de um único cliente
 - Não diferencia entre usuários diferentes
 - Um usuário pode esgotar o limite de todos
@@ -259,6 +277,7 @@ return e.user_message  # ValidationError não tem user_message!
 **Problema Identificado**: Há uma inconsistência - `ValidationError` em `validation.py` **não tem** `user_message`, mas o código em `chat_service_v3.py` tenta acessar `e.user_message`.
 
 **Teste Real - Input muito grande**:
+
 ```python
 import requests
 
@@ -270,6 +289,7 @@ print(r.json())
 ```
 
 **Teste Real - Null Byte**:
+
 ```python
 r = requests.post(
     "http://localhost:8000/chat",
@@ -279,6 +299,7 @@ r = requests.post(
 ```
 
 **Classificação**: Controle COM BUG
+
 - A validação **detecta** o problema
 - Mas o tratamento de erro pode falhar
 
@@ -301,6 +322,7 @@ if has_pii(validated_prompt):
 **Comportamento Real**: PII é **detectado e logado**, mas **não bloqueado** no chat_service. A responsabilidade é do safety_agent.
 
 **Teste Real**:
+
 ```bash
 curl -X POST "http://localhost:8000/chat" \
   -H "Content-Type: application/json" \
@@ -316,12 +338,14 @@ curl -X POST "http://localhost:8000/chat" \
 ### Teste 10: Validação de Null Bytes - FUNCIONA (com ressalva)
 
 **Código**:
+
 ```python
 if "\x00" in text:
     raise ValidationError("Input contains null bytes")
 ```
 
 **Teste Real**:
+
 ```python
 # O null byte é detectado
 # MAS: ValidationError não tem user_message
@@ -335,6 +359,7 @@ if "\x00" in text:
 ### Teste 11: HTTP Header Injection (CRLF) - FUNCIONA (com ressalva)
 
 **Código**:
+
 ```python
 suspicious_patterns = [
     "\r\n\r\n",  # HTTP header injection attempts
@@ -344,6 +369,7 @@ suspicious_patterns = [
 **Nota**: Só detecta `\r\n\r\n` (CRLF duplo), não `\r\n` simples.
 
 **Teste Real**:
+
 ```python
 # BLOQUEADO:
 requests.post(..., json={"message": "teste\r\n\r\nmalicioso"})
@@ -360,34 +386,36 @@ requests.post(..., json={"message": "teste\r\nmalicioso"})
 
 ### Sistema Backend Rust
 
-| # | Teste | Resultado | Status Real |
-|---|-------|-----------|-------------|
-| 1 | SQL Injection | BLOQUEADO | Funciona corretamente |
-| 2 | Type Confusion | BLOQUEADO | Funciona corretamente |
-| 3 | Mass Assignment ID | BLOQUEADO | Funciona corretamente |
-| 4 | Enum Injection | BLOQUEADO | Funciona corretamente |
-| 5 | Zombie Connections | MITIGADO | Funciona corretamente |
-| 6 | Path Traversal | BLOQUEADO | Funciona corretamente |
+| #   | Teste              | Resultado | Status Real           |
+| --- | ------------------ | --------- | --------------------- |
+| 1   | SQL Injection      | BLOQUEADO | Funciona corretamente |
+| 2   | Type Confusion     | BLOQUEADO | Funciona corretamente |
+| 3   | Mass Assignment ID | BLOQUEADO | Funciona corretamente |
+| 4   | Enum Injection     | BLOQUEADO | Funciona corretamente |
+| 5   | Zombie Connections | MITIGADO  | Funciona corretamente |
+| 6   | Path Traversal     | BLOQUEADO | Funciona corretamente |
 
 ### Sistema Python/IA
 
-| # | Teste | Resultado | Status Real |
-|---|-------|-----------|-------------|
-| 7 | Rate Limiting | PARCIAL | Funciona, mas global (todos = "anonymous") |
-| 8 | Input Size | COM BUG | Detecta, mas ValidationError sem user_message |
-| 9 | PII Detection | DETECTA | Loga warning, não bloqueia (delega ao safety_agent) |
-| 10 | Null Byte | COM BUG | Detecta, mas tratamento pode falhar |
-| 11 | CRLF Injection | PARCIAL | Só detecta \r\n\r\n, não \r\n simples |
+| #   | Teste          | Resultado | Status Real                                         |
+| --- | -------------- | --------- | --------------------------------------------------- |
+| 7   | Rate Limiting  | PARCIAL   | Funciona, mas global (todos = "anonymous")          |
+| 8   | Input Size     | COM BUG   | Detecta, mas ValidationError sem user_message       |
+| 9   | PII Detection  | DETECTA   | Loga warning, não bloqueia (delega ao safety_agent) |
+| 10  | Null Byte      | COM BUG   | Detecta, mas tratamento pode falhar                 |
+| 11  | CRLF Injection | PARCIAL   | Só detecta \r\n\r\n, não \r\n simples               |
 
 ---
 
 ## Bugs Identificados Durante os Testes
 
 ### Bug 1: ValidationError sem user_message
+
 **Arquivo**: `backend/agent_flow/utils/validation.py`
 **Problema**: `ValidationError` não herda de `AgentFlowError` e não tem `user_message`
 **Impacto**: `chat_service_v3.py` linha 166 pode causar `AttributeError`
 **Correção**:
+
 ```python
 from backend.agent_flow.utils.errors import InputValidationError
 
@@ -396,10 +424,12 @@ raise InputValidationError("Input too long")
 ```
 
 ### Bug 2: Rate Limit sem identificação de usuário
+
 **Arquivo**: `backend/main.py`
 **Problema**: `give_response(prompt.message)` não passa `user_id`
 **Impacto**: Todos os usuários compartilham o mesmo limite
 **Correção**:
+
 ```python
 @app.post("/chat")
 async def chat_w_bot(prompt: Prompt, request: Request):
@@ -409,9 +439,11 @@ async def chat_w_bot(prompt: Prompt, request: Request):
 ```
 
 ### Bug 3: CRLF detection incompleta
+
 **Arquivo**: `backend/agent_flow/utils/validation.py`
 **Problema**: Só detecta `\r\n\r\n`, não `\r\n` simples
 **Correção**:
+
 ```python
 suspicious_patterns = [
     "\r\n\r\n",
@@ -426,6 +458,7 @@ suspicious_patterns = [
 **Backend em Rust**: Os controles identificados são **genuinamente efetivos**. O SQLx, tipagem forte e atributos Serde funcionam exatamente como documentado.
 
 **Embeddings em Python**: Os controles existem e a **lógica de detecção funciona**, mas há bugs de integração:
+
 1. Rate limiting não diferencia usuários
 2. ValidationError incompatível com o tratamento de erros
 3. Detecção de CRLF incompleta
