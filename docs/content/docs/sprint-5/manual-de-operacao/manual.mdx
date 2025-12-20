@@ -6,7 +6,7 @@ description: Documento com o guia de operação do robô e informações relevan
 # Guia de Operação e Segurança - Robô Unitree Go2
 
 **Projeto:** Tour Autônomo - Inteli Instituto de Tecnologia e Liderança
-**Versão:** Sprint 5 
+**Versão:** Sprint 5
 
 ---
 
@@ -54,11 +54,13 @@ O projeto conta com **dois botões físicos de emergência**, ambos capazes de i
 ### Tipos de Botão
 
 **Botão remoto (via sistema):**
+
 - Funciona via **HTTP**.
 - Deve permanecer exclusivamente com o **responsável pelo acompanhamento do tour**.
 - É indicado para situações em que ainda há visibilidade do robô, mas o comportamento se torna inadequado ou inseguro para utilizar o botão acoplado.
 
 **Botão acoplado ao robô:**
+
 - Atua diretamente no robô, sem dependência de rede.
 - Destinado a **situações de perda total de controle**, falha crítica ou risco iminente, caso ainda haja acesso físico ao robô.
 
@@ -92,21 +94,21 @@ Após qualquer parada de emergência:
 
 ## Procedimentos Operacionais
 
-| ID   | Área       | Procedimento / Situação                                               | Resultado Esperado                                   |
-|------|------------|-----------------------------------------------------------------------|------------------------------------------------------|
-| OP01 | Operação   | Ligar o controle antes do robô.                                       | Pareamento realizado sem falhas.                     |
-| OP02 | Operação   | Ligar o controle (pressionar, soltar, pressionar, soltar, segurar).   | Controle ativo e reconhecido.                        |
-| OP03 | Operação   | Ligar o robô (pressionar, soltar, segurar).                           | Robô inicia e responde aos comandos.                 |
-| OP04 | Operação   | Em perda parcial de controle, pressionar L2 + A.                      | Robô trava movimentos e estabiliza.                  |
-| OP05 | Segurança  | Em risco iminente, pressionar L2 + B.                                 | Parada forçada imediata.                             |
-| OP06 | Segurança  | Para sair da parada forçada, enviar Start.                            | Retorno ao modo operacional.                         |
-| OP07 | Segurança  | Não levantar o robô em parada forçada.                                | Prevenção de danos e acidentes.                      |
-| OP08 | Técnica    | Conectar hub USB-C à Jetson.                                          | Acesso ao terminal garantido.                        |
-| OP09 | Técnica    | Reiniciar em caso de falha crítica.                                   | Sistema restabelecido.                               |
-| OP10 | Técnica    | Conectar adaptador Wi-Fi e liberar SSH.                               | Acesso remoto funcional.                             |
-| OP11 | Operação   | Desligar o robô corretamente.                                         | Desligamento seguro.                                 |
-| OP12 | Operação   | Desligar o controle após o robô.                                      | Comunicação encerrada.                               |
-| OP13 | Segurança  | Garantir desligamento do robô antes do controle.                      | Evita estados inconsistentes.                        |
+| ID   | Área      | Procedimento / Situação                                             | Resultado Esperado                   |
+| ---- | --------- | ------------------------------------------------------------------- | ------------------------------------ |
+| OP01 | Operação  | Ligar o controle antes do robô.                                     | Pareamento realizado sem falhas.     |
+| OP02 | Operação  | Ligar o controle (pressionar, soltar, pressionar, soltar, segurar). | Controle ativo e reconhecido.        |
+| OP03 | Operação  | Ligar o robô (pressionar, soltar, segurar).                         | Robô inicia e responde aos comandos. |
+| OP04 | Operação  | Em perda parcial de controle, pressionar L2 + A.                    | Robô trava movimentos e estabiliza.  |
+| OP05 | Segurança | Em risco iminente, pressionar L2 + B.                               | Parada forçada imediata.             |
+| OP06 | Segurança | Para sair da parada forçada, enviar Start.                          | Retorno ao modo operacional.         |
+| OP07 | Segurança | Não levantar o robô em parada forçada.                              | Prevenção de danos e acidentes.      |
+| OP08 | Técnica   | Conectar hub USB-C à Jetson.                                        | Acesso ao terminal garantido.        |
+| OP09 | Técnica   | Reiniciar em caso de falha crítica.                                 | Sistema restabelecido.               |
+| OP10 | Técnica   | Conectar adaptador Wi-Fi e liberar SSH.                             | Acesso remoto funcional.             |
+| OP11 | Operação  | Desligar o robô corretamente.                                       | Desligamento seguro.                 |
+| OP12 | Operação  | Desligar o controle após o robô.                                    | Comunicação encerrada.               |
+| OP13 | Segurança | Garantir desligamento do robô antes do controle.                    | Evita estados inconsistentes.        |
 
 ---
 
