@@ -1138,9 +1138,7 @@ else:
   <Card href="/docs/sprint-5/manual-de-operacao" title="Manual de Operação">
     Documentação do Manual de Operação.
   </Card>
-</Cards>
 
-<Cards>
   <Card href="/docs/sprint-5/frontend" title="Frontend">
     Documentação do time de frontend.
   </Card>
@@ -8486,6 +8484,173 @@ Todas as ocorrências devem ser registradas e revisadas pela equipe de seguranç
 </Cards>
 
 
+# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
+
+
+
+# Pipeline de Ingestão de Arquivos
+
+## Introdução
+
+O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
+
+A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
+
+***
+
+## Estrutura Geral do Pipeline
+
+<Callout type="info">
+  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
+</Callout>
+
+### 1. Extração dos textos
+
+```python
+from unstructured.partition.pdf import partition_pdf
+
+elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
+```
+
+* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
+
+* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
+
+***
+
+### 2. Sanitização dos textos
+
+```python
+def clean_text(text):
+    text = re.sub(r'\s+', ' ', text)
+    text = text.replace('\ufb01', 'fi')
+    ...
+```
+
+* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
+
+* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
+
+***
+
+### 3. Enriquecimento semântico
+
+```python
+def extract_enhanced_metadata(element):
+    return {
+        'element_id': ...,
+        'element_type': ...,
+        'page_number': ...,
+        'hierarchy_level': ...,
+        'section': ...,
+    }
+```
+
+* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
+
+* Isso ajuda a preservar a estrutura semântica do documento original.
+
+***
+
+### 4. Divisão em chunks com sobreposição
+
+```python
+RecursiveCharacterTextSplitter(
+  chunk_size=500,
+  chunk_overlap=100,
+)
+```
+
+* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
+
+* Mantém coesão semântica mesmo em respostas curtas.
+
+<Callout title="Importante">
+  {" "}
+
+  Essa segmentação garante que as perguntas do usuário encontrem respostas
+  dentro de um mesmo chunk.{" "}
+</Callout>
+
+***
+
+### 5. Geração de embeddings
+
+```python
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+embeddings = model.encode(texts, ...)
+```
+
+* Utiliza modelo pré-treinado da HuggingFace.
+
+* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
+
+* Embeddings são normalizados e possuem metadados do chunk.
+
+***
+
+### 6. Inserção no banco vetorial (ETAPA: Persistência)
+
+```python
+chunks_with_embeddings.append({
+  'id': 'chunk_x',
+  'content': ...,
+  'embedding': [...],
+  'metadata': {...}
+})
+```
+
+Cada embedding é armazenado com:
+
+* ID único
+
+* Conteúdo do chunk
+
+* Vetor (lista de floats)
+
+* Modelo utilizado
+
+* Dados estruturados (página, seção, tipo)
+
+***
+
+## Diagrama do Pipeline
+
+Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Pipeline de arquivos
+</p>
+
+<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Conclusão
+
+A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
+
+É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
+
+<Callout title="Próximos Passos" type="info">
+  {" "}
+
+  Integração com o agente conversacional do robô e testes de consulta em
+  linguagem natural usando os embeddings gerados.{" "}
+</Callout>
+
+
+# Files Pipeline (/docs/sprint-2/pipeline-de-docs)
+
+<Cards>
+  <Card title="Files Pipeline" description="Documentação pipeline de documentos" href="/docs/content/docs/sprint-2/pipeline-de-docs/files-pipeline.mdx" />
+</Cards>
+
+
 # Modelagem Banco de Dados (/docs/sprint-2/modelagem-bd/modelagem-bd)
 
 Modelagem no dbdiagram: [link da modelagem](https://dbdiagram.io/d/BANCO-DE-DADOS-ROB-690bbdc36735e1117070e737)
@@ -8848,173 +9013,6 @@ A arquitetura centralizada, com tabelas compartilhadas e visões segmentadas, ga
 Além da operação diária dos aplicativos, o modelo suporta análises avançadas e relatórios dinâmicos para o dashboard administrativo, permitindo medir engajamento, eficiência operacional e qualidade da experiência dos visitantes.
 
 Em síntese, o banco de dados não apenas armazena informações, mas estrutura o ecossistema completo do **Tour Cão-Robô**, viabilizando a integração entre tecnologia, gestão e experiência interativa.
-
-
-# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
-
-
-
-# Pipeline de Ingestão de Arquivos
-
-## Introdução
-
-O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
-
-A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
-
-***
-
-## Estrutura Geral do Pipeline
-
-<Callout type="info">
-  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
-</Callout>
-
-### 1. Extração dos textos
-
-```python
-from unstructured.partition.pdf import partition_pdf
-
-elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
-```
-
-* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
-
-* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
-
-***
-
-### 2. Sanitização dos textos
-
-```python
-def clean_text(text):
-    text = re.sub(r'\s+', ' ', text)
-    text = text.replace('\ufb01', 'fi')
-    ...
-```
-
-* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
-
-* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
-
-***
-
-### 3. Enriquecimento semântico
-
-```python
-def extract_enhanced_metadata(element):
-    return {
-        'element_id': ...,
-        'element_type': ...,
-        'page_number': ...,
-        'hierarchy_level': ...,
-        'section': ...,
-    }
-```
-
-* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
-
-* Isso ajuda a preservar a estrutura semântica do documento original.
-
-***
-
-### 4. Divisão em chunks com sobreposição
-
-```python
-RecursiveCharacterTextSplitter(
-  chunk_size=500,
-  chunk_overlap=100,
-)
-```
-
-* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
-
-* Mantém coesão semântica mesmo em respostas curtas.
-
-<Callout title="Importante">
-  {" "}
-
-  Essa segmentação garante que as perguntas do usuário encontrem respostas
-  dentro de um mesmo chunk.{" "}
-</Callout>
-
-***
-
-### 5. Geração de embeddings
-
-```python
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-embeddings = model.encode(texts, ...)
-```
-
-* Utiliza modelo pré-treinado da HuggingFace.
-
-* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
-
-* Embeddings são normalizados e possuem metadados do chunk.
-
-***
-
-### 6. Inserção no banco vetorial (ETAPA: Persistência)
-
-```python
-chunks_with_embeddings.append({
-  'id': 'chunk_x',
-  'content': ...,
-  'embedding': [...],
-  'metadata': {...}
-})
-```
-
-Cada embedding é armazenado com:
-
-* ID único
-
-* Conteúdo do chunk
-
-* Vetor (lista de floats)
-
-* Modelo utilizado
-
-* Dados estruturados (página, seção, tipo)
-
-***
-
-## Diagrama do Pipeline
-
-Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Pipeline de arquivos
-</p>
-
-<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## Conclusão
-
-A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
-
-É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
-
-<Callout title="Próximos Passos" type="info">
-  {" "}
-
-  Integração com o agente conversacional do robô e testes de consulta em
-  linguagem natural usando os embeddings gerados.{" "}
-</Callout>
-
-
-# Files Pipeline (/docs/sprint-2/pipeline-de-docs)
-
-<Cards>
-  <Card title="Files Pipeline" description="Documentação pipeline de documentos" href="/docs/content/docs/sprint-2/pipeline-de-docs/files-pipeline.mdx" />
-</Cards>
 
 
 # Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/prototipo-alta)
@@ -10285,213 +10283,6 @@ Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o
 </Steps>
 
 
-# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
-
-
-
-## 1. Introdução
-
-  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
-
-***
-
-## 2. Arquitetura do Projeto
-
-  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
-
-  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
-
-### 2.1 Estrutura de Pastas
-
-A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
-
-```txt
-
-.
-├── android/
-│
-├── app
-│   ├── _layout.tsx
-│   └── (tabs)/
-│
-├── assets
-│   └── images
-│       └── icons/
-│
-├── components
-│   └── ui/
-│
-├── constants/
-│
-├── hooks/
-│
-├── scripts/
-│
-└── README.md
-
-```
-
-* **`/app`** - Gerenciamento das páginas
-
-* **`/assets`** Ícones, imagens e o logotipo do Inteli
-
-* **`/components`** - Componentes reutilizáveis
-
-* **`/constants`** - Temas de cores e variáveis globais
-
-* **`/hooks`** - Hooks auxiliares como detecção de tema
-
-* **`/scripts`** - Scripts internos do projeto
-
-* **`README`** - Instruções para rodar o projeto
-
-*Pastas Android geradas automaticamente pelo Expo*
-
-  Para a realização deste projeto a estrutura de pastas utilizada permite:
-
-* Melhor organização entre rotas, componentes e estilos
-
-* Facilidade para extensões futuras
-
-* Modularização dos componentes usados nas telas
-
-* Padrão de Componentes Reutilizáveis
-
-### 2.2 Componentes
-
-  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
-
-* **CardTour** - Cartão de exibição de tours na lista da home
-
-* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
-
-* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
-
-* **Navbar e Header** - Estruturas permanentes no HUD
-
-***
-
-## 3. Fluxo de Navegação
-
-### Vídeo Frontend Staff - Youtube
-
-[Assista no YouTube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
-
-<Callout type="info">
-  **Fluxo Geral**
-
-  1. Login
-
-  2. Lista de Tours (HUD ativo)
-
-  3. Seleção de um tour
-
-  4. Edição do Tour
-
-  5. Pop-up Informações Gerais do Tour
-
-  6. Pop-up Código do Tour
-
-  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
-
-  8. Tela de Emergência
-
-  9. Menu acessível pelo HUD em qualquer etapa permitida
-
-  **O HUD inclui:**
-
-  * Barra inferior com navegação (Tours / Mapa / Menu)
-
-  * Botão de emergência destacado em telas críticas
-
-  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
-</Callout>
-
-***
-
-## 4. Como Rodar o Projeto e Dependências
-
-  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
-O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
-
-### 4.1. Requisitos
-
-<Callout type="info">
-  ***
-
-  Node.js (*Node 18 LTS ou Node 20 LTS*)
-
-  Baixar em: [https://nodejs.org/](https://nodejs.org/)
-
-  ***
-
-  Expo CLI (Será necessário intalar globalmente para que funcione)
-
-  `npm install -g expo-cli`
-
-  ***
-
-  Android Studio (para usar emulador Android)
-
-  É possível usar tanto a versão CLI quanto o APK:
-  [https://developer.android.com/studio](https://developer.android.com/studio)
-
-  ***
-
-  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
-</Callout>
-
-<Callout type="warn">
-  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
-</Callout>
-
-### 4.2. Instalando Dependências e Executando o Projeto
-
-Na raiz do projeto:
-
-```bash
-npm install
-```
-
-Isso instala todas as dependências declaradas em `package.json.`
-
-Ainda no terminal:
-
-```bash
-npx expo start
-
-```
-
-Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
-
-As informações que aparecerem no seu terminal devem ser semelhantes a esta:
-
-<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
-
-Entre as opções você pode escolher:
-
-* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
-* Abrir a aplicação no seu navegador web
-* Abrir a aplicação no android studio
-
-Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
-
-```bash
-npx expo run:android
-```
-
-## 5. Conclusão
-
-Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
-
-
-# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
-
-<Cards>
-  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
-</Cards>
-
-
 # Banco de Dados 2.0 (/docs/sprint-3/bd-v2/bd-v2)
 
 # **Banco de dados - Versão 2.0**
@@ -10742,6 +10533,213 @@ A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar s
 * **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
 
 O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.
+
+
+# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
+
+
+
+## 1. Introdução
+
+  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
+
+  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
+
+```txt
+
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+
+```
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+*Pastas Android geradas automaticamente pelo Expo*
+
+  Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+* Melhor organização entre rotas, componentes e estilos
+
+* Facilidade para extensões futuras
+
+* Modularização dos componentes usados nas telas
+
+* Padrão de Componentes Reutilizáveis
+
+### 2.2 Componentes
+
+  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+* **CardTour** - Cartão de exibição de tours na lista da home
+
+* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+* **Navbar e Header** - Estruturas permanentes no HUD
+
+***
+
+## 3. Fluxo de Navegação
+
+### Vídeo Frontend Staff - Youtube
+
+[Assista no YouTube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
+
+<Callout type="info">
+  **Fluxo Geral**
+
+  1. Login
+
+  2. Lista de Tours (HUD ativo)
+
+  3. Seleção de um tour
+
+  4. Edição do Tour
+
+  5. Pop-up Informações Gerais do Tour
+
+  6. Pop-up Código do Tour
+
+  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+  8. Tela de Emergência
+
+  9. Menu acessível pelo HUD em qualquer etapa permitida
+
+  **O HUD inclui:**
+
+  * Barra inferior com navegação (Tours / Mapa / Menu)
+
+  * Botão de emergência destacado em telas críticas
+
+  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+</Callout>
+
+***
+
+## 4. Como Rodar o Projeto e Dependências
+
+  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
+O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+
+### 4.1. Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 4.2. Instalando Dependências e Executando o Projeto
+
+Na raiz do projeto:
+
+```bash
+npm install
+```
+
+Isso instala todas as dependências declaradas em `package.json.`
+
+Ainda no terminal:
+
+```bash
+npx expo start
+
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+
+```bash
+npx expo run:android
+```
+
+## 5. Conclusão
+
+Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
+
+
+# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
+
+<Cards>
+  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
+</Cards>
 
 
 # Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG)
@@ -13709,6 +13707,799 @@ Este módulo contém toda a documentação técnica do sistema multi-agentes des
 O sistema utiliza uma arquitetura modular com múltiplos agentes especializados que trabalham em conjunto para fornecer uma experiência de tour interativa e segura.
 
 
+# Sistema de Comunicação por WebSockets (/docs/sprint-4/backend)
+
+<Cards>
+  <Card title="Backend - Sistema de Comunicação por WebSockets" description=" É um protocolo de comunicação moderno que estabelece uma conexão persistente e bidirecional entre um cliente e um servidor através de uma única conexão TCP." href="/docs/sprint-4/backend/websocket" />
+</Cards>
+
+
+# Sistema de Comunicação por WebSockets (/docs/sprint-4/backend/websocket)
+
+## **1. Introdução**
+
+ Este documento descreve a arquitetura, os componentes e os fluxos do sistema de comunicação em tempo real do robô do Inteli.
+O sistema de WebSockets possui dois módulos principais:
+
+### **1.1 Módulo de Chat e Conversação**
+
+* Recebe perguntas dos visitantes (texto ou áudio)
+* Envia respostas em texto e áudio
+* Sincroniza múltiplos dispositivos (painel do operador, robô, turista)
+* Realiza transcrição de fala (STT) e síntese de voz (TTS)
+
+### **1.2 Módulo de Controle de Checkpoints**
+
+* Comunica eventos de navegação do robô (início/fim de checkpoints)
+* Sincroniza status do robô em tempo real com o backend e frontend
+* Atualiza automaticamente o banco de dados com timestamps reais
+* Gerencia comandos de controle (play, stop, status)
+
+ A comunicação ocorre em tempo real via WebSockets, centralizada pelo backend implementado em Rust com Actix-Web.
+
+## **2. Visão Geral da Arquitetura**
+
+ O sistema utiliza três canais de WebSockets:
+
+* **Text WebSocket** → para mensagens em texto (chat)
+* **Audio WebSocket** → para mensagens de áudio (entrada e saída do chat)
+* **Robot WebSocket** → para controle de checkpoints e sincronização de navegação
+
+### **Diagrama da Arquitetura Completa**
+
+```
+┌──────────────────────────────────────────────────────────────────────┐
+│                         FRONTEND (React/JS)                          │
+│  ┌──────────────────┐   ┌──────────────────┐   ┌─────────────────┐  │
+│  │  Text WebSocket  │   │ Audio WebSocket  │   │ Robot WebSocket │  │
+│  │  (Chat)          │   │  (Chat)          │   │ (Checkpoints)   │  │
+│  └────────┬─────────┘   └────────┬─────────┘   └────────┬────────┘  │
+└───────────┼──────────────────────┼──────────────────────┼───────────┘
+            │                      │                       │
+            ▼                      ▼                       ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                      BACKEND (Actix-Web + Rust)                      │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │              Broadcast Server (Central Hub - Chat)             │  │
+│  │  - Conexões de texto e áudio                                   │  │
+│  │  - Broadcast de mensagens                                      │  │
+│  │  - Conversão Texto→Áudio (TTS)                                 │  │
+│  │  - Exclusão de eco por cliente                                 │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+│                                                                       │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │         Robot Client + Frontend Server (Checkpoints)           │  │
+│  │  - Cliente WebSocket → Conecta ao servidor Python do robô      │  │
+│  │  - Servidor WebSocket → Aceita conexões do frontend            │  │
+│  │  - Relay inteligente de eventos e comandos                     │  │
+│  │  - Atualização automática do banco de dados (PostgreSQL)       │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+│        ▲                                             │                │
+│        │ WebSocket Client                            │ Broadcast      │
+│        │ (tokio-tungstenite)                         │ (actix-ws)     │
+└────────┼─────────────────────────────────────────────┼────────────────┘
+         │                                             │
+         ▼                                             ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                    ROBOT (Python + aiohttp)                          │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │              WebSocket Server (move_path.py)                   │  │
+│  │  - Recebe comandos do backend (play, stop, get_status)         │  │
+│  │  - Envia eventos de checkpoint em tempo real                   │  │
+│  │  - Controla movimento físico do robô via WebRTC               │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────┘
+         ▲
+         │ WebRTC (movimento físico)
+         ▼
+    🤖 Robô Físico
+```
+
+## **3. Componentes Principais**
+
+### **MÓDULO 1: CHAT E CONVERSAÇÃO**
+
+## **3.1 Broadcast Server (`broadcast.rs`)**
+
+### **O que é?**
+
+ O *Broadcast Server* é o "cérebro" do sistema de comunicação de chat.
+Ele funciona como um **ponto central** que recebe mensagens e distribui para todos os clientes conectados.
+
+### **O que ele faz?**
+
+* **Gerencia clientes conectados**
+  * Clientes de texto
+  * Clientes de áudio
+
+* **Distribui mensagens**
+  * Texto → todos clientes de texto
+  * Áudio → todos clientes de áudio
+
+* **Converte texto em áudio**
+  * Usando o serviço ML de TTS, quando necessário
+
+* **Evita eco**
+  * O cliente que enviou a mensagem não recebe sua própria mensagem (evitando duplicação).
+
+### **Estrutura interna (simplificada)**
+
+```rust
+pub struct BroadcastServer {
+    text_clients: HashMap<String, Recipient<BroadcastMessage>>,
+    audio_clients: HashMap<String, Recipient<BroadcastAudio>>,
+    ml_endpoint: String,
+}
+```
+
+### **Mensagens que ele entende**
+
+| Mensagem                | Significado                         |
+| ----------------------- | ----------------------------------- |
+| `Connect`               | Cliente de texto entrou             |
+| `ConnectAudio`          | Cliente de áudio entrou             |
+| `Disconnect`            | Cliente saiu                        |
+| `Broadcast`             | Enviar texto para todos             |
+| `BroadcastAudioMessage` | Enviar áudio para todos             |
+| `RequestTTS`            | Transformar texto em áudio e enviar |
+
+## **3.2 Text WebSocket Handler (`text_ws.rs`)**
+
+### **O que é?**
+
+ É o componente responsável por lidar com mensagens de texto enviadas pelos clientes.
+
+### **O que ele faz?**
+
+1. TextWebSocket recebe uma mensagem de texto do cliente.
+2. Envia essa mensagem para o endpoint `/v1/modelo`.
+3. Recebe a resposta do modelo.
+4. Retorna a resposta ao cliente.
+5. Envia essa mesma resposta para conversão TTS (para que os clientes de áudio também a recebam).
+6. Usa o Broadcast Server para sincronizar a resposta com todos os dispositivos.
+
+### **Exemplo de mensagem enviada pelo cliente**
+
+```json
+{
+  "type": "text",
+  "texto": "Qual é a história deste lugar?",
+  "checkpoint_id": 123,
+  "estado": "active",
+  "question_topic": "história",
+  "tour_id": 456
+}
+```
+
+### **Exemplo de resposta**
+
+```json
+{
+  "texto": "Este lugar tem uma história fascinante...",
+  "message_type": "resposta"
+}
+```
+
+## **3.3 Audio WebSocket Handler (`audio_ws.rs`)**
+
+### **O que é?**
+
+ Esse componente recebe áudios dos usuários, realiza transcrição (STT), envia texto para o modelo e depois converte a resposta em áudio (TTS).
+
+### **Fluxo 1: Usuário fala (STT)**
+
+```
+Cliente envia áudio (base64)
+→ AudioWebSocket decodifica áudio
+→ STT transcreve para texto
+→ Modelo recebe texto
+→ Modelo retorna resposta
+→ TTS converte resposta em áudio
+→ Texto e áudio retornam ao cliente
+→ Broadcast para outros clientes
+```
+
+### **Fluxo 2: Usuário envia texto pelo Audio WS**
+
+```
+Cliente envia texto
+→ Modelo retorna resposta
+→ TTS converte resposta em áudio
+→ Sistema envia texto e áudio ao cliente
+→ Broadcast para todos os clientes
+```
+
+## **3.4 Modelo Endpoint (`modelo.rs`)**
+
+### **O que é?**
+
+ Um endpoint HTTP usado para enviar perguntas ao modelo de IA responsável por gerar respostas.
+
+### **O que ele faz?**
+
+* Recebe uma pergunta via POST
+* Salva a pergunta no banco.
+* Envia para o modelo externo.
+* Salva a resposta no banco.
+* Atualiza o estado da pergunta.
+* Retorna a resposta ao WebSocket.
+
+### **Endpoint**
+
+```
+POST /v1/modelo
+```
+
+***
+
+### **MÓDULO 2: CONTROLE DE CHECKPOINTS**
+
+## **3.5 Robot Client (`robot_client.rs`)**
+
+### **O que é?**
+
+ Cliente WebSocket que conecta ao servidor Python do robô para receber eventos de navegação e enviar comandos de controle.
+
+### **O que ele faz?**
+
+* **Conecta ao robô** via WebSocket (tokio-tungstenite)
+* **Recebe eventos do robô** (checkpoint\_started, checkpoint\_completed, emergency\_stop)
+* **Envia comandos** (play, stop, get\_status)
+* **Atualiza o banco de dados** automaticamente com timestamps reais
+* **Retenta conexão** a cada 5 segundos se o robô estiver offline
+* **Broadcast para frontend** via canal broadcast
+
+### **Estrutura interna**
+
+```rust
+pub struct RobotClient {
+    robot_ip: String,
+    writer: Arc<Mutex<Option<WsWriter>>>,
+    frontend_tx: broadcast::Sender<FrontendEvent>,
+    db_pool: PgPool,
+}
+```
+
+### **Eventos recebidos do robô**
+
+| Evento                 | Quando ocorre                         | Ação no Backend                                     |
+| ---------------------- | ------------------------------------- | --------------------------------------------------- |
+| `connected`            | Conexão inicial estabelecida          | Envia status inicial para frontend                  |
+| `checkpoint_started`   | Robô inicia movimento para checkpoint | UPDATE banco: `status='running', inicio_real=NOW()` |
+| `checkpoint_completed` | Robô chega no checkpoint              | UPDATE banco: `status='finished', fim_real=NOW()`   |
+| `emergency_stop`       | Parada de emergência acionada         | UPDATE banco: `status='skipped'` (checkpoint atual) |
+| `robot_connected`      | Robô físico conecta via WebRTC        | Notifica frontend que robô está online              |
+
+### **Comandos enviados ao robô**
+
+```rust
+RobotCommand::play()        // Executar próximo checkpoint
+RobotCommand::stop()        // Parada de emergência
+RobotCommand::get_status()  // Consultar status atual
+```
+
+### **Exemplo de atualização no banco**
+
+```rust
+// Quando checkpoint inicia
+sqlx::query(
+    "UPDATE checkpoints
+     SET status = $1, inicio_real = $2
+     WHERE tipo = $3 AND ordem = $4"
+)
+.bind("running")
+.bind(inicio_dt)
+.bind(&tipo)
+.bind(ordem)
+.execute(db_pool)
+.await?;
+
+// Quando checkpoint completa
+sqlx::query(
+    "UPDATE checkpoints
+     SET status = $1, fim_real = $2
+     WHERE tipo = $3 AND ordem = $4"
+)
+.bind("finished")
+.bind(fim_dt)
+.bind(&tipo)
+.bind(ordem)
+.execute(db_pool)
+.await?;
+```
+
+## **3.6 Frontend Server (`frontend_server.rs`)**
+
+### **O que é?**
+
+ Servidor WebSocket que aceita conexões do frontend para enviar eventos de checkpoint em tempo real e receber comandos de controle.
+
+### **O que ele faz?**
+
+* **Aceita conexões WebSocket** do frontend (actix-ws)
+* **Relata eventos do robô** para o frontend em tempo real
+* **Recebe comandos do frontend** (play, stop, status)
+* **Encaminha comandos** para o RobotClient
+* **Usa tokio::select!** para gerenciar fluxo bidirecional
+
+### **Handler principal**
+
+```rust
+pub async fn ws_frontend_handler(
+    req: HttpRequest,
+    stream: web::Payload,
+    app_state: web::Data<AppState>,
+) -> Result<HttpResponse, Error>
+```
+
+### **Fluxo bidirecional**
+
+```rust
+tokio::select! {
+    // Recebe eventos do robô → Envia para frontend
+    Ok(event) = frontend_rx.recv() => {
+        session.text(json).await?;
+    }
+
+    // Recebe comandos do frontend → Envia para robô
+    Some(Ok(msg)) = msg_stream.next() => {
+        let cmd = serde_json::from_str::<FrontendCommand>(&text)?;
+        robot_client.send_command(cmd).await?;
+    }
+}
+```
+
+## **3.7 WebSocket Models (`websocket.rs`)**
+
+### **Estruturas de dados**
+
+#### **RobotEvent** (Robô → Backend)
+
+```rust
+pub enum RobotEvent {
+    Connected { status: RobotStatus },
+    CheckpointStarted { tipo: String, ordem: i32, status: String, inicio_real: String },
+    CheckpointCompleted { tipo: String, ordem: i32, status: String, inicio_real: String, fim_real: String },
+    EmergencyStop { tipo: Option<String>, ordem: Option<i32> },
+    RobotConnected { status: String },
+}
+```
+
+#### **FrontendEvent** (Backend → Frontend)
+
+```rust
+pub enum FrontendEvent {
+    RobotStatus { robot_connected: bool, is_running: bool, current_checkpoint: Option<String> },
+    CheckpointStarted { tipo: String, ordem: i32, status: String, inicio_real: DateTime<Utc> },
+    CheckpointCompleted { tipo: String, ordem: i32, status: String, inicio_real: DateTime<Utc>, fim_real: DateTime<Utc> },
+    EmergencyStop { tipo: Option<String>, ordem: Option<i32> },
+    Error { message: String },
+}
+```
+
+#### **FrontendCommand** (Frontend → Backend)
+
+```rust
+pub enum FrontendCommand {
+    Play,
+    Stop,
+    GetStatus,
+}
+```
+
+## **4. Fluxos de Comunicação**
+
+### **4.1 Fluxo de Checkpoint Completo**
+
+```
+1. Frontend envia comando
+   Frontend → Backend: { "command": "play" }
+
+2. Backend encaminha para robô
+   Backend (RobotClient) → Robot Server: { "action": "play" }
+
+3. Robô inicia movimento
+   Robot Server → Backend: { "event": "checkpoint_started", "tipo": "recepcao", "ordem": 1, ... }
+
+4. Backend atualiza banco de dados
+   UPDATE checkpoints SET status='running', inicio_real='2025-12-15T14:02:35Z' WHERE tipo='recepcao'
+
+5. Backend relata para frontend
+   Backend → Frontend: { "event": "checkpoint_started", "tipo": "recepcao", ... }
+
+6. Frontend atualiza UI
+   UI mostra: "🚀 Indo para Recepção..."
+   Perguntas bloqueadas até chegada
+
+7. Robô chega no destino
+   Robot Server → Backend: { "event": "checkpoint_completed", "tipo": "recepcao", "fim_real": "..." }
+
+8. Backend atualiza banco
+   UPDATE checkpoints SET status='finished', fim_real='2025-12-15T14:08:12Z' WHERE tipo='recepcao'
+
+9. Backend relata para frontend
+   Backend → Frontend: { "event": "checkpoint_completed", "tipo": "recepcao", ... }
+
+10. Frontend libera perguntas
+    UI mostra: "✅ Chegou na Recepção! Faça suas perguntas"
+    Perguntas do checkpoint 'recepcao' liberadas
+```
+
+### **4.2 Fluxo de Parada de Emergência**
+
+```
+1. Frontend envia stop
+   Frontend → Backend: { "command": "stop" }
+
+2. Backend encaminha
+   Backend → Robot: { "action": "stop" }
+
+3. Robô para imediatamente
+   Robot Server → Backend: { "event": "emergency_stop", "tipo": "auditorio", "ordem": 2 }
+
+4. Backend atualiza banco
+   UPDATE checkpoints SET status='skipped' WHERE tipo='auditorio' AND status='running'
+
+5. Backend notifica frontend
+   Backend → Frontend: { "event": "emergency_stop", "tipo": "auditorio" }
+
+6. Frontend mostra alerta
+   UI: "🛑 Tour interrompido! Checkpoint 'Auditório' foi pulado"
+```
+
+### **4.3 Sincronização Entre Clientes (Chat)**
+
+ O sistema implementa um padrão publish-subscribe através do `BroadcastServer`:
+
+1. **Clientes de Texto** recebem:
+   * Perguntas de outros usuários
+   * Respostas do modelo (tanto de clientes de texto quanto de áudio)
+
+2. **Clientes de Áudio** recebem:
+   * Áudio das respostas (convertidas via TTS)
+
+3. **Exclusão de Eco:**
+   * Cada mensagem broadcast pode especificar um `exclude_client`
+   * O cliente que originou a mensagem não recebe seu próprio broadcast
+   * Evita feedback loops e duplicação de mensagens
+
+## **5. Integração com Banco de Dados**
+
+### **Tabela: checkpoints**
+
+| Coluna            | Tipo        | Preenchimento                                         |
+| ----------------- | ----------- | ----------------------------------------------------- |
+| `id`              | SERIAL (PK) | Auto-gerado                                           |
+| `tour_id`         | INT (FK)    | Criação do tour                                       |
+| `tipo`            | TEXT        | Criação do tour (recepcao, auditorio, atelie, etc.)   |
+| `ordem`           | INT         | Criação do tour (1, 2, 3, 4, 5)                       |
+| `status`          | TEXT        | Inicial: `pending` → `running` → `finished`/`skipped` |
+| `inicio_previsto` | TIMESTAMPTZ | Criação do tour (horário estimado)                    |
+| `inicio_real`     | TIMESTAMPTZ | **Evento `checkpoint_started`** (timestamp real)      |
+| `fim_real`        | TIMESTAMPTZ | **Evento `checkpoint_completed`** (timestamp real)    |
+
+### **Estados do checkpoint**
+
+| Status     | Quando ocorre                          |
+| ---------- | -------------------------------------- |
+| `pending`  | Checkpoint criado, aguardando execução |
+| `running`  | Robô em movimento para o checkpoint    |
+| `finished` | Robô chegou e completou o checkpoint   |
+| `skipped`  | Emergency stop durante execução        |
+
+## **6. Formatos de Mensagens**
+
+### **6.1 Chat - Broadcast de texto**
+
+```json
+{
+  "message_type": "broadcast_text",
+  "texto": "Resposta do modelo..."
+}
+```
+
+### **6.2 Chat - Broadcast de áudio**
+
+```json
+{
+  "message_type": "broadcast_audio",
+  "audio_base64": "AAAAFJDSAIWEA..."
+}
+```
+
+### **6.3 Checkpoints - Evento de início**
+
+```json
+{
+  "event": "checkpoint_started",
+  "tipo": "recepcao",
+  "ordem": 1,
+  "status": "running",
+  "inicio_real": "2025-12-15T14:02:35.123Z"
+}
+```
+
+### **6.4 Checkpoints - Evento de conclusão**
+
+```json
+{
+  "event": "checkpoint_completed",
+  "tipo": "recepcao",
+  "ordem": 1,
+  "status": "finished",
+  "inicio_real": "2025-12-15T14:02:35.123Z",
+  "fim_real": "2025-12-15T14:08:12.456Z"
+}
+```
+
+### **6.5 Checkpoints - Status do robô**
+
+```json
+{
+  "event": "robot_status",
+  "robot_connected": true,
+  "is_running": false,
+  "current_checkpoint": "recepcao"
+}
+```
+
+## **7. Configuração**
+
+### **7.1 Arquivo config.toml**
+
+```toml
+[settings.server]
+host = "0.0.0.0"
+port = 8081  # Backend Rust
+
+[settings.database]
+host = "aws-1-us-east-2.pooler.supabase.com"
+username = "postgres.xxxxx"
+password = "xxxxx"
+database = "postgres"
+port = 5432
+max_connections = 5
+
+[settings.robot]
+ip = "127.0.0.1"  # IP do servidor Python do robô (localhost para testes)
+```
+
+### **7.2 Portas utilizadas**
+
+| Serviço               | Porta | Protocolo |
+| --------------------- | ----- | --------- |
+| Backend Rust          | 8081  | HTTP/WS   |
+| Robot Python Server   | 8080  | HTTP/WS   |
+| PostgreSQL (Supabase) | 5432  | TCP       |
+
+## **8. Testando o Sistema**
+
+### **8.1 Teste de Checkpoints**
+
+```powershell
+# Terminal 1: Servidor Python do robô
+cd 2025-2B-T12-EC08-ROBO
+python move_path.py
+
+# Terminal 2: Backend Rust
+cd 2025-2B-T12-EC08-BACK
+cargo run -- --config config.toml
+
+# Terminal 3: Cliente de teste
+cd 2025-2B-T12-EC08-BACK
+python test_websocket.py interactive --url ws://localhost:8081/ws
+```
+
+**Comandos disponíveis:**
+
+* `status` - Consultar status do robô
+* `play` - Executar próximo checkpoint
+* `stop` - Parada de emergência
+* `quit` - Sair
+
+### **8.2 Observando logs**
+
+**Backend logs esperados:**
+
+```
+✅ Conectado ao robô!
+📡 Iniciando listener de eventos do robô
+🤖 Status inicial do robô: robot_connected=false
+▶️ Checkpoint INICIADO: recepcao (ordem: 1)
+💾 Checkpoint atualizado no banco: recepcao -> running
+✅ Checkpoint CONCLUÍDO: recepcao (status: finished)
+💾 Checkpoint finalizado no banco: recepcao -> finished
+```
+
+## **9. Tratamento de Erros**
+
+### **9.1 Robô offline**
+
+* **Comportamento:** Backend retenta conexão a cada 5 segundos
+* **Frontend:** Recebe `robot_connected: false` no status
+* **Comandos:** São enfileirados mas não executados até robô conectar
+
+### **9.2 Perda de conexão durante execução**
+
+* **WebSocket desconecta:** Backend retenta automaticamente
+* **Checkpoint em andamento:** Status `running` permanece no banco até reconexão
+* **Frontend:** Mostra indicador de "Conexão perdida"
+
+### **9.3 Emergency stop**
+
+* **Checkpoint atual:** Marcado como `skipped`
+* **Checkpoints futuros:** Permanecem `pending`
+* **Robô:** Para movimento físico imediatamente
+
+## **10. Conclusão**
+
+O sistema de WebSockets deste projeto é o que permite:
+
+### **Módulo de Chat:**
+
+* Conversação natural com visitantes via texto e áudio
+* Sincronização em tempo real entre múltiplos dispositivos
+* Integração inteligente com STT, TTS e modelo de IA
+
+### **Módulo de Checkpoints:**
+
+* Controle preciso da navegação do robô
+* Atualização automática do banco com timestamps reais
+* Sincronização perfeita entre robô físico, backend e frontend
+* Gerenciamento de estados e paradas de emergência
+
+A arquitetura foi construída para ser:
+
+* **Simples de entender** - Componentes bem separados e documentados
+* **Escalável** - Usa broadcast channels e WebSockets eficientes
+* **Resiliente** - Retry automático e tratamento de erros
+* **Extensível** - Fácil adicionar novos eventos e comandos
+* **Testável** - Cliente de teste incluso para validação
+
+O sistema está pronto para uso em produção, com o robô físico ou em modo de simulação para testes.
+
+
+# App Staff (/docs/sprint-4/documentacao-frontend/app_staff)
+
+## Introdução
+
+  O aplicativo do Staff foi desenvolvido para apoiar os colaboradores responsáveis pelos tours realizados no campus do Inteli. Por meio dele, os funcionários podem criar, visualizar e gerenciar tours, acompanhar o progresso do tour e disponibilizar o código de acesso aos visitantes. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
+
+## Como Iniciar o Projeto
+
+  Para iniciar o projeto do App Staff, siga o passo a passo completo:
+
+### Pré-requisitos
+
+* Git instalado.
+* Node.js (inclui npm) instalado.
+* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
+
+### Passo a passo
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/anabeggiato/2025-2B-T12-EC08-AppStaff
+```
+
+2. Entre na pasta do app:
+
+```bash
+cd 2025-2B-T12-EC08-AppStaff/app
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+```
+
+4. Rode o app diretamente no Android (device físico via USB ou emulador):
+
+```bash
+npx expo run:android
+```
+
+5. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
+6. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
+
+
+# App Visitante (/docs/sprint-4/documentacao-frontend/app_visitante)
+
+## Introdução
+
+  O aplicativo do visitante foi desenvolvido para apoiar a experiência de pais, filhos e demais convidados que participam do tour guiado pelo robô-cachorro LIA durante visitas à faculdade Inteli. O objetivo deste aplicativo é garantir uma jornada educativa, segura e interativa, permitindo que o visitante acompanhe o tour, faça perguntas ao robô, visualize o mapa do tour. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
+
+## Como Iniciar o Projeto
+
+  Para iniciar o projeto do App Visitante, siga o passo a passo completo:
+
+### Pré-requisitos
+
+* Git instalado.
+* Node.js (inclui npm) instalado.
+* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
+
+### Passo a passo
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/Fernandoliveira05/AppTourVisitante/
+```
+
+2. Instale as dependências:
+
+```bash
+npm install
+```
+
+3. Rode o app diretamente no Android (device físico via USB ou emulador):
+
+```bash
+npx expo run:android
+```
+
+4. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
+5. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
+
+
+# Dashboard (/docs/sprint-4/documentacao-frontend/dashboard)
+
+## Introdução
+
+  O Dashboard foi desenvolvido para fornecer uma interface intuitiva e eficiente para os membros da staff do Inteli visualizarem e analisarem os dados coletados durante os tours guiados pelo robô-cachorro LIA. Através deste dashboard, os usuários podem acessar informações detalhadas sobre o desempenho dos tours, feedback dos visitantes e outras métricas relevantes que auxiliam na melhoria contínua da experiência oferecida. Durante essa sprint 4, o foco principal foi finalizar as telas principais desse dashboard e a integração com o backend é o primeiro passo na próxima sprint.
+
+## Como Iniciar o Projeto
+
+  Para iniciar o Dashboard, siga o passo a passo completo:
+
+### Pré-requisitos
+
+* Git instalado.
+* Node.js (inclui npm) instalado.
+
+### Passo a passo
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/davidijesus/2025-2B-T12-EC08-DashStaff
+```
+
+2. Entre na pasta do dashboard:
+
+```bash
+cd 2025-2B-T12-EC08-DashStaff/inteli-dashboard
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+```
+
+4. Inicie o projeto Vite:
+
+```bash
+npm run dev
+```
+
+5. Acesse no navegador: `http://localhost:8080/` (ou a porta exibida no terminal do Vite).
+
+
+# Documentação Frontend (/docs/sprint-4/documentacao-frontend)
+
+<Cards>
+  <Card title="App Staff" description="Documentação referente ao App Staff." href="/docs/sprint-4/documentacao-frontend/app_staff" />
+
+  <Card title="App Visitante" description="Documentação referente ao App Visitante." href="/docs/sprint-4/documentacao-frontend/app_visitante" />
+
+  <Card title="Dashboard" description="Documentação referente ao Dashboard." href="/docs/sprint-4/documentacao-frontend/dashboard" />
+</Cards>
+
+
 # Fundamentos, Arquitetura e Especificações (/docs/sprint-4/botao-de-stop/fundamentos-arquitetura)
 
 # Kill Switch - Fundamentos, Arquitetura e Especificações
@@ -14576,799 +15367,6 @@ O->>O: Robô Seguro
 ## Resumo
 
 O software do Kill Switch é composto por firmware simples no ESP32C3, um serviço Rust robusto que monitora a porta serial, e integração com ROS 2 para acionamento de Dump Mode. O fluxo operacional garante resposta em menos de 1 segundo com procedimentos bem documentados para diferentes cenários.
-
-
-# Sistema de Comunicação por WebSockets (/docs/sprint-4/backend)
-
-<Cards>
-  <Card title="Backend - Sistema de Comunicação por WebSockets" description=" É um protocolo de comunicação moderno que estabelece uma conexão persistente e bidirecional entre um cliente e um servidor através de uma única conexão TCP." href="/docs/sprint-4/backend/websocket" />
-</Cards>
-
-
-# Sistema de Comunicação por WebSockets (/docs/sprint-4/backend/websocket)
-
-## **1. Introdução**
-
- Este documento descreve a arquitetura, os componentes e os fluxos do sistema de comunicação em tempo real do robô do Inteli.
-O sistema de WebSockets possui dois módulos principais:
-
-### **1.1 Módulo de Chat e Conversação**
-
-* Recebe perguntas dos visitantes (texto ou áudio)
-* Envia respostas em texto e áudio
-* Sincroniza múltiplos dispositivos (painel do operador, robô, turista)
-* Realiza transcrição de fala (STT) e síntese de voz (TTS)
-
-### **1.2 Módulo de Controle de Checkpoints**
-
-* Comunica eventos de navegação do robô (início/fim de checkpoints)
-* Sincroniza status do robô em tempo real com o backend e frontend
-* Atualiza automaticamente o banco de dados com timestamps reais
-* Gerencia comandos de controle (play, stop, status)
-
- A comunicação ocorre em tempo real via WebSockets, centralizada pelo backend implementado em Rust com Actix-Web.
-
-## **2. Visão Geral da Arquitetura**
-
- O sistema utiliza três canais de WebSockets:
-
-* **Text WebSocket** → para mensagens em texto (chat)
-* **Audio WebSocket** → para mensagens de áudio (entrada e saída do chat)
-* **Robot WebSocket** → para controle de checkpoints e sincronização de navegação
-
-### **Diagrama da Arquitetura Completa**
-
-```
-┌──────────────────────────────────────────────────────────────────────┐
-│                         FRONTEND (React/JS)                          │
-│  ┌──────────────────┐   ┌──────────────────┐   ┌─────────────────┐  │
-│  │  Text WebSocket  │   │ Audio WebSocket  │   │ Robot WebSocket │  │
-│  │  (Chat)          │   │  (Chat)          │   │ (Checkpoints)   │  │
-│  └────────┬─────────┘   └────────┬─────────┘   └────────┬────────┘  │
-└───────────┼──────────────────────┼──────────────────────┼───────────┘
-            │                      │                       │
-            ▼                      ▼                       ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│                      BACKEND (Actix-Web + Rust)                      │
-│  ┌────────────────────────────────────────────────────────────────┐  │
-│  │              Broadcast Server (Central Hub - Chat)             │  │
-│  │  - Conexões de texto e áudio                                   │  │
-│  │  - Broadcast de mensagens                                      │  │
-│  │  - Conversão Texto→Áudio (TTS)                                 │  │
-│  │  - Exclusão de eco por cliente                                 │  │
-│  └────────────────────────────────────────────────────────────────┘  │
-│                                                                       │
-│  ┌────────────────────────────────────────────────────────────────┐  │
-│  │         Robot Client + Frontend Server (Checkpoints)           │  │
-│  │  - Cliente WebSocket → Conecta ao servidor Python do robô      │  │
-│  │  - Servidor WebSocket → Aceita conexões do frontend            │  │
-│  │  - Relay inteligente de eventos e comandos                     │  │
-│  │  - Atualização automática do banco de dados (PostgreSQL)       │  │
-│  └────────────────────────────────────────────────────────────────┘  │
-│        ▲                                             │                │
-│        │ WebSocket Client                            │ Broadcast      │
-│        │ (tokio-tungstenite)                         │ (actix-ws)     │
-└────────┼─────────────────────────────────────────────┼────────────────┘
-         │                                             │
-         ▼                                             ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│                    ROBOT (Python + aiohttp)                          │
-│  ┌────────────────────────────────────────────────────────────────┐  │
-│  │              WebSocket Server (move_path.py)                   │  │
-│  │  - Recebe comandos do backend (play, stop, get_status)         │  │
-│  │  - Envia eventos de checkpoint em tempo real                   │  │
-│  │  - Controla movimento físico do robô via WebRTC               │  │
-│  └────────────────────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────────────────────┘
-         ▲
-         │ WebRTC (movimento físico)
-         ▼
-    🤖 Robô Físico
-```
-
-## **3. Componentes Principais**
-
-### **MÓDULO 1: CHAT E CONVERSAÇÃO**
-
-## **3.1 Broadcast Server (`broadcast.rs`)**
-
-### **O que é?**
-
- O *Broadcast Server* é o "cérebro" do sistema de comunicação de chat.
-Ele funciona como um **ponto central** que recebe mensagens e distribui para todos os clientes conectados.
-
-### **O que ele faz?**
-
-* **Gerencia clientes conectados**
-  * Clientes de texto
-  * Clientes de áudio
-
-* **Distribui mensagens**
-  * Texto → todos clientes de texto
-  * Áudio → todos clientes de áudio
-
-* **Converte texto em áudio**
-  * Usando o serviço ML de TTS, quando necessário
-
-* **Evita eco**
-  * O cliente que enviou a mensagem não recebe sua própria mensagem (evitando duplicação).
-
-### **Estrutura interna (simplificada)**
-
-```rust
-pub struct BroadcastServer {
-    text_clients: HashMap<String, Recipient<BroadcastMessage>>,
-    audio_clients: HashMap<String, Recipient<BroadcastAudio>>,
-    ml_endpoint: String,
-}
-```
-
-### **Mensagens que ele entende**
-
-| Mensagem                | Significado                         |
-| ----------------------- | ----------------------------------- |
-| `Connect`               | Cliente de texto entrou             |
-| `ConnectAudio`          | Cliente de áudio entrou             |
-| `Disconnect`            | Cliente saiu                        |
-| `Broadcast`             | Enviar texto para todos             |
-| `BroadcastAudioMessage` | Enviar áudio para todos             |
-| `RequestTTS`            | Transformar texto em áudio e enviar |
-
-## **3.2 Text WebSocket Handler (`text_ws.rs`)**
-
-### **O que é?**
-
- É o componente responsável por lidar com mensagens de texto enviadas pelos clientes.
-
-### **O que ele faz?**
-
-1. TextWebSocket recebe uma mensagem de texto do cliente.
-2. Envia essa mensagem para o endpoint `/v1/modelo`.
-3. Recebe a resposta do modelo.
-4. Retorna a resposta ao cliente.
-5. Envia essa mesma resposta para conversão TTS (para que os clientes de áudio também a recebam).
-6. Usa o Broadcast Server para sincronizar a resposta com todos os dispositivos.
-
-### **Exemplo de mensagem enviada pelo cliente**
-
-```json
-{
-  "type": "text",
-  "texto": "Qual é a história deste lugar?",
-  "checkpoint_id": 123,
-  "estado": "active",
-  "question_topic": "história",
-  "tour_id": 456
-}
-```
-
-### **Exemplo de resposta**
-
-```json
-{
-  "texto": "Este lugar tem uma história fascinante...",
-  "message_type": "resposta"
-}
-```
-
-## **3.3 Audio WebSocket Handler (`audio_ws.rs`)**
-
-### **O que é?**
-
- Esse componente recebe áudios dos usuários, realiza transcrição (STT), envia texto para o modelo e depois converte a resposta em áudio (TTS).
-
-### **Fluxo 1: Usuário fala (STT)**
-
-```
-Cliente envia áudio (base64)
-→ AudioWebSocket decodifica áudio
-→ STT transcreve para texto
-→ Modelo recebe texto
-→ Modelo retorna resposta
-→ TTS converte resposta em áudio
-→ Texto e áudio retornam ao cliente
-→ Broadcast para outros clientes
-```
-
-### **Fluxo 2: Usuário envia texto pelo Audio WS**
-
-```
-Cliente envia texto
-→ Modelo retorna resposta
-→ TTS converte resposta em áudio
-→ Sistema envia texto e áudio ao cliente
-→ Broadcast para todos os clientes
-```
-
-## **3.4 Modelo Endpoint (`modelo.rs`)**
-
-### **O que é?**
-
- Um endpoint HTTP usado para enviar perguntas ao modelo de IA responsável por gerar respostas.
-
-### **O que ele faz?**
-
-* Recebe uma pergunta via POST
-* Salva a pergunta no banco.
-* Envia para o modelo externo.
-* Salva a resposta no banco.
-* Atualiza o estado da pergunta.
-* Retorna a resposta ao WebSocket.
-
-### **Endpoint**
-
-```
-POST /v1/modelo
-```
-
-***
-
-### **MÓDULO 2: CONTROLE DE CHECKPOINTS**
-
-## **3.5 Robot Client (`robot_client.rs`)**
-
-### **O que é?**
-
- Cliente WebSocket que conecta ao servidor Python do robô para receber eventos de navegação e enviar comandos de controle.
-
-### **O que ele faz?**
-
-* **Conecta ao robô** via WebSocket (tokio-tungstenite)
-* **Recebe eventos do robô** (checkpoint\_started, checkpoint\_completed, emergency\_stop)
-* **Envia comandos** (play, stop, get\_status)
-* **Atualiza o banco de dados** automaticamente com timestamps reais
-* **Retenta conexão** a cada 5 segundos se o robô estiver offline
-* **Broadcast para frontend** via canal broadcast
-
-### **Estrutura interna**
-
-```rust
-pub struct RobotClient {
-    robot_ip: String,
-    writer: Arc<Mutex<Option<WsWriter>>>,
-    frontend_tx: broadcast::Sender<FrontendEvent>,
-    db_pool: PgPool,
-}
-```
-
-### **Eventos recebidos do robô**
-
-| Evento                 | Quando ocorre                         | Ação no Backend                                     |
-| ---------------------- | ------------------------------------- | --------------------------------------------------- |
-| `connected`            | Conexão inicial estabelecida          | Envia status inicial para frontend                  |
-| `checkpoint_started`   | Robô inicia movimento para checkpoint | UPDATE banco: `status='running', inicio_real=NOW()` |
-| `checkpoint_completed` | Robô chega no checkpoint              | UPDATE banco: `status='finished', fim_real=NOW()`   |
-| `emergency_stop`       | Parada de emergência acionada         | UPDATE banco: `status='skipped'` (checkpoint atual) |
-| `robot_connected`      | Robô físico conecta via WebRTC        | Notifica frontend que robô está online              |
-
-### **Comandos enviados ao robô**
-
-```rust
-RobotCommand::play()        // Executar próximo checkpoint
-RobotCommand::stop()        // Parada de emergência
-RobotCommand::get_status()  // Consultar status atual
-```
-
-### **Exemplo de atualização no banco**
-
-```rust
-// Quando checkpoint inicia
-sqlx::query(
-    "UPDATE checkpoints
-     SET status = $1, inicio_real = $2
-     WHERE tipo = $3 AND ordem = $4"
-)
-.bind("running")
-.bind(inicio_dt)
-.bind(&tipo)
-.bind(ordem)
-.execute(db_pool)
-.await?;
-
-// Quando checkpoint completa
-sqlx::query(
-    "UPDATE checkpoints
-     SET status = $1, fim_real = $2
-     WHERE tipo = $3 AND ordem = $4"
-)
-.bind("finished")
-.bind(fim_dt)
-.bind(&tipo)
-.bind(ordem)
-.execute(db_pool)
-.await?;
-```
-
-## **3.6 Frontend Server (`frontend_server.rs`)**
-
-### **O que é?**
-
- Servidor WebSocket que aceita conexões do frontend para enviar eventos de checkpoint em tempo real e receber comandos de controle.
-
-### **O que ele faz?**
-
-* **Aceita conexões WebSocket** do frontend (actix-ws)
-* **Relata eventos do robô** para o frontend em tempo real
-* **Recebe comandos do frontend** (play, stop, status)
-* **Encaminha comandos** para o RobotClient
-* **Usa tokio::select!** para gerenciar fluxo bidirecional
-
-### **Handler principal**
-
-```rust
-pub async fn ws_frontend_handler(
-    req: HttpRequest,
-    stream: web::Payload,
-    app_state: web::Data<AppState>,
-) -> Result<HttpResponse, Error>
-```
-
-### **Fluxo bidirecional**
-
-```rust
-tokio::select! {
-    // Recebe eventos do robô → Envia para frontend
-    Ok(event) = frontend_rx.recv() => {
-        session.text(json).await?;
-    }
-
-    // Recebe comandos do frontend → Envia para robô
-    Some(Ok(msg)) = msg_stream.next() => {
-        let cmd = serde_json::from_str::<FrontendCommand>(&text)?;
-        robot_client.send_command(cmd).await?;
-    }
-}
-```
-
-## **3.7 WebSocket Models (`websocket.rs`)**
-
-### **Estruturas de dados**
-
-#### **RobotEvent** (Robô → Backend)
-
-```rust
-pub enum RobotEvent {
-    Connected { status: RobotStatus },
-    CheckpointStarted { tipo: String, ordem: i32, status: String, inicio_real: String },
-    CheckpointCompleted { tipo: String, ordem: i32, status: String, inicio_real: String, fim_real: String },
-    EmergencyStop { tipo: Option<String>, ordem: Option<i32> },
-    RobotConnected { status: String },
-}
-```
-
-#### **FrontendEvent** (Backend → Frontend)
-
-```rust
-pub enum FrontendEvent {
-    RobotStatus { robot_connected: bool, is_running: bool, current_checkpoint: Option<String> },
-    CheckpointStarted { tipo: String, ordem: i32, status: String, inicio_real: DateTime<Utc> },
-    CheckpointCompleted { tipo: String, ordem: i32, status: String, inicio_real: DateTime<Utc>, fim_real: DateTime<Utc> },
-    EmergencyStop { tipo: Option<String>, ordem: Option<i32> },
-    Error { message: String },
-}
-```
-
-#### **FrontendCommand** (Frontend → Backend)
-
-```rust
-pub enum FrontendCommand {
-    Play,
-    Stop,
-    GetStatus,
-}
-```
-
-## **4. Fluxos de Comunicação**
-
-### **4.1 Fluxo de Checkpoint Completo**
-
-```
-1. Frontend envia comando
-   Frontend → Backend: { "command": "play" }
-
-2. Backend encaminha para robô
-   Backend (RobotClient) → Robot Server: { "action": "play" }
-
-3. Robô inicia movimento
-   Robot Server → Backend: { "event": "checkpoint_started", "tipo": "recepcao", "ordem": 1, ... }
-
-4. Backend atualiza banco de dados
-   UPDATE checkpoints SET status='running', inicio_real='2025-12-15T14:02:35Z' WHERE tipo='recepcao'
-
-5. Backend relata para frontend
-   Backend → Frontend: { "event": "checkpoint_started", "tipo": "recepcao", ... }
-
-6. Frontend atualiza UI
-   UI mostra: "🚀 Indo para Recepção..."
-   Perguntas bloqueadas até chegada
-
-7. Robô chega no destino
-   Robot Server → Backend: { "event": "checkpoint_completed", "tipo": "recepcao", "fim_real": "..." }
-
-8. Backend atualiza banco
-   UPDATE checkpoints SET status='finished', fim_real='2025-12-15T14:08:12Z' WHERE tipo='recepcao'
-
-9. Backend relata para frontend
-   Backend → Frontend: { "event": "checkpoint_completed", "tipo": "recepcao", ... }
-
-10. Frontend libera perguntas
-    UI mostra: "✅ Chegou na Recepção! Faça suas perguntas"
-    Perguntas do checkpoint 'recepcao' liberadas
-```
-
-### **4.2 Fluxo de Parada de Emergência**
-
-```
-1. Frontend envia stop
-   Frontend → Backend: { "command": "stop" }
-
-2. Backend encaminha
-   Backend → Robot: { "action": "stop" }
-
-3. Robô para imediatamente
-   Robot Server → Backend: { "event": "emergency_stop", "tipo": "auditorio", "ordem": 2 }
-
-4. Backend atualiza banco
-   UPDATE checkpoints SET status='skipped' WHERE tipo='auditorio' AND status='running'
-
-5. Backend notifica frontend
-   Backend → Frontend: { "event": "emergency_stop", "tipo": "auditorio" }
-
-6. Frontend mostra alerta
-   UI: "🛑 Tour interrompido! Checkpoint 'Auditório' foi pulado"
-```
-
-### **4.3 Sincronização Entre Clientes (Chat)**
-
- O sistema implementa um padrão publish-subscribe através do `BroadcastServer`:
-
-1. **Clientes de Texto** recebem:
-   * Perguntas de outros usuários
-   * Respostas do modelo (tanto de clientes de texto quanto de áudio)
-
-2. **Clientes de Áudio** recebem:
-   * Áudio das respostas (convertidas via TTS)
-
-3. **Exclusão de Eco:**
-   * Cada mensagem broadcast pode especificar um `exclude_client`
-   * O cliente que originou a mensagem não recebe seu próprio broadcast
-   * Evita feedback loops e duplicação de mensagens
-
-## **5. Integração com Banco de Dados**
-
-### **Tabela: checkpoints**
-
-| Coluna            | Tipo        | Preenchimento                                         |
-| ----------------- | ----------- | ----------------------------------------------------- |
-| `id`              | SERIAL (PK) | Auto-gerado                                           |
-| `tour_id`         | INT (FK)    | Criação do tour                                       |
-| `tipo`            | TEXT        | Criação do tour (recepcao, auditorio, atelie, etc.)   |
-| `ordem`           | INT         | Criação do tour (1, 2, 3, 4, 5)                       |
-| `status`          | TEXT        | Inicial: `pending` → `running` → `finished`/`skipped` |
-| `inicio_previsto` | TIMESTAMPTZ | Criação do tour (horário estimado)                    |
-| `inicio_real`     | TIMESTAMPTZ | **Evento `checkpoint_started`** (timestamp real)      |
-| `fim_real`        | TIMESTAMPTZ | **Evento `checkpoint_completed`** (timestamp real)    |
-
-### **Estados do checkpoint**
-
-| Status     | Quando ocorre                          |
-| ---------- | -------------------------------------- |
-| `pending`  | Checkpoint criado, aguardando execução |
-| `running`  | Robô em movimento para o checkpoint    |
-| `finished` | Robô chegou e completou o checkpoint   |
-| `skipped`  | Emergency stop durante execução        |
-
-## **6. Formatos de Mensagens**
-
-### **6.1 Chat - Broadcast de texto**
-
-```json
-{
-  "message_type": "broadcast_text",
-  "texto": "Resposta do modelo..."
-}
-```
-
-### **6.2 Chat - Broadcast de áudio**
-
-```json
-{
-  "message_type": "broadcast_audio",
-  "audio_base64": "AAAAFJDSAIWEA..."
-}
-```
-
-### **6.3 Checkpoints - Evento de início**
-
-```json
-{
-  "event": "checkpoint_started",
-  "tipo": "recepcao",
-  "ordem": 1,
-  "status": "running",
-  "inicio_real": "2025-12-15T14:02:35.123Z"
-}
-```
-
-### **6.4 Checkpoints - Evento de conclusão**
-
-```json
-{
-  "event": "checkpoint_completed",
-  "tipo": "recepcao",
-  "ordem": 1,
-  "status": "finished",
-  "inicio_real": "2025-12-15T14:02:35.123Z",
-  "fim_real": "2025-12-15T14:08:12.456Z"
-}
-```
-
-### **6.5 Checkpoints - Status do robô**
-
-```json
-{
-  "event": "robot_status",
-  "robot_connected": true,
-  "is_running": false,
-  "current_checkpoint": "recepcao"
-}
-```
-
-## **7. Configuração**
-
-### **7.1 Arquivo config.toml**
-
-```toml
-[settings.server]
-host = "0.0.0.0"
-port = 8081  # Backend Rust
-
-[settings.database]
-host = "aws-1-us-east-2.pooler.supabase.com"
-username = "postgres.xxxxx"
-password = "xxxxx"
-database = "postgres"
-port = 5432
-max_connections = 5
-
-[settings.robot]
-ip = "127.0.0.1"  # IP do servidor Python do robô (localhost para testes)
-```
-
-### **7.2 Portas utilizadas**
-
-| Serviço               | Porta | Protocolo |
-| --------------------- | ----- | --------- |
-| Backend Rust          | 8081  | HTTP/WS   |
-| Robot Python Server   | 8080  | HTTP/WS   |
-| PostgreSQL (Supabase) | 5432  | TCP       |
-
-## **8. Testando o Sistema**
-
-### **8.1 Teste de Checkpoints**
-
-```powershell
-# Terminal 1: Servidor Python do robô
-cd 2025-2B-T12-EC08-ROBO
-python move_path.py
-
-# Terminal 2: Backend Rust
-cd 2025-2B-T12-EC08-BACK
-cargo run -- --config config.toml
-
-# Terminal 3: Cliente de teste
-cd 2025-2B-T12-EC08-BACK
-python test_websocket.py interactive --url ws://localhost:8081/ws
-```
-
-**Comandos disponíveis:**
-
-* `status` - Consultar status do robô
-* `play` - Executar próximo checkpoint
-* `stop` - Parada de emergência
-* `quit` - Sair
-
-### **8.2 Observando logs**
-
-**Backend logs esperados:**
-
-```
-✅ Conectado ao robô!
-📡 Iniciando listener de eventos do robô
-🤖 Status inicial do robô: robot_connected=false
-▶️ Checkpoint INICIADO: recepcao (ordem: 1)
-💾 Checkpoint atualizado no banco: recepcao -> running
-✅ Checkpoint CONCLUÍDO: recepcao (status: finished)
-💾 Checkpoint finalizado no banco: recepcao -> finished
-```
-
-## **9. Tratamento de Erros**
-
-### **9.1 Robô offline**
-
-* **Comportamento:** Backend retenta conexão a cada 5 segundos
-* **Frontend:** Recebe `robot_connected: false` no status
-* **Comandos:** São enfileirados mas não executados até robô conectar
-
-### **9.2 Perda de conexão durante execução**
-
-* **WebSocket desconecta:** Backend retenta automaticamente
-* **Checkpoint em andamento:** Status `running` permanece no banco até reconexão
-* **Frontend:** Mostra indicador de "Conexão perdida"
-
-### **9.3 Emergency stop**
-
-* **Checkpoint atual:** Marcado como `skipped`
-* **Checkpoints futuros:** Permanecem `pending`
-* **Robô:** Para movimento físico imediatamente
-
-## **10. Conclusão**
-
-O sistema de WebSockets deste projeto é o que permite:
-
-### **Módulo de Chat:**
-
-* Conversação natural com visitantes via texto e áudio
-* Sincronização em tempo real entre múltiplos dispositivos
-* Integração inteligente com STT, TTS e modelo de IA
-
-### **Módulo de Checkpoints:**
-
-* Controle preciso da navegação do robô
-* Atualização automática do banco com timestamps reais
-* Sincronização perfeita entre robô físico, backend e frontend
-* Gerenciamento de estados e paradas de emergência
-
-A arquitetura foi construída para ser:
-
-* **Simples de entender** - Componentes bem separados e documentados
-* **Escalável** - Usa broadcast channels e WebSockets eficientes
-* **Resiliente** - Retry automático e tratamento de erros
-* **Extensível** - Fácil adicionar novos eventos e comandos
-* **Testável** - Cliente de teste incluso para validação
-
-O sistema está pronto para uso em produção, com o robô físico ou em modo de simulação para testes.
-
-
-# App Staff (/docs/sprint-4/documentacao-frontend/app_staff)
-
-## Introdução
-
-  O aplicativo do Staff foi desenvolvido para apoiar os colaboradores responsáveis pelos tours realizados no campus do Inteli. Por meio dele, os funcionários podem criar, visualizar e gerenciar tours, acompanhar o progresso do tour e disponibilizar o código de acesso aos visitantes. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
-
-## Como Iniciar o Projeto
-
-  Para iniciar o projeto do App Staff, siga o passo a passo completo:
-
-### Pré-requisitos
-
-* Git instalado.
-* Node.js (inclui npm) instalado.
-* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
-
-### Passo a passo
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/anabeggiato/2025-2B-T12-EC08-AppStaff
-```
-
-2. Entre na pasta do app:
-
-```bash
-cd 2025-2B-T12-EC08-AppStaff/app
-```
-
-3. Instale as dependências:
-
-```bash
-npm install
-```
-
-4. Rode o app diretamente no Android (device físico via USB ou emulador):
-
-```bash
-npx expo run:android
-```
-
-5. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
-6. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
-
-
-# App Visitante (/docs/sprint-4/documentacao-frontend/app_visitante)
-
-## Introdução
-
-  O aplicativo do visitante foi desenvolvido para apoiar a experiência de pais, filhos e demais convidados que participam do tour guiado pelo robô-cachorro LIA durante visitas à faculdade Inteli. O objetivo deste aplicativo é garantir uma jornada educativa, segura e interativa, permitindo que o visitante acompanhe o tour, faça perguntas ao robô, visualize o mapa do tour. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
-
-## Como Iniciar o Projeto
-
-  Para iniciar o projeto do App Visitante, siga o passo a passo completo:
-
-### Pré-requisitos
-
-* Git instalado.
-* Node.js (inclui npm) instalado.
-* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
-
-### Passo a passo
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/Fernandoliveira05/AppTourVisitante/
-```
-
-2. Instale as dependências:
-
-```bash
-npm install
-```
-
-3. Rode o app diretamente no Android (device físico via USB ou emulador):
-
-```bash
-npx expo run:android
-```
-
-4. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
-5. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
-
-
-# Dashboard (/docs/sprint-4/documentacao-frontend/dashboard)
-
-## Introdução
-
-  O Dashboard foi desenvolvido para fornecer uma interface intuitiva e eficiente para os membros da staff do Inteli visualizarem e analisarem os dados coletados durante os tours guiados pelo robô-cachorro LIA. Através deste dashboard, os usuários podem acessar informações detalhadas sobre o desempenho dos tours, feedback dos visitantes e outras métricas relevantes que auxiliam na melhoria contínua da experiência oferecida. Durante essa sprint 4, o foco principal foi finalizar as telas principais desse dashboard e a integração com o backend é o primeiro passo na próxima sprint.
-
-## Como Iniciar o Projeto
-
-  Para iniciar o Dashboard, siga o passo a passo completo:
-
-### Pré-requisitos
-
-* Git instalado.
-* Node.js (inclui npm) instalado.
-
-### Passo a passo
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/davidijesus/2025-2B-T12-EC08-DashStaff
-```
-
-2. Entre na pasta do dashboard:
-
-```bash
-cd 2025-2B-T12-EC08-DashStaff/inteli-dashboard
-```
-
-3. Instale as dependências:
-
-```bash
-npm install
-```
-
-4. Inicie o projeto Vite:
-
-```bash
-npm run dev
-```
-
-5. Acesse no navegador: `http://localhost:8080/` (ou a porta exibida no terminal do Vite).
-
-
-# Documentação Frontend (/docs/sprint-4/documentacao-frontend)
-
-<Cards>
-  <Card title="App Staff" description="Documentação referente ao App Staff." href="/docs/sprint-4/documentacao-frontend/app_staff" />
-
-  <Card title="App Visitante" description="Documentação referente ao App Visitante." href="/docs/sprint-4/documentacao-frontend/app_visitante" />
-
-  <Card title="Dashboard" description="Documentação referente ao Dashboard." href="/docs/sprint-4/documentacao-frontend/dashboard" />
-</Cards>
 
 
 # Refatoração dos Serviços de STT e TTS (/docs/sprint-4/modelo)
@@ -18838,6 +18836,176 @@ suspicious_patterns = [
 **Recomendação**: Corrigir os bugs identificados antes de considerar os controles como efetivos.
 
 
+# Personas (/docs/sprint-1/entendimento-do-usuario/personas)
+
+<Cards>
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato" title="Persona Candidato">
+    Descrição detalhada da Persona Candidato, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva" title="Persona Executiva">
+    Descrição detalhada da Persona Executiva, incluindo perfil, necessidades e
+    comportamentos.
+  </Card>
+
+  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-staff" title="Persona Staff Inteli">
+    Descrição detalhada da Persona Staff Inteli, incluindo perfil, necessidades
+    e comportamentos.
+  </Card>
+</Cards>
+
+
+# Isabella Ricci - Persona Candidato (/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato)
+
+
+
+ Isabella Ricci tem 17 anos e está concluindo o 3º ano do ensino médio em uma escola de alta performance em São Paulo. Desde o ensino fundamental, sempre demonstrou interesse por ciências e tecnologia, mas também se identifica com projetos criativos e o trabalho em equipe. Nos últimos meses, passou a pesquisar faculdades que unam inovação, propósito e prática, e o Inteli chamou sua atenção pela metodologia baseada em projetos reais e pelo foco em liderança.
+ Durante a visita ao campus, Isabella busca compreender melhor o ambiente de aprendizado, conhecer os espaços e esclarecer dúvidas sobre bolsas, processo seletivo e vida acadêmica, informações que considera importantes para tomar sua decisão sobre onde estudar. Segue abaixo o canva da persona:
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Isabella Ricci 
+</p>
+
+<img alt="Persona Candidato" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Cenários de uso do sistema
+
+ Assim que chegam ao Inteli, Isabella e seus pais são recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebem um tablet com uma aplicação onde podem registrar dúvidas durante o tour. Logo depois, o robô aparece para guiá-los pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos. Em cada ponto, o robô abre espaço para perguntas, e Isabella, junto dos pais, pode interagir pelo tablet, por texto ou por áudio.
+
+ Durante o tour, o robô coleta feedbacks sobre a experiência, que são armazenados e posteriormente visualizados no painel administrativo.
+
+## Dores e necessidades
+
+ Isabella sente insegurança em relação ao vestibular e ao processo de transição do ensino médio para o ensino superior. Ela teme não compreender completamente como funciona o processo seletivo do Inteli e tem dúvidas sobre o nível de exigência e o perfil de aluno esperado pela instituição. Essa incerteza é reforçada pelo fato de ainda não ter decidido se irá prestar o processo seletivo, o que torna a visita uma oportunidade importante para esclarecer dúvidas e reduzir barreiras emocionais na tomada de decisão. Ela deseja confirmar se o ambiente acadêmico, a metodologia de ensino e a cultura institucional realmente se alinham aos seus objetivos pessoais e à sua forma de aprendizado. Seu interesse por tecnologia e criatividade é acompanhado de uma necessidade de pertencimento e identificação com a proposta educacional.
+
+ Durante a visita, Isabella busca informações objetivas, mas também experiências que transmitam segurança e transparência. Ela valoriza interações que equilibrem clareza técnica e sensibilidade humana. O contato com o robô deve contribuir para esse processo, apresentando o Inteli de forma acessível, guiada e contextual, permitindo que Isabella enxergue com mais nitidez como o ambiente e a metodologia podem apoiar seu desenvolvimento acadêmico e pessoal.
+
+## Objetivos
+
+ O principal objetivo de Isabella ao visitar o Inteli é avaliar se deseja prestar o processo seletivo da instituição. Ela está em um momento de indecisão e busca informações que a ajudem a confirmar se o modelo de ensino, o ambiente e a proposta do curso correspondem às suas expectativas de formação.
+
+ Outro objetivo é conhecer o espaço físico e observar como os ambientes de estudo e convivência favorecem a aprendizagem e a colaboração entre os alunos. Essa dimensão visual da experiência é importante para que Isabella forme uma percepção concreta sobre o dia a dia acadêmico e a estrutura da instituição.
+
+  Ela também busca entender a metodologia de ensino baseada em projetos, compreendendo na prática como os estudantes aprendem, interagem e desenvolvem soluções reais. Esse entendimento é necessário para que ela perceba o diferencial do Inteli em relação a outras instituições de ensino superior.
+
+ Durante o tour, Isabella deseja esclarecer dúvidas sobre bolsas, rotina e oportunidades extracurriculares, como ligas estudantis e projetos paralelos. Essas informações têm um papel prático na decisão da família, especialmente no aspecto financeiro e no equilíbrio entre estudo e vivência universitária.
+
+## Conclusão
+
+ A persona **Isabella Ricci** representa o perfil de candidato em fase de descoberta, que visita o Inteli acompanhado dos pais para conhecer o campus e avaliar a possibilidade de ingressar na instituição. Sua jornada é marcada por dúvidas sobre o processo seletivo, o ambiente acadêmico e a adequação entre seu perfil e a metodologia de ensino proposta.
+
+ As dores e necessidades de Isabella revelam um equilíbrio entre fatores emocionais e racionais: ela busca informações claras, mas também experiências que transmitam segurança e identificação. O tour conduzido pelo robô tem papel fundamental nesse processo, funcionando como um canal de mediação entre o visitante e a instituição, capaz de esclarecer dúvidas e gerar percepção de acolhimento e transparência.
+
+ Seus objetivos se concentram em compreender o funcionamento do Inteli, conhecer os espaços, tirar dúvidas sobre bolsas e oportunidades, e, principalmente, confirmar se deseja participar do processo seletivo. A partir dessa experiência, espera obter elementos concretos e emocionais que a ajudem a decidir sobre seu futuro acadêmico, reforçando a importância do projeto como ponto de contato inicial entre candidatos e o Inteli.
+
+
+# Ricardo Menezes - Persona Executiva (/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva)
+
+
+
+ Abaixo, é possível ver um canva com um detalhamento acerca da persona Ricardo Menezes
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Persona Ricardo Menezes 
+</p>
+
+<img alt="Persona Executiva" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Resumo da Persona
+
+ Ricardo Menezes é um gestor de 35 anos que trabalha na Ambev, onde atua na gestão de equipes e colabora com times de tecnologia voltados à tomada de decisões estratégicas. Sua principal motivação é o curso executivo adquirido pela empresa no Inteli, do qual ele espera obter conhecimentos em dados e inteligência artificial para aprimorar suas decisões de negócio. Contudo, Ricardo chega ao Inteli com uma dor central: a desconfiança e o desconhecimento em relação à instituição e à sua metodologia de ensino baseada em cases, o que o faz questionar a real efetividade do curso. Seu objetivo primário durante a visita é entender melhor o funcionamento do curso, a história da faculdade e confirmar se o Inteli realmente emprega tecnologias inovadoras, exigindo para isso uma comunicação formal e madura, alinhada ao seu perfil corporativo. O cenário de uso do sistema envolve ser conduzido por um funcionário até a arquibancada, onde recebe um tablet para registrar dúvidas, e em seguida ser guiado pelo robô interativo em um percurso pelo térreo do campus, podendo interagir com o robô por texto ou áudio no tablet para sanar suas dúvidas logísticas e conceituais sobre a faculdade e o curso. O robô, por sua vez, coleta feedbacks de sua experiência para otimizar o processo.
+
+## Informações Demográficas
+
+| Atributo                         | Detalhe                                            |
+| :------------------------------- | :------------------------------------------------- |
+| **Idade**                        | 38 anos                                            |
+| **Gênero**                       | Masculino                                          |
+| **Profissão**                    | Gerente de Projetos Sênior na Ambev                |
+| **Formação**                     | Administração de Empresas                          |
+| **Localização**                  | São Paulo (SP)                                     |
+| **Familiaridade com Tecnologia** | Médio. usa ferramentas digitais, mas não é técnico |
+
+## Bio
+
+ Como dito anteriormente, Ricardo Menezes é um homem de 35 anos que atua como gestor de algumas equipes na Ambev, empresa líder em comércio de bebidas no Brasil. Ele se formou em administração há 12 anos e, desde então, trabalha no setor administrativo de empresas. Entrou na Ambev há 5 anos e tem atuado perto dos times de tecnologia, principalmente aqueles voltados à tomada de decisões estratégicas.
+Recentemente, a empresa adquiriu para os seus funcionários um curso executivo para os seus gestores em uma instituição chamada Inteli - Instituto de Tecnologia e Liderança. Com esse curso, Ricardo espera poder tomar melhores decisões de negócio baseando-se em dados e inteligência artificial. Entretanto, ele conhece pouco a universidade e não tem tanta confiança em relação ao método de ensino.
+
+## Cenários de Uso do Sistema
+
+ Assim que chegam ao Inteli, Rodrigo é recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebe um tablet com uma aplicação onde podem registrar dúvidas que surgirem durante o tour. Logo depois, o robô aparece para guiá-lo pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos.
+Em cada ponto, o robô abre espaço para dúvidas, e Rodrigo pode interagir pelo tablet, por texto ou por áudio, tirando dúvidas sobre os cursos executivos e o funcionamento e história da faculdade
+Durante o tour, o robô coleta feedbacks sobre a experiência do usuário e os disponibiliza para visualização no painel administrativo .
+
+## Dores e Necessidades
+
+ A principal dor de Ricardo é justamente não conhecer bem o suficiente a instituição onde ele estará fazendo esse curso executivo. Além disso, a metodologia de ensino do curso, que é baseada em cases, lhe deixa desconfiado em relação à efetividade do curso. Por fim, o que Ricardo mais quer neste cenário é entender melhor como funciona o curso, como funciona o Inteli e a sua história e também entender se essa faculdade realmente trabalha com tecnologias inovadoras. Entretanto, como alguém já mais maduro e muito acostumado com o mundo corporativo, ele prefere que seja utilizada uma linguagem mais formal na sua comunicação.
+
+## Conclusão
+
+ Embora a maioria dos visitantes do Inteli seja composta por estudantes do ensino médio, a persona Ricardo Menezes representa um público-alvo estratégico (executivos, imprensa e parceiros) cujo impacto no projeto de automatização de tours com o cão robótico é desproporcionalmente alto. Este público não busca uma experiência lúdica, mas sim a validação da credibilidade e da vanguarda tecnológica da instituição. A presença do Ricardo exige que o robô seja programado para ter uma dupla funcionalidade: além de engajar o público jovem, ele deve ser capaz de alternar para um tom de voz formal, comunicação concisa e conteúdo focado em dados estratégicos (como cases de sucesso e resultados de cursos executivos). Em suma, o Ricardo atua como o padrão de qualidade para o projeto, garantindo que a solução tecnológica não apenas cumpra seu papel operacional de guia, mas também funcione como um reforço da imagem institucional do Inteli para o seu público mais influente e decisório. Ignorar as dores e necessidades deste executivo resultaria em um robô que falharia em seu papel mais importante: endossar a sofisticação e o profissionalismo da faculdade.
+
+
+# Gabriele Julião - Persona Staff Inteli (/docs/sprint-1/entendimento-do-usuario/personas/persona-staff)
+
+
+
+ A imagem abaixo ajuda a compreender de forma mais visual quem é Gabriele e como ela se conecta com o contexto do projeto:
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Persona Gabriele Julião
+</p>
+
+<img alt="Persona Executiva" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+## Resumo da persona
+
+ Gabriele Julião é uma profissional paulistana de 32 anos que atua como coordenadora de admissões no Inteli, sendo responsável por gerenciar os processos seletivos e as visitas guiadas ao campus. Formada em Jornalismo e pós-graduada em Marketing Digital, Gabriele possui experiência em captação de leads e estratégias de comunicação voltadas à atração de jovens talentos. Sua principal motivação é aprimorar a experiência dos visitantes e fortalecer a imagem inovadora da instituição, tornando cada interação uma oportunidade de encantamento e conversão. <br />
+ Apesar dos bons resultados alcançados nas últimas campanhas de admissão, Gabriele enfrenta desafios como a dificuldade de mensurar o impacto das visitas ao campus e obter dados mais qualitativos sobre o interesse dos candidatos. Por isso, vê no cachorro-robô uma ferramenta estratégica para transformar o tour em uma experiência mais tecnológica, interativa e informativa. Durante as visitas, Gabriele acompanha o funcionamento do robô e analisa os dados coletados para compreender melhor o comportamento e o engajamento dos leads. Assim, ela busca unir tecnologia, inovação e marketing educacional para aprimorar o processo de admissão e otimizar a jornada dos futuros alunos do Inteli.
+
+## Informações Demográficas
+
+| Atributo                         | Detalhe                                                                                                                      |
+| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **Idade**                        | 32 anos                                                                                                                      |
+| **Gênero**                       | Feminino                                                                                                                     |
+| **Profissão**                    | Coordenadora de admissões no Inteli                                                                                          |
+| **Formação**                     | Jornalismo, com pós graduação em Marketing Digital                                                                           |
+| **Localização**                  | São Paulo (SP)                                                                                                               |
+| **Familiaridade com Tecnologia** | Alta. Utiliza muitas mídias sociais, entende de fluxos e sabe muito sobre o seu público-alvo: futuros líderes em tecnologia. |
+
+## Bio
+
+ Gabriele Julião é uma paulistana de 32 anos, comunicativa e sempre em busca de novas formas de se conectar com as pessoas. Formada em Jornalismo e pós-graduada em Marketing Digital, ela construiu sua carreira unindo criatividade e estratégia, o que a levou a se tornar coordenadora de admissões no Inteli, onde lidera campanhas e visitas ao campus. <br />
+ Fora do trabalho, Gabriele é movida por curiosidade e expressão. Ela adora fotografia, cinema e música brasileira, e costuma aproveitar os fins de semana para explorar novos cafés e registrar momentos do cotidiano de São Paulo. Gosta de estar rodeada de amigos e é conhecida por seu bom humor e energia em eventos da faculdade. Ela ama visitar ambientes "aesthetic", como cafés superfaturados no centro da cidade e museus culturais. Sua atividade favorita com os amigos é ir ao Beco do Batman. <br />
+ Ao mesmo tempo, Gabriele tem um lado analítico e curioso: adora entender o comportamento das pessoas e buscar maneiras de transformar dados em histórias que inspiram. É esse equilíbrio entre empatia e estratégia que a faz enxergar o potencial de ferramentas inovadoras, como o cachorro-robô para transformar a experiência dos visitantes do Inteli em algo inesquecível.
+
+## Cenários de Uso do Sistema
+
+ Assim que chegam ao Inteli, Gabriele recebe um grupo de visitantes interessados em conhecer a instituição. Ela aciona o cachorro-robô, que inicia o tour guiado pelo térreo do campus. Os visitantes recebem um tablet conectado ao sistema do robô, por meio do qual pode interagir durante o percurso, enviando dúvidas por texto ou áudio. <br />
+ Enquanto o robô conduz o grupo de forma autônoma, Gabriele acompanha o tour à distância, observando o andamento pelo painel administrativo. A cada ponto de parada, o robô compartilha informações sobre o curso, os laboratórios, os projetos dos alunos e a cultura da instituição, estimulando o engajamento dos visitantes. <br />
+ Durante a experiência, o sistema coleta feedbacks e dados comportamentais, como nível de interesse e interação dos visitantes, permitindo que Gabriele obtenha informações mais ricas sobre o perfil dos leads. Ao final do tour, ela utiliza esses dados para aprimorar as próximas visitas e ajustar as estratégias de captação, tornando o processo de admissão mais eficiente e personalizado.
+
+## Dores e Necessidades
+
+ A principal dor de Gabriele está na padronização do tour, que quase sempre é feito de maneira diferente entre os visitantes. Além disso, há dificuldade de compreender com profundidade o comportamento e o nível de engajamento dos visitantes durante as visitas ao campus. Embora suas últimas campanhas tenham sido um sucesso, ela sente que falta informação quantitativa e qualitativa que ajude a entender o que realmente desperta o interesse dos jovens e quais fatores influenciam a decisão de inscrição.
+
+## Conclusão
+
+
 # Mapas de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
 
 <Cards>
@@ -19435,173 +19603,3 @@ suspicious_patterns = [
 
  A jornada de Gabriele Julião evidencia como o cachorro-robô pode ir além da automatização de visitas, atuando como uma ferramenta estratégica de captação e análise de leads. Para ela, o sucesso do sistema não se resume à fluidez técnica do tour, mas à sua capacidade de gerar dados relevantes, engajar visitantes e reforçar a imagem inovadora do Inteli. <br />
  Ao transformar um processo tradicional em uma experiência interativa, tecnológica e orientada por dados, o robô auxilia Gabriele a compreender melhor o comportamento dos visitantes e aprimorar continuamente as estratégias de admissão. Assim, o projeto não apenas otimiza o trabalho da coordenadora, mas também fortalece o posicionamento do Inteli como uma instituição que une inovação, educação e inteligência de mercado.
-
-
-# Personas (/docs/sprint-1/entendimento-do-usuario/personas)
-
-<Cards>
-  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato" title="Persona Candidato">
-    Descrição detalhada da Persona Candidato, incluindo perfil, necessidades e
-    comportamentos.
-  </Card>
-
-  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva" title="Persona Executiva">
-    Descrição detalhada da Persona Executiva, incluindo perfil, necessidades e
-    comportamentos.
-  </Card>
-
-  <Card href="/docs/sprint-1/entendimento-do-usuario/personas/persona-staff" title="Persona Staff Inteli">
-    Descrição detalhada da Persona Staff Inteli, incluindo perfil, necessidades
-    e comportamentos.
-  </Card>
-</Cards>
-
-
-# Isabella Ricci - Persona Candidato (/docs/sprint-1/entendimento-do-usuario/personas/persona-candidato)
-
-
-
- Isabella Ricci tem 17 anos e está concluindo o 3º ano do ensino médio em uma escola de alta performance em São Paulo. Desde o ensino fundamental, sempre demonstrou interesse por ciências e tecnologia, mas também se identifica com projetos criativos e o trabalho em equipe. Nos últimos meses, passou a pesquisar faculdades que unam inovação, propósito e prática, e o Inteli chamou sua atenção pela metodologia baseada em projetos reais e pelo foco em liderança.
- Durante a visita ao campus, Isabella busca compreender melhor o ambiente de aprendizado, conhecer os espaços e esclarecer dúvidas sobre bolsas, processo seletivo e vida acadêmica, informações que considera importantes para tomar sua decisão sobre onde estudar. Segue abaixo o canva da persona:
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Isabella Ricci 
-</p>
-
-<img alt="Persona Candidato" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-## Cenários de uso do sistema
-
- Assim que chegam ao Inteli, Isabella e seus pais são recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebem um tablet com uma aplicação onde podem registrar dúvidas durante o tour. Logo depois, o robô aparece para guiá-los pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos. Em cada ponto, o robô abre espaço para perguntas, e Isabella, junto dos pais, pode interagir pelo tablet, por texto ou por áudio.
-
- Durante o tour, o robô coleta feedbacks sobre a experiência, que são armazenados e posteriormente visualizados no painel administrativo.
-
-## Dores e necessidades
-
- Isabella sente insegurança em relação ao vestibular e ao processo de transição do ensino médio para o ensino superior. Ela teme não compreender completamente como funciona o processo seletivo do Inteli e tem dúvidas sobre o nível de exigência e o perfil de aluno esperado pela instituição. Essa incerteza é reforçada pelo fato de ainda não ter decidido se irá prestar o processo seletivo, o que torna a visita uma oportunidade importante para esclarecer dúvidas e reduzir barreiras emocionais na tomada de decisão. Ela deseja confirmar se o ambiente acadêmico, a metodologia de ensino e a cultura institucional realmente se alinham aos seus objetivos pessoais e à sua forma de aprendizado. Seu interesse por tecnologia e criatividade é acompanhado de uma necessidade de pertencimento e identificação com a proposta educacional.
-
- Durante a visita, Isabella busca informações objetivas, mas também experiências que transmitam segurança e transparência. Ela valoriza interações que equilibrem clareza técnica e sensibilidade humana. O contato com o robô deve contribuir para esse processo, apresentando o Inteli de forma acessível, guiada e contextual, permitindo que Isabella enxergue com mais nitidez como o ambiente e a metodologia podem apoiar seu desenvolvimento acadêmico e pessoal.
-
-## Objetivos
-
- O principal objetivo de Isabella ao visitar o Inteli é avaliar se deseja prestar o processo seletivo da instituição. Ela está em um momento de indecisão e busca informações que a ajudem a confirmar se o modelo de ensino, o ambiente e a proposta do curso correspondem às suas expectativas de formação.
-
- Outro objetivo é conhecer o espaço físico e observar como os ambientes de estudo e convivência favorecem a aprendizagem e a colaboração entre os alunos. Essa dimensão visual da experiência é importante para que Isabella forme uma percepção concreta sobre o dia a dia acadêmico e a estrutura da instituição.
-
-  Ela também busca entender a metodologia de ensino baseada em projetos, compreendendo na prática como os estudantes aprendem, interagem e desenvolvem soluções reais. Esse entendimento é necessário para que ela perceba o diferencial do Inteli em relação a outras instituições de ensino superior.
-
- Durante o tour, Isabella deseja esclarecer dúvidas sobre bolsas, rotina e oportunidades extracurriculares, como ligas estudantis e projetos paralelos. Essas informações têm um papel prático na decisão da família, especialmente no aspecto financeiro e no equilíbrio entre estudo e vivência universitária.
-
-## Conclusão
-
- A persona **Isabella Ricci** representa o perfil de candidato em fase de descoberta, que visita o Inteli acompanhado dos pais para conhecer o campus e avaliar a possibilidade de ingressar na instituição. Sua jornada é marcada por dúvidas sobre o processo seletivo, o ambiente acadêmico e a adequação entre seu perfil e a metodologia de ensino proposta.
-
- As dores e necessidades de Isabella revelam um equilíbrio entre fatores emocionais e racionais: ela busca informações claras, mas também experiências que transmitam segurança e identificação. O tour conduzido pelo robô tem papel fundamental nesse processo, funcionando como um canal de mediação entre o visitante e a instituição, capaz de esclarecer dúvidas e gerar percepção de acolhimento e transparência.
-
- Seus objetivos se concentram em compreender o funcionamento do Inteli, conhecer os espaços, tirar dúvidas sobre bolsas e oportunidades, e, principalmente, confirmar se deseja participar do processo seletivo. A partir dessa experiência, espera obter elementos concretos e emocionais que a ajudem a decidir sobre seu futuro acadêmico, reforçando a importância do projeto como ponto de contato inicial entre candidatos e o Inteli.
-
-
-# Ricardo Menezes - Persona Executiva (/docs/sprint-1/entendimento-do-usuario/personas/persona-executiva)
-
-
-
- Abaixo, é possível ver um canva com um detalhamento acerca da persona Ricardo Menezes
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Persona Ricardo Menezes 
-</p>
-
-<img alt="Persona Executiva" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-## Resumo da Persona
-
- Ricardo Menezes é um gestor de 35 anos que trabalha na Ambev, onde atua na gestão de equipes e colabora com times de tecnologia voltados à tomada de decisões estratégicas. Sua principal motivação é o curso executivo adquirido pela empresa no Inteli, do qual ele espera obter conhecimentos em dados e inteligência artificial para aprimorar suas decisões de negócio. Contudo, Ricardo chega ao Inteli com uma dor central: a desconfiança e o desconhecimento em relação à instituição e à sua metodologia de ensino baseada em cases, o que o faz questionar a real efetividade do curso. Seu objetivo primário durante a visita é entender melhor o funcionamento do curso, a história da faculdade e confirmar se o Inteli realmente emprega tecnologias inovadoras, exigindo para isso uma comunicação formal e madura, alinhada ao seu perfil corporativo. O cenário de uso do sistema envolve ser conduzido por um funcionário até a arquibancada, onde recebe um tablet para registrar dúvidas, e em seguida ser guiado pelo robô interativo em um percurso pelo térreo do campus, podendo interagir com o robô por texto ou áudio no tablet para sanar suas dúvidas logísticas e conceituais sobre a faculdade e o curso. O robô, por sua vez, coleta feedbacks de sua experiência para otimizar o processo.
-
-## Informações Demográficas
-
-| Atributo                         | Detalhe                                            |
-| :------------------------------- | :------------------------------------------------- |
-| **Idade**                        | 38 anos                                            |
-| **Gênero**                       | Masculino                                          |
-| **Profissão**                    | Gerente de Projetos Sênior na Ambev                |
-| **Formação**                     | Administração de Empresas                          |
-| **Localização**                  | São Paulo (SP)                                     |
-| **Familiaridade com Tecnologia** | Médio. usa ferramentas digitais, mas não é técnico |
-
-## Bio
-
- Como dito anteriormente, Ricardo Menezes é um homem de 35 anos que atua como gestor de algumas equipes na Ambev, empresa líder em comércio de bebidas no Brasil. Ele se formou em administração há 12 anos e, desde então, trabalha no setor administrativo de empresas. Entrou na Ambev há 5 anos e tem atuado perto dos times de tecnologia, principalmente aqueles voltados à tomada de decisões estratégicas.
-Recentemente, a empresa adquiriu para os seus funcionários um curso executivo para os seus gestores em uma instituição chamada Inteli - Instituto de Tecnologia e Liderança. Com esse curso, Ricardo espera poder tomar melhores decisões de negócio baseando-se em dados e inteligência artificial. Entretanto, ele conhece pouco a universidade e não tem tanta confiança em relação ao método de ensino.
-
-## Cenários de Uso do Sistema
-
- Assim que chegam ao Inteli, Rodrigo é recebidos por um funcionário da instituição, que os conduz até a arquibancada. Lá, recebe um tablet com uma aplicação onde podem registrar dúvidas que surgirem durante o tour. Logo depois, o robô aparece para guiá-lo pelo térreo do campus, iniciando um percurso interativo com paradas em pontos estratégicos.
-Em cada ponto, o robô abre espaço para dúvidas, e Rodrigo pode interagir pelo tablet, por texto ou por áudio, tirando dúvidas sobre os cursos executivos e o funcionamento e história da faculdade
-Durante o tour, o robô coleta feedbacks sobre a experiência do usuário e os disponibiliza para visualização no painel administrativo .
-
-## Dores e Necessidades
-
- A principal dor de Ricardo é justamente não conhecer bem o suficiente a instituição onde ele estará fazendo esse curso executivo. Além disso, a metodologia de ensino do curso, que é baseada em cases, lhe deixa desconfiado em relação à efetividade do curso. Por fim, o que Ricardo mais quer neste cenário é entender melhor como funciona o curso, como funciona o Inteli e a sua história e também entender se essa faculdade realmente trabalha com tecnologias inovadoras. Entretanto, como alguém já mais maduro e muito acostumado com o mundo corporativo, ele prefere que seja utilizada uma linguagem mais formal na sua comunicação.
-
-## Conclusão
-
- Embora a maioria dos visitantes do Inteli seja composta por estudantes do ensino médio, a persona Ricardo Menezes representa um público-alvo estratégico (executivos, imprensa e parceiros) cujo impacto no projeto de automatização de tours com o cão robótico é desproporcionalmente alto. Este público não busca uma experiência lúdica, mas sim a validação da credibilidade e da vanguarda tecnológica da instituição. A presença do Ricardo exige que o robô seja programado para ter uma dupla funcionalidade: além de engajar o público jovem, ele deve ser capaz de alternar para um tom de voz formal, comunicação concisa e conteúdo focado em dados estratégicos (como cases de sucesso e resultados de cursos executivos). Em suma, o Ricardo atua como o padrão de qualidade para o projeto, garantindo que a solução tecnológica não apenas cumpra seu papel operacional de guia, mas também funcione como um reforço da imagem institucional do Inteli para o seu público mais influente e decisório. Ignorar as dores e necessidades deste executivo resultaria em um robô que falharia em seu papel mais importante: endossar a sofisticação e o profissionalismo da faculdade.
-
-
-# Gabriele Julião - Persona Staff Inteli (/docs/sprint-1/entendimento-do-usuario/personas/persona-staff)
-
-
-
- A imagem abaixo ajuda a compreender de forma mais visual quem é Gabriele e como ela se conecta com o contexto do projeto:
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Persona Gabriele Julião
-</p>
-
-<img alt="Persona Executiva" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-## Resumo da persona
-
- Gabriele Julião é uma profissional paulistana de 32 anos que atua como coordenadora de admissões no Inteli, sendo responsável por gerenciar os processos seletivos e as visitas guiadas ao campus. Formada em Jornalismo e pós-graduada em Marketing Digital, Gabriele possui experiência em captação de leads e estratégias de comunicação voltadas à atração de jovens talentos. Sua principal motivação é aprimorar a experiência dos visitantes e fortalecer a imagem inovadora da instituição, tornando cada interação uma oportunidade de encantamento e conversão. <br />
- Apesar dos bons resultados alcançados nas últimas campanhas de admissão, Gabriele enfrenta desafios como a dificuldade de mensurar o impacto das visitas ao campus e obter dados mais qualitativos sobre o interesse dos candidatos. Por isso, vê no cachorro-robô uma ferramenta estratégica para transformar o tour em uma experiência mais tecnológica, interativa e informativa. Durante as visitas, Gabriele acompanha o funcionamento do robô e analisa os dados coletados para compreender melhor o comportamento e o engajamento dos leads. Assim, ela busca unir tecnologia, inovação e marketing educacional para aprimorar o processo de admissão e otimizar a jornada dos futuros alunos do Inteli.
-
-## Informações Demográficas
-
-| Atributo                         | Detalhe                                                                                                                      |
-| :------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| **Idade**                        | 32 anos                                                                                                                      |
-| **Gênero**                       | Feminino                                                                                                                     |
-| **Profissão**                    | Coordenadora de admissões no Inteli                                                                                          |
-| **Formação**                     | Jornalismo, com pós graduação em Marketing Digital                                                                           |
-| **Localização**                  | São Paulo (SP)                                                                                                               |
-| **Familiaridade com Tecnologia** | Alta. Utiliza muitas mídias sociais, entende de fluxos e sabe muito sobre o seu público-alvo: futuros líderes em tecnologia. |
-
-## Bio
-
- Gabriele Julião é uma paulistana de 32 anos, comunicativa e sempre em busca de novas formas de se conectar com as pessoas. Formada em Jornalismo e pós-graduada em Marketing Digital, ela construiu sua carreira unindo criatividade e estratégia, o que a levou a se tornar coordenadora de admissões no Inteli, onde lidera campanhas e visitas ao campus. <br />
- Fora do trabalho, Gabriele é movida por curiosidade e expressão. Ela adora fotografia, cinema e música brasileira, e costuma aproveitar os fins de semana para explorar novos cafés e registrar momentos do cotidiano de São Paulo. Gosta de estar rodeada de amigos e é conhecida por seu bom humor e energia em eventos da faculdade. Ela ama visitar ambientes "aesthetic", como cafés superfaturados no centro da cidade e museus culturais. Sua atividade favorita com os amigos é ir ao Beco do Batman. <br />
- Ao mesmo tempo, Gabriele tem um lado analítico e curioso: adora entender o comportamento das pessoas e buscar maneiras de transformar dados em histórias que inspiram. É esse equilíbrio entre empatia e estratégia que a faz enxergar o potencial de ferramentas inovadoras, como o cachorro-robô para transformar a experiência dos visitantes do Inteli em algo inesquecível.
-
-## Cenários de Uso do Sistema
-
- Assim que chegam ao Inteli, Gabriele recebe um grupo de visitantes interessados em conhecer a instituição. Ela aciona o cachorro-robô, que inicia o tour guiado pelo térreo do campus. Os visitantes recebem um tablet conectado ao sistema do robô, por meio do qual pode interagir durante o percurso, enviando dúvidas por texto ou áudio. <br />
- Enquanto o robô conduz o grupo de forma autônoma, Gabriele acompanha o tour à distância, observando o andamento pelo painel administrativo. A cada ponto de parada, o robô compartilha informações sobre o curso, os laboratórios, os projetos dos alunos e a cultura da instituição, estimulando o engajamento dos visitantes. <br />
- Durante a experiência, o sistema coleta feedbacks e dados comportamentais, como nível de interesse e interação dos visitantes, permitindo que Gabriele obtenha informações mais ricas sobre o perfil dos leads. Ao final do tour, ela utiliza esses dados para aprimorar as próximas visitas e ajustar as estratégias de captação, tornando o processo de admissão mais eficiente e personalizado.
-
-## Dores e Necessidades
-
- A principal dor de Gabriele está na padronização do tour, que quase sempre é feito de maneira diferente entre os visitantes. Além disso, há dificuldade de compreender com profundidade o comportamento e o nível de engajamento dos visitantes durante as visitas ao campus. Embora suas últimas campanhas tenham sido um sucesso, ela sente que falta informação quantitativa e qualitativa que ajude a entender o que realmente desperta o interesse dos jovens e quais fatores influenciam a decisão de inscrição.
-
-## Conclusão
