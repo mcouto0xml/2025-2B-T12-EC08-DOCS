@@ -8617,173 +8617,6 @@ Todas as ocorrências devem ser registradas e revisadas pela equipe de seguranç
 </Cards>
 
 
-# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
-
-
-
-# Pipeline de Ingestão de Arquivos
-
-## Introdução
-
-O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
-
-A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
-
-***
-
-## Estrutura Geral do Pipeline
-
-<Callout type="info">
-  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
-</Callout>
-
-### 1. Extração dos textos
-
-```python
-from unstructured.partition.pdf import partition_pdf
-
-elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
-```
-
-* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
-
-* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
-
-***
-
-### 2. Sanitização dos textos
-
-```python
-def clean_text(text):
-    text = re.sub(r'\s+', ' ', text)
-    text = text.replace('\ufb01', 'fi')
-    ...
-```
-
-* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
-
-* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
-
-***
-
-### 3. Enriquecimento semântico
-
-```python
-def extract_enhanced_metadata(element):
-    return {
-        'element_id': ...,
-        'element_type': ...,
-        'page_number': ...,
-        'hierarchy_level': ...,
-        'section': ...,
-    }
-```
-
-* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
-
-* Isso ajuda a preservar a estrutura semântica do documento original.
-
-***
-
-### 4. Divisão em chunks com sobreposição
-
-```python
-RecursiveCharacterTextSplitter(
-  chunk_size=500,
-  chunk_overlap=100,
-)
-```
-
-* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
-
-* Mantém coesão semântica mesmo em respostas curtas.
-
-<Callout title="Importante">
-  {" "}
-
-  Essa segmentação garante que as perguntas do usuário encontrem respostas
-  dentro de um mesmo chunk.{" "}
-</Callout>
-
-***
-
-### 5. Geração de embeddings
-
-```python
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-embeddings = model.encode(texts, ...)
-```
-
-* Utiliza modelo pré-treinado da HuggingFace.
-
-* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
-
-* Embeddings são normalizados e possuem metadados do chunk.
-
-***
-
-### 6. Inserção no banco vetorial (ETAPA: Persistência)
-
-```python
-chunks_with_embeddings.append({
-  'id': 'chunk_x',
-  'content': ...,
-  'embedding': [...],
-  'metadata': {...}
-})
-```
-
-Cada embedding é armazenado com:
-
-* ID único
-
-* Conteúdo do chunk
-
-* Vetor (lista de floats)
-
-* Modelo utilizado
-
-* Dados estruturados (página, seção, tipo)
-
-***
-
-## Diagrama do Pipeline
-
-Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Pipeline de arquivos
-</p>
-
-<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## Conclusão
-
-A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
-
-É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
-
-<Callout title="Próximos Passos" type="info">
-  {" "}
-
-  Integração com o agente conversacional do robô e testes de consulta em
-  linguagem natural usando os embeddings gerados.{" "}
-</Callout>
-
-
-# Files Pipeline (/docs/sprint-2/pipeline-de-docs)
-
-<Cards>
-  <Card title="Files Pipeline" description="Documentação pipeline de documentos" href="/docs/content/docs/sprint-2/pipeline-de-docs/files-pipeline.mdx" />
-</Cards>
-
-
 # Modelagem Banco de Dados (/docs/sprint-2/modelagem-bd/modelagem-bd)
 
 Modelagem no dbdiagram: [link da modelagem](https://dbdiagram.io/d/BANCO-DE-DADOS-ROB-690bbdc36735e1117070e737)
@@ -9146,6 +8979,173 @@ A arquitetura centralizada, com tabelas compartilhadas e visões segmentadas, ga
 Além da operação diária dos aplicativos, o modelo suporta análises avançadas e relatórios dinâmicos para o dashboard administrativo, permitindo medir engajamento, eficiência operacional e qualidade da experiência dos visitantes.
 
 Em síntese, o banco de dados não apenas armazena informações, mas estrutura o ecossistema completo do **Tour Cão-Robô**, viabilizando a integração entre tecnologia, gestão e experiência interativa.
+
+
+# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
+
+
+
+# Pipeline de Ingestão de Arquivos
+
+## Introdução
+
+O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
+
+A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
+
+***
+
+## Estrutura Geral do Pipeline
+
+<Callout type="info">
+  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
+</Callout>
+
+### 1. Extração dos textos
+
+```python
+from unstructured.partition.pdf import partition_pdf
+
+elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
+```
+
+* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
+
+* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
+
+***
+
+### 2. Sanitização dos textos
+
+```python
+def clean_text(text):
+    text = re.sub(r'\s+', ' ', text)
+    text = text.replace('\ufb01', 'fi')
+    ...
+```
+
+* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
+
+* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
+
+***
+
+### 3. Enriquecimento semântico
+
+```python
+def extract_enhanced_metadata(element):
+    return {
+        'element_id': ...,
+        'element_type': ...,
+        'page_number': ...,
+        'hierarchy_level': ...,
+        'section': ...,
+    }
+```
+
+* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
+
+* Isso ajuda a preservar a estrutura semântica do documento original.
+
+***
+
+### 4. Divisão em chunks com sobreposição
+
+```python
+RecursiveCharacterTextSplitter(
+  chunk_size=500,
+  chunk_overlap=100,
+)
+```
+
+* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
+
+* Mantém coesão semântica mesmo em respostas curtas.
+
+<Callout title="Importante">
+  {" "}
+
+  Essa segmentação garante que as perguntas do usuário encontrem respostas
+  dentro de um mesmo chunk.{" "}
+</Callout>
+
+***
+
+### 5. Geração de embeddings
+
+```python
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+embeddings = model.encode(texts, ...)
+```
+
+* Utiliza modelo pré-treinado da HuggingFace.
+
+* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
+
+* Embeddings são normalizados e possuem metadados do chunk.
+
+***
+
+### 6. Inserção no banco vetorial (ETAPA: Persistência)
+
+```python
+chunks_with_embeddings.append({
+  'id': 'chunk_x',
+  'content': ...,
+  'embedding': [...],
+  'metadata': {...}
+})
+```
+
+Cada embedding é armazenado com:
+
+* ID único
+
+* Conteúdo do chunk
+
+* Vetor (lista de floats)
+
+* Modelo utilizado
+
+* Dados estruturados (página, seção, tipo)
+
+***
+
+## Diagrama do Pipeline
+
+Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Pipeline de arquivos
+</p>
+
+<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Conclusão
+
+A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
+
+É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
+
+<Callout title="Próximos Passos" type="info">
+  {" "}
+
+  Integração com o agente conversacional do robô e testes de consulta em
+  linguagem natural usando os embeddings gerados.{" "}
+</Callout>
+
+
+# Files Pipeline (/docs/sprint-2/pipeline-de-docs)
+
+<Cards>
+  <Card title="Files Pipeline" description="Documentação pipeline de documentos" href="/docs/content/docs/sprint-2/pipeline-de-docs/files-pipeline.mdx" />
+</Cards>
 
 
 # Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-2/prototipo-alta)
@@ -10416,211 +10416,6 @@ Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o
 </Steps>
 
 
-# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
-
-
-
-## 1. Introdução
-
-  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
-
-***
-
-## 2. Arquitetura do Projeto
-
-  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
-
-  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
-
-### 2.1 Estrutura de Pastas
-
-A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
-
-```txt
-
-.
-├── android/
-│
-├── app
-│   ├── _layout.tsx
-│   └── (tabs)/
-│
-├── assets
-│   └── images
-│       └── icons/
-│
-├── components
-│   └── ui/
-│
-├── constants/
-│
-├── hooks/
-│
-├── scripts/
-│
-└── README.md
-
-```
-
-* **`/app`** - Gerenciamento das páginas
-
-* **`/assets`** Ícones, imagens e o logotipo do Inteli
-
-* **`/components`** - Componentes reutilizáveis
-
-* **`/constants`** - Temas de cores e variáveis globais
-
-* **`/hooks`** - Hooks auxiliares como detecção de tema
-
-* **`/scripts`** - Scripts internos do projeto
-
-* **`README`** - Instruções para rodar o projeto
-
-*Pastas Android geradas automaticamente pelo Expo*
-
-  Para a realização deste projeto a estrutura de pastas utilizada permite:
-
-* Melhor organização entre rotas, componentes e estilos
-
-* Facilidade para extensões futuras
-
-* Modularização dos componentes usados nas telas
-
-* Padrão de Componentes Reutilizáveis
-
-### 2.2 Componentes
-
-  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
-
-* **CardTour** - Cartão de exibição de tours na lista da home
-
-* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
-
-* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
-
-* **Navbar e Header** - Estruturas permanentes no HUD
-
-***
-
-## 3. Fluxo de Navegação
-
-### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
-
-<Callout type="info">
-  **Fluxo Geral**
-
-  1. Login
-
-  2. Lista de Tours (HUD ativo)
-
-  3. Seleção de um tour
-
-  4. Edição do Tour
-
-  5. Pop-up Informações Gerais do Tour
-
-  6. Pop-up Código do Tour
-
-  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
-
-  8. Tela de Emergência
-
-  9. Menu acessível pelo HUD em qualquer etapa permitida
-
-  **O HUD inclui:**
-
-  * Barra inferior com navegação (Tours / Mapa / Menu)
-
-  * Botão de emergência destacado em telas críticas
-
-  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
-</Callout>
-
-***
-
-## 4. Como Rodar o Projeto e Dependências
-
-  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
-O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
-
-### 4.1. Requisitos
-
-<Callout type="info">
-  ***
-
-  Node.js (*Node 18 LTS ou Node 20 LTS*)
-
-  Baixar em: [https://nodejs.org/](https://nodejs.org/)
-
-  ***
-
-  Expo CLI (Será necessário intalar globalmente para que funcione)
-
-  `npm install -g expo-cli`
-
-  ***
-
-  Android Studio (para usar emulador Android)
-
-  É possível usar tanto a versão CLI quanto o APK:
-  [https://developer.android.com/studio](https://developer.android.com/studio)
-
-  ***
-
-  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
-</Callout>
-
-<Callout type="warn">
-  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
-</Callout>
-
-### 4.2. Instalando Dependências e Executando o Projeto
-
-Na raiz do projeto:
-
-```bash
-npm install
-```
-
-Isso instala todas as dependências declaradas em `package.json.`
-
-Ainda no terminal:
-
-```bash
-npx expo start
-
-```
-
-Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
-
-As informações que aparecerem no seu terminal devem ser semelhantes a esta:
-
-<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
-
-Entre as opções você pode escolher:
-
-* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
-* Abrir a aplicação no seu navegador web
-* Abrir a aplicação no android studio
-
-Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
-
-```bash
-npx expo run:android
-```
-
-## 5. Conclusão
-
-Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
-
-
-# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
-
-<Cards>
-  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
-</Cards>
-
-
 # Banco de Dados 2.0 (/docs/sprint-3/bd-v2/bd-v2)
 
 # **Banco de dados - Versão 2.0**
@@ -11205,6 +11000,480 @@ Para mais detalhes sobre a arquitetura e o contexto do projeto, consulte:
 </Cards>
 
 
+# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
+
+
+
+## 1. Introdução
+
+  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
+
+  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
+
+```txt
+
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+
+```
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+*Pastas Android geradas automaticamente pelo Expo*
+
+  Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+* Melhor organização entre rotas, componentes e estilos
+
+* Facilidade para extensões futuras
+
+* Modularização dos componentes usados nas telas
+
+* Padrão de Componentes Reutilizáveis
+
+### 2.2 Componentes
+
+  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+* **CardTour** - Cartão de exibição de tours na lista da home
+
+* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+* **Navbar e Header** - Estruturas permanentes no HUD
+
+***
+
+## 3. Fluxo de Navegação
+
+### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
+
+<Callout type="info">
+  **Fluxo Geral**
+
+  1. Login
+
+  2. Lista de Tours (HUD ativo)
+
+  3. Seleção de um tour
+
+  4. Edição do Tour
+
+  5. Pop-up Informações Gerais do Tour
+
+  6. Pop-up Código do Tour
+
+  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+  8. Tela de Emergência
+
+  9. Menu acessível pelo HUD em qualquer etapa permitida
+
+  **O HUD inclui:**
+
+  * Barra inferior com navegação (Tours / Mapa / Menu)
+
+  * Botão de emergência destacado em telas críticas
+
+  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+</Callout>
+
+***
+
+## 4. Como Rodar o Projeto e Dependências
+
+  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
+O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+
+### 4.1. Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 4.2. Instalando Dependências e Executando o Projeto
+
+Na raiz do projeto:
+
+```bash
+npm install
+```
+
+Isso instala todas as dependências declaradas em `package.json.`
+
+Ainda no terminal:
+
+```bash
+npx expo start
+
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+
+```bash
+npx expo run:android
+```
+
+## 5. Conclusão
+
+Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
+
+
+# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
+
+<Cards>
+  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
+</Cards>
+
+
+# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
+
+# Sprint 3 – Automação de Movimentação e Integração Dinâmica
+
+## Objetivos Principais
+
+* Implementar execução automatizada de movimentos via JSON.
+* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
+* Permitir movimentação completa por **checkpoints** com áudio associado.
+* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
+* Iniciar integração com backend e percepção de obstáculos.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Implementação da fila de requisições
+
+Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
+O formato padronizado para os checkpoints segue o modelo abaixo:
+
+```json title="Exemplo de arquivo JSON de checkpoints"
+{
+  "checkpoint1": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
+    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
+  ],
+  "checkpoint2": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
+    ...
+  ]
+}
+```
+
+Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
+Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
+
+***
+
+## Execução e Testes
+
+Para executar o sistema de movimentação automatizada:
+
+1. **Inicie o ambiente virtual:**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Execute o script principal de movimentação:**
+
+   ```bash
+   python3 testes/move_path.py
+   ```
+
+   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
+
+3. **Para iniciar um checkpoint manualmente (em outro terminal):**
+
+   ```bash
+   python3 external_trigger.py play
+   ```
+
+4. **Para interromper a execução a qualquer momento:**
+
+   ```bash
+   python3 external_trigger.py stop
+   ```
+
+   Ao parar, o robô entra automaticamente em **modo estático em pé**.
+
+***
+
+## Novas Funcionalidades
+
+* Leitura e execução automática de checkpoints via JSON.
+* Execução ordenada com fila de comandos.
+* Reprodução de áudio correspondente a cada checkpoint.
+* Interrupção imediata da execução via comando externo (`stop`).
+* Conexão e controle assíncrono com o robô via **WebRTC**.
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
+
+* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
+* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
+* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
+* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
+
+Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
+
+***
+
+## Próximos Passos
+
+* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
+* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
+* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
+* Revisar parâmetros de movimentação e segurança térmica das juntas.
+
+***
+
+## Aprendizados
+
+* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
+* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
+* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
+* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Conclusão
+
+Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
+Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
+
+
+# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
+
+<Cards>
+  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
+
+  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
+</Cards>
+
+
+# Simulação (/docs/sprint-3/robo/simulacao-robo)
+
+
+
+# Sprint 3 – Simulação do Robô com ROS2
+
+## Objetivos Principais
+
+* Configurar o ambiente ROS e entender seu funcionamento;
+* Simular o robô Unitree Go2 no Gazebo;
+* Continuar testes no ambiente Unity (Autonomous Stack GO2);
+* Entender como funciona os tópicos do LiDAR do GO2;
+* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Gazebo
+
+  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
+
+### Unity
+
+  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
+
+* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
+* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
+
+### Docker
+
+  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
+
+* Estudo da viabilidade do uso do Docker;
+* Estudo da implementação do Docker com simuladores;
+* Estudo da implementação do Docker com ROS2;
+* Tentativa de implementação do simulador Unity em um container Docker.
+
+### Visualização de dados de sensores do robô
+
+  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Visualização da Point Cloud real no RViz
+</p>
+
+<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Produzida pelos autores (2025).
+</p>
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+### Gazebo
+
+* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
+
+### Unity
+
+* Problemas de importação de modelos de espaço para o simulador;
+* Dificuldade de comunicação do ROS com o sistema;
+* Dificuldade de achar utilidade nas informações transferidas
+* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
+
+### Docker
+
+* Falta de exemplos que utilizassem todas as tecnologias juntas;
+* Uso excessivo de memória RAM ao *buildar* os simuladores;
+* Necessidade do Ubuntu 22.04 (especificamente).
+
+***
+
+## Próximos Passos
+
+* Começar testes de ROS no robô físico;
+* Começar testes de LiDAR no robô físico;
+* Começar a integração dos repositórios encontrados com o robô físico;
+* Colocar em containers os simuladores escolhidos com implementação ROS.
+
+***
+
+## Aprendizados
+
+### Gazebo
+
+* Comunicação código e robô via ROS2;
+* Como funciona a nuvem de pontos do LiDAR;
+* Diversos modelos de navegação autônoma e controle manual para o Go2.
+
+### Unity
+
+* Entendi da comunicação do ROS2;
+* Funcionamento do LiDAR;
+
+### Docker
+
+* Formas de rodar ROS em um container;
+* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
+* Formas de reduzir o uso da memória RAM ao rodar simuladores.
+
+***
+
+## Links Relevantes
+
+### Gazebo
+
+* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
+* [NAV2](https://docs.nav2.org/)
+* [RViz](https://wiki.ros.org/rviz)
+
+### Unity
+
+* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+### Docker
+
+* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
+* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
+* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
+* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+***
+
+## Conclusão
+
+Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
+Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
+
+
 # Protótipo de Alta Fidelidade do Dashboard Staff (/docs/sprint-3/prototipo-alta)
 
 <Cards>
@@ -11521,692 +11790,6 @@ F -->|HTTP| BUCKET
     <File name="meta.json" />
   </Folder>
 </Files>
-
-
-# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
-
-# Sprint 3 – Automação de Movimentação e Integração Dinâmica
-
-## Objetivos Principais
-
-* Implementar execução automatizada de movimentos via JSON.
-* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
-* Permitir movimentação completa por **checkpoints** com áudio associado.
-* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
-* Iniciar integração com backend e percepção de obstáculos.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Implementação da fila de requisições
-
-Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
-O formato padronizado para os checkpoints segue o modelo abaixo:
-
-```json title="Exemplo de arquivo JSON de checkpoints"
-{
-  "checkpoint1": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
-    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
-  ],
-  "checkpoint2": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
-    ...
-  ]
-}
-```
-
-Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
-Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
-
-***
-
-## Execução e Testes
-
-Para executar o sistema de movimentação automatizada:
-
-1. **Inicie o ambiente virtual:**
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-2. **Execute o script principal de movimentação:**
-
-   ```bash
-   python3 testes/move_path.py
-   ```
-
-   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
-
-3. **Para iniciar um checkpoint manualmente (em outro terminal):**
-
-   ```bash
-   python3 external_trigger.py play
-   ```
-
-4. **Para interromper a execução a qualquer momento:**
-
-   ```bash
-   python3 external_trigger.py stop
-   ```
-
-   Ao parar, o robô entra automaticamente em **modo estático em pé**.
-
-***
-
-## Novas Funcionalidades
-
-* Leitura e execução automática de checkpoints via JSON.
-* Execução ordenada com fila de comandos.
-* Reprodução de áudio correspondente a cada checkpoint.
-* Interrupção imediata da execução via comando externo (`stop`).
-* Conexão e controle assíncrono com o robô via **WebRTC**.
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
-
-* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
-* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
-* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
-* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
-
-Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
-
-***
-
-## Próximos Passos
-
-* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
-* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
-* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
-* Revisar parâmetros de movimentação e segurança térmica das juntas.
-
-***
-
-## Aprendizados
-
-* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
-* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
-* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
-* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
-
-***
-
-## Links Relevantes
-
-* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
-
-***
-
-## Conclusão
-
-Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
-Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
-
-
-# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
-
-<Cards>
-  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
-
-  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
-</Cards>
-
-
-# Simulação (/docs/sprint-3/robo/simulacao-robo)
-
-
-
-# Sprint 3 – Simulação do Robô com ROS2
-
-## Objetivos Principais
-
-* Configurar o ambiente ROS e entender seu funcionamento;
-* Simular o robô Unitree Go2 no Gazebo;
-* Continuar testes no ambiente Unity (Autonomous Stack GO2);
-* Entender como funciona os tópicos do LiDAR do GO2;
-* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Gazebo
-
-  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
-
-### Unity
-
-  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
-
-* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
-* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
-
-### Docker
-
-  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
-
-* Estudo da viabilidade do uso do Docker;
-* Estudo da implementação do Docker com simuladores;
-* Estudo da implementação do Docker com ROS2;
-* Tentativa de implementação do simulador Unity em um container Docker.
-
-### Visualização de dados de sensores do robô
-
-  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Visualização da Point Cloud real no RViz
-</p>
-
-<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Produzida pelos autores (2025).
-</p>
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-### Gazebo
-
-* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
-
-### Unity
-
-* Problemas de importação de modelos de espaço para o simulador;
-* Dificuldade de comunicação do ROS com o sistema;
-* Dificuldade de achar utilidade nas informações transferidas
-* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
-
-### Docker
-
-* Falta de exemplos que utilizassem todas as tecnologias juntas;
-* Uso excessivo de memória RAM ao *buildar* os simuladores;
-* Necessidade do Ubuntu 22.04 (especificamente).
-
-***
-
-## Próximos Passos
-
-* Começar testes de ROS no robô físico;
-* Começar testes de LiDAR no robô físico;
-* Começar a integração dos repositórios encontrados com o robô físico;
-* Colocar em containers os simuladores escolhidos com implementação ROS.
-
-***
-
-## Aprendizados
-
-### Gazebo
-
-* Comunicação código e robô via ROS2;
-* Como funciona a nuvem de pontos do LiDAR;
-* Diversos modelos de navegação autônoma e controle manual para o Go2.
-
-### Unity
-
-* Entendi da comunicação do ROS2;
-* Funcionamento do LiDAR;
-
-### Docker
-
-* Formas de rodar ROS em um container;
-* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
-* Formas de reduzir o uso da memória RAM ao rodar simuladores.
-
-***
-
-## Links Relevantes
-
-### Gazebo
-
-* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
-* [NAV2](https://docs.nav2.org/)
-* [RViz](https://wiki.ros.org/rviz)
-
-### Unity
-
-* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-### Docker
-
-* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
-* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
-* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
-* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-***
-
-## Conclusão
-
-Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
-Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
-
-
-# S-SDLC — Secure Software Development Life Cycle (/docs/sprint-3/secure-software)
-
-<Cards>
-  <Card title="Secure Software Development Life Cycle" description="Definição do plano de ação de segurança." href="/docs/sprint-3/secure-software/s-sdlc" />
-</Cards>
-
-
-# Secure Software Development Life Cycle (/docs/sprint-3/secure-software/s-sdlc)
-
-# **S-SDLC — Secure Software Development Life Cycle**
-
-## Projeto: Sistema de Tour Autônomo com Robô Unitree Go2
-
-***
-
-## **1. Introdução**
-
-Este documento apresenta o **S-SDLC (Secure Software Development Life Cycle)** adotado no desenvolvimento do sistema de tour autônomo do robô Unitree Go2 para o campus do Inteli. O S-SDLC estabelece práticas de segurança integradas a cada fase do ciclo de vida do software, garantindo que todos os componentes — **DevOps/UX, Backend, Modelos de IA, Robô e Segurança** — sigam princípios de proteção, confiabilidade e conformidade com normas como **ISO/IEC 25010:2011**, **OWASP Application & API Security Top 10**, recomendações de **safe AI**, além de boas práticas de **segurança operacional (safety)**.
-
-O objetivo é assegurar que o sistema seja **seguro por design**, com monitoramento contínuo, controle de riscos e mitigação preventiva de falhas, garantindo uma operação estável e livre de incidentes.
-
-***
-
-## **2. Escopo do S-SDLC**
-
-O S-SDLC cobre todo o ciclo de vida do projeto, incluindo:
-
-* Planejamento e Levantamento de Requisitos
-* Análise de Riscos
-* Arquitetura e Design Seguro
-* Implementação
-* Testes de Segurança
-* Deploy Seguro
-* Operação, Monitoramento e Resposta a Incidentes
-* Auditoria e Melhoria Contínua
-
-Cada fase incorpora controles de segurança específicos e mapeados aos requisitos funcionais (RF) e não funcionais (RNF) definidos no documento principal.
-
-***
-
-# **3. Fases do S-SDLC**
-
-***
-
-## **3.1. Fase 1 — Planejamento e Levantamento de Requisitos**
-
-### **Objetivo:**
-
-Garantir que requisitos funcionais e não funcionais incluam segurança, privacidade, confiabilidade e safety.
-
-### **Controles Aplicados:**
-
-* Identificação formal de requisitos de segurança para:
-  * Botão de emergência (E-Stop)
-  * Autenticação forte (2FA)
-  * Rate limiting
-  * Criptografia de dados
-  * Logs auditáveis e confidenciais
-  * Comunicação segura com robô e LLM
-  * Políticas de redundância a falhas
-
-* Classificação dos requisitos de risco (alto, médio, baixo).
-
-* Definição de responsáveis por área:
-  * **DevOps/UX:** acesso, CI/CD e interface segura
-  * **Backend:** API segura, STOP prioritário
-  * **Modelo:** filtragem pelo Modelo A, controle ético
-  * **Robô:** safety físico e sensores
-  * **Segurança:** governança transversal
-
-***
-
-## **3.2. Fase 2 — Análise de Riscos**
-
-### **Objetivo:**
-
-Identificar e mitigar vulnerabilidades e riscos técnicos, éticos e operacionais.
-
-<table>
-  <thead>
-    <tr>
-      <th>
-        Categoria
-      </th>
-
-      <th>
-        Risco
-      </th>
-
-      <th>
-        Impacto
-      </th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <td>
-        Segurança
-      </td>
-
-      <td>
-        Acesso não autorizado aos endpoints do robô
-      </td>
-
-      <td>
-        Alto
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Safety
-      </td>
-
-      <td>
-        Falha no botão de emergência ou atraso no STOP
-      </td>
-
-      <td>
-        Crítico
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        IA
-      </td>
-
-      <td>
-        Geração de respostas inadequadas pelo Modelo B
-      </td>
-
-      <td>
-        Alto
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        DevOps
-      </td>
-
-      <td>
-        Vazamento de segredos no repositório
-      </td>
-
-      <td>
-        Alto
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Robô
-      </td>
-
-      <td>
-        Falha de sensores gerando colisões
-      </td>
-
-      <td>
-        Crítico
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Infra
-      </td>
-
-      <td>
-        Perda de comunicação com robô (timeout, WebRTC)
-      </td>
-
-      <td>
-        Crítico
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-### **Mitigações Aplicadas:**
-
-* Rate limiting (RF06-BE)
-* JWT obrigatório (RF05-BE)
-* Parada de emergência redundante (RF01-BE, RF02-BE)
-* Pipeline SAST/SCA (RF05-DO, RF11-DO)
-* Varredura de segredos (RF12-DO)
-* Detector/Respondente (Modelo A/B) para filtragem ética (RF01-MOD)
-* Auditoria completa de logs (RF07-BE, RF04-MOD)
-
-***
-
-## **3.3. Fase 3 — Arquitetura e Design Seguro**
-
-### **Objetivo:**
-
-Seguir a arquitetura segura e tolerante a falhas.
-
-### **Princípios Aplicados:**
-
-* **Defense in Depth** (múltiplas camadas de segurança)
-* **Least Privilege** para APIs, usuários e serviços
-* **Fail-Safe / Safe-Stop** para robô
-* **Zero Trust** para comunicação de rede
-* **AI Security by Design** para modelos A e B
-
-### **Pontos de Design por Área:**
-
-#### **DevOps/UX**
-
-* Interface com STOP sempre disponível (RF01-UX)
-* Feedback visual imediato
-* Acessibilidade e contrastes (RNF07-UX)
-
-#### **Backend**
-
-* APIs WebSocket e REST com:
-  * Autenticação JWT
-  * Rate limiting adaptativo (RNF04-BE)
-  * Logs de alta precisão (RF07-BE)
-
-* Canal redundante para STOP (RF02-BE)
-
-* Criticidade máxima para comandos de movimento
-
-#### **Modelo**
-
-* Dois LLMs isolados:
-  * Modelo A → Detector
-  * Modelo B → Respondente
-
-* Comunicação interna criptografada (RF03-MOD)
-
-* Auditoria de inferências (RF04-MOD)
-
-#### **Robô**
-
-* Sensores redundantes:
-  * LiDAR + câmera + proximidade (RF03-ROB)
-
-* Parada por risco (RF02-ROB)
-
-* Canal seguro via WebRTC
-
-***
-
-## **3.4. Fase 4 — Implementação com Segurança**
-
-### **Objetivo:**
-
-Garantir que todo o código siga padrões de segurança, práticas OWASP e não introduza vulnerabilidades.
-
-### **Controles Obrigatórios:**
-
-* Uso estrito de **GitFlow** (RF10-DO)
-
-* Revisões obrigatórias de PR por 2 pessoas
-
-* Commits com bloqueio automático de segredos (RF12-DO)
-
-* Pipelines:
-  * **SAST** antes de merge (RF11-DO)
-  * **SCA** antes de deploy (RF05-DO)
-
-* Criptografia de banco de dados (RNF08-DO)
-
-* Sanitização de inputs nas APIs
-
-* Controle de payload crítico (especialmente comandos do robô)
-
-***
-
-## **3.5. Fase 5 — Testes de Segurança**
-
-### **Objetivo:**
-
-Garantir que o sistema não possua vulnerabilidades e opere com segurança em cenários reais.
-
-### **Tipos de Testes:**
-
-* **Testes funcionais** dos requisitos RF
-
-* **Testes de performance** (latência, throughput, RAG, STT, TTS)
-
-* **Pentest interno**
-
-* **Fuzzing** em endpoints críticos
-
-* **Testes de carga** no fluxo de STOP
-
-* **Testes de resiliência**:
-  * queda de conexão
-  * atraso no WebRTC
-  * falha de sensores
-
-* **Testes de ética e conformidade** do Modelo B (RF05-MOD)
-
-* **Testes de operador e acessibilidade** (RNF07-UX)
-
-### **Critérios de Sucesso:**
-
-* STOP ≤ 1s (Frontend + Backend + Robô)
-* LLM ≤ 1,5s (Modelo)
-* Perda de pacotes ≤ 1%
-* Zero vulnerabilidades críticas no SAST/SCA
-* 100% de logs críticos registrados
-
-***
-
-## **3.6. Fase 6 — Deploy Seguro**
-
-### **Objetivo:**
-
-Garantir que a entrada em produção siga padrões de segurança.
-
-### **Controles:**
-
-* CI/CD obrigatório com gates de segurança (RF13-DO)
-
-* Deploy apenas após:
-  * build validado
-  * testes de segurança aprovados
-  * autorização de segurança
-
-* Rollback automático (critério de aceite)
-
-* Versionamento sem acesso direto à produção
-
-***
-
-## **3.7. Fase 7 — Operação, Monitoramento e Resposta a Incidentes**
-
-### **Objetivo:**
-
-Manter operação segura, estável e auditável durante tours e interações com visitantes.
-
-### **Monitoramentos Ativos:**
-
-* Disponibilidade (uptime ≥ 99,9%)
-* Latência dos modelos e APIs
-* Falhas e anomalias no robô
-* Tentativas de intrusão
-* Logs de auditoria → 90 dias de retenção (RNF06-BE e RNF06-MOD)
-
-### **Procedimentos de Incidente:**
-
-* Parada imediata do robô se:
-  * canal cair
-  * backend detectar inconsistência
-  * Modelo A identificar risco crítico
-
-* Notificação automática à equipe
-
-* Registro completo do incidente
-
-* Investigação e atualização do modelo ou pipeline
-
-***
-
-## **3.8. Fase 8 — Auditoria e Melhoria Contínua**
-
-### **Objetivo:**
-
-Garantir evolução do sistema, corrigindo vulnerabilidades e ajustando políticas.
-
-### **Atividades:**
-
-* Auditoria trimestral OWASP/segurança
-* Auditoria mensal do Modelo B (RF06-MOD)
-* Revisão semestral da política de segurança
-* Revalidação dos requisitos conforme evolução do projeto
-* Treinamento contínuo das equipes
-
-***
-
-# **4. Rastreabilidade entre Requisitos e o S-SDLC**
-
-Cada fase do S-SDLC cobre explicitamente os requisitos do projeto:
-
-* **STOP**: RF01-UX, RF01-BE, RF02-BE, RF02-ROB
-* **Autenticação/Autorização**: RNF06-UX, RF05-BE
-* **CI/CD Seguro**: RF05-DO, RF11-DO, RF12-DO, RF13-DO
-* **Safety do Robô**: RF01-ROB, RF02-ROB, RF03-ROB
-* **IA Segura**: RF01-MOD a RF07-MOD + RNF02-MOD
-* **Logs/Auditoria**: RF06-DO, RF07-BE, RF04-MOD, RNF06-MOD
-* **RAG e dados**: RNF01-MOD
-* **Performance**: RNF01-BE, RNF02-BE, RNF02-MOD
-
-***
-
-# **5. Conclusão**
-
-O S-SDLC apresentado estabelece uma estrutura completa, robusta e profissional para assegurar que o sistema de tour autônomo com o robô Unitree Go2 opere com:
-
-* **Segurança de software e física (safety)**
-* **Confiabilidade operacional**
-* **Integridade de dados e decisões**
-* **IA controlada, ética e verificável**
-* **Redundância aplicada aos sistemas críticos**
-
-***
-
-# **Bibliografia**
-
-**OWASP Foundation.** *OWASP Application Security Verification Standard (ASVS).* Disponível em: [https://owasp.org/ASVS/](https://owasp.org/ASVS/). Acesso em: 17 nov. 2025.
-
-**OWASP Foundation.** *OWASP API Security Top 10.* Disponível em: [https://owasp.org/API-Security/](https://owasp.org/API-Security/). Acesso em: 17 nov. 2025.
-
-**OWASP Foundation.** *OWASP Machine Learning Security Top 10.* Disponível em: [https://owasp.org/www-project-machine-learning-security-top-10/](https://owasp.org/www-project-machine-learning-security-top-10/). Acesso em: 18 nov. 2025.
-
-**ISO/IEC 27001.** *Information Security Management Systems.* Resumo técnico disponível em: [https://www.iso.org/isoiec-27001-information-security.html](https://www.iso.org/isoiec-27001-information-security.html). Acesso em: 18 nov. 2025.
-
-**SETIC-UFSC.** *Guia de Privacidade e Proteção de Dados - LGPD.* Disponível em: [https://lgpd.ufsc.br/duvidas-frequentes/](https://lgpd.ufsc.br/duvidas-frequentes/). Acesso em: 18 nov. 2025.
 
 
 # Arquitetura Multi-Agentes (/docs/sprint-3/sistema-multi-agentes/01-arquitetura-multi-agentes)
@@ -13836,6 +13419,423 @@ Este módulo contém toda a documentação técnica do sistema multi-agentes des
 ## Estrutura do Sistema
 
 O sistema utiliza uma arquitetura modular com múltiplos agentes especializados que trabalham em conjunto para fornecer uma experiência de tour interativa e segura.
+
+
+# S-SDLC — Secure Software Development Life Cycle (/docs/sprint-3/secure-software)
+
+<Cards>
+  <Card title="Secure Software Development Life Cycle" description="Definição do plano de ação de segurança." href="/docs/sprint-3/secure-software/s-sdlc" />
+</Cards>
+
+
+# Secure Software Development Life Cycle (/docs/sprint-3/secure-software/s-sdlc)
+
+# **S-SDLC — Secure Software Development Life Cycle**
+
+## Projeto: Sistema de Tour Autônomo com Robô Unitree Go2
+
+***
+
+## **1. Introdução**
+
+Este documento apresenta o **S-SDLC (Secure Software Development Life Cycle)** adotado no desenvolvimento do sistema de tour autônomo do robô Unitree Go2 para o campus do Inteli. O S-SDLC estabelece práticas de segurança integradas a cada fase do ciclo de vida do software, garantindo que todos os componentes — **DevOps/UX, Backend, Modelos de IA, Robô e Segurança** — sigam princípios de proteção, confiabilidade e conformidade com normas como **ISO/IEC 25010:2011**, **OWASP Application & API Security Top 10**, recomendações de **safe AI**, além de boas práticas de **segurança operacional (safety)**.
+
+O objetivo é assegurar que o sistema seja **seguro por design**, com monitoramento contínuo, controle de riscos e mitigação preventiva de falhas, garantindo uma operação estável e livre de incidentes.
+
+***
+
+## **2. Escopo do S-SDLC**
+
+O S-SDLC cobre todo o ciclo de vida do projeto, incluindo:
+
+* Planejamento e Levantamento de Requisitos
+* Análise de Riscos
+* Arquitetura e Design Seguro
+* Implementação
+* Testes de Segurança
+* Deploy Seguro
+* Operação, Monitoramento e Resposta a Incidentes
+* Auditoria e Melhoria Contínua
+
+Cada fase incorpora controles de segurança específicos e mapeados aos requisitos funcionais (RF) e não funcionais (RNF) definidos no documento principal.
+
+***
+
+# **3. Fases do S-SDLC**
+
+***
+
+## **3.1. Fase 1 — Planejamento e Levantamento de Requisitos**
+
+### **Objetivo:**
+
+Garantir que requisitos funcionais e não funcionais incluam segurança, privacidade, confiabilidade e safety.
+
+### **Controles Aplicados:**
+
+* Identificação formal de requisitos de segurança para:
+  * Botão de emergência (E-Stop)
+  * Autenticação forte (2FA)
+  * Rate limiting
+  * Criptografia de dados
+  * Logs auditáveis e confidenciais
+  * Comunicação segura com robô e LLM
+  * Políticas de redundância a falhas
+
+* Classificação dos requisitos de risco (alto, médio, baixo).
+
+* Definição de responsáveis por área:
+  * **DevOps/UX:** acesso, CI/CD e interface segura
+  * **Backend:** API segura, STOP prioritário
+  * **Modelo:** filtragem pelo Modelo A, controle ético
+  * **Robô:** safety físico e sensores
+  * **Segurança:** governança transversal
+
+***
+
+## **3.2. Fase 2 — Análise de Riscos**
+
+### **Objetivo:**
+
+Identificar e mitigar vulnerabilidades e riscos técnicos, éticos e operacionais.
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Categoria
+      </th>
+
+      <th>
+        Risco
+      </th>
+
+      <th>
+        Impacto
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Segurança
+      </td>
+
+      <td>
+        Acesso não autorizado aos endpoints do robô
+      </td>
+
+      <td>
+        Alto
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Safety
+      </td>
+
+      <td>
+        Falha no botão de emergência ou atraso no STOP
+      </td>
+
+      <td>
+        Crítico
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        IA
+      </td>
+
+      <td>
+        Geração de respostas inadequadas pelo Modelo B
+      </td>
+
+      <td>
+        Alto
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        DevOps
+      </td>
+
+      <td>
+        Vazamento de segredos no repositório
+      </td>
+
+      <td>
+        Alto
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Robô
+      </td>
+
+      <td>
+        Falha de sensores gerando colisões
+      </td>
+
+      <td>
+        Crítico
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Infra
+      </td>
+
+      <td>
+        Perda de comunicação com robô (timeout, WebRTC)
+      </td>
+
+      <td>
+        Crítico
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### **Mitigações Aplicadas:**
+
+* Rate limiting (RF06-BE)
+* JWT obrigatório (RF05-BE)
+* Parada de emergência redundante (RF01-BE, RF02-BE)
+* Pipeline SAST/SCA (RF05-DO, RF11-DO)
+* Varredura de segredos (RF12-DO)
+* Detector/Respondente (Modelo A/B) para filtragem ética (RF01-MOD)
+* Auditoria completa de logs (RF07-BE, RF04-MOD)
+
+***
+
+## **3.3. Fase 3 — Arquitetura e Design Seguro**
+
+### **Objetivo:**
+
+Seguir a arquitetura segura e tolerante a falhas.
+
+### **Princípios Aplicados:**
+
+* **Defense in Depth** (múltiplas camadas de segurança)
+* **Least Privilege** para APIs, usuários e serviços
+* **Fail-Safe / Safe-Stop** para robô
+* **Zero Trust** para comunicação de rede
+* **AI Security by Design** para modelos A e B
+
+### **Pontos de Design por Área:**
+
+#### **DevOps/UX**
+
+* Interface com STOP sempre disponível (RF01-UX)
+* Feedback visual imediato
+* Acessibilidade e contrastes (RNF07-UX)
+
+#### **Backend**
+
+* APIs WebSocket e REST com:
+  * Autenticação JWT
+  * Rate limiting adaptativo (RNF04-BE)
+  * Logs de alta precisão (RF07-BE)
+
+* Canal redundante para STOP (RF02-BE)
+
+* Criticidade máxima para comandos de movimento
+
+#### **Modelo**
+
+* Dois LLMs isolados:
+  * Modelo A → Detector
+  * Modelo B → Respondente
+
+* Comunicação interna criptografada (RF03-MOD)
+
+* Auditoria de inferências (RF04-MOD)
+
+#### **Robô**
+
+* Sensores redundantes:
+  * LiDAR + câmera + proximidade (RF03-ROB)
+
+* Parada por risco (RF02-ROB)
+
+* Canal seguro via WebRTC
+
+***
+
+## **3.4. Fase 4 — Implementação com Segurança**
+
+### **Objetivo:**
+
+Garantir que todo o código siga padrões de segurança, práticas OWASP e não introduza vulnerabilidades.
+
+### **Controles Obrigatórios:**
+
+* Uso estrito de **GitFlow** (RF10-DO)
+
+* Revisões obrigatórias de PR por 2 pessoas
+
+* Commits com bloqueio automático de segredos (RF12-DO)
+
+* Pipelines:
+  * **SAST** antes de merge (RF11-DO)
+  * **SCA** antes de deploy (RF05-DO)
+
+* Criptografia de banco de dados (RNF08-DO)
+
+* Sanitização de inputs nas APIs
+
+* Controle de payload crítico (especialmente comandos do robô)
+
+***
+
+## **3.5. Fase 5 — Testes de Segurança**
+
+### **Objetivo:**
+
+Garantir que o sistema não possua vulnerabilidades e opere com segurança em cenários reais.
+
+### **Tipos de Testes:**
+
+* **Testes funcionais** dos requisitos RF
+
+* **Testes de performance** (latência, throughput, RAG, STT, TTS)
+
+* **Pentest interno**
+
+* **Fuzzing** em endpoints críticos
+
+* **Testes de carga** no fluxo de STOP
+
+* **Testes de resiliência**:
+  * queda de conexão
+  * atraso no WebRTC
+  * falha de sensores
+
+* **Testes de ética e conformidade** do Modelo B (RF05-MOD)
+
+* **Testes de operador e acessibilidade** (RNF07-UX)
+
+### **Critérios de Sucesso:**
+
+* STOP ≤ 1s (Frontend + Backend + Robô)
+* LLM ≤ 1,5s (Modelo)
+* Perda de pacotes ≤ 1%
+* Zero vulnerabilidades críticas no SAST/SCA
+* 100% de logs críticos registrados
+
+***
+
+## **3.6. Fase 6 — Deploy Seguro**
+
+### **Objetivo:**
+
+Garantir que a entrada em produção siga padrões de segurança.
+
+### **Controles:**
+
+* CI/CD obrigatório com gates de segurança (RF13-DO)
+
+* Deploy apenas após:
+  * build validado
+  * testes de segurança aprovados
+  * autorização de segurança
+
+* Rollback automático (critério de aceite)
+
+* Versionamento sem acesso direto à produção
+
+***
+
+## **3.7. Fase 7 — Operação, Monitoramento e Resposta a Incidentes**
+
+### **Objetivo:**
+
+Manter operação segura, estável e auditável durante tours e interações com visitantes.
+
+### **Monitoramentos Ativos:**
+
+* Disponibilidade (uptime ≥ 99,9%)
+* Latência dos modelos e APIs
+* Falhas e anomalias no robô
+* Tentativas de intrusão
+* Logs de auditoria → 90 dias de retenção (RNF06-BE e RNF06-MOD)
+
+### **Procedimentos de Incidente:**
+
+* Parada imediata do robô se:
+  * canal cair
+  * backend detectar inconsistência
+  * Modelo A identificar risco crítico
+
+* Notificação automática à equipe
+
+* Registro completo do incidente
+
+* Investigação e atualização do modelo ou pipeline
+
+***
+
+## **3.8. Fase 8 — Auditoria e Melhoria Contínua**
+
+### **Objetivo:**
+
+Garantir evolução do sistema, corrigindo vulnerabilidades e ajustando políticas.
+
+### **Atividades:**
+
+* Auditoria trimestral OWASP/segurança
+* Auditoria mensal do Modelo B (RF06-MOD)
+* Revisão semestral da política de segurança
+* Revalidação dos requisitos conforme evolução do projeto
+* Treinamento contínuo das equipes
+
+***
+
+# **4. Rastreabilidade entre Requisitos e o S-SDLC**
+
+Cada fase do S-SDLC cobre explicitamente os requisitos do projeto:
+
+* **STOP**: RF01-UX, RF01-BE, RF02-BE, RF02-ROB
+* **Autenticação/Autorização**: RNF06-UX, RF05-BE
+* **CI/CD Seguro**: RF05-DO, RF11-DO, RF12-DO, RF13-DO
+* **Safety do Robô**: RF01-ROB, RF02-ROB, RF03-ROB
+* **IA Segura**: RF01-MOD a RF07-MOD + RNF02-MOD
+* **Logs/Auditoria**: RF06-DO, RF07-BE, RF04-MOD, RNF06-MOD
+* **RAG e dados**: RNF01-MOD
+* **Performance**: RNF01-BE, RNF02-BE, RNF02-MOD
+
+***
+
+# **5. Conclusão**
+
+O S-SDLC apresentado estabelece uma estrutura completa, robusta e profissional para assegurar que o sistema de tour autônomo com o robô Unitree Go2 opere com:
+
+* **Segurança de software e física (safety)**
+* **Confiabilidade operacional**
+* **Integridade de dados e decisões**
+* **IA controlada, ética e verificável**
+* **Redundância aplicada aos sistemas críticos**
+
+***
+
+# **Bibliografia**
+
+**OWASP Foundation.** *OWASP Application Security Verification Standard (ASVS).* Disponível em: [https://owasp.org/ASVS/](https://owasp.org/ASVS/). Acesso em: 17 nov. 2025.
+
+**OWASP Foundation.** *OWASP API Security Top 10.* Disponível em: [https://owasp.org/API-Security/](https://owasp.org/API-Security/). Acesso em: 17 nov. 2025.
+
+**OWASP Foundation.** *OWASP Machine Learning Security Top 10.* Disponível em: [https://owasp.org/www-project-machine-learning-security-top-10/](https://owasp.org/www-project-machine-learning-security-top-10/). Acesso em: 18 nov. 2025.
+
+**ISO/IEC 27001.** *Information Security Management Systems.* Resumo técnico disponível em: [https://www.iso.org/isoiec-27001-information-security.html](https://www.iso.org/isoiec-27001-information-security.html). Acesso em: 18 nov. 2025.
+
+**SETIC-UFSC.** *Guia de Privacidade e Proteção de Dados - LGPD.* Disponível em: [https://lgpd.ufsc.br/duvidas-frequentes/](https://lgpd.ufsc.br/duvidas-frequentes/). Acesso em: 18 nov. 2025.
 
 
 # Sistema de Comunicação por WebSockets (/docs/sprint-4/backend)
