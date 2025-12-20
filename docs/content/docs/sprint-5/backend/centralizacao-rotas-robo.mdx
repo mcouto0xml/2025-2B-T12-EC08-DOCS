@@ -15,6 +15,7 @@ Rotas HTTP centralizadas no backend que fazem proxy para as rotas do robô físi
 Obtém o status atual do robô.
 
 **Resposta:**
+
 ```json
 {
   "robot_connected": true,
@@ -24,6 +25,7 @@ Obtém o status atual do robô.
 ```
 
 **Como testar:**
+
 ```bash
 curl -X GET http://0.0.0.0:8081/v1/robo/status
 ```
@@ -35,6 +37,7 @@ curl -X GET http://0.0.0.0:8081/v1/robo/status
 Inicia o próximo passo do robô.
 
 **Resposta:**
+
 ```json
 {
   "success": true,
@@ -43,6 +46,7 @@ Inicia o próximo passo do robô.
 ```
 
 **Como testar:**
+
 ```bash
 curl -X POST http://0.0.0.0:8081/v1/robo/start_next
 ```
@@ -54,6 +58,7 @@ curl -X POST http://0.0.0.0:8081/v1/robo/start_next
 Cancela a execução atual do robô.
 
 **Resposta:**
+
 ```json
 {
   "success": true,
@@ -62,6 +67,7 @@ Cancela a execução atual do robô.
 ```
 
 **Como testar:**
+
 ```bash
 curl -X POST http://0.0.0.0:8081/v1/robo/cancel
 ```
@@ -73,6 +79,7 @@ curl -X POST http://0.0.0.0:8081/v1/robo/cancel
 Reseta o contador do robô.
 
 **Resposta:**
+
 ```json
 {
   "success": true,
@@ -81,6 +88,7 @@ Reseta o contador do robô.
 ```
 
 **Como testar:**
+
 ```bash
 curl -X POST http://0.0.0.0:8081/v1/robo/reset
 ```
@@ -92,6 +100,7 @@ curl -X POST http://0.0.0.0:8081/v1/robo/reset
 Adiciona um checkpoint ao robô.
 
 **Body (JSON):**
+
 ```json
 {
   "name": "checkpoint_1",
@@ -102,6 +111,7 @@ Adiciona um checkpoint ao robô.
 ```
 
 **Resposta:**
+
 ```json
 {
   "success": true,
@@ -110,6 +120,7 @@ Adiciona um checkpoint ao robô.
 ```
 
 **Como testar:**
+
 ```bash
 curl -X POST http://0.0.0.0:8081/v1/robo/add_checkpoint \
   -H "Content-Type: application/json" \
