@@ -31,27 +31,27 @@ Foi utilizada uma ferramenta de TTS capaz de gerar áudios com nuances de entona
 
 ### **3.3. Módulos de Áudio Pré-Gerados**
 
-A estratégia de segmentação do conteúdo resultou na pré-geração de módulos de áudio em formato MP3, armazenados no repositório do projeto (embedding-models/output\_audio/). Estes arquivos representam os trechos de fala que o robô utiliza durante o tour, sendo acionados via requisição (conforme detalhado na Seção 5).  
+A estratégia de segmentação do conteúdo resultou na pré-geração de módulos de áudio em formato MP3, armazenados no repositório do projeto (embedding-models/output_audio/). Estes arquivos representam os trechos de fala que o robô utiliza durante o tour, sendo acionados via requisição (conforme detalhado na Seção 5).  
 A lista de módulos de áudio pré-gerados inclui, mas não se limita a:
 
-| ID | Nome do Arquivo | Conteúdo Implícito |
-| :---- | :---- | :---- |
-| 01 | 01\_boas\_vindas.mp3 | Saudação inicial ao visitante. |
-| 02 | 02\_mit\_brasileiro.mp3 | Referência ao "MIT Brasileiro" (Inteli). |
-| 03 | 03\_intro\_historia.mp3 | Introdução à história do Inteli. |
-| 04 | 04\_historia\_importante.mp3 | Detalhe importante da história. |
-| 05 | 04\_intro\_historia.mp3 | (Possível variação ou repetição da introdução). |
-| 06 | 05\_piada\_auau.mp3 | Elemento de interação lúdica (piada). |
-| 07 | 06\_correcao\_seria.mp3 | Correção ou comentário sério. |
-| 08 | 07\_resposta\_empresario.mp3 | Resposta relacionada ao mundo empresarial. |
-| 09 | 08\_resolucao.mp3 | Conclusão ou resolução de um tópico. |
-| 10 | 09\_missao.mp3 | Apresentação da missão do Inteli. |
-| 11 | 10\_lista\_beneficios.mp3 | Enumeração de benefícios. |
-| 12 | 11\_doadores.mp3 | Menção aos doadores/patrocinadores. |
-| 13 | 12\_interacao\_bolsas.mp3 | Interação sobre o programa de bolsas. |
-| 14 | 13\_transicao.mp3 | Frase de transição entre tópicos. |
-| 15 | 14\_intro\_cursos.mp3 | Introdução aos cursos. |
-| 16 | 15\_intro\_cursos.mp3 | (Possível variação da introdução aos cursos). |
+| ID  | Nome do Arquivo            | Conteúdo Implícito                              |
+| :-- | :------------------------- | :---------------------------------------------- |
+| 01  | 01_boas_vindas.mp3         | Saudação inicial ao visitante.                  |
+| 02  | 02_mit_brasileiro.mp3      | Referência ao "MIT Brasileiro" (Inteli).        |
+| 03  | 03_intro_historia.mp3      | Introdução à história do Inteli.                |
+| 04  | 04_historia_importante.mp3 | Detalhe importante da história.                 |
+| 05  | 04_intro_historia.mp3      | (Possível variação ou repetição da introdução). |
+| 06  | 05_piada_auau.mp3          | Elemento de interação lúdica (piada).           |
+| 07  | 06_correcao_seria.mp3      | Correção ou comentário sério.                   |
+| 08  | 07_resposta_empresario.mp3 | Resposta relacionada ao mundo empresarial.      |
+| 09  | 08_resolucao.mp3           | Conclusão ou resolução de um tópico.            |
+| 10  | 09_missao.mp3              | Apresentação da missão do Inteli.               |
+| 11  | 10_lista_beneficios.mp3    | Enumeração de benefícios.                       |
+| 12  | 11_doadores.mp3            | Menção aos doadores/patrocinadores.             |
+| 13  | 12_interacao_bolsas.mp3    | Interação sobre o programa de bolsas.           |
+| 14  | 13_transicao.mp3           | Frase de transição entre tópicos.               |
+| 15  | 14_intro_cursos.mp3        | Introdução aos cursos.                          |
+| 16  | 15_intro_cursos.mp3        | (Possível variação da introdução aos cursos).   |
 
 ## **4\. Evolução da Arquitetura de Backend (Sprint 4\)**
 
@@ -71,7 +71,7 @@ A refatoração da arquitetura resolveu o problema de latência através das seg
 
 Os modelos de STT e TTS são agora carregados apenas uma vez na inicialização do servidor (main.py).  
 Python  
-stt \= STTService() stt.setup\_model() tts \= TTSService() tts.setup\_model() chat \= ChatService()  
+stt \= STTService() stt.setup_model() tts \= TTSService() tts.setup_model() chat \= ChatService()  
 Com isso, as chamadas subsequentes executam apenas a inferência, reduzindo significativamente o delay e preparando o backend para uso contínuo e escalável.
 
 #### **Reorganização em Classes (POO)**
@@ -82,20 +82,20 @@ Os serviços foram reorganizados em classes específicas (STTService, TTSService
 
 A comunicação com os serviços foi padronizada para utilizar o protocolo mais adequado à sua natureza:
 
-| Serviço | Protocolo | Natureza da Comunicação | Motivação |
-| :---- | :---- | :---- | :---- |
-| TTS (Text-to-Speech) | WebSocket | Contínua (Streaming) | Envio de chunks de áudio conforme gerados, permitindo resposta contínua e mais rápida. |
-| STT (Speech-to-Text) | WebSocket | Contínua (Streaming) | Recebimento e transcrição progressiva de segmentos de áudio, habilitando transcrição em tempo quase real. |
-| Chat (LLM) | HTTP | Pontual (Requisição/Resposta) | A comunicação com a LLM não exige streaming, sendo uma operação simples de requisição e resposta. |
+| Serviço              | Protocolo | Natureza da Comunicação       | Motivação                                                                                                 |
+| :------------------- | :-------- | :---------------------------- | :-------------------------------------------------------------------------------------------------------- |
+| TTS (Text-to-Speech) | WebSocket | Contínua (Streaming)          | Envio de chunks de áudio conforme gerados, permitindo resposta contínua e mais rápida.                    |
+| STT (Speech-to-Text) | WebSocket | Contínua (Streaming)          | Recebimento e transcrição progressiva de segmentos de áudio, habilitando transcrição em tempo quase real. |
+| Chat (LLM)           | HTTP      | Pontual (Requisição/Resposta) | A comunicação com a LLM não exige streaming, sendo uma operação simples de requisição e resposta.         |
 
 ## **5\. Integração e Controle do Robô de Serviço Autônomo (Pós-Refatoração)**
 
 Os áudios gerados pelo TTS são integrados ao sistema do Robô de Serviço Autônomo. O controle da reprodução dos áudios é realizado através de requisições específicas (comandos de API ou comandos internos do sistema) que permitem a sincronização precisa da fala com as ações do robô.
 
-| Funcionalidade | Mecanismo de Controle | Propósito no Tour |
-| :---- | :---- | :---- |
-| Iniciar Áudio | Requisição (API/Comando) | Começar a fala do robô em pontos específicos do tour. |
-| Parar Áudio | Requisição (API/Comando) | Interromper a fala em caso de interrupção ou mudança de contexto. |
+| Funcionalidade | Mecanismo de Controle    | Propósito no Tour                                                 |
+| :------------- | :----------------------- | :---------------------------------------------------------------- |
+| Iniciar Áudio  | Requisição (API/Comando) | Começar a fala do robô em pontos específicos do tour.             |
+| Parar Áudio    | Requisição (API/Comando) | Interromper a fala em caso de interrupção ou mudança de contexto. |
 
 \====================================================================
 
@@ -109,8 +109,8 @@ Este documento detalha a implementação do sistema de voz e roteirização do *
 
 O desenvolvimento dos scripts baseia-se em uma **Arquitetura de Mapa (Map Architecture)**, que correlaciona a localização física do robô com gatilhos de fala específicos.
 
-* **Segmentação Modular:** O roteiro é dividido em blocos temáticos (Boas-vindas, História, Bolsas, Cursos, Clubes e Metodologia) para facilitar a manutenção e a navegação não-linear.  
-* **Camada de Expressividade:** Diferente de um TTS comum, os scripts incorporam metadados de emoção e ritmo (ex: \[excited\], \[whispering\], \[short pause\]) para simular uma cadência de fala natural.
+- **Segmentação Modular:** O roteiro é dividido em blocos temáticos (Boas-vindas, História, Bolsas, Cursos, Clubes e Metodologia) para facilitar a manutenção e a navegação não-linear.
+- **Camada de Expressividade:** Diferente de um TTS comum, os scripts incorporam metadados de emoção e ritmo (ex: \[excited\], \[whispering\], \[short pause\]) para simular uma cadência de fala natural.
 
 ---
 
@@ -122,17 +122,17 @@ A solução de voz utiliza a API do **Google Cloud Text-to-Speech** com configur
 
 O sistema utiliza o modelo de alta fidelidade para a língua portuguesa:
 
-* **Voz:** Leda  
-* **Modelo:** gemini-2.5-pro-tts  
-* **Formato de Saída:** MP3 (AudioEncoding.MP3)
+- **Voz:** Leda
+- **Modelo:** gemini-2.5-pro-tts
+- **Formato de Saída:** MP3 (AudioEncoding.MP3)
 
 ### **3.2. Engenharia de Áudio e Controle de Prosódia**
 
 Para garantir o "encantamento" mencionado nos objetivos do projeto3, o código implementa controles dinâmicos de velocidade e entonação:
 
-* **Speaking Rate (Velocidade):** O serviço permite ajustar a taxa de fala globalmente ou por segmento. No Bloco de Bolsas, por exemplo, utiliza-se 1.25x para listas longas, enquanto na "Piada do Auau", utiliza-se 1.1x para dar ênfase cômica.  
-* **Normalização de Caminhos:** O sistema organiza automaticamente os arquivos gerados em um diretório padrão (output\_audio), garantindo que o robô acesse sempre a versão mais recente dos scripts.  
-* **Sistema de Cache:** Para otimizar custos e performance, o serviço verifica se o arquivo já existe antes de realizar uma nova chamada à API do Google.
+- **Speaking Rate (Velocidade):** O serviço permite ajustar a taxa de fala globalmente ou por segmento. No Bloco de Bolsas, por exemplo, utiliza-se 1.25x para listas longas, enquanto na "Piada do Auau", utiliza-se 1.1x para dar ênfase cômica.
+- **Normalização de Caminhos:** O sistema organiza automaticamente os arquivos gerados em um diretório padrão (output_audio), garantindo que o robô acesse sempre a versão mais recente dos scripts.
+- **Sistema de Cache:** Para otimizar custos e performance, o serviço verifica se o arquivo já existe antes de realizar uma nova chamada à API do Google.
 
 ---
 
@@ -140,14 +140,14 @@ Para garantir o "encantamento" mencionado nos objetivos do projeto3, o código i
 
 Abaixo, a tabela detalhada dos módulos de áudio que compõem a experiência do tour, baseada na implementação final da Sprint 4:
 
-| ID | Tópico | Emoção Dominante | Descrição do Conteúdo |
-| :---- | :---- | :---- | :---- |
-| **01-02** | Boas-Vindas | Excited / Warm | Saudação inicial e menção ao "MIT Brasileiro". |
-| **03-08** | História | Storytelling / Joking | Fundação em 2019, diálogo entre Roberto Sallouti e investidores. |
-| **09-13** | Bolsas | Passionate / Grateful | Detalhes sobre auxílio-moradia, alimentação e notebook. |
-| **14-18** | Cursos | Professional / High Energy | Descrição dos 5 cursos (CC, ES, SI, ADM Tech e EC). |
-| **19-23** | Clubes | Energetic / Fast-paced | Menção à Tantera, Inteli Júnior e coletivos de diversidade. |
-| **24-35** | PBL e Rotina | Educational / Proud | Explicação sobre a ausência de matérias tradicionais e o momento DEV. |
+| ID        | Tópico       | Emoção Dominante           | Descrição do Conteúdo                                                 |
+| :-------- | :----------- | :------------------------- | :-------------------------------------------------------------------- |
+| **01-02** | Boas-Vindas  | Excited / Warm             | Saudação inicial e menção ao "MIT Brasileiro".                        |
+| **03-08** | História     | Storytelling / Joking      | Fundação em 2019, diálogo entre Roberto Sallouti e investidores.      |
+| **09-13** | Bolsas       | Passionate / Grateful      | Detalhes sobre auxílio-moradia, alimentação e notebook.               |
+| **14-18** | Cursos       | Professional / High Energy | Descrição dos 5 cursos (CC, ES, SI, ADM Tech e EC).                   |
+| **19-23** | Clubes       | Energetic / Fast-paced     | Menção à Tantera, Inteli Júnior e coletivos de diversidade.           |
+| **24-35** | PBL e Rotina | Educational / Proud        | Explicação sobre a ausência de matérias tradicionais e o momento DEV. |
 
 ---
 
@@ -159,15 +159,15 @@ Para eliminar o gargalo de latência identificado (carregamento repetido de mode
 
 A classe TTSService encapsula toda a lógica de negócio:
 
-* **setup\_output\_directory()**: Gerencia o sistema de arquivos.  
-* **synthesize\_speech()**: Centraliza a lógica de inferência, tratando exceções e logs de sucesso/erro.
+- **setup_output_directory()**: Gerencia o sistema de arquivos.
+- **synthesize_speech()**: Centraliza a lógica de inferência, tratando exceções e logs de sucesso/erro.
 
 ### **5.2. Protocolos de Comunicação**
 
-| Serviço | Protocolo | Justificativa Técnica |
-| :---- | :---- | :---- |
-| **STT / TTS** | **WebSocket** | Permite o streaming de áudio em tempo real (chunks), essencial para que o robô comece a falar antes mesmo do arquivo completo ser processado. |
-| **Chat (LLM)** | **HTTP** | Utilizado para consultas pontuais à base de conhecimento (FAQ do processo seletivo)4. |
+| Serviço        | Protocolo     | Justificativa Técnica                                                                                                                         |
+| :------------- | :------------ | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| **STT / TTS**  | **WebSocket** | Permite o streaming de áudio em tempo real (chunks), essencial para que o robô comece a falar antes mesmo do arquivo completo ser processado. |
+| **Chat (LLM)** | **HTTP**      | Utilizado para consultas pontuais à base de conhecimento (FAQ do processo seletivo)4.                                                         |
 
 ---
 
@@ -175,6 +175,5 @@ A classe TTSService encapsula toda a lógica de negócio:
 
 O robô interage com estes módulos através de uma interface de controle que suporta:
 
-1. **Gatilhos de Proximidade:** Quando o robô atinge uma coordenada no mapa, o backend dispara o ID do áudio correspondente via requisição.  
+1. **Gatilhos de Proximidade:** Quando o robô atinge uma coordenada no mapa, o backend dispara o ID do áudio correspondente via requisição.
 2. **Interrupção Dinâmica:** Capacidade de parar a reprodução imediatamente caso o sensor de segurança detecte um obstáculo ou o usuário faça uma pergunta direta (STT).
-
