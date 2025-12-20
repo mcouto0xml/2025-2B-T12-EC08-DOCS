@@ -10,6 +10,7 @@ description: Documentação de todos os endpoints que foram desenvolvidos ao lon
 Gerenciamento de visitantes que participam dos tours.
 
 #### Modelo de Dados
+
 - `nome` (string, opcional): Nome do visitante
 - `cpf` (string, opcional): CPF do visitante
 - `email` (string, opcional): Email de contato
@@ -37,6 +38,7 @@ Gerenciamento de visitantes que participam dos tours.
 Gerenciamento de acompanhantes vinculados aos visitantes.
 
 #### Modelo de Dados
+
 - `nome` (string, opcional): Nome do acompanhante
 - `cpf` (string, opcional): CPF do acompanhante
 - `visitante_id` (integer, opcional): ID do visitante principal
@@ -58,6 +60,7 @@ Gerenciamento de acompanhantes vinculados aos visitantes.
 Gerenciamento dos robôs que conduzem os tours.
 
 #### Modelo de Dados
+
 - `nome` (string, opcional): Nome do robô
 - `modelo` (string, opcional): Modelo do robô
 - `numero_serie` (string, opcional): Número de série
@@ -80,6 +83,7 @@ Gerenciamento dos robôs que conduzem os tours.
 Gerenciamento dos tours agendados e em andamento.
 
 #### Modelo de Dados
+
 - `codigo` (string, obrigatório): Código único do tour
 - `titulo` (string, opcional): Título do tour
 - `data_local` (date, obrigatório): Data do tour
@@ -112,6 +116,7 @@ Gerenciamento dos tours agendados e em andamento.
 Relacionamento many-to-many entre tours e visitantes.
 
 #### Modelo de Dados
+
 - `tour_id` (integer, obrigatório): ID do tour
 - `visitante_id` (integer, obrigatório): ID do visitante
 
@@ -134,6 +139,7 @@ Relacionamento many-to-many entre tours e visitantes.
 Pontos de parada durante o tour.
 
 #### Modelo de Dados
+
 - `tour_id` (integer, obrigatório): ID do tour
 - `tipo` (enum, obrigatório): Tipo do checkpoint
   - `recepcao`: Recepção
@@ -170,6 +176,7 @@ Pontos de parada durante o tour.
 Perguntas feitas durante os checkpoints.
 
 #### Modelo de Dados
+
 - `checkpoint_id` (integer, obrigatório): ID do checkpoint
 - `tour_id` (integer, opcional): ID do tour
 - `texto` (string, obrigatório): Texto da pergunta
@@ -201,6 +208,7 @@ Perguntas feitas durante os checkpoints.
 Respostas às perguntas feitas.
 
 #### Modelo de Dados
+
 - `pergunta_id` (integer, obrigatório): ID da pergunta
 - `texto` (string, obrigatório): Texto da resposta
 - `respondido_por_tipo` (string, obrigatório): Tipo de respondente
@@ -227,6 +235,7 @@ Processamento de perguntas via IA.
 #### Endpoints
 
 **POST /v1/modelo**
+
 - Processa uma pergunta e gera resposta automática
 - Body: objeto `Pergunta`
 - Resposta 200: `SingleItemResponse_Resposta`
@@ -236,6 +245,7 @@ Processamento de perguntas via IA.
 Rastreamento em tempo real da posição do robô.
 
 #### Modelo de Dados
+
 - `tour_id` (integer, opcional): ID do tour
 - `checkpoint_id` (integer, opcional): Checkpoint atual
 - `waypoint` (string, opcional): Ponto de passagem
@@ -258,6 +268,7 @@ Rastreamento em tempo real da posição do robô.
 Sistema de alertas e notificações.
 
 #### Modelo de Dados
+
 - `tour_id` (integer, opcional): Tour relacionado
 - `nivel` (enum, obrigatório): Nível de severidade
   - `baixo`: Baixo
@@ -284,6 +295,7 @@ Sistema de alertas e notificações.
 Notificações para usuários do sistema.
 
 #### Modelo de Dados
+
 - `usuario_id` (integer, opcional): ID do usuário
 - `titulo` (string, opcional): Título da notificação
 - `corpo` (string, opcional): Corpo da mensagem
@@ -307,6 +319,7 @@ Notificações para usuários do sistema.
 Histórico de mudanças de status dos tours.
 
 #### Modelo de Dados
+
 - `tour_id` (integer, obrigatório): ID do tour
 - `status` (string, obrigatório): Status registrado
 - `atualizado_em` (datetime, opcional): Timestamp da mudança
@@ -329,14 +342,18 @@ Histórico de mudanças de status dos tours.
 ## Respostas Padrão
 
 ### Sucesso
+
 ```json
 {
   "message": "Mensagem descritiva",
-  "data": { /* objeto ou array de dados */ }
+  "data": {
+    /* objeto ou array de dados */
+  }
 }
 ```
 
 ### Erro 404
+
 ```json
 {
   "message": "Recurso não encontrado"
@@ -344,6 +361,7 @@ Histórico de mudanças de status dos tours.
 ```
 
 ### Erro 500
+
 ```json
 {
   "message": "Erro interno do servidor"
