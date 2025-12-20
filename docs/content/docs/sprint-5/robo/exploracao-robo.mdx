@@ -10,9 +10,9 @@ Nesta reta final do projeto, os esforços foram concentrados na **consolidação
 
 Os principais marcos atingidos foram:
 
-* Validação da lógica de navegação via **Nav2 + SLAM** com coordenadas relativas.
-* Implementação completa do pipeline de conversão e reprodução de **áudio via WebRTC**.
-* Estabilização da conectividade na rede corporativa através de **solução customizada com Zenoh**.
+- Validação da lógica de navegação via **Nav2 + SLAM** com coordenadas relativas.
+- Implementação completa do pipeline de conversão e reprodução de **áudio via WebRTC**.
+- Estabilização da conectividade na rede corporativa através de **solução customizada com Zenoh**.
 
 ---
 
@@ -24,7 +24,7 @@ Refinamos o entendimento e a lógica de como o robô interpreta o ambiente e exe
 
 A equipe definiu **endpoints** (comandos diretos) associados a **checkpoints** (posições físicas no mapa). A operação baseia-se na tese de **Posicionamento Relativo**.
 
-* Detalhe importante: para que o posicionamento funcione corretamente, o robô deve ser inicializado na **"Posição Inicial" (Home)**. A partir deste ponto zero, ele calcula a localização de cada sala baseando-se nas coordenadas gravadas no mapa do **SLAM**.
+- Detalhe importante: para que o posicionamento funcione corretamente, o robô deve ser inicializado na **"Posição Inicial" (Home)**. A partir deste ponto zero, ele calcula a localização de cada sala baseando-se nas coordenadas gravadas no mapa do **SLAM**.
 
 ---
 
@@ -61,17 +61,17 @@ Essa abordagem permitiu que o robô operasse **100% conectado à rede institucio
 
 ### Comunicação e Rede
 
-* **zenoh-plugin-ros2dds-nix:**  Repositório e artefato Nix desenvolvido/utilizado pela equipe para implementar o `zenoh-bridge-ros2dds`. Ele atua como uma ponte que conecta o protocolo DDS do ROS 2 à rede, permitindo o tráfego de dados em ambientes corporativos complexos (como a rede do Inteli) sem falhas de descoberta.
-* **Inteli.Iot:** Rede Wi-Fi corporativa da instituição. Graças à implementação do Zenoh, o robô agora opera plenamente nesta rede, integrando-se ao ecossistema conectado do campus.
-* **WebSocket:** Canal de comunicação bidirecional que permite o envio contínuo de dados (como streams de áudio) sem recarregar a conexão.
-* **WebRTC (Web Real-Time Communication):** Tecnologia que permite a transmissão de áudio e vídeo instantânea, essencial para a voz do robô.
+- **zenoh-plugin-ros2dds-nix:** Repositório e artefato Nix desenvolvido/utilizado pela equipe para implementar o `zenoh-bridge-ros2dds`. Ele atua como uma ponte que conecta o protocolo DDS do ROS 2 à rede, permitindo o tráfego de dados em ambientes corporativos complexos (como a rede do Inteli) sem falhas de descoberta.
+- **Inteli.Iot:** Rede Wi-Fi corporativa da instituição. Graças à implementação do Zenoh, o robô agora opera plenamente nesta rede, integrando-se ao ecossistema conectado do campus.
+- **WebSocket:** Canal de comunicação bidirecional que permite o envio contínuo de dados (como streams de áudio) sem recarregar a conexão.
+- **WebRTC (Web Real-Time Communication):** Tecnologia que permite a transmissão de áudio e vídeo instantânea, essencial para a voz do robô.
 
 ### Robótica e Navegação
 
-* **SLAM (Simultaneous Localization and Mapping):** Técnica computacional que permite ao robô construir um mapa do ambiente ao mesmo tempo em que estima sua própria localização.
-* **Nav2 (Navigation 2):** Framework de navegação do ecossistema ROS 2, responsável pelo planejamento de rotas e desvio de obstáculos dinâmicos.
-* **Rviz (ROS Visualization):** Ferramenta gráfica de visualização 3D utilizada para diagnósticos (ver o que o robô vê), embora a navegação final independa dela.
-* **ROS 2:** Middleware que conecta todos os componentes do robô (lidar, motores, áudio), permitindo a troca de mensagens.
+- **SLAM (Simultaneous Localization and Mapping):** Técnica computacional que permite ao robô construir um mapa do ambiente ao mesmo tempo em que estima sua própria localização.
+- **Nav2 (Navigation 2):** Framework de navegação do ecossistema ROS 2, responsável pelo planejamento de rotas e desvio de obstáculos dinâmicos.
+- **Rviz (ROS Visualization):** Ferramenta gráfica de visualização 3D utilizada para diagnósticos (ver o que o robô vê), embora a navegação final independa dela.
+- **ROS 2:** Middleware que conecta todos os componentes do robô (lidar, motores, áudio), permitindo a troca de mensagens.
 
 ---
 
