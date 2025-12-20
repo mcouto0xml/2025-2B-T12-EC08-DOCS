@@ -1,0 +1,137 @@
+---
+title: Centralização das Rotas do Robô
+description: Rotas HTTP centralizadas no backend para comunicação com o robô
+slug: /centralizacao-rotas-robo
+---
+
+# Centralização das Rotas do Robô
+
+Rotas HTTP centralizadas no backend que fazem proxy para as rotas do robô físico.
+
+## Rotas Disponíveis
+
+### GET /v1/robo/status
+
+Obtém o status atual do robô.
+
+**Resposta:**
+
+```json
+{
+  "robot_connected": true,
+  "is_running": false,
+  "current_checkpoint": "entrada"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X GET http://0.0.0.0:8081/v1/robo/status
+```
+
+---
+
+### POST /v1/robo/start_next
+
+Inicia o próximo passo do robô.
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Movimentação para o próximo ponto iniciada"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/start_next
+```
+
+---
+
+### POST /v1/robo/cancel
+
+Cancela a execução atual do robô.
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Cancelado"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/cancel
+```
+
+---
+
+### POST /v1/robo/reset
+
+Reseta o contador do robô.
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Resetado"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/reset
+```
+
+---
+
+### POST /v1/robo/add_checkpoint
+
+Adiciona um checkpoint ao robô.
+
+**Body (JSON):**
+
+```json
+{
+  "name": "checkpoint_1",
+  "x": 10.5,
+  "y": 20.3,
+  "z": 5.0
+}
+```
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Adicionado"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/add_checkpoint \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "checkpoint_1",
+    "x": 10.5,
+    "y": 20.3,
+    "z": 5.0
+  }'
+```
+
+## Nota
+
+Atualmente, as rotas estão **mockadas** e retornam respostas simuladas. Quando conectar com o robô real, descomente as chamadas HTTP nos métodos do `RobotClient` em `src/utils/robot_client.rs`.
