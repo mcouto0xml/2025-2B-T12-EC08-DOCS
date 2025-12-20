@@ -1118,6 +1118,14 @@ else:
   <Card href="/docs/sprint-5/backend" title="Backend">
     Documentação do time de backend.
   </Card>
+
+  <Card href="/docs/sprint-5/botao-de-stop-pt2" title="Kill Switch Atualizações">
+    Extensões HTTP/WiFi e sistema de emotes para o Kill Switch.
+  </Card>
+
+  <Card href="/docs/sprint-5/robo" title="Robô">
+    Documentação do time de robô.
+  </Card>
 </Cards>
 
 
@@ -11503,275 +11511,6 @@ F -->|HTTP| BUCKET
 </Files>
 
 
-# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
-
-# Sprint 3 – Automação de Movimentação e Integração Dinâmica
-
-## Objetivos Principais
-
-* Implementar execução automatizada de movimentos via JSON.
-* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
-* Permitir movimentação completa por **checkpoints** com áudio associado.
-* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
-* Iniciar integração com backend e percepção de obstáculos.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Implementação da fila de requisições
-
-Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
-O formato padronizado para os checkpoints segue o modelo abaixo:
-
-```json title="Exemplo de arquivo JSON de checkpoints"
-{
-  "checkpoint1": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
-    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
-  ],
-  "checkpoint2": [
-    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
-    ...
-  ]
-}
-```
-
-Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
-Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
-
-***
-
-## Execução e Testes
-
-Para executar o sistema de movimentação automatizada:
-
-1. **Inicie o ambiente virtual:**
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-2. **Execute o script principal de movimentação:**
-
-   ```bash
-   python3 testes/move_path.py
-   ```
-
-   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
-
-3. **Para iniciar um checkpoint manualmente (em outro terminal):**
-
-   ```bash
-   python3 external_trigger.py play
-   ```
-
-4. **Para interromper a execução a qualquer momento:**
-
-   ```bash
-   python3 external_trigger.py stop
-   ```
-
-   Ao parar, o robô entra automaticamente em **modo estático em pé**.
-
-***
-
-## Novas Funcionalidades
-
-* Leitura e execução automática de checkpoints via JSON.
-* Execução ordenada com fila de comandos.
-* Reprodução de áudio correspondente a cada checkpoint.
-* Interrupção imediata da execução via comando externo (`stop`).
-* Conexão e controle assíncrono com o robô via **WebRTC**.
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
-
-* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
-* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
-* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
-* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
-
-Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
-
-***
-
-## Próximos Passos
-
-* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
-* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
-* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
-* Revisar parâmetros de movimentação e segurança térmica das juntas.
-
-***
-
-## Aprendizados
-
-* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
-* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
-* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
-* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
-
-***
-
-## Links Relevantes
-
-* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
-* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
-
-***
-
-## Conclusão
-
-Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
-Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
-
-
-# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
-
-<Cards>
-  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
-
-  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
-</Cards>
-
-
-# Simulação (/docs/sprint-3/robo/simulacao-robo)
-
-
-
-# Sprint 3 – Simulação do Robô com ROS2
-
-## Objetivos Principais
-
-* Configurar o ambiente ROS e entender seu funcionamento;
-* Simular o robô Unitree Go2 no Gazebo;
-* Continuar testes no ambiente Unity (Autonomous Stack GO2);
-* Entender como funciona os tópicos do LiDAR do GO2;
-* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
-
-***
-
-## Atividades Realizadas na Sprint 3
-
-### Gazebo
-
-  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
-
-### Unity
-
-  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
-
-* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
-* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
-
-### Docker
-
-  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
-
-* Estudo da viabilidade do uso do Docker;
-* Estudo da implementação do Docker com simuladores;
-* Estudo da implementação do Docker com ROS2;
-* Tentativa de implementação do simulador Unity em um container Docker.
-
-### Visualização de dados de sensores do robô
-
-  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Visualização da Point Cloud real no RViz
-</p>
-
-<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Produzida pelos autores (2025).
-</p>
-
-***
-
-## Problemas e Impeditivos Encontrados
-
-### Gazebo
-
-* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
-
-### Unity
-
-* Problemas de importação de modelos de espaço para o simulador;
-* Dificuldade de comunicação do ROS com o sistema;
-* Dificuldade de achar utilidade nas informações transferidas
-* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
-
-### Docker
-
-* Falta de exemplos que utilizassem todas as tecnologias juntas;
-* Uso excessivo de memória RAM ao *buildar* os simuladores;
-* Necessidade do Ubuntu 22.04 (especificamente).
-
-***
-
-## Próximos Passos
-
-* Começar testes de ROS no robô físico;
-* Começar testes de LiDAR no robô físico;
-* Começar a integração dos repositórios encontrados com o robô físico;
-* Colocar em containers os simuladores escolhidos com implementação ROS.
-
-***
-
-## Aprendizados
-
-### Gazebo
-
-* Comunicação código e robô via ROS2;
-* Como funciona a nuvem de pontos do LiDAR;
-* Diversos modelos de navegação autônoma e controle manual para o Go2.
-
-### Unity
-
-* Entendi da comunicação do ROS2;
-* Funcionamento do LiDAR;
-
-### Docker
-
-* Formas de rodar ROS em um container;
-* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
-* Formas de reduzir o uso da memória RAM ao rodar simuladores.
-
-***
-
-## Links Relevantes
-
-### Gazebo
-
-* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
-* [NAV2](https://docs.nav2.org/)
-* [RViz](https://wiki.ros.org/rviz)
-
-### Unity
-
-* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-### Docker
-
-* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
-* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
-* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
-* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
-
-***
-
-## Conclusão
-
-Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
-Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
-
-
 # S-SDLC — Secure Software Development Life Cycle (/docs/sprint-3/secure-software)
 
 <Cards>
@@ -12187,6 +11926,275 @@ O S-SDLC apresentado estabelece uma estrutura completa, robusta e profissional p
 **ISO/IEC 27001.** *Information Security Management Systems.* Resumo técnico disponível em: [https://www.iso.org/isoiec-27001-information-security.html](https://www.iso.org/isoiec-27001-information-security.html). Acesso em: 18 nov. 2025.
 
 **SETIC-UFSC.** *Guia de Privacidade e Proteção de Dados - LGPD.* Disponível em: [https://lgpd.ufsc.br/duvidas-frequentes/](https://lgpd.ufsc.br/duvidas-frequentes/). Acesso em: 18 nov. 2025.
+
+
+# Exploração e Integração (/docs/sprint-3/robo/exploracao-robo)
+
+# Sprint 3 – Automação de Movimentação e Integração Dinâmica
+
+## Objetivos Principais
+
+* Implementar execução automatizada de movimentos via JSON.
+* Criar sistema de **fila de requisições** para execução ordenada dos comandos.
+* Permitir movimentação completa por **checkpoints** com áudio associado.
+* Testar e validar os novos fluxos de execução com o robô real via **WebRTC**.
+* Iniciar integração com backend e percepção de obstáculos.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Implementação da fila de requisições
+
+Durante esta sprint, desenvolvemos uma **fila de requisições dinâmica**, permitindo que o robô interprete e execute movimentações a partir de um arquivo **JSON**.\
+O formato padronizado para os checkpoints segue o modelo abaixo:
+
+```json title="Exemplo de arquivo JSON de checkpoints"
+{
+  "checkpoint1": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 5, "y_speed": 0, "y_distance": 0 } },
+    { "cmd": "Turn", "params": { "z_speed": 1, "z_degrees": 45 } }
+  ],
+  "checkpoint2": [
+    { "cmd": "Move", "params": { "x_speed": 1, "x_distance": 2 } },
+    ...
+  ]
+}
+```
+
+Cada **checkpoint** representa uma sequência de comandos que o robô executa de forma ordenada.\
+Entre cada checkpoint, o sistema toca o **áudio correspondente**, sinalizando a mudança de etapa.
+
+***
+
+## Execução e Testes
+
+Para executar o sistema de movimentação automatizada:
+
+1. **Inicie o ambiente virtual:**
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Execute o script principal de movimentação:**
+
+   ```bash
+   python3 testes/move_path.py
+   ```
+
+   Esse comando inicializa a **conexão com o robô via WebRTC** e carrega o arquivo JSON de checkpoints.
+
+3. **Para iniciar um checkpoint manualmente (em outro terminal):**
+
+   ```bash
+   python3 external_trigger.py play
+   ```
+
+4. **Para interromper a execução a qualquer momento:**
+
+   ```bash
+   python3 external_trigger.py stop
+   ```
+
+   Ao parar, o robô entra automaticamente em **modo estático em pé**.
+
+***
+
+## Novas Funcionalidades
+
+* Leitura e execução automática de checkpoints via JSON.
+* Execução ordenada com fila de comandos.
+* Reprodução de áudio correspondente a cada checkpoint.
+* Interrupção imediata da execução via comando externo (`stop`).
+* Conexão e controle assíncrono com o robô via **WebRTC**.
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+Apesar dos avanços técnicos, enfrentamos **diversos desafios e limitações de hardware** nesta sprint:
+
+* O **controle do robô está instável**, com dificuldade de precisão nas movimentações.
+* Em alguns momentos, o robô **envia comandos aleatórios**, sem interação do usuário.
+* Foram observados casos de **sobreaquecimento nas juntas** e **malfuncionamento de motores**, comprometendo os testes prolongados.
+* A conexão **Wi-Fi apresentou instabilidade**, sendo necessário criar uma **rede própria dedicada** para manter o controle estável.
+
+Esses problemas impactaram diretamente os testes em campo e limitaram o tempo de calibração.
+
+***
+
+## Próximos Passos
+
+* Implementar **detecção de obstáculos frontais** e evitar colisões automáticas.
+* Integrar com o **backend** para permitir interação com perguntas e respostas a cada parada.
+* Melhorar a **robustez da conexão WebRTC** e o **controle de estabilidade** do robô.
+* Revisar parâmetros de movimentação e segurança térmica das juntas.
+
+***
+
+## Aprendizados
+
+* A estrutura baseada em **JSON e fila de execução** tornou o controle mais modular e escalável.
+* O controle remoto por **checkpoints e triggers externos** se mostrou eficiente para simular rotas complexas.
+* Identificamos a necessidade de **monitoramento contínuo de hardware**, dado o sobreaquecimento e falhas recorrentes.
+* A **integração entre camadas de software (backend, controle, percepção)** será essencial para a próxima etapa.
+
+***
+
+## Links Relevantes
+
+* [Documentação oficial das funções do SDK (Motion Services Interface V2.0)](https://support.unitree.com/home/en/developer/Motion_Services_Interface_V2.0)
+* [Repositório do projeto WebRTC com Unitree Go2](https://github.com/DaniloMartinsMerlo/go2_webrtc)
+
+***
+
+## Conclusão
+
+Esta sprint consolidou a automação da movimentação do robô, permitindo a execução estruturada de trajetórias e comandos por meio de arquivos JSON e triggers externos.\
+Apesar dos problemas de hardware e conectividade, a base de comunicação e controle foi estabelecida, preparando o terreno para a próxima etapa de **autonomia e integração sensorial**.
+
+
+# Protótipo de alta fidelidade dos aplicativos e dashboards para visitantes e staff do Inteli. (/docs/sprint-3/robo)
+
+<Cards>
+  <Card title="Exploração do robo" description="Interação desenvolvida com o robo na sprint 3." href="/docs/sprint-3/robo/exploracao-robo" />
+
+  <Card title="Simulador" description="Simulação do robo." href="/docs/sprint-2/prototipo-alta/paf-staff" />
+</Cards>
+
+
+# Simulação (/docs/sprint-3/robo/simulacao-robo)
+
+
+
+# Sprint 3 – Simulação do Robô com ROS2
+
+## Objetivos Principais
+
+* Configurar o ambiente ROS e entender seu funcionamento;
+* Simular o robô Unitree Go2 no Gazebo;
+* Continuar testes no ambiente Unity (Autonomous Stack GO2);
+* Entender como funciona os tópicos do LiDAR do GO2;
+* Estudar a possibilidade de rodar o simulador em containers pelo Docker.
+
+***
+
+## Atividades Realizadas na Sprint 3
+
+### Gazebo
+
+  Durante essa sprint, a parte da equipe responsável pelo Gazebo realizou as seguintes atividades: - Estudo das funcionalidades do Gazebo e do RViz; o Gazebo foi escolhido como simulador principal devido à sua leveza relativa; - Importação de modelos de controlador do Unitree Go2; - Importação do modelo 3D do Inteli (criado por @Melomm); - Testes com o NAV2 para navegação 2D autônoma; não foi encontrada uma implementação do NAV2 compatível com nosso robô que utilizasse SLAM.
+
+### Unity
+
+  Durante essa sprint, a parte da equipe responsável pelo Unity realizou as seguintes atividades:
+
+* Testes para verificar se os tópicos do LiDAR do simulador funcionavam de forma semelhante ao comportamento real;
+* Criação de um ambiente de testes que representasse o térreo do Inteli e manipulação de waypoints.
+
+### Docker
+
+  Durante essa sprint, a parte da equipe responsável pelo Docker realizou as seguintes atividades:
+
+* Estudo da viabilidade do uso do Docker;
+* Estudo da implementação do Docker com simuladores;
+* Estudo da implementação do Docker com ROS2;
+* Tentativa de implementação do simulador Unity em um container Docker.
+
+### Visualização de dados de sensores do robô
+
+  Com os dados coletados pela equipe de Segurança, conseguimos fazer uma visualização tridimensional do mapa captado pelo robô por meio de seu sensor LiDAR. Um pequeno cliente lê os dados armazenados em arquivos .csv e transmite-os em tópicos de ROS, que por sua vez podem ser recebidos e interpretados como uma nuvem de pontos pelo aplicação RViz. Essa visualização nos permite compreender um pouco melhor a verdadeira lógica por trás do comportamento do cachorro, e essa informação será de muita importância para o desenvolvimento do projeto.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Visualização da Point Cloud real no RViz
+</p>
+
+<img alt="Captura de tela do RViz" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Produzida pelos autores (2025).
+</p>
+
+***
+
+## Problemas e Impeditivos Encontrados
+
+### Gazebo
+
+* Não achamos nenhum modelo fiel do robô, que incluisse os sensores LiDAR.
+
+### Unity
+
+* Problemas de importação de modelos de espaço para o simulador;
+* Dificuldade de comunicação do ROS com o sistema;
+* Dificuldade de achar utilidade nas informações transferidas
+* Impossibilidade de fazer qualquer alteração maior no sistema sem acesso ao código fonte.
+
+### Docker
+
+* Falta de exemplos que utilizassem todas as tecnologias juntas;
+* Uso excessivo de memória RAM ao *buildar* os simuladores;
+* Necessidade do Ubuntu 22.04 (especificamente).
+
+***
+
+## Próximos Passos
+
+* Começar testes de ROS no robô físico;
+* Começar testes de LiDAR no robô físico;
+* Começar a integração dos repositórios encontrados com o robô físico;
+* Colocar em containers os simuladores escolhidos com implementação ROS.
+
+***
+
+## Aprendizados
+
+### Gazebo
+
+* Comunicação código e robô via ROS2;
+* Como funciona a nuvem de pontos do LiDAR;
+* Diversos modelos de navegação autônoma e controle manual para o Go2.
+
+### Unity
+
+* Entendi da comunicação do ROS2;
+* Funcionamento do LiDAR;
+
+### Docker
+
+* Formas de rodar ROS em um container;
+* Como rodar as interfaces gráficas do simulador mesmo dentro de um container;
+* Formas de reduzir o uso da memória RAM ao rodar simuladores.
+
+***
+
+## Links Relevantes
+
+### Gazebo
+
+* [Comunicação ROS2 com Unitree Go2](https://github.com/anujjain-dev/unitree-go2-ros2)
+* [NAV2](https://docs.nav2.org/)
+* [RViz](https://wiki.ros.org/rviz)
+
+### Unity
+
+* [Repo do Simulador](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+### Docker
+
+* [Docker for ROS 2 | ROS Developers Open Class 198](https://www.youtube.com/watch?v=GmdZqgNO2f4)
+* [The Complete Beginner's Guide to Using Docker for ROS 2 Deployment (2025 Edition)](https://blog.robotair.io/the-complete-beginners-guide-to-using-docker-for-ros-2-deployment-2025-edition-0f259ca8b378?gi=6a2aed605b67)
+* [louislelay/ros\_docker](https://github.com/louislelay/ros_docker)
+* [jizhang-cmu/autonomy\_stack\_go2](https://github.com/jizhang-cmu/autonomy_stack_go2)
+
+***
+
+## Conclusão
+
+Nesta sprint, o grupo teve ótimo avanço no entendimento dos simuladores e de como integrar o Go2 ao ROS2. Mesmo com os obstáculos - como a falta de um modelo completo adequado no Gazebo - as limitações do simulador em Unity, e as limitações de recursos no Docker, a equipe conseguiu evoluir e ter mais clareza sobre o que funciona, o que ainda precisa ser ajustado e quais caminhos seguir.
+Com o que aprendemos, a equipe está mais preparada para iniciar os testes com ROS2 no robô físico, validar os dados enviados pelo LiDAR real, e continuar a integração dos simuladores. A sprint serviu para consolidar a base técnica do projeto e deixar a equipe mais segura para os próximos passos.
 
 
 # Arquitetura Multi-Agentes (/docs/sprint-3/sistema-multi-agentes/01-arquitetura-multi-agentes)
@@ -15789,6 +15797,828 @@ As melhorias implementadas:
 <Cards>
   <Card title="Backend - Atualização do Banco" description="Criação de nova tabela Acompanhantes e mudanças na tabela Visitantes" href="/docs/sprint-5/backend/banco-novo" />
 </Cards>
+
+
+# Fundamentos e Extensões (/docs/sprint-5/botao-de-stop-pt2/fundamentos-arquitetura)
+
+# Kill Switch: Fundamentos e Extensões
+
+<Callout type="warn">
+  **AVISO**: O acionamento deste botão de emergência resulta em uma **parada brusca** (Dump Mode) que pode causar danos mecânicos ao robô. Esta é uma medida de **último recurso**, mas **obrigatória** para garantir a segurança física dos humanos presentes durante o tour. A segurança humana tem prioridade absoluta sobre a preservação do equipamento.
+</Callout>
+
+## 1. Objetivo do Sistema
+
+## 1. Objetivo do Sistema
+
+O Kill Switch é um mecanismo crítico de segurança projetado para interromper imediatamente as operações do robô Unitree em situações de risco iminente.
+
+**Sprint 4** implementou o **Botão Físico Local** conectado via USB-C.
+**Sprint 5** estende o sistema com redundância sem fio:
+
+* **Botão Físico Wireless**: Hardware independente (Metaltex + ESP32C3) que opera via WiFi.
+* **Botão do Aplicativo**: Interface de software para acionamento remoto.
+* **Sistema de Emotes**: Interação e feedback visual do robô.
+
+## 2. Extensões da Sprint 4
+
+O sistema agora opera em três canais que convergem para o mesmo resultado de segurança:
+
+1. **Botão Físico Local (USB)**: Conexão direta via Serial.
+2. **Botão Físico Wireless (WiFi)**: Mesmo hardware da Sprint 1, mas enviando comandos via HTTP POST.
+3. **Botão do Aplicativo**: Interface digital via rede WiFi.
+
+### 2.1 Protocolo HTTP/WiFi
+
+Foi adicionado um segundo canal de comunicação via HTTP/WiFi, permitindo acionamento remoto do Kill Switch através de aplicativo ou interface web.
+
+**Características:**
+
+* Comunicação via rede WiFi Unitree
+* Endpoints REST simples
+* Máquina de estados para evitar duplicatas
+* Rate limiting para proteção
+
+### 2.2 Dual-Channel Redundância
+
+Ambos os canais (Serial + HTTP) convergem para o mesmo resultado:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              Kill Switch - Dual Channel                 │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌──────────────┐              ┌──────────────┐       │
+│  │ Serial Input │              │ HTTP Server  │       │
+│  │ /dev/ttyAM0  │              │ :3000        │       │
+│  └──────┬───────┘              └──────┬───────┘       │
+│         │                             │               │
+│         └─────────────┬───────────────┘               │
+│                       │                               │
+│                ┌──────▼──────┐                        │
+│                │  Callbacks  │                        │
+│                │  (Flip-Flop)│                        │
+│                └──────┬──────┘                        │
+│                       │                               │
+│         ┌─────────────▼──────────────┐               │
+│         │  MPSC Channel (RosCommand) │               │
+│         └─────────────┬──────────────┘               │
+│                       │                               │
+│         ┌─────────────▼──────────────┐               │
+│         │  ROS 2 /api/sport/request  │               │
+│         │  - Dump Mode               │               │
+│         │  - Recover from Fall       │               │
+│         └────────────────────────────┘               │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Vantagens:**
+
+* **Redundância**: Se um canal falhar, o outro continua funcionando
+* **Flexibilidade**: Operador escolhe o canal mais apropriado
+* **Confiabilidade**: Ambos garantem a mesma resposta
+
+### 2.3 Sistema de Emotes
+
+Foi criado um sistema de emotes que permite ao robô expressar movimentos e emoções através de HTTP.
+
+**Emotes Disponíveis:**
+
+| Emote       | ID   | Descrição       |
+| :---------- | :--- | :-------------- |
+| **Hello**   | 1016 | Movimento de oi |
+| **Stretch** | 1017 | Se espreguiça   |
+| **Content** | 1020 | Expressão feliz |
+| **Wallow**  | 1021 | Rola no chão    |
+| **Dance1**  | 1022 | Dança 1         |
+| **Dance2**  | 1023 | Dança 2         |
+| **Pose**    | 1028 | Pose            |
+| **Scrape**  | 1029 | Esfrega a bunda |
+
+**Características:**
+
+* 8 movimentos diferentes
+* Rate limiting de 20 segundos entre emotes
+* Integração com ROS 2
+* Endpoints HTTP simples
+
+## 3. Integração
+
+A Sprint 5 **estende** a Sprint 4, mantendo toda a funcionalidade anterior:
+
+| Aspecto          | Sprint 4       | Sprint 5   |
+| :--------------- | :------------- | :--------- |
+| **Canal Serial** | ✅ Implementado | ✅ Mantido  |
+| **Botão Físico** | ✅ Implementado | ✅ Mantido  |
+| **ROS 2**        | ✅ Implementado | ✅ Mantido  |
+| **Canal HTTP**   | ❌ Não          | ✅ **NOVO** |
+| **Emotes**       | ❌ Não          | ✅ **NOVO** |
+| **Dual-Channel** | ❌ Não          | ✅ **NOVO** |
+
+
+# Protocolo HTTP/WiFi (/docs/sprint-5/botao-de-stop-pt2/hardware-protocolos)
+
+# Kill Switch - Protocolo Wireless
+
+## 1. Botão Físico Wireless
+
+O Botão Físico Wireless utiliza o microcontrolador ESP32C3 para monitorar o botão Metaltex e enviar comandos via WiFi.
+
+### 1.1 Funcionamento do Hardware
+
+* **Hardware**: Metaltex CP1-E + ESP32C3 Super Mini.
+* **Conectividade**: WiFi 2.4GHz (Rede Unitree).
+* **Lógica**: Ao detectar o pressionamento (GPIO 0 -> LOW), o ESP32C3 dispara uma requisição HTTP POST para o robô.
+
+## 2. Visão Geral do Protocolo HTTP
+
+As mudanças atuais adicionam um segundo canal de comunicação via HTTP/WiFi, complementando o canal Serial da sprint passada.
+
+**Características:**
+
+* Protocolo: HTTP/1.1
+* Servidor: Axum (Rust async web framework)
+* Porta: 3000
+* Rede: WiFi Unitree interna
+* Autenticação: Nenhuma (rede interna)
+
+## 3. Endpoints do Kill Switch
+
+### 3.1 POST /emergency/press
+
+Inicia o Dump Mode continuamente.
+
+**Requisição:**
+
+```http
+POST /emergency/press HTTP/1.1
+Host: robot.local:3000
+Content-Type: application/json
+
+{}
+```
+
+**Resposta (200 OK):**
+
+```json
+{
+  "status": "pressed",
+  "message": "Kill Switch ativado",
+  "timestamp": "2025-12-18T10:30:45Z"
+}
+```
+
+**Comportamento:**
+
+1. Muda estado para Pressed
+2. Dispara callback
+3. ROS 2 publica comando DAMP
+4. Robô ativa Dump Mode
+5. Continua enviando DAMP enquanto pressionado
+
+### 3.2 POST /emergency/release
+
+Para o Dump Mode e inicia Recover.
+
+**Requisição:**
+
+```http
+POST /emergency/release HTTP/1.1
+Host: robot.local:3000
+Content-Type: application/json
+
+{}
+```
+
+**Resposta (200 OK):**
+
+```json
+{
+  "status": "released",
+  "message": "Kill Switch liberado",
+  "timestamp": "2025-12-18T10:30:46Z"
+}
+```
+
+**Comportamento:**
+
+1. Muda estado para Released
+2. Para envio de DAMP
+3. Dispara callback
+4. ROS 2 publica comando RECOVER
+5. Robô retorna ao estado normal
+
+### 3.3 GET /emergency/status
+
+Consulta o status atual do Kill Switch.
+
+**Requisição:**
+
+```http
+GET /emergency/status HTTP/1.1
+Host: robot.local:3000
+```
+
+**Resposta (200 OK):**
+
+```json
+{
+  "status": "released",
+  "last_pressed": "2025-12-18T10:30:45Z",
+  "uptime_seconds": 3600
+}
+```
+
+## 4. Endpoints de Emotes
+
+### 4.1 POST "emote\_name"
+
+Aciona um emote específico.
+
+**Emotes Disponíveis:**
+
+* `/emote/hello`
+* `/emote/stretch`
+* `/emote/content`
+* `/emote/wallow`
+* `/emote/dance1`
+* `/emote/dance2`
+* `/emote/pose`
+* `/emote/scrape`
+
+**Requisição:**
+
+```http
+POST /emote/hello HTTP/1.1
+Host: robot.local:3001
+Content-Type: application/json
+
+{}
+```
+
+**Resposta (200 OK):**
+
+```json
+{
+  "emote": "hello",
+  "id": 1016,
+  "status": "executing",
+  "duration_ms": 2000
+}
+```
+
+**Resposta (429 Too Many Requests):**
+
+```json
+{
+  "error": "Rate limit exceeded",
+  "retry_after_seconds": 15,
+  "message": "Aguarde 20 segundos entre emotes"
+}
+```
+
+**Comportamento:**
+
+1. Verifica rate limit (20s)
+2. Se OK, publica comando ROS 2
+3. Robô executa emote
+4. Retorna status
+
+## 5. Máquina de Estados HTTP
+
+O serviço HTTP implementa máquina de estados para evitar duplicatas:
+
+```
+┌─────────────┐
+│  RELEASED   │ ◄─────────────────────┐
+└──────┬──────┘                       │
+       │                              │
+       │ POST /emergency/press        │
+       │                              │
+       ▼                              │
+┌─────────────┐                       │
+│  PRESSING   │                       │
+└──────┬──────┘                       │
+       │                              │
+       │ POST /emergency/release      │
+       │                              │
+       └──────────────────────────────┘
+```
+
+**Transições:**
+
+* RELEASED → PRESSING: POST /emergency/press
+* PRESSING → RELEASED: POST /emergency/release
+* Requisições duplicadas são ignoradas
+
+## 6. Rate Limiting para Emotes
+
+O sistema implementa rate limiting para proteger contra abuso:
+
+**Regra:**
+
+* Máximo 1 emote a cada 20 segundos
+* Contador por sessão/cliente
+* Retorna 429 se limite excedido
+
+**Exemplo:**
+
+```
+T+0s:   POST /emote/hello     → 200 OK
+T+5s:   POST /emote/stretch   → 429 Too Many Requests
+T+20s:  POST /emote/stretch   → 200 OK
+```
+
+## 7. Fluxo de Transmissão HTTP
+
+### Kill Switch via HTTP
+
+1. Cliente envia POST /emergency/press
+2. Servidor HTTP recebe requisição
+3. Estado muda para Pressed
+4. Callback dispara
+5. ROS 2 publica comando de dump
+6. Motor controller recebe comando
+7. Dump Mode ativado
+
+### Emote via HTTP
+
+1. Cliente envia POST /emote/hello
+2. Servidor verifica rate limit
+3. Se OK, callback dispara
+4. ROS 2 publica comando de emote
+5. Robô executa movimento
+6. Retorna 200 OK
+
+## 8. Integração Dual-Channel
+
+Ambos os canais (Serial + HTTP) funcionam simultaneamente:
+
+**Serial:**
+
+* Botão físico pressionado
+* ESP32C3 envia '1' via serial
+* Rust recebe e processa
+
+**HTTP:**
+
+* Cliente envia POST /emergency/press
+* Servidor HTTP recebe
+* Callback processa
+
+**Resultado:**
+
+* Ambos disparam o mesmo ROS command
+* Ambos ativam Dump Mode
+* Ambos têm igual prioridade
+
+
+# Kill Switch Atualizações (/docs/sprint-5/botao-de-stop-pt2)
+
+# Kill Switch - Atualização
+
+## Visão Geral
+
+Na sprint 4 foi feita a implementação de um Kill Switch no robô, e agora atualizando a antiga documentação, trazemos:
+
+* **Protocolo HTTP/WiFi** para acionamento remoto
+* **Dual-channel redundância** (Serial + HTTP)
+* **Sistema de emotes** com 8 movimentos diferentes
+* **Rate limiting** para proteção contra abuso
+* **Integração completa** com ROS 2
+
+
+# Segurança e Conformidade (/docs/sprint-5/botao-de-stop-pt2/seguranca-conformidade)
+
+# Kill Switch - Segurança e Conformidade
+
+## 1. Novas Ameaças (HTTP/WiFi)
+
+A adição do protocolo HTTP/WiFi introduz novas ameaças que precisam ser mitigadas:
+
+### Ameaças Identificadas
+
+| Ameaça                     | Categoria              | Impacto              | Probabilidade | Mitigação              |
+| :------------------------- | :--------------------- | :------------------- | :------------ | :--------------------- |
+| **Spoofing de Sinal HTTP** | Spoofing               | Acionamento falso    | Média         | Rede interna, sem auth |
+| **Replay Attack HTTP**     | Tampering              | Acionamento repetido | Média         | Máquina de estados     |
+| **Perda de Conexão WiFi**  | DoS                    | Falha de comunicação | Média         | Fallback para Serial   |
+| **Injection em HTTP**      | Injection              | Comando malicioso    | Baixa         | Validação de estado    |
+| **Eavesdropping HTTP**     | Information Disclosure | Exposição de dados   | Média         | Rede interna           |
+
+### Matriz de Risco
+
+| Ameaça                    | Severidade | Detectabilidade | Score | Prioridade |
+| :------------------------ | :--------- | :-------------- | :---- | :--------- |
+| **Perda de Conexão WiFi** | ALTA       | Fácil           | 7/10  | ALTA       |
+| **Spoofing HTTP**         | ALTA       | Média           | 6/10  | ALTA       |
+| **Replay Attack HTTP**    | MÉDIA      | Fácil           | 4/10  | MÉDIA      |
+
+## 2. Controles de Segurança
+
+### Controles Implementados
+
+| Controle                    | Tipo       | Implementação           | Status |
+| :-------------------------- | :--------- | :---------------------- | :----- |
+| **Máquina de Estados HTTP** | Preventivo | Validação de transições | ✅      |
+| **Rate Limiting Emotes**    | Preventivo | 20s entre requisições   | ✅      |
+| **Rede Interna**            | Preventivo | WiFi Unitree isolada    | ✅      |
+| **Detecção de Anomalias**   | Detectivo  | Monitoramento de taxa   | ✅      |
+| **Logging Estruturado**     | Detectivo  | Eventos com trace\_id   | ✅      |
+
+## 3. Monitoramento
+
+### Novos Eventos
+
+| Evento                            | Severidade | Descrição                        | Ação            |
+| :-------------------------------- | :--------- | :------------------------------- | :-------------- |
+| **KILL\_SWITCH\_ACTIVATED\_HTTP** | CRITICAL   | Kill Switch acionado via HTTP    | Alerta imediato |
+| **KILL\_SWITCH\_RELEASED\_HTTP**  | HIGH       | Kill Switch liberado via HTTP    | Log             |
+| **EMOTE\_TRIGGERED**              | MEDIUM     | Emote acionado                   | Log             |
+| **RATE\_LIMIT\_EXCEEDED**         | LOW        | Limite de taxa de emote excedido | Log             |
+| **HTTP\_SERVER\_ERROR**           | HIGH       | Erro no servidor HTTP            | Investigação    |
+| **WIFI\_DISCONNECTED**            | CRITICAL   | Perda de conexão WiFi            | Alerta          |
+
+### Esquema de Logs
+
+```json
+{
+  "timestamp": "2025-12-18T10:30:45.123Z",
+  "trace_id": "550e8400-e29b-41d4-a716-446655440000",
+  "event.category": "kill-switch",
+  "event.source": "http",
+  "event.type": "activation",
+  "severity": "CRITICAL",
+  "message": "Emergency stop button activated via HTTP",
+  "http.method": "POST",
+  "http.path": "/emergency/press",
+  "http.status": 200,
+  "client.ip": "192.168.1.100",
+  "operator_id": "op-001"
+}
+```
+
+## 4. Conformidade
+
+### Alinhamento com NIST CSF
+
+O desinvolvimento dessa sprint se mantém alinhado com NIST CSF:
+
+| Função       | Atividade           | Implementação                   |
+| :----------- | :------------------ | :------------------------------ |
+| **Identify** | Asset Inventory     | Serviços HTTP registrados       |
+| **Protect**  | Access Control      | Rede WiFi interna               |
+| **Detect**   | Anomaly Detection   | SIEM monitora eventos HTTP      |
+| **Respond**  | Incident Response   | Playbooks KS-002 e KS-003       |
+| **Recover**  | Recovery Procedures | Failover automático para Serial |
+
+### Conformidade com Padrões
+
+| Padrão           | Seção                          | Conformidade  |
+| :--------------- | :----------------------------- | :------------ |
+| **ISO 13849-1**  | Safety-related control systems | Mantém PLd    |
+| **IEC 61508**    | Functional safety              | Mantém SIL 2  |
+| **OWASP Top 10** | Web Application Security       | Completo      |
+| **CIS Controls** | Critical Security Controls     | Completo (v8) |
+
+## 5. Testes
+
+### Testes de Segurança
+
+* Validação de máquina de estados HTTP
+* Teste de rate limiting para emotes
+* Teste de failover WiFi → Serial
+* Validação de replay attack
+* Teste de injection em endpoints
+
+### Testes de Integração
+
+* Dual-channel simultâneo (Serial + HTTP)
+* Sincronização de estado entre canais
+* Prioridade de canais
+* Recuperação de falhas
+
+
+# Software HTTP e Emotes (/docs/sprint-5/botao-de-stop-pt2/software-operacao)
+
+# Kill Switch - Software HTTP e Emotes
+
+## 1. Firmware ESP32C3 (Wireless)
+
+O firmware utiliza a biblioteca `WiFi.h` e `HTTPClient.h` para enviar os comandos de emergência sem fios.
+
+````cpp
+// Exemplo de lógica Wireless
+if (buttonState == LOW) {
+    HTTPClient http;
+    http.begin("http://robot.local:3000/emergency/press" );
+    http.POST("{}" );
+    http.end( );
+}
+
+## 2. Serviço HTTP Kill Switch
+
+### Arquitetura
+
+O serviço HTTP é implementado em Rust usando Axum e funciona paralelamente ao serviço Serial:
+
+```rust
+#[derive(Debug, Clone, Copy)]
+enum RosCommand {
+    StartDamp,      // Inicia envio contínuo de DAMP
+    StopAndRecover, // Para DAMP e envia RECOVER
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Carrega configuração
+    let config = load_config("config/config.yaml")?;
+
+    // Cria cliente ROS 2
+    let ros_client = Arc::new(Mutex::new(EmergencyStopClient::new(
+        &config.ros_namespace,
+        "/api/sport/request",
+    )?));
+
+    // Inicializa servidor HTTP
+    let web_client = WebClient::new("0.0.0.0:3000");
+
+    // Canal para comandos ROS (thread-safe)
+    let (tx, rx) = mpsc::channel::<RosCommand>();
+
+    // Thread que processa comandos ROS
+    let ros_for_commands = Arc::clone(&ros_client);
+    std::thread::spawn(move || {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        let mut damp_active = false;
+
+        loop {
+            match rx.recv_timeout(std::time::Duration::from_millis(10)) {
+                Ok(RosCommand::StartDamp) => {
+                    info!("*** HTTP: Start continuous DAMP ***");
+                    damp_active = true;
+                }
+                Ok(RosCommand::StopAndRecover) => {
+                    info!("*** HTTP: Stop DAMP and send RECOVER ***");
+                    damp_active = false;
+
+                    rt.block_on(async {
+                        let guard = ros_for_commands.lock().await;
+                        let _ = guard.trigger_recovery().await;
+                    });
+                }
+                Err(mpsc::RecvTimeoutError::Timeout) => {
+                    if damp_active {
+                        rt.block_on(async {
+                            let guard = ros_for_commands.lock().await;
+                            let _ = guard.trigger_emergency_stop(true).await;
+                        });
+                    }
+                }
+                Err(_) => break,
+            }
+        }
+    });
+
+    // Callback HTTP: detecta transição Released→Pressed ou Pressed→Released
+    let tx_web = tx.clone();
+    let web_callback = move |prev_state: ButtonState, new_state: ButtonState| {
+        use web::web_client::ButtonState;
+        match (prev_state, new_state) {
+            (ButtonState::Released, ButtonState::Pressed) => {
+                info!("*** HTTP BUTTON PRESSED ***");
+                let _ = tx_web.send(RosCommand::StartDamp);
+            }
+            (ButtonState::Pressed, ButtonState::Released) => {
+                info!("*** HTTP BUTTON RELEASED ***");
+                let _ = tx_web.send(RosCommand::StopAndRecover);
+            }
+            _ => {}
+        }
+    };
+
+    // Inicia servidor HTTP
+    web_client.start_server(web_callback).await;
+
+    Ok(())
+}
+````
+
+## 3. Serviço HTTP Emotes
+
+### Arquitetura
+
+O serviço de emotes é um servidor HTTP separado na porta 3001:
+
+```rust
+#[derive(Debug, Clone, Copy)]
+enum RosCommand {
+    Hello,    // ID 1016
+    Stretch,  // ID 1017
+    Content,  // ID 1020
+    Wallow,   // ID 1021
+    Dance1,   // ID 1022
+    Dance2,   // ID 1023
+    Pose,     // ID 1028
+    Scrape,   // ID 1029
+}
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Carrega configuração
+    let config_content = std::fs::read_to_string("config/config.yaml")?;
+    let config: Config = serde_yaml::from_str(&config_content)?;
+
+    // Cria cliente ROS 2
+    let ros_client = Arc::new(Mutex::new(RobotClient::new(
+        &config.ros_namespace,
+        "/api/sport/request",
+    )?));
+
+    // Inicializa servidor HTTP
+    let web_client = WebClient::new("0.0.0.0:3001");
+
+    // Canal para comandos ROS
+    let (tx, rx) = mpsc::channel::<RosCommand>();
+
+    // Thread que processa comandos de emote
+    let ros_for_commands = Arc::clone(&ros_client);
+    std::thread::spawn(move || {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+
+        loop {
+            match rx.recv() {
+                Ok(RosCommand::Hello) => {
+                    rt.block_on(async {
+                        let guard = ros_for_commands.lock().await;
+                        let _ = guard.trigger_emote(1016, "Hello").await;
+                    });
+                }
+                Ok(RosCommand::Stretch) => {
+                    rt.block_on(async {
+                        let guard = ros_for_commands.lock().await;
+                        let _ = guard.trigger_emote(1017, "Stretch").await;
+                    });
+                }
+                // ... outros emotes ...
+                Err(_) => break,
+            }
+        }
+    });
+
+    // Callback que dispara emotes via HTTP
+    let tx_emote = tx.clone();
+    let web_emote_callback = move |emote: EmoteCommand| {
+        match emote {
+            EmoteCommand::Hello => {
+                let _ = tx_emote.send(RosCommand::Hello);
+            }
+            EmoteCommand::Stretch => {
+                let _ = tx_emote.send(RosCommand::Stretch);
+            }
+            // ... outros emotes ...
+        }
+    };
+
+    // Inicia servidor HTTP de emotes
+    web_client.start_emote_server(web_emote_callback).await;
+
+    Ok(())
+}
+```
+
+## 4. Fluxos Operacionais
+
+### Fluxo 1: Kill Switch via HTTP
+
+```
+┌─────────┐
+│  App    │
+└────┬────┘
+     │ POST /emergency/press
+     ▼
+┌──────────────┐
+│ HTTP Server  │
+│ :3000        │
+└────┬─────────┘
+     │ Callback
+     ▼
+┌──────────────┐
+│ Rust Service │
+└────┬─────────┘
+     │ RosCommand::StartDamp
+     ▼
+┌──────────────┐
+│ ROS 2 Topic  │
+│ /api/sport/  │
+│ request      │
+└────┬─────────┘
+     │
+     ▼
+┌──────────────┐
+│ Robot        │
+│ DUMP MODE    │
+└──────────────┘
+```
+
+### Fluxo 2: Emote via HTTP
+
+```
+┌─────────┐
+│  App    │
+└────┬────┘
+     │ POST /emote/hello
+     ▼
+┌──────────────┐
+│ HTTP Server  │
+│ :3001        │
+│ Rate Limit?  │
+└────┬─────────┘
+     │ OK
+     ▼
+┌──────────────┐
+│ Rust Service │
+└────┬─────────┘
+     │ RosCommand::Hello
+     ▼
+┌──────────────┐
+│ ROS 2 Topic  │
+│ /api/sport/  │
+│ request      │
+└────┬─────────┘
+     │
+     ▼
+┌──────────────┐
+│ Robot        │
+│ Executa      │
+│ Emote        │
+└──────────────┘
+```
+
+## 5. Playbooks
+
+### Playbook KS-002: Acionamento via HTTP
+
+**Objetivo**: Ativar Kill Switch usando aplicativo remoto
+
+**Pré-requisitos**:
+
+* Serviço HTTP em execução (porta 3000)
+* WiFi Unitree conectado
+* Aplicativo cliente disponível
+
+**Passos**:
+
+1. Operador abre aplicativo
+2. Operador clica em "KILL SWITCH"
+3. Aplicativo envia POST /emergency/press
+4. HTTP server recebe requisição
+5. Estado muda para Pressed
+6. Callback dispara ROS command
+7. ROS publica comando DAMP
+8. Robot ativa Dump Mode
+9. Operador clica em "RELEASE"
+10. Aplicativo envia POST /emergency/release
+11. Estado muda para Released
+12. Callback dispara ROS command
+13. ROS publica comando RECOVER
+14. Robot retorna ao estado normal
+
+### Playbook KS-003: Acionamento de Emote
+
+**Objetivo**: Executar emote no robô via HTTP
+
+**Pré-requisitos**:
+
+* Serviço Emotes em execução (porta 3001)
+* WiFi Unitree conectado
+* Aplicativo cliente disponível
+
+**Passos**:
+
+1. Operador abre aplicativo de emotes
+2. Operador seleciona "Hello"
+3. Aplicativo envia POST /emote/hello
+4. HTTP server verifica rate limit (20s)
+5. Se OK, callback dispara ROS command
+6. ROS publica comando de emote (ID 1016)
+7. Robot executa movimento de oi
+8. Aplicativo retorna 200 OK
+9. Rate limiter bloqueia próximos 20s
+10. Após 20s, novo emote pode ser acionado
+
+## 6. Integração Dual-Channel
+
+O dual-channel onde Serial e HTTP funcionam simultaneamente:
+
+| Aspecto            | Serial             | HTTP                 |
+| :----------------- | :----------------- | :------------------- |
+| **Acionamento**    | Botão físico       | Aplicativo remoto    |
+| **Confiabilidade** | Muito alta         | Alta (rede interna)  |
+| **Latência**       | Rápida             | Rápida               |
+| **Redundância**    | Fallback para HTTP | Fallback para Serial |
+| **Resultado**      | Dump Mode          | Dump Mode            |
 
 
 # Exploração e Integração (/docs/sprint-5/robo/exploracao-robo)
