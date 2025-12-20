@@ -1,72 +1,96 @@
 ---
 title: Sistema de Comunicação por WebSockets
-description: Sistema responsável por permitir que o robô do projeto Tour Inteli converse com as pessoas, tanto por texto quanto por áudio.
+description: Sistema responsável pela comunicação em tempo real entre robô, backend e frontend do projeto Tour Inteli, incluindo chat com visitantes e controle de checkpoints.
 ---
 
 ## **1. Introdução**
 
 &emsp;Este documento descreve a arquitetura, os componentes e os fluxos do sistema de comunicação em tempo real do robô do Inteli.
-O objetivo do módulo de WebSockets é permitir que o robô:
+O sistema de WebSockets possui dois módulos principais:
 
-- receba perguntas dos visitantes (texto ou áudio),
-- envie respostas em texto e áudio,
-- sincronize múltiplos dispositivos (painel do operador, robô, turista),
-- faça transcrição de fala (STT) e síntese de voz (TTS).
+### **1.1 Módulo de Chat e Conversação**
 
-&emsp;A comunicação ocorre em tempo real via WebSockets, centralizada por um servidor de broadcast implementado em Rust com Actix-Web.
+- Recebe perguntas dos visitantes (texto ou áudio)
+- Envia respostas em texto e áudio
+- Sincroniza múltiplos dispositivos (painel do operador, robô, turista)
+- Realiza transcrição de fala (STT) e síntese de voz (TTS)
+
+### **1.2 Módulo de Controle de Checkpoints**
+
+- Comunica eventos de navegação do robô (início/fim de checkpoints)
+- Sincroniza status do robô em tempo real com o backend e frontend
+- Atualiza automaticamente o banco de dados com timestamps reais
+- Gerencia comandos de controle (play, stop, status)
+
+&emsp;A comunicação ocorre em tempo real via WebSockets, centralizada pelo backend implementado em Rust com Actix-Web.
 
 ## **2. Visão Geral da Arquitetura**
 
-&emsp;O sistema utiliza dois canais de WebSockets:
+&emsp;O sistema utiliza três canais de WebSockets:
 
-- **Text WebSocket** → para mensagens em texto
-- **Audio WebSocket** → para mensagens de áudio (entrada e saída)
+- **Text WebSocket** → para mensagens em texto (chat)
+- **Audio WebSocket** → para mensagens de áudio (entrada e saída do chat)
+- **Robot WebSocket** → para controle de checkpoints e sincronização de navegação
 
-&emsp;Ambos são gerenciados por um **Broadcast Server** central, responsável pela sincronização entre clientes.
-
-### **Diagrama da Arquitetura**
+### **Diagrama da Arquitetura Completa**
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                         FRONTEND                                │
-│  ┌──────────────────┐              ┌──────────────────┐         │
-│  │  Text WebSocket  │              │ Audio WebSocket  │         │
-│  └────────┬─────────┘              └────────┬─────────┘         │
-└───────────┼──────────────────────────────────┼──────────────────┘
-            │                                   │
-            ▼                                   ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      BACKEND (Actix-Web)                        │
-│  ┌───────────────────────────────────────────────────────────┐  │
-│  │              Broadcast Server (Central Hub)               │  │
-│  │  - Conexões de texto e áudio                              │  │
-│  │  - Broadcast de mensagens                                 │  │
-│  │  - Conversão Texto→Áudio (TTS)                            │  │
-│  │  - Exclusão de eco por cliente                            │  │
-│  └─────┬────────────────────────────────────────────┬────────┘  │
-│        │                                             │          │
-│  ┌─────▼─────────────┐                    ┌────────▼────────┐   │
-│  │  Text WebSocket   │                    │ Audio WebSocket │   │
-│  │  Handler          │                    │ Handler         │   │
-│  └─────┬─────────────┘                    └────────┬────────┘   │
-└────────┼──────────────────────────────────────────┼─────────────┘
-         │                                           │
-         ▼                                           ▼
-┌──────────────────────────────────────────────────────────────────┐
-│                    SERVIÇOS EXTERNOS                             │
-│        /v1/modelo     /ml/stt (STT)       /ml/tts (TTS)          │
-└──────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│                         FRONTEND (React/JS)                          │
+│  ┌──────────────────┐   ┌──────────────────┐   ┌─────────────────┐  │
+│  │  Text WebSocket  │   │ Audio WebSocket  │   │ Robot WebSocket │  │
+│  │  (Chat)          │   │  (Chat)          │   │ (Checkpoints)   │  │
+│  └────────┬─────────┘   └────────┬─────────┘   └────────┬────────┘  │
+└───────────┼──────────────────────┼──────────────────────┼───────────┘
+            │                      │                       │
+            ▼                      ▼                       ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                      BACKEND (Actix-Web + Rust)                      │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │              Broadcast Server (Central Hub - Chat)             │  │
+│  │  - Conexões de texto e áudio                                   │  │
+│  │  - Broadcast de mensagens                                      │  │
+│  │  - Conversão Texto→Áudio (TTS)                                 │  │
+│  │  - Exclusão de eco por cliente                                 │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+│                                                                       │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │         Robot Client + Frontend Server (Checkpoints)           │  │
+│  │  - Cliente WebSocket → Conecta ao servidor Python do robô      │  │
+│  │  - Servidor WebSocket → Aceita conexões do frontend            │  │
+│  │  - Relay inteligente de eventos e comandos                     │  │
+│  │  - Atualização automática do banco de dados (PostgreSQL)       │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+│        ▲                                             │                │
+│        │ WebSocket Client                            │ Broadcast      │
+│        │ (tokio-tungstenite)                         │ (actix-ws)     │
+└────────┼─────────────────────────────────────────────┼────────────────┘
+         │                                             │
+         ▼                                             ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                    ROBOT (Python + aiohttp)                          │
+│  ┌────────────────────────────────────────────────────────────────┐  │
+│  │              WebSocket Server (move_path.py)                   │  │
+│  │  - Recebe comandos do backend (play, stop, get_status)         │  │
+│  │  - Envia eventos de checkpoint em tempo real                   │  │
+│  │  - Controla movimento físico do robô via WebRTC               │  │
+│  └────────────────────────────────────────────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────────┘
+         ▲
+         │ WebRTC (movimento físico)
+         ▼
+    🤖 Robô Físico
 ```
 
 ## **3. Componentes Principais**
 
-&emsp;A seguir, cada componente é explicado de forma clara e acessível.
+### **MÓDULO 1: CHAT E CONVERSAÇÃO**
 
 ## **3.1 Broadcast Server (`broadcast.rs`)**
 
 ### **O que é?**
 
-&emsp;O _Broadcast Server_ é o “cérebro” do sistema de comunicação.
+&emsp;O _Broadcast Server_ é o "cérebro" do sistema de comunicação de chat.
 Ele funciona como um **ponto central** que recebe mensagens e distribui para todos os clientes conectados.
 
 ### **O que ele faz?**
@@ -154,6 +178,7 @@ pub struct BroadcastServer {
 ```
 Cliente envia áudio (base64)
 → AudioWebSocket decodifica áudio
+→ STT transcreve para texto
 → Modelo recebe texto
 → Modelo retorna resposta
 → TTS converte resposta em áudio
@@ -171,7 +196,7 @@ Cliente envia texto
 → Broadcast para todos os clientes
 ```
 
-## **4. Modelo Endpoint (`modelo.rs`)**
+## **3.4 Modelo Endpoint (`modelo.rs`)**
 
 ### **O que é?**
 
@@ -192,7 +217,224 @@ Cliente envia texto
 POST /v1/modelo
 ```
 
-## **5. Sincronização Entre Clientes**
+---
+
+### **MÓDULO 2: CONTROLE DE CHECKPOINTS**
+
+## **3.5 Robot Client (`robot_client.rs`)**
+
+### **O que é?**
+
+&emsp;Cliente WebSocket que conecta ao servidor Python do robô para receber eventos de navegação e enviar comandos de controle.
+
+### **O que ele faz?**
+
+- **Conecta ao robô** via WebSocket (tokio-tungstenite)
+- **Recebe eventos do robô** (checkpoint_started, checkpoint_completed, emergency_stop)
+- **Envia comandos** (play, stop, get_status)
+- **Atualiza o banco de dados** automaticamente com timestamps reais
+- **Retenta conexão** a cada 5 segundos se o robô estiver offline
+- **Broadcast para frontend** via canal broadcast
+
+### **Estrutura interna**
+
+```rust
+pub struct RobotClient {
+    robot_ip: String,
+    writer: Arc<Mutex<Option<WsWriter>>>,
+    frontend_tx: broadcast::Sender<FrontendEvent>,
+    db_pool: PgPool,
+}
+```
+
+### **Eventos recebidos do robô**
+
+| Evento                 | Quando ocorre                         | Ação no Backend                                     |
+| ---------------------- | ------------------------------------- | --------------------------------------------------- |
+| `connected`            | Conexão inicial estabelecida          | Envia status inicial para frontend                  |
+| `checkpoint_started`   | Robô inicia movimento para checkpoint | UPDATE banco: `status='running', inicio_real=NOW()` |
+| `checkpoint_completed` | Robô chega no checkpoint              | UPDATE banco: `status='finished', fim_real=NOW()`   |
+| `emergency_stop`       | Parada de emergência acionada         | UPDATE banco: `status='skipped'` (checkpoint atual) |
+| `robot_connected`      | Robô físico conecta via WebRTC        | Notifica frontend que robô está online              |
+
+### **Comandos enviados ao robô**
+
+```rust
+RobotCommand::play()        // Executar próximo checkpoint
+RobotCommand::stop()        // Parada de emergência
+RobotCommand::get_status()  // Consultar status atual
+```
+
+### **Exemplo de atualização no banco**
+
+```rust
+// Quando checkpoint inicia
+sqlx::query(
+    "UPDATE checkpoints
+     SET status = $1, inicio_real = $2
+     WHERE tipo = $3 AND ordem = $4"
+)
+.bind("running")
+.bind(inicio_dt)
+.bind(&tipo)
+.bind(ordem)
+.execute(db_pool)
+.await?;
+
+// Quando checkpoint completa
+sqlx::query(
+    "UPDATE checkpoints
+     SET status = $1, fim_real = $2
+     WHERE tipo = $3 AND ordem = $4"
+)
+.bind("finished")
+.bind(fim_dt)
+.bind(&tipo)
+.bind(ordem)
+.execute(db_pool)
+.await?;
+```
+
+## **3.6 Frontend Server (`frontend_server.rs`)**
+
+### **O que é?**
+
+&emsp;Servidor WebSocket que aceita conexões do frontend para enviar eventos de checkpoint em tempo real e receber comandos de controle.
+
+### **O que ele faz?**
+
+- **Aceita conexões WebSocket** do frontend (actix-ws)
+- **Relata eventos do robô** para o frontend em tempo real
+- **Recebe comandos do frontend** (play, stop, status)
+- **Encaminha comandos** para o RobotClient
+- **Usa tokio::select!** para gerenciar fluxo bidirecional
+
+### **Handler principal**
+
+```rust
+pub async fn ws_frontend_handler(
+    req: HttpRequest,
+    stream: web::Payload,
+    app_state: web::Data<AppState>,
+) -> Result<HttpResponse, Error>
+```
+
+### **Fluxo bidirecional**
+
+```rust
+tokio::select! {
+    // Recebe eventos do robô → Envia para frontend
+    Ok(event) = frontend_rx.recv() => {
+        session.text(json).await?;
+    }
+
+    // Recebe comandos do frontend → Envia para robô
+    Some(Ok(msg)) = msg_stream.next() => {
+        let cmd = serde_json::from_str::<FrontendCommand>(&text)?;
+        robot_client.send_command(cmd).await?;
+    }
+}
+```
+
+## **3.7 WebSocket Models (`websocket.rs`)**
+
+### **Estruturas de dados**
+
+#### **RobotEvent** (Robô → Backend)
+
+```rust
+pub enum RobotEvent {
+    Connected { status: RobotStatus },
+    CheckpointStarted { tipo: String, ordem: i32, status: String, inicio_real: String },
+    CheckpointCompleted { tipo: String, ordem: i32, status: String, inicio_real: String, fim_real: String },
+    EmergencyStop { tipo: Option<String>, ordem: Option<i32> },
+    RobotConnected { status: String },
+}
+```
+
+#### **FrontendEvent** (Backend → Frontend)
+
+```rust
+pub enum FrontendEvent {
+    RobotStatus { robot_connected: bool, is_running: bool, current_checkpoint: Option<String> },
+    CheckpointStarted { tipo: String, ordem: i32, status: String, inicio_real: DateTime<Utc> },
+    CheckpointCompleted { tipo: String, ordem: i32, status: String, inicio_real: DateTime<Utc>, fim_real: DateTime<Utc> },
+    EmergencyStop { tipo: Option<String>, ordem: Option<i32> },
+    Error { message: String },
+}
+```
+
+#### **FrontendCommand** (Frontend → Backend)
+
+```rust
+pub enum FrontendCommand {
+    Play,
+    Stop,
+    GetStatus,
+}
+```
+
+## **4. Fluxos de Comunicação**
+
+### **4.1 Fluxo de Checkpoint Completo**
+
+```
+1. Frontend envia comando
+   Frontend → Backend: { "command": "play" }
+
+2. Backend encaminha para robô
+   Backend (RobotClient) → Robot Server: { "action": "play" }
+
+3. Robô inicia movimento
+   Robot Server → Backend: { "event": "checkpoint_started", "tipo": "recepcao", "ordem": 1, ... }
+
+4. Backend atualiza banco de dados
+   UPDATE checkpoints SET status='running', inicio_real='2025-12-15T14:02:35Z' WHERE tipo='recepcao'
+
+5. Backend relata para frontend
+   Backend → Frontend: { "event": "checkpoint_started", "tipo": "recepcao", ... }
+
+6. Frontend atualiza UI
+   UI mostra: "🚀 Indo para Recepção..."
+   Perguntas bloqueadas até chegada
+
+7. Robô chega no destino
+   Robot Server → Backend: { "event": "checkpoint_completed", "tipo": "recepcao", "fim_real": "..." }
+
+8. Backend atualiza banco
+   UPDATE checkpoints SET status='finished', fim_real='2025-12-15T14:08:12Z' WHERE tipo='recepcao'
+
+9. Backend relata para frontend
+   Backend → Frontend: { "event": "checkpoint_completed", "tipo": "recepcao", ... }
+
+10. Frontend libera perguntas
+    UI mostra: "✅ Chegou na Recepção! Faça suas perguntas"
+    Perguntas do checkpoint 'recepcao' liberadas
+```
+
+### **4.2 Fluxo de Parada de Emergência**
+
+```
+1. Frontend envia stop
+   Frontend → Backend: { "command": "stop" }
+
+2. Backend encaminha
+   Backend → Robot: { "action": "stop" }
+
+3. Robô para imediatamente
+   Robot Server → Backend: { "event": "emergency_stop", "tipo": "auditorio", "ordem": 2 }
+
+4. Backend atualiza banco
+   UPDATE checkpoints SET status='skipped' WHERE tipo='auditorio' AND status='running'
+
+5. Backend notifica frontend
+   Backend → Frontend: { "event": "emergency_stop", "tipo": "auditorio" }
+
+6. Frontend mostra alerta
+   UI: "🛑 Tour interrompido! Checkpoint 'Auditório' foi pulado"
+```
+
+### **4.3 Sincronização Entre Clientes (Chat)**
 
 &emsp;O sistema implementa um padrão publish-subscribe através do `BroadcastServer`:
 
@@ -208,9 +450,33 @@ POST /v1/modelo
    - O cliente que originou a mensagem não recebe seu próprio broadcast
    - Evita feedback loops e duplicação de mensagens
 
+## **5. Integração com Banco de Dados**
+
+### **Tabela: checkpoints**
+
+| Coluna            | Tipo        | Preenchimento                                         |
+| ----------------- | ----------- | ----------------------------------------------------- |
+| `id`              | SERIAL (PK) | Auto-gerado                                           |
+| `tour_id`         | INT (FK)    | Criação do tour                                       |
+| `tipo`            | TEXT        | Criação do tour (recepcao, auditorio, atelie, etc.)   |
+| `ordem`           | INT         | Criação do tour (1, 2, 3, 4, 5)                       |
+| `status`          | TEXT        | Inicial: `pending` → `running` → `finished`/`skipped` |
+| `inicio_previsto` | TIMESTAMPTZ | Criação do tour (horário estimado)                    |
+| `inicio_real`     | TIMESTAMPTZ | **Evento `checkpoint_started`** (timestamp real)      |
+| `fim_real`        | TIMESTAMPTZ | **Evento `checkpoint_completed`** (timestamp real)    |
+
+### **Estados do checkpoint**
+
+| Status     | Quando ocorre                          |
+| ---------- | -------------------------------------- |
+| `pending`  | Checkpoint criado, aguardando execução |
+| `running`  | Robô em movimento para o checkpoint    |
+| `finished` | Robô chegou e completou o checkpoint   |
+| `skipped`  | Emergency stop durante execução        |
+
 ## **6. Formatos de Mensagens**
 
-### **Broadcast de texto**
+### **6.1 Chat - Broadcast de texto**
 
 ```json
 {
@@ -219,7 +485,7 @@ POST /v1/modelo
 }
 ```
 
-### **Broadcast de áudio**
+### **6.2 Chat - Broadcast de áudio**
 
 ```json
 {
@@ -228,14 +494,153 @@ POST /v1/modelo
 }
 ```
 
-## **9. Conclusão**
+### **6.3 Checkpoints - Evento de início**
 
-O sistema de WebSockets deste projeto é o que permite que o robô converse com os visitantes de maneira natural, rápida e sincronizada.
-Ele integra vários serviços inteligentes (STT, TTS e modelo de IA) e distribui respostas para todos os dispositivos conectados em tempo real.
+```json
+{
+  "event": "checkpoint_started",
+  "tipo": "recepcao",
+  "ordem": 1,
+  "status": "running",
+  "inicio_real": "2025-12-15T14:02:35.123Z"
+}
+```
+
+### **6.4 Checkpoints - Evento de conclusão**
+
+```json
+{
+  "event": "checkpoint_completed",
+  "tipo": "recepcao",
+  "ordem": 1,
+  "status": "finished",
+  "inicio_real": "2025-12-15T14:02:35.123Z",
+  "fim_real": "2025-12-15T14:08:12.456Z"
+}
+```
+
+### **6.5 Checkpoints - Status do robô**
+
+```json
+{
+  "event": "robot_status",
+  "robot_connected": true,
+  "is_running": false,
+  "current_checkpoint": "recepcao"
+}
+```
+
+## **7. Configuração**
+
+### **7.1 Arquivo config.toml**
+
+```toml
+[settings.server]
+host = "0.0.0.0"
+port = 8081  # Backend Rust
+
+[settings.database]
+host = "aws-1-us-east-2.pooler.supabase.com"
+username = "postgres.xxxxx"
+password = "xxxxx"
+database = "postgres"
+port = 5432
+max_connections = 5
+
+[settings.robot]
+ip = "127.0.0.1"  # IP do servidor Python do robô (localhost para testes)
+```
+
+### **7.2 Portas utilizadas**
+
+| Serviço               | Porta | Protocolo |
+| --------------------- | ----- | --------- |
+| Backend Rust          | 8081  | HTTP/WS   |
+| Robot Python Server   | 8080  | HTTP/WS   |
+| PostgreSQL (Supabase) | 5432  | TCP       |
+
+## **8. Testando o Sistema**
+
+### **8.1 Teste de Checkpoints**
+
+```powershell
+# Terminal 1: Servidor Python do robô
+cd 2025-2B-T12-EC08-ROBO
+python move_path.py
+
+# Terminal 2: Backend Rust
+cd 2025-2B-T12-EC08-BACK
+cargo run -- --config config.toml
+
+# Terminal 3: Cliente de teste
+cd 2025-2B-T12-EC08-BACK
+python test_websocket.py interactive --url ws://localhost:8081/ws
+```
+
+**Comandos disponíveis:**
+
+- `status` - Consultar status do robô
+- `play` - Executar próximo checkpoint
+- `stop` - Parada de emergência
+- `quit` - Sair
+
+### **8.2 Observando logs**
+
+**Backend logs esperados:**
+
+```
+✅ Conectado ao robô!
+📡 Iniciando listener de eventos do robô
+🤖 Status inicial do robô: robot_connected=false
+▶️ Checkpoint INICIADO: recepcao (ordem: 1)
+💾 Checkpoint atualizado no banco: recepcao -> running
+✅ Checkpoint CONCLUÍDO: recepcao (status: finished)
+💾 Checkpoint finalizado no banco: recepcao -> finished
+```
+
+## **9. Tratamento de Erros**
+
+### **9.1 Robô offline**
+
+- **Comportamento:** Backend retenta conexão a cada 5 segundos
+- **Frontend:** Recebe `robot_connected: false` no status
+- **Comandos:** São enfileirados mas não executados até robô conectar
+
+### **9.2 Perda de conexão durante execução**
+
+- **WebSocket desconecta:** Backend retenta automaticamente
+- **Checkpoint em andamento:** Status `running` permanece no banco até reconexão
+- **Frontend:** Mostra indicador de "Conexão perdida"
+
+### **9.3 Emergency stop**
+
+- **Checkpoint atual:** Marcado como `skipped`
+- **Checkpoints futuros:** Permanecem `pending`
+- **Robô:** Para movimento físico imediatamente
+
+## **10. Conclusão**
+
+O sistema de WebSockets deste projeto é o que permite:
+
+### **Módulo de Chat:**
+
+- Conversação natural com visitantes via texto e áudio
+- Sincronização em tempo real entre múltiplos dispositivos
+- Integração inteligente com STT, TTS e modelo de IA
+
+### **Módulo de Checkpoints:**
+
+- Controle preciso da navegação do robô
+- Atualização automática do banco com timestamps reais
+- Sincronização perfeita entre robô físico, backend e frontend
+- Gerenciamento de estados e paradas de emergência
 
 A arquitetura foi construída para ser:
 
-- simples de entender,
-- escalável,
-- extensível,
-- e fácil de manter.
+- **Simples de entender** - Componentes bem separados e documentados
+- **Escalável** - Usa broadcast channels e WebSockets eficientes
+- **Resiliente** - Retry automático e tratamento de erros
+- **Extensível** - Fácil adicionar novos eventos e comandos
+- **Testável** - Cliente de teste incluso para validação
+
+O sistema está pronto para uso em produção, com o robô físico ou em modo de simulação para testes.
