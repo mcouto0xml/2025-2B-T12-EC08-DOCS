@@ -1135,7 +1135,7 @@ else:
     Documentação da Sprint 5 do time de Modelo.
   </Card>
 
-  <Card href="/docs/sprint-5/manual-de-operação" title="Manual de Operação">
+  <Card href="/docs/sprint-5/manual-de-operacao" title="Manual de Operação">
     Documentação do Manual de Operação.
   </Card>
 </Cards>
@@ -8617,6 +8617,173 @@ Todas as ocorrências devem ser registradas e revisadas pela equipe de seguranç
 </Cards>
 
 
+# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
+
+
+
+# Pipeline de Ingestão de Arquivos
+
+## Introdução
+
+O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
+
+A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
+
+***
+
+## Estrutura Geral do Pipeline
+
+<Callout type="info">
+  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
+</Callout>
+
+### 1. Extração dos textos
+
+```python
+from unstructured.partition.pdf import partition_pdf
+
+elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
+```
+
+* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
+
+* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
+
+***
+
+### 2. Sanitização dos textos
+
+```python
+def clean_text(text):
+    text = re.sub(r'\s+', ' ', text)
+    text = text.replace('\ufb01', 'fi')
+    ...
+```
+
+* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
+
+* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
+
+***
+
+### 3. Enriquecimento semântico
+
+```python
+def extract_enhanced_metadata(element):
+    return {
+        'element_id': ...,
+        'element_type': ...,
+        'page_number': ...,
+        'hierarchy_level': ...,
+        'section': ...,
+    }
+```
+
+* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
+
+* Isso ajuda a preservar a estrutura semântica do documento original.
+
+***
+
+### 4. Divisão em chunks com sobreposição
+
+```python
+RecursiveCharacterTextSplitter(
+  chunk_size=500,
+  chunk_overlap=100,
+)
+```
+
+* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
+
+* Mantém coesão semântica mesmo em respostas curtas.
+
+<Callout title="Importante">
+  {" "}
+
+  Essa segmentação garante que as perguntas do usuário encontrem respostas
+  dentro de um mesmo chunk.{" "}
+</Callout>
+
+***
+
+### 5. Geração de embeddings
+
+```python
+model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+embeddings = model.encode(texts, ...)
+```
+
+* Utiliza modelo pré-treinado da HuggingFace.
+
+* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
+
+* Embeddings são normalizados e possuem metadados do chunk.
+
+***
+
+### 6. Inserção no banco vetorial (ETAPA: Persistência)
+
+```python
+chunks_with_embeddings.append({
+  'id': 'chunk_x',
+  'content': ...,
+  'embedding': [...],
+  'metadata': {...}
+})
+```
+
+Cada embedding é armazenado com:
+
+* ID único
+
+* Conteúdo do chunk
+
+* Vetor (lista de floats)
+
+* Modelo utilizado
+
+* Dados estruturados (página, seção, tipo)
+
+***
+
+## Diagrama do Pipeline
+
+Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
+
+<p style={{ textAlign: "center" }}>
+  Figura 1 - Pipeline de arquivos
+</p>
+
+<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
+
+<p style={{ textAlign: "center" }}>
+  Fonte: Os autores (2025)
+</p>
+
+***
+
+## Conclusão
+
+A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
+
+É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
+
+<Callout title="Próximos Passos" type="info">
+  {" "}
+
+  Integração com o agente conversacional do robô e testes de consulta em
+  linguagem natural usando os embeddings gerados.{" "}
+</Callout>
+
+
+# Files Pipeline (/docs/sprint-2/pipeline-de-docs)
+
+<Cards>
+  <Card title="Files Pipeline" description="Documentação pipeline de documentos" href="/docs/content/docs/sprint-2/pipeline-de-docs/files-pipeline.mdx" />
+</Cards>
+
+
 # Modelagem Banco de Dados (/docs/sprint-2/modelagem-bd/modelagem-bd)
 
 Modelagem no dbdiagram: [link da modelagem](https://dbdiagram.io/d/BANCO-DE-DADOS-ROB-690bbdc36735e1117070e737)
@@ -9558,173 +9725,6 @@ Via navbar:
 O protótipo de alta fidelidade documentado aqui representa a versão visual final do aplicativo do visitante. Ele estabelece como será a experiência completa, desde a chegada do usuário ao tour até sua interação com a LIA e a navegação pelas informações exibidas. Esta documentação serve como referência para designers, desenvolvedores e avaliadores durante a construção oficial do aplicativo.
 
 
-# Pipeline de Arquivos (/docs/sprint-2/pipeline-de-docs/files-pipeline)
-
-
-
-# Pipeline de Ingestão de Arquivos
-
-## Introdução
-
-O pipeline de ingestão de dados foi construído para processar, vetorializar e armazenar documentos institucionais do Inteli em um banco de dados vetorial.
-
-A motivação para este pipeline vem da necessidade de alimentar a IA do robô com **conhecimento institucional confiável**: informações sobre os cursos, processo seletivo, estrutura acadêmica, bolsas, entre outros. Isso permitirá que o robô responda **perguntas com base nos próprios documentos do Inteli**, de forma contextualizada e segura.
-
-***
-
-## Estrutura Geral do Pipeline
-
-<Callout type="info">
-  Todas as etapas abaixo estão implementadas com foco em processar arquivos `.pdf` de forma precisa, limpa e segmentada para embeddings.
-</Callout>
-
-### 1. Extração dos textos
-
-```python
-from unstructured.partition.pdf import partition_pdf
-
-elements = partition_pdf(filename=pdf_path, strategy="fast", ocr_languages="por")
-```
-
-* Usa o módulo unstructured para extrair elementos estruturados (parágrafos, títulos, listas etc.).
-
-* Permite detectar metadados como número de página e tipo de elemento (Title, ListItem, etc).
-
-***
-
-### 2. Sanitização dos textos
-
-```python
-def clean_text(text):
-    text = re.sub(r'\s+', ' ', text)
-    text = text.replace('\ufb01', 'fi')
-    ...
-```
-
-* Remove espaços duplicados, caracteres invisíveis ou corrompidos (ex: \ufb01).
-
-* Elimina repetições de símbolos e rodapés com Pág. ou bullets irrelevantes.
-
-***
-
-### 3. Enriquecimento semântico
-
-```python
-def extract_enhanced_metadata(element):
-    return {
-        'element_id': ...,
-        'element_type': ...,
-        'page_number': ...,
-        'hierarchy_level': ...,
-        'section': ...,
-    }
-```
-
-* Cada trecho extraído é mapeado com contexto de seção, subseção, tipo, número da página e nível hierárquico.
-
-* Isso ajuda a preservar a estrutura semântica do documento original.
-
-***
-
-### 4. Divisão em chunks com sobreposição
-
-```python
-RecursiveCharacterTextSplitter(
-  chunk_size=500,
-  chunk_overlap=100,
-)
-```
-
-* Os textos são divididos em blocos de até 500 caracteres, com 100 de sobreposição.
-
-* Mantém coesão semântica mesmo em respostas curtas.
-
-<Callout title="Importante">
-  {" "}
-
-  Essa segmentação garante que as perguntas do usuário encontrem respostas
-  dentro de um mesmo chunk.{" "}
-</Callout>
-
-***
-
-### 5. Geração de embeddings
-
-```python
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-embeddings = model.encode(texts, ...)
-```
-
-* Utiliza modelo pré-treinado da HuggingFace.
-
-* Cada chunk vira um vetor numérico que será armazenado no banco vetorial.
-
-* Embeddings são normalizados e possuem metadados do chunk.
-
-***
-
-### 6. Inserção no banco vetorial (ETAPA: Persistência)
-
-```python
-chunks_with_embeddings.append({
-  'id': 'chunk_x',
-  'content': ...,
-  'embedding': [...],
-  'metadata': {...}
-})
-```
-
-Cada embedding é armazenado com:
-
-* ID único
-
-* Conteúdo do chunk
-
-* Vetor (lista de floats)
-
-* Modelo utilizado
-
-* Dados estruturados (página, seção, tipo)
-
-***
-
-## Diagrama do Pipeline
-
-Abaixo você pode inserir o diagrama completo do fluxo de ingestão dos documentos usando MermaidJS ou uma imagem externa.
-
-<p style={{ textAlign: "center" }}>
-  Figura 1 - Pipeline de arquivos
-</p>
-
-<img alt="Pipeline de Ingestão" src={__img0} placeholder="blur" />
-
-<p style={{ textAlign: "center" }}>
-  Fonte: Os autores (2025)
-</p>
-
-***
-
-## Conclusão
-
-A implementação deste pipeline possibilita o uso inteligente e contextualizado de documentos institucionais do Inteli por meio de IA generativa baseada em conhecimento vetorial. Essa estrutura é fundamental para o sucesso do robô de tours do projeto, pois garante que ele responderá dúvidas com conteúdo oficial, preciso e atualizado.
-
-É essencial que os documentos utilizados sejam sempre os mais recentes e oficiais, para evitar inconsistências nas respostas.
-
-<Callout title="Próximos Passos" type="info">
-  {" "}
-
-  Integração com o agente conversacional do robô e testes de consulta em
-  linguagem natural usando os embeddings gerados.{" "}
-</Callout>
-
-
-# Files Pipeline (/docs/sprint-2/pipeline-de-docs)
-
-<Cards>
-  <Card title="Files Pipeline" description="Documentação pipeline de documentos" href="/docs/content/docs/sprint-2/pipeline-de-docs/files-pipeline.mdx" />
-</Cards>
-
-
 # Exploração e Integração (/docs/sprint-2/robo/exploracao-robo)
 
 
@@ -10416,6 +10416,211 @@ Esta tela é uma extensão da tela de Dashboard e permitirá ao Staff realizar o
 </Steps>
 
 
+# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
+
+
+
+## 1. Introdução
+
+  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
+
+***
+
+## 2. Arquitetura do Projeto
+
+  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
+
+  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
+
+### 2.1 Estrutura de Pastas
+
+A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
+
+```txt
+
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   └── (tabs)/
+│
+├── assets
+│   └── images
+│       └── icons/
+│
+├── components
+│   └── ui/
+│
+├── constants/
+│
+├── hooks/
+│
+├── scripts/
+│
+└── README.md
+
+```
+
+* **`/app`** - Gerenciamento das páginas
+
+* **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+* **`/components`** - Componentes reutilizáveis
+
+* **`/constants`** - Temas de cores e variáveis globais
+
+* **`/hooks`** - Hooks auxiliares como detecção de tema
+
+* **`/scripts`** - Scripts internos do projeto
+
+* **`README`** - Instruções para rodar o projeto
+
+*Pastas Android geradas automaticamente pelo Expo*
+
+  Para a realização deste projeto a estrutura de pastas utilizada permite:
+
+* Melhor organização entre rotas, componentes e estilos
+
+* Facilidade para extensões futuras
+
+* Modularização dos componentes usados nas telas
+
+* Padrão de Componentes Reutilizáveis
+
+### 2.2 Componentes
+
+  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
+
+* **CardTour** - Cartão de exibição de tours na lista da home
+
+* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
+
+* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
+
+* **Navbar e Header** - Estruturas permanentes no HUD
+
+***
+
+## 3. Fluxo de Navegação
+
+### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
+
+<Callout type="info">
+  **Fluxo Geral**
+
+  1. Login
+
+  2. Lista de Tours (HUD ativo)
+
+  3. Seleção de um tour
+
+  4. Edição do Tour
+
+  5. Pop-up Informações Gerais do Tour
+
+  6. Pop-up Código do Tour
+
+  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
+
+  8. Tela de Emergência
+
+  9. Menu acessível pelo HUD em qualquer etapa permitida
+
+  **O HUD inclui:**
+
+  * Barra inferior com navegação (Tours / Mapa / Menu)
+
+  * Botão de emergência destacado em telas críticas
+
+  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
+</Callout>
+
+***
+
+## 4. Como Rodar o Projeto e Dependências
+
+  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
+O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+
+### 4.1. Requisitos
+
+<Callout type="info">
+  ***
+
+  Node.js (*Node 18 LTS ou Node 20 LTS*)
+
+  Baixar em: [https://nodejs.org/](https://nodejs.org/)
+
+  ***
+
+  Expo CLI (Será necessário intalar globalmente para que funcione)
+
+  `npm install -g expo-cli`
+
+  ***
+
+  Android Studio (para usar emulador Android)
+
+  É possível usar tanto a versão CLI quanto o APK:
+  [https://developer.android.com/studio](https://developer.android.com/studio)
+
+  ***
+
+  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+</Callout>
+
+<Callout type="warn">
+  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+</Callout>
+
+### 4.2. Instalando Dependências e Executando o Projeto
+
+Na raiz do projeto:
+
+```bash
+npm install
+```
+
+Isso instala todas as dependências declaradas em `package.json.`
+
+Ainda no terminal:
+
+```bash
+npx expo start
+
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
+
+Entre as opções você pode escolher:
+
+* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+* Abrir a aplicação no seu navegador web
+* Abrir a aplicação no android studio
+
+Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+
+```bash
+npx expo run:android
+```
+
+## 5. Conclusão
+
+Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
+
+
+# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
+
+<Cards>
+  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
+</Cards>
+
+
 # Banco de Dados 2.0 (/docs/sprint-3/bd-v2/bd-v2)
 
 # **Banco de dados - Versão 2.0**
@@ -10666,211 +10871,6 @@ A Versão 2 (V2) do banco, já disponível no Supabase, foi projetada para dar s
 * **Escalabilidade** para futuras features (placas LoRa, IA no robô, classificação automática de perguntas)
 
 O banco está pronto para desenvolvimento, integração e escalabilidade futura — servindo como a base sólida da aplicação tanto para o painel do gestor quanto para o app do visitante.
-
-
-# Frontend - App Staff (/docs/sprint-3/doc-frontend/frontend-staff)
-
-
-
-## 1. Introdução
-
-  O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
-
-***
-
-## 2. Arquitetura do Projeto
-
-  Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
-
-  A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
-
-### 2.1 Estrutura de Pastas
-
-A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
-
-```txt
-
-.
-├── android/
-│
-├── app
-│   ├── _layout.tsx
-│   └── (tabs)/
-│
-├── assets
-│   └── images
-│       └── icons/
-│
-├── components
-│   └── ui/
-│
-├── constants/
-│
-├── hooks/
-│
-├── scripts/
-│
-└── README.md
-
-```
-
-* **`/app`** - Gerenciamento das páginas
-
-* **`/assets`** Ícones, imagens e o logotipo do Inteli
-
-* **`/components`** - Componentes reutilizáveis
-
-* **`/constants`** - Temas de cores e variáveis globais
-
-* **`/hooks`** - Hooks auxiliares como detecção de tema
-
-* **`/scripts`** - Scripts internos do projeto
-
-* **`README`** - Instruções para rodar o projeto
-
-*Pastas Android geradas automaticamente pelo Expo*
-
-  Para a realização deste projeto a estrutura de pastas utilizada permite:
-
-* Melhor organização entre rotas, componentes e estilos
-
-* Facilidade para extensões futuras
-
-* Modularização dos componentes usados nas telas
-
-* Padrão de Componentes Reutilizáveis
-
-### 2.2 Componentes
-
-  Componentes no React são blocos de construção reutilizáveis que dividem a interface do usuário (UI) em partes independentes e isoladas. Neste frontend desenvolvido apra o staff temos os seguintes componentes:
-
-* **CardTour** - Cartão de exibição de tours na lista da home
-
-* **DateSelector** - Navegação entre dias da semana para selecionar a data do tour
-
-* **PopUpCodigo e PopUpInfosGerais** - Pop-ups padronizados de fluxo, para informar o staff e mostrar o código do tuor
-
-* **Navbar e Header** - Estruturas permanentes no HUD
-
-***
-
-## 3. Fluxo de Navegação
-
-### [Vídeo Frontend Staff - Youtube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
-
-<Callout type="info">
-  **Fluxo Geral**
-
-  1. Login
-
-  2. Lista de Tours (HUD ativo)
-
-  3. Seleção de um tour
-
-  4. Edição do Tour
-
-  5. Pop-up Informações Gerais do Tour
-
-  6. Pop-up Código do Tour
-
-  7. Mapa e Progresso (HUD ativo, botão de emergência ativo)
-
-  8. Tela de Emergência
-
-  9. Menu acessível pelo HUD em qualquer etapa permitida
-
-  **O HUD inclui:**
-
-  * Barra inferior com navegação (Tours / Mapa / Menu)
-
-  * Botão de emergência destacado em telas críticas
-
-  * Cabeçalho fixo quando aplicável (ex.: logo, data, título)
-</Callout>
-
-***
-
-## 4. Como Rodar o Projeto e Dependências
-
-  Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
-O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
-
-### 4.1. Requisitos
-
-<Callout type="info">
-  ***
-
-  Node.js (*Node 18 LTS ou Node 20 LTS*)
-
-  Baixar em: [https://nodejs.org/](https://nodejs.org/)
-
-  ***
-
-  Expo CLI (Será necessário intalar globalmente para que funcione)
-
-  `npm install -g expo-cli`
-
-  ***
-
-  Android Studio (para usar emulador Android)
-
-  É possível usar tanto a versão CLI quanto o APK:
-  [https://developer.android.com/studio](https://developer.android.com/studio)
-
-  ***
-
-  O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
-</Callout>
-
-<Callout type="warn">
-  OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
-</Callout>
-
-### 4.2. Instalando Dependências e Executando o Projeto
-
-Na raiz do projeto:
-
-```bash
-npm install
-```
-
-Isso instala todas as dependências declaradas em `package.json.`
-
-Ainda no terminal:
-
-```bash
-npx expo start
-
-```
-
-Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
-
-As informações que aparecerem no seu terminal devem ser semelhantes a esta:
-
-<img alt="Terminal - Aplicação Staff" src={__img0} placeholder="blur" />
-
-Entre as opções você pode escolher:
-
-* Escanear o QR Code com o aplicativo Expo Go - No seu celular;
-* Abrir a aplicação no seu navegador web
-* Abrir a aplicação no android studio
-
-Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
-
-```bash
-npx expo run:android
-```
-
-## 5. Conclusão
-
-Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
-
-
-# Frontend para as tela dos visitantes e do staff do Inteli. (/docs/sprint-3/doc-frontend)
-
-<Cards>
-  <Card title="Frontend - App Staff" description="Frontend do aplicativo onde o Staff irá interagir com o tour." href="/docs/sprint-3/doc-frontend/frontend-staff" />
-</Cards>
 
 
 # Documentação Técnica do Sistema Retrieval-Augmented Generation (RAG) (/docs/sprint-3/docs-rag/DocumentacaoTecnicaRAG)
@@ -15683,6 +15683,773 @@ As melhorias implementadas:
 * deixou o sistema mais rápido e escalável.
 
 
+# Atualizações no Banco – Gestão de Visitantes e Acompanhantes (/docs/sprint-5/backend/banco-novo)
+
+# Atualizações no Banco de Dados
+
+#### Gestão de Visitantes e Acompanhantes
+
+## 1. Introdução
+
+ Durante a evolução do aplicativo de controle de acesso do projeto do **cachorro-robô do Inteli**, foi identificada a necessidade de oferecer ao **gestor do Inteli** uma visão mais completa e precisa sobre as pessoas que circulam nas dependências da instituição.
+
+ No fluxo real de visitas, um **visitante principal** pode comparecer acompanhado de outras pessoas (familiares, colegas, convidados ou equipe), e essas informações precisam estar disponíveis para:
+
+* Controle de acesso e segurança
+* Registro histórico de visitas
+* Auditoria e rastreabilidade
+* Tomada de decisão pelo gestor
+
+ A estrutura anterior do banco de dados não permitia representar esse cenário de forma adequada, pois todos os indivíduos precisariam ser cadastrados como visitantes independentes. Para resolver essa limitação, foi realizada uma **reorganização do modelo de dados no Supabase**, acompanhada de **ajustes no back-end**, possibilitando o vínculo explícito entre um visitante principal e seus acompanhantes.
+
+## 2. Alterações no Modelo de Dados (Supabase)
+
+### 2.1 Criação da Tabela `acompanhante`
+
+ Foi criada a nova tabela **`acompanhante`**, responsável por armazenar as informações das pessoas que acompanham um visitante principal.
+
+**Estrutura lógica da tabela:**
+
+* `id`: identificador único do acompanhante (chave primária)
+* `nome`: nome do acompanhante (opcional)
+* `cpf`: CPF do acompanhante (opcional)
+* `visitante_id`: identificador do visitante principal ao qual o acompanhante está vinculado
+
+ Esse relacionamento estabelece uma **relação de um-para-muitos**, onde:
+
+* Um visitante pode ter zero, um ou vários acompanhantes
+* Um acompanhante pertence sempre a um único visitante
+
+ Essa modelagem reflete fielmente o cenário real de visitas no Inteli e evita duplicação indevida de visitantes principais.
+
+### 2.2 Expansão da Tabela `visitantes`
+
+ A tabela **`visitantes`** foi estendida para armazenar informações adicionais necessárias ao aplicativo e à gestão institucional.
+
+**Novos campos adicionados:**
+
+* `cidade`
+* `estado`
+* `cpf`
+* `perfil`
+
+ O campo `perfil` permite classificar o visitante conforme seu contexto, sendo representado no back-end por um enum e armazenado no banco como texto (`student` ou `executive`).
+
+ Essas informações ampliam a capacidade de identificação, segmentação e análise dos visitantes pelo gestor do Inteli.
+
+## 3. Alterações no Back-end
+
+### 3.1 Novo Model `Acompanhante`
+
+ Foi criado o model `Acompanhante` no back-end, permitindo:
+
+* Mapeamento direto da tabela `acompanhante`
+* Integração com o SQLx para queries tipadas
+* Serialização e desserialização via `serde`
+* Documentação automática via OpenAPI (Utoipa)
+
+ Esse model garante consistência entre o banco de dados e a API.
+
+### 3.2 Atualização do Model `Visitante`
+
+ O model `Visitante` foi atualizado para refletir os novos campos do banco e passou a incluir:
+
+* Dados geográficos (`cidade`, `estado`)
+* Documento (`cpf`)
+* Classificação (`perfil`)
+
+ O enum `Perfil` foi implementado com conversões explícitas entre:
+
+* Representação interna no Rust
+* Representação textual no banco de dados
+
+ Isso assegura tipagem forte no back-end sem comprometer a flexibilidade do armazenamento no Supabase.
+
+### 3.3 Criação das Rotas de Acompanhante
+
+ Foram implementadas rotas REST completas para a entidade `acompanhante`, permitindo:
+
+* Listagem de acompanhantes
+* Consulta individual
+* Criação de novos registros
+* Atualização
+* Remoção
+
+ Essas rotas possibilitam que o aplicativo registre e gerencie acompanhantes de forma independente, sempre mantendo o vínculo com o visitante principal.
+
+### 3.4 Ajustes nas Rotas de Visitante
+
+ As rotas de criação e atualização de visitantes foram adaptadas para:
+
+* Inserir os novos campos no banco
+* Atualizar corretamente todas as informações do visitante
+* Persistir o campo `perfil` de forma padronizada
+
+ Com isso, o cadastro do visitante principal passa a ser mais completo e alinhado às necessidades do sistema.
+
+## 4. Impacto Funcional no Aplicativo
+
+ Com as alterações realizadas, o aplicativo do gestor do Inteli passa a oferecer:
+
+* Visualização clara de **visitantes principais e seus acompanhantes**
+* Melhor controle de acesso às dependências
+* Maior confiabilidade nos registros de visita
+* Base de dados mais rica para relatórios e auditorias
+* Estrutura escalável para futuros requisitos (ex.: limites de acompanhantes, regras por perfil, estatísticas)
+
+## 5. Conclusão
+
+ As mudanças implementadas no banco de dados e no back-end representam um avanço significativo na aderência do sistema à realidade operacional do Inteli. A introdução da entidade **`acompanhante`**, aliada à expansão do cadastro de **visitantes**, permite que o gestor tenha acesso a informações completas, organizadas e confiáveis sobre todos os indivíduos presentes no ambiente institucional.
+
+ Essa evolução torna o sistema mais robusto, seguro e preparado para crescimento, garantindo que o aplicativo do projeto do cachorro-robô atenda não apenas às necessidades técnicas, mas também às exigências práticas de gestão e controle do Inteli.
+
+
+# Centralização das Rotas do Robô (/docs/sprint-5/backend/centralizacao-rotas-robo)
+
+# Centralização das Rotas do Robô
+
+Rotas HTTP centralizadas no backend que fazem proxy para as rotas do robô físico.
+
+## Rotas Disponíveis
+
+### GET /v1/robo/status
+
+Obtém o status atual do robô.
+
+**Resposta:**
+
+```json
+{
+  "robot_connected": true,
+  "is_running": false,
+  "current_checkpoint": "entrada"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X GET http://0.0.0.0:8081/v1/robo/status
+```
+
+***
+
+### POST /v1/robo/start\_next
+
+Inicia o próximo passo do robô.
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Movimentação para o próximo ponto iniciada"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/start_next
+```
+
+***
+
+### POST /v1/robo/cancel
+
+Cancela a execução atual do robô.
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Cancelado"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/cancel
+```
+
+***
+
+### POST /v1/robo/reset
+
+Reseta o contador do robô.
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Resetado"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/reset
+```
+
+***
+
+### POST /v1/robo/add\_checkpoint
+
+Adiciona um checkpoint ao robô.
+
+**Body (JSON):**
+
+```json
+{
+  "name": "checkpoint_1",
+  "x": 10.5,
+  "y": 20.3,
+  "z": 5.0
+}
+```
+
+**Resposta:**
+
+```json
+{
+  "success": true,
+  "message": "Adicionado"
+}
+```
+
+**Como testar:**
+
+```bash
+curl -X POST http://0.0.0.0:8081/v1/robo/add_checkpoint \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "checkpoint_1",
+    "x": 10.5,
+    "y": 20.3,
+    "z": 5.0
+  }'
+```
+
+## Nota
+
+Atualmente, as rotas estão **mockadas** e retornam respostas simuladas. Quando conectar com o robô real, descomente as chamadas HTTP nos métodos do `RobotClient` em `src/utils/robot_client.rs`.
+
+
+# Documentação da API (/docs/sprint-5/backend/endpoints)
+
+## Recursos Principais
+
+### 1. **Visitantes** (`/v1/visitante`)
+
+Gerenciamento de visitantes que participam dos tours.
+
+#### Modelo de Dados
+
+* `nome` (string, opcional): Nome do visitante
+* `cpf` (string, opcional): CPF do visitante
+* `email` (string, opcional): Email de contato
+* `telefone` (string, opcional): Telefone de contato
+* `cidade` (string, opcional): Cidade de origem
+* `estado` (string, opcional): Estado de origem
+* `perfil` (enum, obrigatório): Tipo de perfil
+  * `student`: Estudante
+  * `executive`: Executivo
+
+#### Endpoints
+
+**GET /v1/visitante** - Retorna todos os visitantes cadastrados
+
+**POST /v1/visitante** - Cria um novo visitante
+
+**GET /v1/visitante/\{id}** - Busca um visitante específico
+
+**PUT /v1/visitante/\{id}** - Atualiza dados de um visitante
+
+**DELETE /v1/visitante/\{id}** - Remove um visitante
+
+### 2. **Acompanhantes** (`/v1/acompanhante`)
+
+Gerenciamento de acompanhantes vinculados aos visitantes.
+
+#### Modelo de Dados
+
+* `nome` (string, opcional): Nome do acompanhante
+* `cpf` (string, opcional): CPF do acompanhante
+* `visitante_id` (integer, opcional): ID do visitante principal
+
+#### Endpoints
+
+**GET /v1/acompanhante** - Lista todos os acompanhantes
+
+**POST /v1/acompanhante** - Cria novo acompanhante
+
+**GET /v1/acompanhante/\{id}** - Busca acompanhante específico
+
+**PUT /v1/acompanhante/\{id}** - Atualiza acompanhante
+
+**DELETE /v1/acompanhante/\{id}** - Remove acompanhante
+
+### 3. **Robôs** (`/v1/robo`)
+
+Gerenciamento dos robôs que conduzem os tours.
+
+#### Modelo de Dados
+
+* `nome` (string, opcional): Nome do robô
+* `modelo` (string, opcional): Modelo do robô
+* `numero_serie` (string, opcional): Número de série
+* `ativo` (boolean, opcional): Status de ativação
+
+#### Endpoints
+
+**GET /v1/robo** - Lista todos os robôs
+
+**POST /v1/robo** - Cadastra novo robô
+
+**GET /v1/robo/\{id}** - Busca robô específico
+
+**PUT /v1/robo/\{id}** - Atualiza dados do robô
+
+**DELETE /v1/robo/\{id}** - Remove robô
+
+### 4. **Tours** (`/v1/tour`)
+
+Gerenciamento dos tours agendados e em andamento.
+
+#### Modelo de Dados
+
+* `codigo` (string, obrigatório): Código único do tour
+* `titulo` (string, opcional): Título do tour
+* `data_local` (date, obrigatório): Data do tour
+* `hora_inicio_prevista` (string, opcional): Hora de início prevista
+* `hora_fim_prevista` (string, opcional): Hora de término prevista
+* `inicio_real` (datetime, opcional): Timestamp real de início
+* `fim_real` (datetime, opcional): Timestamp real de término
+* `status` (enum, obrigatório): Status atual
+  * `scheduled`: Agendado
+  * `in_progress`: Em andamento
+  * `completed`: Concluído
+  * `cancelled`: Cancelado
+* `robo_id` (integer, obrigatório): ID do robô designado
+* `responsavel_id` (integer, opcional): ID do responsável
+
+#### Endpoints
+
+**GET /v1/tour** - Lista todos os tours
+
+**POST /v1/tour** - Cria novo tour
+
+**GET /v1/tour/\{id}** - Busca tour específico
+
+**PUT /v1/tour/\{id}** - Atualiza tour
+
+**DELETE /v1/tour/\{id}** - Remove tour
+
+### 5. **Tour-Visitante** (`/v1/tour-visitante`)
+
+Relacionamento many-to-many entre tours e visitantes.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, obrigatório): ID do tour
+* `visitante_id` (integer, obrigatório): ID do visitante
+
+#### Endpoints
+
+**GET /v1/tour-visitante** - Lista todas as associações
+
+**POST /v1/tour-visitante** - Adiciona visitante ao tour
+
+**GET /v1/tour-visitante/\{id}** - Busca associação específica
+
+**GET /v1/tour-visitante/tour/\{tour\_id}** - Lista visitantes de um tour
+
+**GET /v1/tour-visitante/visitante/\{visitante\_id}** - Lista tours de um visitante
+
+**DELETE /v1/tour-visitante/\{id}** - Remove associação
+
+### 6. **Checkpoints** (`/v1/checkpoint`)
+
+Pontos de parada durante o tour.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, obrigatório): ID do tour
+* `tipo` (enum, obrigatório): Tipo do checkpoint
+  * `recepcao`: Recepção
+  * `auditorio`: Auditório
+  * `atelie`: Ateliê
+  * `casinhas`: Casinhas
+  * `dog_house`: Dog House
+* `ordem` (integer, obrigatório): Ordem de visita
+* `status` (enum, obrigatório): Status atual
+  * `pending`: Pendente
+  * `running`: Em andamento
+  * `finished`: Finalizado
+  * `skipped`: Pulado
+* `inicio_previsto` (datetime, opcional): Hora prevista de início
+* `inicio_real` (datetime, opcional): Hora real de início
+* `fim_real` (datetime, opcional): Hora real de término
+
+#### Endpoints
+
+**GET /v1/checkpoint** - Lista todos os checkpoints
+
+**POST /v1/checkpoint** - Cria novo checkpoint
+
+**GET /v1/checkpoint/\{id}** - Busca checkpoint específico
+
+**GET /v1/checkpoint/tour/\{tour\_id}** - Lista checkpoints de um tour
+
+**PUT /v1/checkpoint/\{id}** - Atualiza checkpoint
+
+**DELETE /v1/checkpoint/\{id}** - Remove checkpoint
+
+### 7. **Perguntas** (`/v1/perguntas`)
+
+Perguntas feitas durante os checkpoints.
+
+#### Modelo de Dados
+
+* `checkpoint_id` (integer, obrigatório): ID do checkpoint
+* `tour_id` (integer, opcional): ID do tour
+* `texto` (string, obrigatório): Texto da pergunta
+* `question_topic` (string, opcional): Tópico da pergunta
+* `estado` (enum, obrigatório): Estado da pergunta
+  * `queued`: Na fila
+  * `answerable`: Pode ser respondida
+  * `answered`: Respondida
+  * `discarded`: Descartada
+* `liberado_em` (datetime, opcional): Quando foi liberada
+* `respondido_em` (datetime, opcional): Quando foi respondida
+
+#### Endpoints
+
+**GET /v1/perguntas** - Lista todas as perguntas
+
+**POST /v1/perguntas** - Cria nova pergunta
+
+**GET /v1/perguntas/\{id}** - Busca pergunta específica
+
+**GET /v1/perguntas/tour/\{tour\_id}** - Lista perguntas de um tour
+
+**PUT /v1/perguntas/\{id}** - Atualiza pergunta
+
+**DELETE /v1/perguntas/\{id}** - Remove pergunta
+
+### 8. **Respostas** (`/v1/respostas`)
+
+Respostas às perguntas feitas.
+
+#### Modelo de Dados
+
+* `pergunta_id` (integer, obrigatório): ID da pergunta
+* `texto` (string, obrigatório): Texto da resposta
+* `respondido_por_tipo` (string, obrigatório): Tipo de respondente
+* `respondido_por_usuario` (integer, opcional): ID do usuário que respondeu
+
+#### Endpoints
+
+**GET /v1/respostas** - Lista todas as respostas
+
+**POST /v1/respostas** - Cria nova resposta
+
+**GET /v1/respostas/\{id}** - Busca resposta específica
+
+**GET /v1/respostas/pergunta/\{pergunta\_id}** - Lista respostas de uma pergunta
+
+**PUT /v1/respostas/\{id}** - Atualiza resposta
+
+**DELETE /v1/respostas/\{id}** - Remove resposta
+
+### 9. **Modelo de IA** (`/v1/modelo`)
+
+Processamento de perguntas via IA.
+
+#### Endpoints
+
+**POST /v1/modelo**
+
+* Processa uma pergunta e gera resposta automática
+* Body: objeto `Pergunta`
+* Resposta 200: `SingleItemResponse_Resposta`
+
+### 10. **Rastreio do Robô** (`/v1/rastreio-robo`)
+
+Rastreamento em tempo real da posição do robô.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, opcional): ID do tour
+* `checkpoint_id` (integer, opcional): Checkpoint atual
+* `waypoint` (string, opcional): Ponto de passagem
+* `progresso_pct` (double, opcional): Percentual de progresso
+
+#### Endpoints
+
+**GET /v1/rastreio-robo** - Lista todos os registros de rastreio
+
+**POST /v1/rastreio-robo** - Cria novo registro de rastreio
+
+**GET /v1/rastreio-robo/\{id}** - Busca registro específico
+
+**PUT /v1/rastreio-robo/\{id}** - Atualiza rastreio
+
+**DELETE /v1/rastreio-robo/\{id}** - Remove registro
+
+### 11. **Alertas** (`/v1/alertas`)
+
+Sistema de alertas e notificações.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, opcional): Tour relacionado
+* `nivel` (enum, obrigatório): Nível de severidade
+  * `baixo`: Baixo
+  * `medio`: Médio
+  * `alto`: Alto
+* `mensagem` (string, opcional): Mensagem do alerta
+* `origem` (string, opcional): Origem do alerta
+* `resolvido_em` (datetime, opcional): Quando foi resolvido
+
+#### Endpoints
+
+**GET /v1/alertas** - Lista todos os alertas
+
+**POST /v1/alertas** - Cria novo alerta
+
+**GET /v1/alertas/\{id}** - Busca alerta específico
+
+**PUT /v1/alertas/\{id}** - Atualiza alerta
+
+**DELETE /v1/alertas/\{id}** - Remove alerta
+
+### 12. **Notificações** (`/v1/notificacoes`)
+
+Notificações para usuários do sistema.
+
+#### Modelo de Dados
+
+* `usuario_id` (integer, opcional): ID do usuário
+* `titulo` (string, opcional): Título da notificação
+* `corpo` (string, opcional): Corpo da mensagem
+* `lido` (boolean, obrigatório): Status de leitura
+* `payload_json` (object, opcional): Dados adicionais em JSON
+
+#### Endpoints
+
+**GET /v1/notificacoes** - Lista todas as notificações
+
+**POST /v1/notificacoes** - Cria nova notificação
+
+**GET /v1/notificacoes/\{id}** - Busca notificação específica
+
+**PUT /v1/notificacoes/\{id}** - Atualiza notificação (ex: marcar como lida)
+
+**DELETE /v1/notificacoes/\{id}** - Remove notificação
+
+### 13. **Log de Status do Tour** (`/v1/tour-status-log`)
+
+Histórico de mudanças de status dos tours.
+
+#### Modelo de Dados
+
+* `tour_id` (integer, obrigatório): ID do tour
+* `status` (string, obrigatório): Status registrado
+* `atualizado_em` (datetime, opcional): Timestamp da mudança
+* `observacoes` (string, opcional): Observações sobre a mudança
+
+#### Endpoints
+
+**GET /v1/tour-status-log** - Lista todos os logs
+
+**POST /v1/tour-status-log** - Cria novo log de status
+
+**GET /v1/tour-status-log/\{id}** - Busca log específico
+
+**GET /v1/tour-status-log/tour/\{tour\_id}** - Lista logs de um tour
+
+**PUT /v1/tour-status-log/\{id}** - Atualiza log
+
+**DELETE /v1/tour-status-log/\{id}** - Remove log
+
+## Respostas Padrão
+
+### Sucesso
+
+```json
+{
+  "message": "Mensagem descritiva",
+  "data": {
+    /* objeto ou array de dados */
+  }
+}
+```
+
+### Erro 404
+
+```json
+{
+  "message": "Recurso não encontrado"
+}
+```
+
+### Erro 500
+
+```json
+{
+  "message": "Erro interno do servidor"
+}
+```
+
+## Códigos de Status HTTP
+
+* **200 OK**: Operação bem-sucedida
+* **201 Created**: Recurso criado com sucesso
+* **404 Not Found**: Recurso não encontrado
+* **500 Internal Server Error**: Erro inesperado no servidor
+
+## Fluxo Típico de um Tour
+
+1. **Criar Visitante** → `POST /v1/visitante`
+2. **Criar Tour** → `POST /v1/tour`
+3. **Associar Visitante ao Tour** → `POST /v1/tour-visitante`
+4. **Criar Checkpoints** → `POST /v1/checkpoint`
+5. **Iniciar Tour** → `PUT /v1/tour/&#123;id&#125;` (atualizar status)
+6. **Rastrear Robô** → `POST /v1/rastreio-robo`
+7. **Processar Perguntas** → `POST /v1/perguntas` → `POST /v1/modelo`
+8. **Finalizar Tour** → `PUT /v1/tour/&#123;id&#125;` (atualizar status)
+
+## Notas de Implementação
+
+* Todos os IDs são integers de 32 bits
+* Datas seguem formato ISO 8601
+* Campos marcados como `null` são opcionais
+* Enums devem usar exatamente os valores especificados
+* A API usa JSON para request/response bodies
+
+
+# Banco de Dados Final (/docs/sprint-5/backend)
+
+<Cards>
+  <Card title="Backend - Atualização do Banco" description="Criação de nova tabela Acompanhantes e mudanças na tabela Visitantes" href="/docs/sprint-5/backend/banco-novo" />
+
+  <Card title="Backend - Documentação da API" description="Documentação de todos os endpoints que foram desenvolvidos ao longo do módulo." href="/docs/sprint-5/backend/endpoints" />
+
+  <Card title="Backend - Centralização de Rotas do Robô" description="Documentação sobre a centralização das rotas do robô no backend" href="/docs/sprint-5/backend/centralizacao-rotas-robo" />
+
+  <Card title="Backend - Documentação WebSocket Tour" description="Documentação sobre o WebSocket desenvolvido para o Tour" href="/docs/sprint-5/backend/ws_tour" />
+</Cards>
+
+
+# Documentação do Endpoint WebSocket /ws/tour/check (/docs/sprint-5/backend/ws_tour)
+
+# Documentação do Endpoint WebSocket: `/ws/tour/check`
+
+## Visão Geral
+
+### Objetivo do Endpoint
+
+Este endpoint fornece verificações em tempo real sobre tours ativos através de comunicação WebSocket. Os clientes podem enviar requisições contendo data e horário, e o servidor responde informando se existe um tour ativo naquele momento, incluindo suas perguntas e respostas já registradas.
+
+### Protocolo de Comunicação
+
+* **Tipo**: WebSocket
+* **Formato de Dados**: JSON
+* **Direção**: Bidirecional (cliente ↔ servidor)
+
+***
+
+## Estrutura das Mensagens
+
+### Requisição do Cliente
+
+Os clientes devem enviar uma mensagem JSON contendo os seguintes campos:
+
+```json
+{
+  "data_local": "2024-12-18",
+  "horario_verificacao": "14:30:00"
+}
+```
+
+**Campos da Requisição:**
+
+| Campo                 | Tipo   | Formato    | Obrigatório | Descrição                         |
+| --------------------- | ------ | ---------- | ----------- | --------------------------------- |
+| `data_local`          | String | YYYY-MM-DD | Sim         | Data para verificação do tour     |
+| `horario_verificacao` | String | HH:MM:SS   | Sim         | Horário específico da verificação |
+
+***
+
+## Respostas do Servidor
+
+### Tour Ativo
+
+Quando existe um tour ativo no horário especificado, o servidor retorna:
+
+```json
+{
+  "status": "active",
+  "tour_id": 123,
+  "codigo": "XXX001",
+  "perguntas": [
+    {
+      "id_pergunta": 45,
+      "texto_pergunta": "Qual os cursos do Inteli?",
+      "checkpoint": 3,
+      "texto_resposta": "Engenharia de computação, engenharia de software, ciência da computação e sistemas da informação"
+    },
+    {
+      "id_pergunta": 46,
+      "texto_pergunta": "Como funciona o processo seletivo",
+      "checkpoint": 3,
+      "texto_resposta": "O processo dividido nos eixos prova, perfil e dinâmica em grupo"
+    }
+  ]
+}
+```
+
+**Campos da Resposta (Tour Ativo):**
+
+| Campo                        | Tipo    | Descrição                               |
+| ---------------------------- | ------- | --------------------------------------- |
+| `status`                     | String  | Sempre "active" para tours em andamento |
+| `tour_id`                    | Integer | Identificador único do tour             |
+| `codigo`                     | String  | Código alfanumérico do tour             |
+| `perguntas`                  | Array   | Lista de perguntas e respostas do tour  |
+| `perguntas[].id_pergunta`    | Integer | Identificador único da pergunta         |
+| `perguntas[].texto_pergunta` | String  | Conteúdo da pergunta                    |
+| `perguntas[].checkpoint`     | Integer | Número do checkpoint associado          |
+| `perguntas[].texto_resposta` | String  | Resposta mais recente para a pergunta   |
+
+### Tour Inativo
+
+Quando não existe tour ativo no horário especificado:
+
+```json
+{
+  "status": "inactive"
+}
+```
+
+**Campos da Resposta (Tour Inativo):**
+
+| Campo    | Tipo   | Descrição                                              |
+| -------- | ------ | ------------------------------------------------------ |
+| `status` | String | Sempre "inactive" quando nenhum tour está em andamento |
+
+***
+
+## Conclusão
+
+O endpoint `/ws/tour/check` oferece uma solução eficiente e em tempo real para verificação de tours ativos. Através da comunicação WebSocket e formato JSON padronizado, o sistema permite que aplicações cliente monitorem o status de tours de forma responsiva e confiável.
+
+
 # Fundamentos e Extensões (/docs/sprint-5/botao-de-stop-pt2/fundamentos-arquitetura)
 
 # Kill Switch: Fundamentos e Extensões
@@ -16505,783 +17272,16 @@ O dual-channel onde Serial e HTTP funcionam simultaneamente:
 | **Resultado**      | Dump Mode          | Dump Mode            |
 
 
-# Atualizações no Banco – Gestão de Visitantes e Acompanhantes (/docs/sprint-5/backend/banco-novo)
-
-# Atualizações no Banco de Dados
-
-#### Gestão de Visitantes e Acompanhantes
-
-## 1. Introdução
-
- Durante a evolução do aplicativo de controle de acesso do projeto do **cachorro-robô do Inteli**, foi identificada a necessidade de oferecer ao **gestor do Inteli** uma visão mais completa e precisa sobre as pessoas que circulam nas dependências da instituição.
-
- No fluxo real de visitas, um **visitante principal** pode comparecer acompanhado de outras pessoas (familiares, colegas, convidados ou equipe), e essas informações precisam estar disponíveis para:
-
-* Controle de acesso e segurança
-* Registro histórico de visitas
-* Auditoria e rastreabilidade
-* Tomada de decisão pelo gestor
-
- A estrutura anterior do banco de dados não permitia representar esse cenário de forma adequada, pois todos os indivíduos precisariam ser cadastrados como visitantes independentes. Para resolver essa limitação, foi realizada uma **reorganização do modelo de dados no Supabase**, acompanhada de **ajustes no back-end**, possibilitando o vínculo explícito entre um visitante principal e seus acompanhantes.
-
-## 2. Alterações no Modelo de Dados (Supabase)
-
-### 2.1 Criação da Tabela `acompanhante`
-
- Foi criada a nova tabela **`acompanhante`**, responsável por armazenar as informações das pessoas que acompanham um visitante principal.
-
-**Estrutura lógica da tabela:**
-
-* `id`: identificador único do acompanhante (chave primária)
-* `nome`: nome do acompanhante (opcional)
-* `cpf`: CPF do acompanhante (opcional)
-* `visitante_id`: identificador do visitante principal ao qual o acompanhante está vinculado
-
- Esse relacionamento estabelece uma **relação de um-para-muitos**, onde:
-
-* Um visitante pode ter zero, um ou vários acompanhantes
-* Um acompanhante pertence sempre a um único visitante
-
- Essa modelagem reflete fielmente o cenário real de visitas no Inteli e evita duplicação indevida de visitantes principais.
-
-### 2.2 Expansão da Tabela `visitantes`
-
- A tabela **`visitantes`** foi estendida para armazenar informações adicionais necessárias ao aplicativo e à gestão institucional.
-
-**Novos campos adicionados:**
-
-* `cidade`
-* `estado`
-* `cpf`
-* `perfil`
-
- O campo `perfil` permite classificar o visitante conforme seu contexto, sendo representado no back-end por um enum e armazenado no banco como texto (`student` ou `executive`).
-
- Essas informações ampliam a capacidade de identificação, segmentação e análise dos visitantes pelo gestor do Inteli.
-
-## 3. Alterações no Back-end
-
-### 3.1 Novo Model `Acompanhante`
-
- Foi criado o model `Acompanhante` no back-end, permitindo:
-
-* Mapeamento direto da tabela `acompanhante`
-* Integração com o SQLx para queries tipadas
-* Serialização e desserialização via `serde`
-* Documentação automática via OpenAPI (Utoipa)
-
- Esse model garante consistência entre o banco de dados e a API.
-
-### 3.2 Atualização do Model `Visitante`
-
- O model `Visitante` foi atualizado para refletir os novos campos do banco e passou a incluir:
-
-* Dados geográficos (`cidade`, `estado`)
-* Documento (`cpf`)
-* Classificação (`perfil`)
-
- O enum `Perfil` foi implementado com conversões explícitas entre:
-
-* Representação interna no Rust
-* Representação textual no banco de dados
-
- Isso assegura tipagem forte no back-end sem comprometer a flexibilidade do armazenamento no Supabase.
-
-### 3.3 Criação das Rotas de Acompanhante
-
- Foram implementadas rotas REST completas para a entidade `acompanhante`, permitindo:
-
-* Listagem de acompanhantes
-* Consulta individual
-* Criação de novos registros
-* Atualização
-* Remoção
-
- Essas rotas possibilitam que o aplicativo registre e gerencie acompanhantes de forma independente, sempre mantendo o vínculo com o visitante principal.
-
-### 3.4 Ajustes nas Rotas de Visitante
-
- As rotas de criação e atualização de visitantes foram adaptadas para:
-
-* Inserir os novos campos no banco
-* Atualizar corretamente todas as informações do visitante
-* Persistir o campo `perfil` de forma padronizada
-
- Com isso, o cadastro do visitante principal passa a ser mais completo e alinhado às necessidades do sistema.
-
-## 4. Impacto Funcional no Aplicativo
-
- Com as alterações realizadas, o aplicativo do gestor do Inteli passa a oferecer:
-
-* Visualização clara de **visitantes principais e seus acompanhantes**
-* Melhor controle de acesso às dependências
-* Maior confiabilidade nos registros de visita
-* Base de dados mais rica para relatórios e auditorias
-* Estrutura escalável para futuros requisitos (ex.: limites de acompanhantes, regras por perfil, estatísticas)
-
-## 5. Conclusão
-
- As mudanças implementadas no banco de dados e no back-end representam um avanço significativo na aderência do sistema à realidade operacional do Inteli. A introdução da entidade **`acompanhante`**, aliada à expansão do cadastro de **visitantes**, permite que o gestor tenha acesso a informações completas, organizadas e confiáveis sobre todos os indivíduos presentes no ambiente institucional.
-
- Essa evolução torna o sistema mais robusto, seguro e preparado para crescimento, garantindo que o aplicativo do projeto do cachorro-robô atenda não apenas às necessidades técnicas, mas também às exigências práticas de gestão e controle do Inteli.
-
-
-# Centralização das Rotas do Robô (/docs/sprint-5/backend/centralizacao-rotas-robo)
-
-# Centralização das Rotas do Robô
-
-Rotas HTTP centralizadas no backend que fazem proxy para as rotas do robô físico.
-
-## Rotas Disponíveis
-
-### GET /v1/robo/status
-
-Obtém o status atual do robô.
-
-**Resposta:**
-
-```json
-{
-  "robot_connected": true,
-  "is_running": false,
-  "current_checkpoint": "entrada"
-}
-```
-
-**Como testar:**
-
-```bash
-curl -X GET http://0.0.0.0:8081/v1/robo/status
-```
-
-***
-
-### POST /v1/robo/start\_next
-
-Inicia o próximo passo do robô.
-
-**Resposta:**
-
-```json
-{
-  "success": true,
-  "message": "Movimentação para o próximo ponto iniciada"
-}
-```
-
-**Como testar:**
-
-```bash
-curl -X POST http://0.0.0.0:8081/v1/robo/start_next
-```
-
-***
-
-### POST /v1/robo/cancel
-
-Cancela a execução atual do robô.
-
-**Resposta:**
-
-```json
-{
-  "success": true,
-  "message": "Cancelado"
-}
-```
-
-**Como testar:**
-
-```bash
-curl -X POST http://0.0.0.0:8081/v1/robo/cancel
-```
-
-***
-
-### POST /v1/robo/reset
-
-Reseta o contador do robô.
-
-**Resposta:**
-
-```json
-{
-  "success": true,
-  "message": "Resetado"
-}
-```
-
-**Como testar:**
-
-```bash
-curl -X POST http://0.0.0.0:8081/v1/robo/reset
-```
-
-***
-
-### POST /v1/robo/add\_checkpoint
-
-Adiciona um checkpoint ao robô.
-
-**Body (JSON):**
-
-```json
-{
-  "name": "checkpoint_1",
-  "x": 10.5,
-  "y": 20.3,
-  "z": 5.0
-}
-```
-
-**Resposta:**
-
-```json
-{
-  "success": true,
-  "message": "Adicionado"
-}
-```
-
-**Como testar:**
-
-```bash
-curl -X POST http://0.0.0.0:8081/v1/robo/add_checkpoint \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "checkpoint_1",
-    "x": 10.5,
-    "y": 20.3,
-    "z": 5.0
-  }'
-```
-
-## Nota
-
-Atualmente, as rotas estão **mockadas** e retornam respostas simuladas. Quando conectar com o robô real, descomente as chamadas HTTP nos métodos do `RobotClient` em `src/utils/robot_client.rs`.
-
-
-# Documentação da API (/docs/sprint-5/backend/endpoints)
-
-## Recursos Principais
-
-### 1. **Visitantes** (`/v1/visitante`)
-
-Gerenciamento de visitantes que participam dos tours.
-
-#### Modelo de Dados
-
-* `nome` (string, opcional): Nome do visitante
-* `cpf` (string, opcional): CPF do visitante
-* `email` (string, opcional): Email de contato
-* `telefone` (string, opcional): Telefone de contato
-* `cidade` (string, opcional): Cidade de origem
-* `estado` (string, opcional): Estado de origem
-* `perfil` (enum, obrigatório): Tipo de perfil
-  * `student`: Estudante
-  * `executive`: Executivo
-
-#### Endpoints
-
-**GET /v1/visitante** - Retorna todos os visitantes cadastrados
-
-**POST /v1/visitante** - Cria um novo visitante
-
-**GET /v1/visitante/\{id}** - Busca um visitante específico
-
-**PUT /v1/visitante/\{id}** - Atualiza dados de um visitante
-
-**DELETE /v1/visitante/\{id}** - Remove um visitante
-
-### 2. **Acompanhantes** (`/v1/acompanhante`)
-
-Gerenciamento de acompanhantes vinculados aos visitantes.
-
-#### Modelo de Dados
-
-* `nome` (string, opcional): Nome do acompanhante
-* `cpf` (string, opcional): CPF do acompanhante
-* `visitante_id` (integer, opcional): ID do visitante principal
-
-#### Endpoints
-
-**GET /v1/acompanhante** - Lista todos os acompanhantes
-
-**POST /v1/acompanhante** - Cria novo acompanhante
-
-**GET /v1/acompanhante/\{id}** - Busca acompanhante específico
-
-**PUT /v1/acompanhante/\{id}** - Atualiza acompanhante
-
-**DELETE /v1/acompanhante/\{id}** - Remove acompanhante
-
-### 3. **Robôs** (`/v1/robo`)
-
-Gerenciamento dos robôs que conduzem os tours.
-
-#### Modelo de Dados
-
-* `nome` (string, opcional): Nome do robô
-* `modelo` (string, opcional): Modelo do robô
-* `numero_serie` (string, opcional): Número de série
-* `ativo` (boolean, opcional): Status de ativação
-
-#### Endpoints
-
-**GET /v1/robo** - Lista todos os robôs
-
-**POST /v1/robo** - Cadastra novo robô
-
-**GET /v1/robo/\{id}** - Busca robô específico
-
-**PUT /v1/robo/\{id}** - Atualiza dados do robô
-
-**DELETE /v1/robo/\{id}** - Remove robô
-
-### 4. **Tours** (`/v1/tour`)
-
-Gerenciamento dos tours agendados e em andamento.
-
-#### Modelo de Dados
-
-* `codigo` (string, obrigatório): Código único do tour
-* `titulo` (string, opcional): Título do tour
-* `data_local` (date, obrigatório): Data do tour
-* `hora_inicio_prevista` (string, opcional): Hora de início prevista
-* `hora_fim_prevista` (string, opcional): Hora de término prevista
-* `inicio_real` (datetime, opcional): Timestamp real de início
-* `fim_real` (datetime, opcional): Timestamp real de término
-* `status` (enum, obrigatório): Status atual
-  * `scheduled`: Agendado
-  * `in_progress`: Em andamento
-  * `completed`: Concluído
-  * `cancelled`: Cancelado
-* `robo_id` (integer, obrigatório): ID do robô designado
-* `responsavel_id` (integer, opcional): ID do responsável
-
-#### Endpoints
-
-**GET /v1/tour** - Lista todos os tours
-
-**POST /v1/tour** - Cria novo tour
-
-**GET /v1/tour/\{id}** - Busca tour específico
-
-**PUT /v1/tour/\{id}** - Atualiza tour
-
-**DELETE /v1/tour/\{id}** - Remove tour
-
-### 5. **Tour-Visitante** (`/v1/tour-visitante`)
-
-Relacionamento many-to-many entre tours e visitantes.
-
-#### Modelo de Dados
-
-* `tour_id` (integer, obrigatório): ID do tour
-* `visitante_id` (integer, obrigatório): ID do visitante
-
-#### Endpoints
-
-**GET /v1/tour-visitante** - Lista todas as associações
-
-**POST /v1/tour-visitante** - Adiciona visitante ao tour
-
-**GET /v1/tour-visitante/\{id}** - Busca associação específica
-
-**GET /v1/tour-visitante/tour/\{tour\_id}** - Lista visitantes de um tour
-
-**GET /v1/tour-visitante/visitante/\{visitante\_id}** - Lista tours de um visitante
-
-**DELETE /v1/tour-visitante/\{id}** - Remove associação
-
-### 6. **Checkpoints** (`/v1/checkpoint`)
-
-Pontos de parada durante o tour.
-
-#### Modelo de Dados
-
-* `tour_id` (integer, obrigatório): ID do tour
-* `tipo` (enum, obrigatório): Tipo do checkpoint
-  * `recepcao`: Recepção
-  * `auditorio`: Auditório
-  * `atelie`: Ateliê
-  * `casinhas`: Casinhas
-  * `dog_house`: Dog House
-* `ordem` (integer, obrigatório): Ordem de visita
-* `status` (enum, obrigatório): Status atual
-  * `pending`: Pendente
-  * `running`: Em andamento
-  * `finished`: Finalizado
-  * `skipped`: Pulado
-* `inicio_previsto` (datetime, opcional): Hora prevista de início
-* `inicio_real` (datetime, opcional): Hora real de início
-* `fim_real` (datetime, opcional): Hora real de término
-
-#### Endpoints
-
-**GET /v1/checkpoint** - Lista todos os checkpoints
-
-**POST /v1/checkpoint** - Cria novo checkpoint
-
-**GET /v1/checkpoint/\{id}** - Busca checkpoint específico
-
-**GET /v1/checkpoint/tour/\{tour\_id}** - Lista checkpoints de um tour
-
-**PUT /v1/checkpoint/\{id}** - Atualiza checkpoint
-
-**DELETE /v1/checkpoint/\{id}** - Remove checkpoint
-
-### 7. **Perguntas** (`/v1/perguntas`)
-
-Perguntas feitas durante os checkpoints.
-
-#### Modelo de Dados
-
-* `checkpoint_id` (integer, obrigatório): ID do checkpoint
-* `tour_id` (integer, opcional): ID do tour
-* `texto` (string, obrigatório): Texto da pergunta
-* `question_topic` (string, opcional): Tópico da pergunta
-* `estado` (enum, obrigatório): Estado da pergunta
-  * `queued`: Na fila
-  * `answerable`: Pode ser respondida
-  * `answered`: Respondida
-  * `discarded`: Descartada
-* `liberado_em` (datetime, opcional): Quando foi liberada
-* `respondido_em` (datetime, opcional): Quando foi respondida
-
-#### Endpoints
-
-**GET /v1/perguntas** - Lista todas as perguntas
-
-**POST /v1/perguntas** - Cria nova pergunta
-
-**GET /v1/perguntas/\{id}** - Busca pergunta específica
-
-**GET /v1/perguntas/tour/\{tour\_id}** - Lista perguntas de um tour
-
-**PUT /v1/perguntas/\{id}** - Atualiza pergunta
-
-**DELETE /v1/perguntas/\{id}** - Remove pergunta
-
-### 8. **Respostas** (`/v1/respostas`)
-
-Respostas às perguntas feitas.
-
-#### Modelo de Dados
-
-* `pergunta_id` (integer, obrigatório): ID da pergunta
-* `texto` (string, obrigatório): Texto da resposta
-* `respondido_por_tipo` (string, obrigatório): Tipo de respondente
-* `respondido_por_usuario` (integer, opcional): ID do usuário que respondeu
-
-#### Endpoints
-
-**GET /v1/respostas** - Lista todas as respostas
-
-**POST /v1/respostas** - Cria nova resposta
-
-**GET /v1/respostas/\{id}** - Busca resposta específica
-
-**GET /v1/respostas/pergunta/\{pergunta\_id}** - Lista respostas de uma pergunta
-
-**PUT /v1/respostas/\{id}** - Atualiza resposta
-
-**DELETE /v1/respostas/\{id}** - Remove resposta
-
-### 9. **Modelo de IA** (`/v1/modelo`)
-
-Processamento de perguntas via IA.
-
-#### Endpoints
-
-**POST /v1/modelo**
-
-* Processa uma pergunta e gera resposta automática
-* Body: objeto `Pergunta`
-* Resposta 200: `SingleItemResponse_Resposta`
-
-### 10. **Rastreio do Robô** (`/v1/rastreio-robo`)
-
-Rastreamento em tempo real da posição do robô.
-
-#### Modelo de Dados
-
-* `tour_id` (integer, opcional): ID do tour
-* `checkpoint_id` (integer, opcional): Checkpoint atual
-* `waypoint` (string, opcional): Ponto de passagem
-* `progresso_pct` (double, opcional): Percentual de progresso
-
-#### Endpoints
-
-**GET /v1/rastreio-robo** - Lista todos os registros de rastreio
-
-**POST /v1/rastreio-robo** - Cria novo registro de rastreio
-
-**GET /v1/rastreio-robo/\{id}** - Busca registro específico
-
-**PUT /v1/rastreio-robo/\{id}** - Atualiza rastreio
-
-**DELETE /v1/rastreio-robo/\{id}** - Remove registro
-
-### 11. **Alertas** (`/v1/alertas`)
-
-Sistema de alertas e notificações.
-
-#### Modelo de Dados
-
-* `tour_id` (integer, opcional): Tour relacionado
-* `nivel` (enum, obrigatório): Nível de severidade
-  * `baixo`: Baixo
-  * `medio`: Médio
-  * `alto`: Alto
-* `mensagem` (string, opcional): Mensagem do alerta
-* `origem` (string, opcional): Origem do alerta
-* `resolvido_em` (datetime, opcional): Quando foi resolvido
-
-#### Endpoints
-
-**GET /v1/alertas** - Lista todos os alertas
-
-**POST /v1/alertas** - Cria novo alerta
-
-**GET /v1/alertas/\{id}** - Busca alerta específico
-
-**PUT /v1/alertas/\{id}** - Atualiza alerta
-
-**DELETE /v1/alertas/\{id}** - Remove alerta
-
-### 12. **Notificações** (`/v1/notificacoes`)
-
-Notificações para usuários do sistema.
-
-#### Modelo de Dados
-
-* `usuario_id` (integer, opcional): ID do usuário
-* `titulo` (string, opcional): Título da notificação
-* `corpo` (string, opcional): Corpo da mensagem
-* `lido` (boolean, obrigatório): Status de leitura
-* `payload_json` (object, opcional): Dados adicionais em JSON
-
-#### Endpoints
-
-**GET /v1/notificacoes** - Lista todas as notificações
-
-**POST /v1/notificacoes** - Cria nova notificação
-
-**GET /v1/notificacoes/\{id}** - Busca notificação específica
-
-**PUT /v1/notificacoes/\{id}** - Atualiza notificação (ex: marcar como lida)
-
-**DELETE /v1/notificacoes/\{id}** - Remove notificação
-
-### 13. **Log de Status do Tour** (`/v1/tour-status-log`)
-
-Histórico de mudanças de status dos tours.
-
-#### Modelo de Dados
-
-* `tour_id` (integer, obrigatório): ID do tour
-* `status` (string, obrigatório): Status registrado
-* `atualizado_em` (datetime, opcional): Timestamp da mudança
-* `observacoes` (string, opcional): Observações sobre a mudança
-
-#### Endpoints
-
-**GET /v1/tour-status-log** - Lista todos os logs
-
-**POST /v1/tour-status-log** - Cria novo log de status
-
-**GET /v1/tour-status-log/\{id}** - Busca log específico
-
-**GET /v1/tour-status-log/tour/\{tour\_id}** - Lista logs de um tour
-
-**PUT /v1/tour-status-log/\{id}** - Atualiza log
-
-**DELETE /v1/tour-status-log/\{id}** - Remove log
-
-## Respostas Padrão
-
-### Sucesso
-
-```json
-{
-  "message": "Mensagem descritiva",
-  "data": {
-    /* objeto ou array de dados */
-  }
-}
-```
-
-### Erro 404
-
-```json
-{
-  "message": "Recurso não encontrado"
-}
-```
-
-### Erro 500
-
-```json
-{
-  "message": "Erro interno do servidor"
-}
-```
-
-## Códigos de Status HTTP
-
-* **200 OK**: Operação bem-sucedida
-* **201 Created**: Recurso criado com sucesso
-* **404 Not Found**: Recurso não encontrado
-* **500 Internal Server Error**: Erro inesperado no servidor
-
-## Fluxo Típico de um Tour
-
-1. **Criar Visitante** → `POST /v1/visitante`
-2. **Criar Tour** → `POST /v1/tour`
-3. **Associar Visitante ao Tour** → `POST /v1/tour-visitante`
-4. **Criar Checkpoints** → `POST /v1/checkpoint`
-5. **Iniciar Tour** → `PUT /v1/tour/&#123;id&#125;` (atualizar status)
-6. **Rastrear Robô** → `POST /v1/rastreio-robo`
-7. **Processar Perguntas** → `POST /v1/perguntas` → `POST /v1/modelo`
-8. **Finalizar Tour** → `PUT /v1/tour/&#123;id&#125;` (atualizar status)
-
-## Notas de Implementação
-
-* Todos os IDs são integers de 32 bits
-* Datas seguem formato ISO 8601
-* Campos marcados como `null` são opcionais
-* Enums devem usar exatamente os valores especificados
-* A API usa JSON para request/response bodies
-
-
-# Banco de Dados Final (/docs/sprint-5/backend)
+# Manual de Operações do Robô (/docs/sprint-5/manual-de-operacao)
 
 <Cards>
-  <Card title="Backend - Atualização do Banco" description="Criação de nova tabela Acompanhantes e mudanças na tabela Visitantes" href="/docs/sprint-5/backend/banco-novo" />
-
-  <Card title="Backend - Documentação da API" description="Documentação de todos os endpoints que foram desenvolvidos ao longo do módulo." href="/docs/sprint-5/backend/endpoints" />
-
-  <Card title="Backend - Centralização de Rotas do Robô" description="Documentação sobre a centralização das rotas do robô no backend" href="/docs/sprint-5/backend/centralizacao-rotas-robo" />
-
-  <Card title="Backend - Documentação WebSocket Tour" description="Documentação sobre o WebSocket desenvolvido para o Tour" href="/docs/sprint-5/backend/ws_tour" />
-</Cards>
-
-
-# Documentação do Endpoint WebSocket /ws/tour/check (/docs/sprint-5/backend/ws_tour)
-
-# Documentação do Endpoint WebSocket: `/ws/tour/check`
-
-## Visão Geral
-
-### Objetivo do Endpoint
-
-Este endpoint fornece verificações em tempo real sobre tours ativos através de comunicação WebSocket. Os clientes podem enviar requisições contendo data e horário, e o servidor responde informando se existe um tour ativo naquele momento, incluindo suas perguntas e respostas já registradas.
-
-### Protocolo de Comunicação
-
-* **Tipo**: WebSocket
-* **Formato de Dados**: JSON
-* **Direção**: Bidirecional (cliente ↔ servidor)
-
-***
-
-## Estrutura das Mensagens
-
-### Requisição do Cliente
-
-Os clientes devem enviar uma mensagem JSON contendo os seguintes campos:
-
-```json
-{
-  "data_local": "2024-12-18",
-  "horario_verificacao": "14:30:00"
-}
-```
-
-**Campos da Requisição:**
-
-| Campo                 | Tipo   | Formato    | Obrigatório | Descrição                         |
-| --------------------- | ------ | ---------- | ----------- | --------------------------------- |
-| `data_local`          | String | YYYY-MM-DD | Sim         | Data para verificação do tour     |
-| `horario_verificacao` | String | HH:MM:SS   | Sim         | Horário específico da verificação |
-
-***
-
-## Respostas do Servidor
-
-### Tour Ativo
-
-Quando existe um tour ativo no horário especificado, o servidor retorna:
-
-```json
-{
-  "status": "active",
-  "tour_id": 123,
-  "codigo": "XXX001",
-  "perguntas": [
-    {
-      "id_pergunta": 45,
-      "texto_pergunta": "Qual os cursos do Inteli?",
-      "checkpoint": 3,
-      "texto_resposta": "Engenharia de computação, engenharia de software, ciência da computação e sistemas da informação"
-    },
-    {
-      "id_pergunta": 46,
-      "texto_pergunta": "Como funciona o processo seletivo",
-      "checkpoint": 3,
-      "texto_resposta": "O processo dividido nos eixos prova, perfil e dinâmica em grupo"
-    }
-  ]
-}
-```
-
-**Campos da Resposta (Tour Ativo):**
-
-| Campo                        | Tipo    | Descrição                               |
-| ---------------------------- | ------- | --------------------------------------- |
-| `status`                     | String  | Sempre "active" para tours em andamento |
-| `tour_id`                    | Integer | Identificador único do tour             |
-| `codigo`                     | String  | Código alfanumérico do tour             |
-| `perguntas`                  | Array   | Lista de perguntas e respostas do tour  |
-| `perguntas[].id_pergunta`    | Integer | Identificador único da pergunta         |
-| `perguntas[].texto_pergunta` | String  | Conteúdo da pergunta                    |
-| `perguntas[].checkpoint`     | Integer | Número do checkpoint associado          |
-| `perguntas[].texto_resposta` | String  | Resposta mais recente para a pergunta   |
-
-### Tour Inativo
-
-Quando não existe tour ativo no horário especificado:
-
-```json
-{
-  "status": "inactive"
-}
-```
-
-**Campos da Resposta (Tour Inativo):**
-
-| Campo    | Tipo   | Descrição                                              |
-| -------- | ------ | ------------------------------------------------------ |
-| `status` | String | Sempre "inactive" quando nenhum tour está em andamento |
-
-***
-
-## Conclusão
-
-O endpoint `/ws/tour/check` oferece uma solução eficiente e em tempo real para verificação de tours ativos. Através da comunicação WebSocket e formato JSON padronizado, o sistema permite que aplicações cliente monitorem o status de tours de forma responsiva e confiável.
-
-
-# Manual de Operações do Robô (/docs/sprint-5/manual-de-opera%C3%A7%C3%A3o)
-
-<Cards>
-  <Card href="/docs/sprint-5/manual-de-operação/manual" title="Guide Line">
+  <Card href="/docs/sprint-5/manual-de-operacao/manual" title="Guide Line">
     Documento com o guia de operação do robô e informações relevantes.
   </Card>
 </Cards>
 
 
-# Manual de Operações (/docs/sprint-5/manual-de-opera%C3%A7%C3%A3o/manual)
+# Manual de Operações (/docs/sprint-5/manual-de-operacao/manual)
 
 # Guia de Operação e Segurança - Robô Unitree Go2
 
