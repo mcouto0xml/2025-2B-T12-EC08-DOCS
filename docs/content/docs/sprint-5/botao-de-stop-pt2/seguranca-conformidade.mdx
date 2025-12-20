@@ -1,0 +1,112 @@
+---
+title: Segurança e Conformidade
+description: Ameaças, controles e conformidade específicos das extensões HTTP e emotes
+---
+
+# Kill Switch - Segurança e Conformidade
+
+## 1. Novas Ameaças (HTTP/WiFi)
+
+A adição do protocolo HTTP/WiFi introduz novas ameaças que precisam ser mitigadas:
+
+### Ameaças Identificadas
+
+| Ameaça                     | Categoria              | Impacto              | Probabilidade | Mitigação              |
+| :------------------------- | :--------------------- | :------------------- | :------------ | :--------------------- |
+| **Spoofing de Sinal HTTP** | Spoofing               | Acionamento falso    | Média         | Rede interna, sem auth |
+| **Replay Attack HTTP**     | Tampering              | Acionamento repetido | Média         | Máquina de estados     |
+| **Perda de Conexão WiFi**  | DoS                    | Falha de comunicação | Média         | Fallback para Serial   |
+| **Injection em HTTP**      | Injection              | Comando malicioso    | Baixa         | Validação de estado    |
+| **Eavesdropping HTTP**     | Information Disclosure | Exposição de dados   | Média         | Rede interna           |
+
+### Matriz de Risco
+
+| Ameaça                    | Severidade | Detectabilidade | Score | Prioridade |
+| :------------------------ | :--------- | :-------------- | :---- | :--------- |
+| **Perda de Conexão WiFi** | ALTA       | Fácil           | 7/10  | ALTA       |
+| **Spoofing HTTP**         | ALTA       | Média           | 6/10  | ALTA       |
+| **Replay Attack HTTP**    | MÉDIA      | Fácil           | 4/10  | MÉDIA      |
+
+## 2. Controles de Segurança
+
+### Controles Implementados
+
+| Controle                    | Tipo       | Implementação           | Status |
+| :-------------------------- | :--------- | :---------------------- | :----- |
+| **Máquina de Estados HTTP** | Preventivo | Validação de transições | ✅     |
+| **Rate Limiting Emotes**    | Preventivo | 20s entre requisições   | ✅     |
+| **Rede Interna**            | Preventivo | WiFi Unitree isolada    | ✅     |
+| **Detecção de Anomalias**   | Detectivo  | Monitoramento de taxa   | ✅     |
+| **Logging Estruturado**     | Detectivo  | Eventos com trace_id    | ✅     |
+
+## 3. Monitoramento
+
+### Novos Eventos
+
+| Evento                         | Severidade | Descrição                        | Ação            |
+| :----------------------------- | :--------- | :------------------------------- | :-------------- |
+| **KILL_SWITCH_ACTIVATED_HTTP** | CRITICAL   | Kill Switch acionado via HTTP    | Alerta imediato |
+| **KILL_SWITCH_RELEASED_HTTP**  | HIGH       | Kill Switch liberado via HTTP    | Log             |
+| **EMOTE_TRIGGERED**            | MEDIUM     | Emote acionado                   | Log             |
+| **RATE_LIMIT_EXCEEDED**        | LOW        | Limite de taxa de emote excedido | Log             |
+| **HTTP_SERVER_ERROR**          | HIGH       | Erro no servidor HTTP            | Investigação    |
+| **WIFI_DISCONNECTED**          | CRITICAL   | Perda de conexão WiFi            | Alerta          |
+
+### Esquema de Logs
+
+```json
+{
+  "timestamp": "2025-12-18T10:30:45.123Z",
+  "trace_id": "550e8400-e29b-41d4-a716-446655440000",
+  "event.category": "kill-switch",
+  "event.source": "http",
+  "event.type": "activation",
+  "severity": "CRITICAL",
+  "message": "Emergency stop button activated via HTTP",
+  "http.method": "POST",
+  "http.path": "/emergency/press",
+  "http.status": 200,
+  "client.ip": "192.168.1.100",
+  "operator_id": "op-001"
+}
+```
+
+## 4. Conformidade
+
+### Alinhamento com NIST CSF
+
+O desinvolvimento dessa sprint se mantém alinhado com NIST CSF:
+
+| Função       | Atividade           | Implementação                   |
+| :----------- | :------------------ | :------------------------------ |
+| **Identify** | Asset Inventory     | Serviços HTTP registrados       |
+| **Protect**  | Access Control      | Rede WiFi interna               |
+| **Detect**   | Anomaly Detection   | SIEM monitora eventos HTTP      |
+| **Respond**  | Incident Response   | Playbooks KS-002 e KS-003       |
+| **Recover**  | Recovery Procedures | Failover automático para Serial |
+
+### Conformidade com Padrões
+
+| Padrão           | Seção                          | Conformidade  |
+| :--------------- | :----------------------------- | :------------ |
+| **ISO 13849-1**  | Safety-related control systems | Mantém PLd    |
+| **IEC 61508**    | Functional safety              | Mantém SIL 2  |
+| **OWASP Top 10** | Web Application Security       | Completo      |
+| **CIS Controls** | Critical Security Controls     | Completo (v8) |
+
+## 5. Testes
+
+### Testes de Segurança
+
+- Validação de máquina de estados HTTP
+- Teste de rate limiting para emotes
+- Teste de failover WiFi → Serial
+- Validação de replay attack
+- Teste de injection em endpoints
+
+### Testes de Integração
+
+- Dual-channel simultâneo (Serial + HTTP)
+- Sincronização de estado entre canais
+- Prioridade de canais
+- Recuperação de falhas
