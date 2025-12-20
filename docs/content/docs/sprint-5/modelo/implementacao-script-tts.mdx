@@ -1,0 +1,180 @@
+---
+title: Implementação de Scripts e Voz (TTS)
+---
+
+# **Documentação Técnica: Implementação de Scripts e Voz (TTS) para o Robô de Tour Autônomo do Inteli**
+
+## **1\. Introdução e Contexto do Projeto**
+
+Este documento detalha a implementação do sistema de scripts e voz para o Robô Lia, guia de tours do Inteli. O foco desta documentação está na arquitetura de desenvolvimento dos scripts, na metodologia de construção e na integração de áudios gerados por Text-to-Speech (TTS) com recursos expressivos.
+
+## **2\. Arquitetura e Desenvolvimento de Scripts**
+
+O desenvolvimento dos scripts do robô foi iniciado na primeira semana do projeto, com o objetivo de cobrir o escopo macro de apresentação do espaço físico, metodologia de ensino, diferenciais dos cursos e processo de seleção.  
+A base para a estruturação do fluxo de conversação e da lógica de interação foi a arquitetura de mapa (map architecture), fornecida pelo parceiro. Esta arquitetura foi crucial para:  
+•Definir o fluxo de diálogo e as ramificações de conversação necessárias para um tour estruturado.  
+•Garantir a consistência e a rastreabilidade do desenvolvimento dos scripts em um projeto de IA Generativa.
+
+## **3\. Implementação de Áudio com Text-to-Speech (TTS) Avançado**
+
+A voz do robô foi implementada utilizando uma solução de Text-to-Speech (TTS) que oferece recursos avançados de expressividade, essenciais para a experiência de encantamento do usuário.
+
+### **3.1. Preparação e Segmentação do Conteúdo**
+
+O conteúdo dos scripts foi quebrado em partes menores. Esta segmentação foi realizada para otimizar a geração de áudio, permitindo um controle mais granular sobre a reprodução e a aplicação de diferentes estilos de voz em trechos específicos, o que é vital para a naturalidade da interação.
+
+### **3.2. Geração de Áudio Expressivo**
+
+Foi utilizada uma ferramenta de TTS capaz de gerar áudios com nuances de entonação e estilo, que se integram à experiência de IA Generativa do robô. As capacidades expressivas utilizadas incluem:  
+•Sussurro: Geração de áudios com a característica de sussurro para momentos específicos do tour.  
+•Mudança de Emoção: Capacidade de alterar a emoção da voz (e.g., alegria, seriedade) conforme o contexto do script, enriquecendo a experiência interativa.
+
+### **3.3. Módulos de Áudio Pré-Gerados**
+
+A estratégia de segmentação do conteúdo resultou na pré-geração de módulos de áudio em formato MP3, armazenados no repositório do projeto (embedding-models/output\_audio/). Estes arquivos representam os trechos de fala que o robô utiliza durante o tour, sendo acionados via requisição (conforme detalhado na Seção 5).  
+A lista de módulos de áudio pré-gerados inclui, mas não se limita a:
+
+| ID | Nome do Arquivo | Conteúdo Implícito |
+| :---- | :---- | :---- |
+| 01 | 01\_boas\_vindas.mp3 | Saudação inicial ao visitante. |
+| 02 | 02\_mit\_brasileiro.mp3 | Referência ao "MIT Brasileiro" (Inteli). |
+| 03 | 03\_intro\_historia.mp3 | Introdução à história do Inteli. |
+| 04 | 04\_historia\_importante.mp3 | Detalhe importante da história. |
+| 05 | 04\_intro\_historia.mp3 | (Possível variação ou repetição da introdução). |
+| 06 | 05\_piada\_auau.mp3 | Elemento de interação lúdica (piada). |
+| 07 | 06\_correcao\_seria.mp3 | Correção ou comentário sério. |
+| 08 | 07\_resposta\_empresario.mp3 | Resposta relacionada ao mundo empresarial. |
+| 09 | 08\_resolucao.mp3 | Conclusão ou resolução de um tópico. |
+| 10 | 09\_missao.mp3 | Apresentação da missão do Inteli. |
+| 11 | 10\_lista\_beneficios.mp3 | Enumeração de benefícios. |
+| 12 | 11\_doadores.mp3 | Menção aos doadores/patrocinadores. |
+| 13 | 12\_interacao\_bolsas.mp3 | Interação sobre o programa de bolsas. |
+| 14 | 13\_transicao.mp3 | Frase de transição entre tópicos. |
+| 15 | 14\_intro\_cursos.mp3 | Introdução aos cursos. |
+| 16 | 15\_intro\_cursos.mp3 | (Possível variação da introdução aos cursos). |
+
+## **4\. Evolução da Arquitetura de Backend (Sprint 4\)**
+
+A Sprint 4 focou na refatoração da arquitetura do backend para otimizar a performance, mas principalmente, na a escalabilidade dos serviços de voz e linguagem, especificamente Speech-to-Text (STT) e Text-to-Speech (TTS).
+
+### **4.1. Problema Identificado (Gargalo de Latência)**
+
+Na arquitetura anterior, o principal gargalo era o carregamento repetido dos modelos de STT e TTS a cada requisição. Esse processo lento resultava em:  
+•Altos tempos de resposta.  
+•Lentidão perceptível e ineficiência no fluxo de inferência.
+
+### **4.2. Melhorias Implementadas (Refatoração)**
+
+A refatoração da arquitetura resolveu o problema de latência através das seguintes melhorias:
+
+#### **Carregamento Único dos Modelos**
+
+Os modelos de STT e TTS são agora carregados apenas uma vez na inicialização do servidor (main.py).  
+Python  
+stt \= STTService() stt.setup\_model() tts \= TTSService() tts.setup\_model() chat \= ChatService()  
+Com isso, as chamadas subsequentes executam apenas a inferência, reduzindo significativamente o delay e preparando o backend para uso contínuo e escalável.
+
+#### **Reorganização em Classes (POO)**
+
+Os serviços foram reorganizados em classes específicas (STTService, TTSService, ChatService), seguindo o paradigma de Programação Orientada a Objetos (POO). Cada classe encapsula o setup do modelo, os métodos de inferência e utilitários específicos (como o text breaker do TTS), promovendo uma estrutura modular e de fácil manutenção.
+
+#### **Uso Correto de Protocolos**
+
+A comunicação com os serviços foi padronizada para utilizar o protocolo mais adequado à sua natureza:
+
+| Serviço | Protocolo | Natureza da Comunicação | Motivação |
+| :---- | :---- | :---- | :---- |
+| TTS (Text-to-Speech) | WebSocket | Contínua (Streaming) | Envio de chunks de áudio conforme gerados, permitindo resposta contínua e mais rápida. |
+| STT (Speech-to-Text) | WebSocket | Contínua (Streaming) | Recebimento e transcrição progressiva de segmentos de áudio, habilitando transcrição em tempo quase real. |
+| Chat (LLM) | HTTP | Pontual (Requisição/Resposta) | A comunicação com a LLM não exige streaming, sendo uma operação simples de requisição e resposta. |
+
+## **5\. Integração e Controle do Robô de Serviço Autônomo (Pós-Refatoração)**
+
+Os áudios gerados pelo TTS são integrados ao sistema do Robô de Serviço Autônomo. O controle da reprodução dos áudios é realizado através de requisições específicas (comandos de API ou comandos internos do sistema) que permitem a sincronização precisa da fala com as ações do robô.
+
+| Funcionalidade | Mecanismo de Controle | Propósito no Tour |
+| :---- | :---- | :---- |
+| Iniciar Áudio | Requisição (API/Comando) | Começar a fala do robô em pontos específicos do tour. |
+| Parar Áudio | Requisição (API/Comando) | Interromper a fala em caso de interrupção ou mudança de contexto. |
+
+\====================================================================
+
+# **Documentação Técnica: Ecossistema de Voz e Scripts (Lia \- Robô Inteli)**
+
+## **1\. Introdução e Visão Geral**
+
+Este documento detalha a implementação do sistema de voz e roteirização do **Robô Lia**, um guia autônomo projetado para realizar tours interativos no campus do Inteli1111. O sistema utiliza Inteligência Artificial Generativa para transformar textos dinâmicos em fala expressiva, permitindo que o robô apresente a infraestrutura, a metodologia PBL (Project Based Learning) e a cultura da instituição de forma humanizada2.
+
+## **2\. Arquitetura de Scripts e Fluxo de Conversação**
+
+O desenvolvimento dos scripts baseia-se em uma **Arquitetura de Mapa (Map Architecture)**, que correlaciona a localização física do robô com gatilhos de fala específicos.
+
+* **Segmentação Modular:** O roteiro é dividido em blocos temáticos (Boas-vindas, História, Bolsas, Cursos, Clubes e Metodologia) para facilitar a manutenção e a navegação não-linear.  
+* **Camada de Expressividade:** Diferente de um TTS comum, os scripts incorporam metadados de emoção e ritmo (ex: \[excited\], \[whispering\], \[short pause\]) para simular uma cadência de fala natural.
+
+---
+
+## **3\. Implementação do Serviço TTS (Text-to-Speech)**
+
+A solução de voz utiliza a API do **Google Cloud Text-to-Speech** com configurações de última geração.
+
+### **3.1. Configuração do Motor de Voz**
+
+O sistema utiliza o modelo de alta fidelidade para a língua portuguesa:
+
+* **Voz:** Leda  
+* **Modelo:** gemini-2.5-pro-tts  
+* **Formato de Saída:** MP3 (AudioEncoding.MP3)
+
+### **3.2. Engenharia de Áudio e Controle de Prosódia**
+
+Para garantir o "encantamento" mencionado nos objetivos do projeto3, o código implementa controles dinâmicos de velocidade e entonação:
+
+* **Speaking Rate (Velocidade):** O serviço permite ajustar a taxa de fala globalmente ou por segmento. No Bloco de Bolsas, por exemplo, utiliza-se 1.25x para listas longas, enquanto na "Piada do Auau", utiliza-se 1.1x para dar ênfase cômica.  
+* **Normalização de Caminhos:** O sistema organiza automaticamente os arquivos gerados em um diretório padrão (output\_audio), garantindo que o robô acesse sempre a versão mais recente dos scripts.  
+* **Sistema de Cache:** Para otimizar custos e performance, o serviço verifica se o arquivo já existe antes de realizar uma nova chamada à API do Google.
+
+---
+
+## **4\. Estrutura do Roteiro e Módulos de Áudio**
+
+Abaixo, a tabela detalhada dos módulos de áudio que compõem a experiência do tour, baseada na implementação final da Sprint 4:
+
+| ID | Tópico | Emoção Dominante | Descrição do Conteúdo |
+| :---- | :---- | :---- | :---- |
+| **01-02** | Boas-Vindas | Excited / Warm | Saudação inicial e menção ao "MIT Brasileiro". |
+| **03-08** | História | Storytelling / Joking | Fundação em 2019, diálogo entre Roberto Sallouti e investidores. |
+| **09-13** | Bolsas | Passionate / Grateful | Detalhes sobre auxílio-moradia, alimentação e notebook. |
+| **14-18** | Cursos | Professional / High Energy | Descrição dos 5 cursos (CC, ES, SI, ADM Tech e EC). |
+| **19-23** | Clubes | Energetic / Fast-paced | Menção à Tantera, Inteli Júnior e coletivos de diversidade. |
+| **24-35** | PBL e Rotina | Educational / Proud | Explicação sobre a ausência de matérias tradicionais e o momento DEV. |
+
+---
+
+## **5\. Refatoração e Performance do Backend**
+
+Para eliminar o gargalo de latência identificado (carregamento repetido de modelos), a arquitetura foi migrada para um modelo de **Serviço Persistente**.
+
+### **5.1. Padronização via POO (Programação Orientada a Objetos)**
+
+A classe TTSService encapsula toda a lógica de negócio:
+
+* **setup\_output\_directory()**: Gerencia o sistema de arquivos.  
+* **synthesize\_speech()**: Centraliza a lógica de inferência, tratando exceções e logs de sucesso/erro.
+
+### **5.2. Protocolos de Comunicação**
+
+| Serviço | Protocolo | Justificativa Técnica |
+| :---- | :---- | :---- |
+| **STT / TTS** | **WebSocket** | Permite o streaming de áudio em tempo real (chunks), essencial para que o robô comece a falar antes mesmo do arquivo completo ser processado. |
+| **Chat (LLM)** | **HTTP** | Utilizado para consultas pontuais à base de conhecimento (FAQ do processo seletivo)4. |
+
+---
+
+## **6\. Integração com o Hardware (Robô Autônomo)**
+
+O robô interage com estes módulos através de uma interface de controle que suporta:
+
+1. **Gatilhos de Proximidade:** Quando o robô atinge uma coordenada no mapa, o backend dispara o ID do áudio correspondente via requisição.  
+2. **Interrupção Dinâmica:** Capacidade de parar a reprodução imediatamente caso o sensor de segurança detecte um obstáculo ou o usuário faça uma pergunta direta (STT).
+
