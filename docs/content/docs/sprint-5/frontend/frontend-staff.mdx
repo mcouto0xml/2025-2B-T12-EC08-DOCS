@@ -1,25 +1,32 @@
 ---
 title: Frontend - App Staff
+description: Documentação do Frontend do App Staff referente à Sprint 5.
 ---
 
 ## 1. Introdução
 
-&emsp; O App Staff é um aplicativo utilizado pelos colaboradores do Inteli para gerenciar os tours guiados pelo cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours e interrompa o processo em caso de emergência.
+&emsp; O **App Staff** é um aplicativo desenvolvido para apoiar os colaboradores do Inteli na operação e gerenciamento dos tours guiados realizados com o auxílio do cão robô. A aplicação permite que o staff visualize os tours do dia, edite informações, acompanhe o progresso do robô em tempo real, inicialize tours, disponibilize códigos de acesso aos visitantes e interrompa o processo em situações de emergência.
+
+&emsp; Durante a **Sprint 5**, não houve alterações estruturais significativas em relação à Sprint 4. O foco desta etapa foi o refinamento da documentação, consolidação das funcionalidades já integradas ao backend, pequenos ajustes de usabilidade e estabilização do fluxo de navegação, garantindo maior confiabilidade e clareza para manutenção futura do frontend.
 
 ---
 
 ## 2. Arquitetura do Projeto
 
-&emsp; Para este projeto foi utilizado o Framework React Native usando Expo como ambiente de execução e empacotamento.
+&emsp; O frontend do App Staff foi desenvolvido utilizando **React Native**, com o **Expo** como ambiente de desenvolvimento, execução e empacotamento. A navegação entre telas é gerenciada pelo **Expo Router**, seguindo um padrão baseado em rotas de arquivos.
 
-&emsp; A escolha desta tecnologia foi dada principalmente por representar uma barreira menor de aprendizado para os membros da equipe de frontend, principalmente porque a maiora dos membros já possuiam um contato prévio, o que facilitou o entendimento para outros membros.
+&emsp; A escolha dessa stack se manteve ao longo do projeto por apresentar:
+
+- Curva de aprendizado reduzida para a equipe;
+- Facilidade de execução em múltiplas plataformas;
+- Bom suporte a componentes reutilizáveis;
+- Integração simplificada com APIs e serviços externos.
 
 ### 2.1 Estrutura de Pastas
 
-A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo:
+A estrutura atual do projeto permanece a mesma das sprints anteriores, seguindo o padrão sugerido pelo Expo Router:
 
 ```txt
-
 .
 ├── android/
 │
@@ -41,8 +48,9 @@ A estrutura atual do projeto segue o padrão sugerido pelo Expo Router, contendo
 ├── scripts/
 │
 └── README.md
-
 ```
+
+**Descrição das pastas principais:**
 
 - **`/app`** - Gerenciamento das páginas
 
@@ -82,13 +90,11 @@ _Pastas Android geradas automaticamente pelo Expo_
 
 - **Navbar e Header** - Estruturas permanentes no HUD
 
+Na Sprint 5, esses componentes foram mantidos, com ajustes pontuais de comportamento e estilização para melhorar a experiência do usuário e a previsibilidade das interações.
+
 ---
 
 ## 3. Fluxo de Navegação
-
-### Vídeo Frontend Staff - Youtube
-
-[Assista no YouTube](https://www.youtube.com/shorts/zcdQ7O9pAsQ?feature=share)
 
 :::note
 
@@ -122,14 +128,11 @@ _Pastas Android geradas automaticamente pelo Expo_
 
 :::
 
----
-
 ## 4. Como Rodar o Projeto e Dependências
 
-&emsp; Esta seção descreve os requisitos e os passos necessários para configurar, instalar e executar o aplicativo do Staff em ambiente de desenvolvimento.
-O projeto utiliza Expo com Expo Router, permitindo execução rápida tanto em emuladores quanto em dispositivos físicos via Expo Go ou build nativo.
+&emsp;Esta seção descreve os requisitos e o processo para configurar e executar o App Staff em ambiente de desenvolvimento utilizando Expo + Expo Router.
 
-### 4.1. Requisitos
+### 4.1 Requisitos
 
 :::note
 
@@ -164,28 +167,37 @@ OBS: Será necessário configurar o androind studio na sua máquia e caso queira
 
 :::
 
-### 4.2. Instalando Dependências e Executando o Projeto
+### 4.2 Instalando Dependências e Executando o Projeto
 
-Na raiz do projeto:
+Clone o repositório:
+
+```bash
+git clone https://github.com/anabeggiato/2025-2B-T12-EC08-AppStaff
+```
+
+Entre na pasta do aplicativo:
+
+```bash
+cd 2025-2B-T12-EC08-AppStaff/app
+```
+
+Instale as dependências:
 
 ```bash
 npm install
 ```
 
-Isso instala todas as dependências declaradas em `package.json.`
-
-Ainda no terminal:
+Inicie o projeto:
 
 ```bash
 npx expo start
-
 ```
 
 Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
 
 As informações que aparecerem no seu terminal devem ser semelhantes a esta:
 
-![Terminal - Aplicação Staff](./imgs/terminalAplicacao.png)
+![Terminal - Aplicação Staff](../frontend//imgs/terminalAplicacao.png)
 
 Entre as opções você pode escolher:
 
@@ -193,12 +205,14 @@ Entre as opções você pode escolher:
 - Abrir a aplicação no seu navegador web
 - Abrir a aplicação no android studio
 
-Se o Android Studio estiver instalado, você pode rodar a aplicação no simulador android com o comando:
+Para rodar diretamente em um dispositivo Android:
 
 ```bash
 npx expo run:android
 ```
 
-## 5. Conclusão
+5. Conclusão
 
-Esta documentação descreve os elementos essenciais para o desenvolvimento do frontend do App Staff utilizando React Native + Expo, seguindo o protótipo de alta fidelidade. A estrutura apresentada oferece clareza para implementação, padronização dos componentes e referência visual consistentes.
+&emsp; A documentação da Sprint 5 consolida o estado atual do frontend do App Staff, reforçando a arquitetura, o fluxo de navegação e o processo de execução do projeto. Mesmo sem mudanças estruturais relevantes em relação à Sprint 4, esta etapa foi essencial para refinamento, estabilização e organização do material técnico.
+
+&emsp; O frontend encontra-se alinhado ao protótipo de alta fidelidade, com componentes reutilizáveis bem definidos, fluxo consistente e integração funcional com o backend, servindo como base sólida para evoluções futuras.

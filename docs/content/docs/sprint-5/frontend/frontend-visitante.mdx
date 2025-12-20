@@ -1,0 +1,262 @@
+---
+title: Frontend - App Visitante
+description: Documentação do Frontend do App Visitante.
+---
+
+## 1. Introdução
+
+&emsp; O **App Visitante** foi desenvolvido para apoiar a experiência de pais, filhos e demais convidados que participam do tour guiado pelo robô-cachorro **LIA** durante visitas ao campus da faculdade Inteli. O aplicativo tem como objetivo proporcionar uma jornada educativa, segura e interativa, permitindo que os visitantes acompanhem o tour em tempo real, visualizem o mapa do percurso, interajam com o robô por meio de perguntas, acessem conteúdos informativos e respondam avaliações ao final da experiência.
+
+&emsp; Assim como nas sprints anteriores, esta etapa manteve a estrutura geral do frontend, focando principalmente na consolidação das funcionalidades já integradas ao backend, ajustes de usabilidade e estabilidade do fluxo de navegação, sem alterações arquiteturais relevantes.
+
+---
+
+## 2. Arquitetura do Projeto
+
+&emsp; O frontend do App Visitante foi desenvolvido utilizando **React Native**, com o **Expo** como ambiente de desenvolvimento, execução e empacotamento. A navegação entre telas é gerenciada por meio do **Expo Router**, adotando o padrão de rotas baseadas em arquivos.
+
+&emsp; A escolha dessa arquitetura se justifica por:
+
+- Facilidade de desenvolvimento multiplataforma;
+- Curva de aprendizado reduzida para a equipe;
+- Boa integração com APIs externas;
+- Possibilidade de reutilização de componentes entre aplicações do ecossistema.
+
+---
+
+## 2.1 Estrutura de Pastas
+
+A estrutura do projeto segue o padrão sugerido pelo Expo Router:
+
+```txt
+.
+├── android/
+│
+├── app
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   └── (tabs)/
+│       ├── _layout.tsx
+│       ├── home.tsx
+│       ├── mapa.tsx
+│       └── menu.tsx
+│
+├── assets
+│
+├── components
+│
+├── constants/
+│
+├── hooks/
+│
+└── README.md
+```
+
+Descrição das pastas principais:
+
+- **`/app`** - Gerenciamento das páginas
+
+- **`/assets`** Ícones, imagens e o logotipo do Inteli
+
+- **`/components`** - Componentes reutilizáveis
+
+- **`/constants`** - Temas de cores e variáveis globais
+
+- **`/api`** - Conexão com o Backend
+
+- **`/hooks`** - Hooks auxiliares como detecção de tema
+
+- **`/scripts`** - Scripts internos do projeto
+
+- **`README`** - Instruções para rodar o projeto
+
+Pastas como android/ são geradas automaticamente pelo Expo.
+
+Essa organização facilita a manutenção do código, a escalabilidade do projeto e a reutilização de componentes em outras aplicações.
+
+### 2.2 Componentes
+
+&emsp; Os componentes do App Visitante são responsáveis por estruturar a interface e a interação do usuário com o sistema. Foram desconsiderados os componentes presentes apenas no initial commit, sendo listados apenas aqueles relevantes para o funcionamento atual da aplicação.
+
+**Principais componentes utilizados:**
+
+**MessageBubble** - Exibição das mensagens no chat com o robô.
+
+**VoiceButton** - Botão para interação por voz com o robô.
+
+**ChatArea** - Área principal de conversa entre visitante e LIA.
+
+**CardTutorial** - Cartões informativos e tutoriais exibidos ao usuário.
+
+**Confirmation** - Tela e componente de confirmação de ações.
+
+**Code** - Exibição de códigos de acesso ou identificação do tour.
+
+**Loading** - Indicador visual de carregamento.
+
+**Navbar** - Barra de navegação inferior (HUD).
+
+**ExternalLink** - Links externos dentro do app.
+
+**HapticTab** - Feedback tátil em interações específicas.
+
+&emsp; Esses componentes garantem padronização visual, melhor experiência do usuário e maior clareza no fluxo de interação.
+
+---
+
+## 3. Fluxo de Navegação
+
+:::note
+
+**Fluxo Geral da Aplicação**
+
+1. Tela inicial / Index
+
+2. Onboarding
+
+3. Tela Home
+
+4. Introdução ao Chat (ChatIntro)
+
+5. Chat com o robô LIA
+
+6. Tela de Mapa do Tour
+
+7. Tela de FAQ
+
+8. Tela Botão de Emergência
+
+9. Tela de Confirmação
+
+10. Avaliação da experiência (NPS)
+
+- O Menu é acessível a partir do HUD
+
+**O HUD inclui:**
+
+1. Barra inferior de navegação (Home / Mapa / Menu)
+
+2. Feedback visual e tátil em interações
+
+3. Navegação persistente entre telas principais
+
+:::
+
+---
+
+## 4. Telas da Aplicação
+
+As principais telas que compõem o App Visitante são:
+
+- `index.tsx` - Entrada da aplicação
+
+- `onboarding.tsx` - Apresentação inicial ao usuário
+
+- `home.tsx` - Tela principal do visitante
+
+- `chatIntro.tsx` - Introdução à interação com o robô
+
+- `mapa.tsx` - Visualização do mapa do tour
+
+- `faq.tsx` - Perguntas frequentes
+
+- `confirmacao.tsx` - Confirmação de ações
+
+- `emergencia.tsx` - Tela de emergência
+
+- ` menu.tsx` - Menu de navegação
+
+- `nps.tsx` - Avaliação da experiência do usuário
+
+---
+
+## 5. Como rodar a aplicação e dependências
+
+&emsp;Esta seção descreve os requisitos e o processo para configurar e executar o App Staff em ambiente de desenvolvimento utilizando Expo + Expo Router.
+
+### 5.1 Requisitos
+
+:::note
+
+---
+
+Node.js (_Node 18 LTS ou Node 20 LTS_)
+
+Baixar em: https://nodejs.org/
+
+---
+
+Expo CLI (Será necessário intalar globalmente para que funcione)
+
+`npm install -g expo-cli`
+
+---
+
+Android Studio (para usar emulador Android)
+
+É possível usar tanto a versão CLI quanto o APK:
+https://developer.android.com/studio
+
+---
+
+O projeto usa npm como gerenciador de pacotes, mas também funciona com Yarn.
+
+:::
+
+:::warning
+
+OBS: Será necessário configurar o androind studio na sua máquia e caso queira rodar a aplicação no celular terá que desbloquear o modo desenvolvedor no seu dispositivo.
+
+:::
+
+### 5.2 Instalando Dependências e Executando o Projeto
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/Fernandoliveira05/AppTourVisitante/
+```
+
+Entre na pasta do aplicativo:
+
+```bash
+cd AppTourVisitante/app
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Inicie o projeto:
+
+```bash
+npx expo start
+```
+
+Isso abrirá o Metro Bundler no navegador e terão algumas informações em seu terminal.
+
+As informações que aparecerem no seu terminal devem ser semelhantes a esta:
+
+![Terminal - Aplicação Staff](../frontend//imgs/terminalAplicacao.png)
+
+Entre as opções você pode escolher:
+
+- Escanear o QR Code com o aplicativo Expo Go - No seu celular;
+- Abrir a aplicação no seu navegador web
+- Abrir a aplicação no android studio
+
+Para rodar diretamente em um dispositivo Android:
+
+```bash
+npx expo run:android
+```
+
+---
+
+## 6. Conclusão
+
+&emsp; O App Visitante apresenta uma estrutura sólida e consistente, alinhada às demais aplicações do ecossistema do projeto. A reutilização de padrões arquiteturais e de navegação garante facilidade de manutenção, além de proporcionar uma experiência fluida e intuitiva para os visitantes do Inteli.
+
+&emsp; A aplicação encontra-se integrada ao backend, com fluxo de navegação estável, componentes bem definidos e pronta para futuras evoluções e melhorias.

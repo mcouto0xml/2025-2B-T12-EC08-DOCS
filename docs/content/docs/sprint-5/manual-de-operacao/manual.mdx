@@ -1,0 +1,119 @@
+---
+title: Manual de Operações
+description: Documento com o guia de operação do robô e informações relevantes para o uso correto.
+---
+
+# Guia de Operação e Segurança - Robô Unitree Go2
+
+**Projeto:** Tour Autônomo - Inteli Instituto de Tecnologia e Liderança
+**Versão:** Sprint 5
+
+---
+
+## Introdução
+
+Este documento estabelece as **diretrizes operacionais, de segurança e de contingência** para o uso do robô **Unitree Go2** no projeto de **tour autônomo** no campus do Inteli.
+
+Por se tratar de um sistema robótico em ambiente público, todas as orientações aqui descritas devem ser **rigorosamente seguidas**, servindo como referência oficial para operação, acompanhamento e resposta a incidentes.
+
+---
+
+## Condições Obrigatórias Antes da Operação
+
+Antes de qualquer inicialização ou teste, é obrigatório garantir que:
+
+- O robô esteja posicionado em sua **posição padrão recomendada**, com as patas alinhadas e postura estável, conforme orientação do fabricante.
+- O **robô e o sistema de controle** estejam conectados ao **Wi-Fi específico do projeto (InteliRobo)**, previamente configurado.
+- O ambiente esteja livre de obstáculos imediatos e com **zona de segurança mínima de 1 metro** ao redor do robô.
+- Um responsável esteja designado exclusivamente para o **acompanhamento do tour** e para o **controle do botão remoto de emergência** em casos de necessidade.
+
+A não conformidade com qualquer um desses pontos **impede o início do tour**.
+
+---
+
+## Diretrizes Gerais de Operação
+
+- A sequência de inicialização deve ser sempre respeitada: **controle → robô**.
+- Durante o tour, o robô deve se deslocar em **velocidade reduzida e constante**, priorizando estabilidade e previsibilidade dos movimentos.
+- Toda vez que iniciar o robô ele deve estar no mesmo local de ínicio do tuor para realizar o mapeamento.
+- Comandos repetidos, simultâneos ou fora do fluxo esperado devem ser evitados, pois podem gerar comportamentos não determinísticos.
+- Testes devem ser realizados previamente em ambientes controlados, antes de qualquer operação com visitantes.
+
+---
+
+## Sistema de Botões de Emergência
+
+O projeto conta com **dois botões físicos de emergência**, ambos capazes de interromper imediatamente as ações do robô.
+
+### Funcionamento Geral
+
+- **Ao pressionar qualquer um dos botões**, o robô é **derrubado (queda controlada)** e **todas as suas ações são interrompidas**.
+- Os botões devem ser utilizados **somente em situações de alta necessidade e ausência de controle**.
+- O mesmo botão também pode ser utilizado para **retomar o controle** do robô, desde que ele esteja em uma condição segura para tal.
+
+### Tipos de Botão
+
+**Botão remoto (via sistema):**
+
+- Funciona via **HTTP**.
+- Deve permanecer exclusivamente com o **responsável pelo acompanhamento do tour**.
+- É indicado para situações em que ainda há visibilidade do robô, mas o comportamento se torna inadequado ou inseguro para utilizar o botão acoplado.
+
+**Botão acoplado ao robô:**
+
+- Atua diretamente no robô, sem dependência de rede.
+- Destinado a **situações de perda total de controle**, falha crítica ou risco iminente, caso ainda haja acesso físico ao robô.
+
+> **Atenção:**  
+> O uso indevido ou frequente dos botões pode comprometer a integridade mecânica do robô e a experiência do projeto.
+
+---
+
+## Procedimentos de Segurança
+
+### Parada de Emergência
+
+- **L2 + B:** parada forçada imediata via controle.
+- Botões físicos: derrubam o robô e interrompem completamente suas ações.
+
+Após qualquer parada de emergência:
+
+1. Avaliar visualmente possíveis danos.
+2. Verificar diagnósticos no aplicativo/sistema.
+3. Registrar o ocorrido antes de qualquer nova tentativa de operação.
+
+### O que NÃO deve ser feito
+
+- Não levantar o robô enquanto estiver em modo operacional ou de parada forçada.
+- Não reiniciar o tour sem recolocar o robô na **posição padrão**.
+- Não operar o robô sem conexão ao Wi-Fi específico do projeto.
+- Não permitir aproximação de visitantes durante testes técnicos.
+- Não utilizar os botões de emergência como forma de controle comum.
+
+---
+
+## Procedimentos Operacionais
+
+| ID   | Área      | Procedimento / Situação                                             | Resultado Esperado                   |
+| ---- | --------- | ------------------------------------------------------------------- | ------------------------------------ |
+| OP01 | Operação  | Ligar o controle antes do robô.                                     | Pareamento realizado sem falhas.     |
+| OP02 | Operação  | Ligar o controle (pressionar, soltar, pressionar, soltar, segurar). | Controle ativo e reconhecido.        |
+| OP03 | Operação  | Ligar o robô (pressionar, soltar, segurar).                         | Robô inicia e responde aos comandos. |
+| OP04 | Operação  | Em perda parcial de controle, pressionar L2 + A.                    | Robô trava movimentos e estabiliza.  |
+| OP05 | Segurança | Em risco iminente, pressionar L2 + B.                               | Parada forçada imediata.             |
+| OP06 | Segurança | Para sair da parada forçada, enviar Start.                          | Retorno ao modo operacional.         |
+| OP07 | Segurança | Não levantar o robô em parada forçada.                              | Prevenção de danos e acidentes.      |
+| OP08 | Técnica   | Conectar hub USB-C à Jetson.                                        | Acesso ao terminal garantido.        |
+| OP09 | Técnica   | Reiniciar em caso de falha crítica.                                 | Sistema restabelecido.               |
+| OP10 | Técnica   | Conectar adaptador Wi-Fi e liberar SSH.                             | Acesso remoto funcional.             |
+| OP11 | Operação  | Desligar o robô corretamente.                                       | Desligamento seguro.                 |
+| OP12 | Operação  | Desligar o controle após o robô.                                    | Comunicação encerrada.               |
+| OP13 | Segurança | Garantir desligamento do robô antes do controle.                    | Evita estados inconsistentes.        |
+
+---
+
+## Observações Finais
+
+Este manual é um documento sujeito a revisões conforme o avanço do projeto, novos testes e validações de segurança.
+
+O cumprimento rigoroso destas diretrizes é essencial para garantir a segurança dos visitantes e da equipe, a integridade do robô , bem como a continuidade e confiabilidade do tour autônomo.
