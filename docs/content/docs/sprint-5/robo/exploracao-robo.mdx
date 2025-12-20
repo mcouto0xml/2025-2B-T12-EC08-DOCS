@@ -1,0 +1,82 @@
+---
+title: Exploração e Integração
+---
+
+# Sprint 5 - Definições Finais de Arquitetura e Integração
+
+## 1. Resumo
+
+Nesta reta final do projeto, os esforços foram concentrados na **consolidação da arquitetura de navegação e o sistema de comunicação**. O foco principal foi garantir que os subsistemas críticos (navegação autônoma, interação por voz e infraestrutura de rede) operassem de forma estável e integrada no ambiente real.
+
+Os principais marcos atingidos foram:
+
+* Validação da lógica de navegação via **Nav2 + SLAM** com coordenadas relativas.
+* Implementação completa do pipeline de conversão e reprodução de **áudio via WebRTC**.
+* Estabilização da conectividade na rede corporativa através de **solução customizada com Zenoh**.
+
+---
+
+## 2. Navegação e Posicionamento
+
+Refinamos o entendimento e a lógica de como o robô interpreta o ambiente e executa trajetórias. Confirmou-se que a movimentação **não depende da interface visual (Rviz)** em tempo de execução, mas sim de coordenadas processadas pelo backend.
+
+### Estratégia de Checkpoints
+
+A equipe definiu **endpoints** (comandos diretos) associados a **checkpoints** (posições físicas no mapa). A operação baseia-se na tese de **Posicionamento Relativo**.
+
+* Detalhe importante: para que o posicionamento funcione corretamente, o robô deve ser inicializado na **"Posição Inicial" (Home)**. A partir deste ponto zero, ele calcula a localização de cada sala baseando-se nas coordenadas gravadas no mapa do **SLAM**.
+
+---
+
+## 3. Sistema de Áudio (WebRTC e Conversão)
+
+Foi finalizada a implementação do módulo de voz. Para garantir que o robô consiga "falar" em tempo real com baixa latência, desenvolvemos um fluxo de dados para tratamento de mídia.
+
+### Pipeline de Processamento
+
+1. **Recebimento via WebSocket:** O sistema recebe o áudio em formato de texto codificado (**Base64**).
+2. **Decodificação:** Transformação do código Base64 em arquivo de áudio compactado (**MP3**).
+3. **Conversão para WAV:** Conversão do MP3 para **WAV** para processamento compatível.
+4. **Reprodução via WebRTC:** Transmissão interna do arquivo WAV para os alto-falantes do robô.
+
+---
+
+## 4. Infraestrutura de Rede
+
+Durante as sprints, houve um avanço significativo na arquitetura de conectividade, superando os desafios de integração com a infraestrutura do campus.
+
+### O Desafio
+
+A equipe precisava garantir que os dados do sistema (ROS 2) trafegassem corretamente dentro da rede **Inteli.Iot**. O protocolo padrão (DDS) enfrentava bloqueios de descoberta e instabilidade devido às restrições de tráfego (multicast) típicas de redes corporativas complexas.
+
+### A Solução
+
+A equipe solucionou os impeditivos de rede através da implementação do **zenoh-bridge-ros2dds**, orquestrado pelo repositório customizado **[zenoh-plugin-ros2dds-nix](https://github.com/GustavoWidman/zenoh-plugin-ros2dds-nix)**.
+
+Essa abordagem permitiu que o robô operasse **100% conectado à rede institucional "Inteli.Iot"**. O bridge encapsula o tráfego ROS 2 e o transporta de forma eficiente pela rede, garantindo comunicação estável, segura e sem a necessidade de roteadores dedicados.
+
+---
+
+## 5. Glossário de Conceitos Técnicos
+
+### Comunicação e Rede
+
+* **zenoh-plugin-ros2dds-nix:**  Repositório e artefato Nix desenvolvido/utilizado pela equipe para implementar o `zenoh-bridge-ros2dds`. Ele atua como uma ponte que conecta o protocolo DDS do ROS 2 à rede, permitindo o tráfego de dados em ambientes corporativos complexos (como a rede do Inteli) sem falhas de descoberta.
+* **Inteli.Iot:** Rede Wi-Fi corporativa da instituição. Graças à implementação do Zenoh, o robô agora opera plenamente nesta rede, integrando-se ao ecossistema conectado do campus.
+* **WebSocket:** Canal de comunicação bidirecional que permite o envio contínuo de dados (como streams de áudio) sem recarregar a conexão.
+* **WebRTC (Web Real-Time Communication):** Tecnologia que permite a transmissão de áudio e vídeo instantânea, essencial para a voz do robô.
+
+### Robótica e Navegação
+
+* **SLAM (Simultaneous Localization and Mapping):** Técnica computacional que permite ao robô construir um mapa do ambiente ao mesmo tempo em que estima sua própria localização.
+* **Nav2 (Navigation 2):** Framework de navegação do ecossistema ROS 2, responsável pelo planejamento de rotas e desvio de obstáculos dinâmicos.
+* **Rviz (ROS Visualization):** Ferramenta gráfica de visualização 3D utilizada para diagnósticos (ver o que o robô vê), embora a navegação final independa dela.
+* **ROS 2:** Middleware que conecta todos os componentes do robô (lidar, motores, áudio), permitindo a troca de mensagens.
+
+---
+
+## 6. Considerações Finais
+
+As Sprints 5 foram decisivas para transformar componentes isolados em uma **arquitetura sistêmica funcional**. A validação bem-sucedida da operação na rede **Inteli.Iot** (viabilizada pelo `zenoh-plugin-ros2dds-nix`) removeu os principais bloqueios de escalabilidade do projeto.
+
+Com a infraestrutura de rede resolvida e a navegação relativa validada, o sistema está pronto para atuar no ambiente real.
