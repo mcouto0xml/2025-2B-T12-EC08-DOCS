@@ -14482,147 +14482,6 @@ A arquitetura foi construída para ser:
 O sistema está pronto para uso em produção, com o robô físico ou em modo de simulação para testes.
 
 
-# App Staff (/docs/sprint-4/documentacao-frontend/app_staff)
-
-## Introdução
-
-  O aplicativo do Staff foi desenvolvido para apoiar os colaboradores responsáveis pelos tours realizados no campus do Inteli. Por meio dele, os funcionários podem criar, visualizar e gerenciar tours, acompanhar o progresso do tour e disponibilizar o código de acesso aos visitantes. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
-
-## Como Iniciar o Projeto
-
-  Para iniciar o projeto do App Staff, siga o passo a passo completo:
-
-### Pré-requisitos
-
-* Git instalado.
-* Node.js (inclui npm) instalado.
-* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
-
-### Passo a passo
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/anabeggiato/2025-2B-T12-EC08-AppStaff
-```
-
-2. Entre na pasta do app:
-
-```bash
-cd 2025-2B-T12-EC08-AppStaff/app
-```
-
-3. Instale as dependências:
-
-```bash
-npm install
-```
-
-4. Rode o app diretamente no Android (device físico via USB ou emulador):
-
-```bash
-npx expo run:android
-```
-
-5. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
-6. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
-
-
-# App Visitante (/docs/sprint-4/documentacao-frontend/app_visitante)
-
-## Introdução
-
-  O aplicativo do visitante foi desenvolvido para apoiar a experiência de pais, filhos e demais convidados que participam do tour guiado pelo robô-cachorro LIA durante visitas à faculdade Inteli. O objetivo deste aplicativo é garantir uma jornada educativa, segura e interativa, permitindo que o visitante acompanhe o tour, faça perguntas ao robô, visualize o mapa do tour. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
-
-## Como Iniciar o Projeto
-
-  Para iniciar o projeto do App Visitante, siga o passo a passo completo:
-
-### Pré-requisitos
-
-* Git instalado.
-* Node.js (inclui npm) instalado.
-* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
-
-### Passo a passo
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/Fernandoliveira05/AppTourVisitante/
-```
-
-2. Instale as dependências:
-
-```bash
-npm install
-```
-
-3. Rode o app diretamente no Android (device físico via USB ou emulador):
-
-```bash
-npx expo run:android
-```
-
-4. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
-5. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
-
-
-# Dashboard (/docs/sprint-4/documentacao-frontend/dashboard)
-
-## Introdução
-
-  O Dashboard foi desenvolvido para fornecer uma interface intuitiva e eficiente para os membros da staff do Inteli visualizarem e analisarem os dados coletados durante os tours guiados pelo robô-cachorro LIA. Através deste dashboard, os usuários podem acessar informações detalhadas sobre o desempenho dos tours, feedback dos visitantes e outras métricas relevantes que auxiliam na melhoria contínua da experiência oferecida. Durante essa sprint 4, o foco principal foi finalizar as telas principais desse dashboard e a integração com o backend é o primeiro passo na próxima sprint.
-
-## Como Iniciar o Projeto
-
-  Para iniciar o Dashboard, siga o passo a passo completo:
-
-### Pré-requisitos
-
-* Git instalado.
-* Node.js (inclui npm) instalado.
-
-### Passo a passo
-
-1. Clone o repositório:
-
-```bash
-git clone https://github.com/davidijesus/2025-2B-T12-EC08-DashStaff
-```
-
-2. Entre na pasta do dashboard:
-
-```bash
-cd 2025-2B-T12-EC08-DashStaff/inteli-dashboard
-```
-
-3. Instale as dependências:
-
-```bash
-npm install
-```
-
-4. Inicie o projeto Vite:
-
-```bash
-npm run dev
-```
-
-5. Acesse no navegador: `http://localhost:8080/` (ou a porta exibida no terminal do Vite).
-
-
-# Documentação Frontend (/docs/sprint-4/documentacao-frontend)
-
-<Cards>
-  <Card title="App Staff" description="Documentação referente ao App Staff." href="/docs/sprint-4/documentacao-frontend/app_staff" />
-
-  <Card title="App Visitante" description="Documentação referente ao App Visitante." href="/docs/sprint-4/documentacao-frontend/app_visitante" />
-
-  <Card title="Dashboard" description="Documentação referente ao Dashboard." href="/docs/sprint-4/documentacao-frontend/dashboard" />
-</Cards>
-
-
 # Fundamentos, Arquitetura e Especificações (/docs/sprint-4/botao-de-stop/fundamentos-arquitetura)
 
 # Kill Switch - Fundamentos, Arquitetura e Especificações
@@ -15490,6 +15349,147 @@ O->>O: Robô Seguro
 ## Resumo
 
 O software do Kill Switch é composto por firmware simples no ESP32C3, um serviço Rust robusto que monitora a porta serial, e integração com ROS 2 para acionamento de Dump Mode. O fluxo operacional garante resposta em menos de 1 segundo com procedimentos bem documentados para diferentes cenários.
+
+
+# App Staff (/docs/sprint-4/documentacao-frontend/app_staff)
+
+## Introdução
+
+  O aplicativo do Staff foi desenvolvido para apoiar os colaboradores responsáveis pelos tours realizados no campus do Inteli. Por meio dele, os funcionários podem criar, visualizar e gerenciar tours, acompanhar o progresso do tour e disponibilizar o código de acesso aos visitantes. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
+
+## Como Iniciar o Projeto
+
+  Para iniciar o projeto do App Staff, siga o passo a passo completo:
+
+### Pré-requisitos
+
+* Git instalado.
+* Node.js (inclui npm) instalado.
+* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
+
+### Passo a passo
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/anabeggiato/2025-2B-T12-EC08-AppStaff
+```
+
+2. Entre na pasta do app:
+
+```bash
+cd 2025-2B-T12-EC08-AppStaff/app
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+```
+
+4. Rode o app diretamente no Android (device físico via USB ou emulador):
+
+```bash
+npx expo run:android
+```
+
+5. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
+6. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
+
+
+# App Visitante (/docs/sprint-4/documentacao-frontend/app_visitante)
+
+## Introdução
+
+  O aplicativo do visitante foi desenvolvido para apoiar a experiência de pais, filhos e demais convidados que participam do tour guiado pelo robô-cachorro LIA durante visitas à faculdade Inteli. O objetivo deste aplicativo é garantir uma jornada educativa, segura e interativa, permitindo que o visitante acompanhe o tour, faça perguntas ao robô, visualize o mapa do tour. Durante essa sprint 4, o foco principal foi a integração das funcionalidades principais com o backend.
+
+## Como Iniciar o Projeto
+
+  Para iniciar o projeto do App Visitante, siga o passo a passo completo:
+
+### Pré-requisitos
+
+* Git instalado.
+* Node.js (inclui npm) instalado.
+* Celular com app Expo Go (Android ou iOS) ou emulador configurado.
+
+### Passo a passo
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/Fernandoliveira05/AppTourVisitante/
+```
+
+2. Instale as dependências:
+
+```bash
+npm install
+```
+
+3. Rode o app diretamente no Android (device físico via USB ou emulador):
+
+```bash
+npx expo run:android
+```
+
+4. Quando o bundler iniciar, acompanhe o log no terminal. O app será aberto automaticamente no dispositivo ou emulador selecionado.
+5. Qualquer alteração no código recarrega automaticamente; se necessário, reabra o app via Expo Go ou reinicie o comando.
+
+
+# Dashboard (/docs/sprint-4/documentacao-frontend/dashboard)
+
+## Introdução
+
+  O Dashboard foi desenvolvido para fornecer uma interface intuitiva e eficiente para os membros da staff do Inteli visualizarem e analisarem os dados coletados durante os tours guiados pelo robô-cachorro LIA. Através deste dashboard, os usuários podem acessar informações detalhadas sobre o desempenho dos tours, feedback dos visitantes e outras métricas relevantes que auxiliam na melhoria contínua da experiência oferecida. Durante essa sprint 4, o foco principal foi finalizar as telas principais desse dashboard e a integração com o backend é o primeiro passo na próxima sprint.
+
+## Como Iniciar o Projeto
+
+  Para iniciar o Dashboard, siga o passo a passo completo:
+
+### Pré-requisitos
+
+* Git instalado.
+* Node.js (inclui npm) instalado.
+
+### Passo a passo
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/davidijesus/2025-2B-T12-EC08-DashStaff
+```
+
+2. Entre na pasta do dashboard:
+
+```bash
+cd 2025-2B-T12-EC08-DashStaff/inteli-dashboard
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+```
+
+4. Inicie o projeto Vite:
+
+```bash
+npm run dev
+```
+
+5. Acesse no navegador: `http://localhost:8080/` (ou a porta exibida no terminal do Vite).
+
+
+# Documentação Frontend (/docs/sprint-4/documentacao-frontend)
+
+<Cards>
+  <Card title="App Staff" description="Documentação referente ao App Staff." href="/docs/sprint-4/documentacao-frontend/app_staff" />
+
+  <Card title="App Visitante" description="Documentação referente ao App Visitante." href="/docs/sprint-4/documentacao-frontend/app_visitante" />
+
+  <Card title="Dashboard" description="Documentação referente ao Dashboard." href="/docs/sprint-4/documentacao-frontend/dashboard" />
+</Cards>
 
 
 # Refatoração dos Serviços de STT e TTS (/docs/sprint-4/modelo)
@@ -16625,7 +16625,7 @@ O dual-channel onde Serial e HTTP funcionam simultaneamente:
 | **Resultado**      | Dump Mode          | Dump Mode            |
 
 
-# Implementação de Scripts e Voz (TTS) (/docs/sprint-5/modelo/implementacao-scripts-tts)
+# Implementação de Scripts e Voz (TTS) (/docs/sprint-5/modelo/implementacao-script-tts)
 
 # **Documentação Técnica: Implementação de Scripts e Voz (TTS) para o Robô de Tour Autônomo do Inteli**
 
@@ -16809,7 +16809,7 @@ O robô interage com estes módulos através de uma interface de controle que su
 <Cards>
   <Card title="Arquitetura do RAG e Pipeline de Conhecimento" description="RAG Inteligente para os Serviços de Conhecimento" href="/docs/sprint-5/modelo/rag-final" />
 
-  <Card title="Implementação dos Scripts TTS" description="Documentação da Implementação dos Scripts de Text-to-Speech" href="/docs/sprint-5/modelo/implementacao-scripts-tts" />
+  <Card title="Implementação dos Scripts TTS" description="Documentação da Implementação do Script de Text-to-Speech" href="/docs/sprint-5/modelo/implementacao-scripts-tts" />
 </Cards>
 
 
@@ -16971,6 +16971,95 @@ A sprint consolidou um pipeline RAG completo: ingestão padronizada para todos o
 Combinar vetor denso com BM25 entrega o melhor dos dois mundos: o embedding denso captura relações semânticas mesmo com vocabulário diferente, enquanto o vetor esparso preserva precisão lexical para termos exatos, siglas e números (ex.: “Projeto 7”, “2026”). O Qdrant soma as pontuações, aumentando recall em perguntas abertas sem perder aderência a filtros específicos e mantendo robustez em textos heterogêneos.
 
 
+# Exploração e Integração (/docs/sprint-5/robo/exploracao-robo)
+
+# Sprint 5 - Definições Finais de Arquitetura e Integração
+
+## 1. Resumo
+
+Nesta reta final do projeto, os esforços foram concentrados na **consolidação da arquitetura de navegação e o sistema de comunicação**. O foco principal foi garantir que os subsistemas críticos (navegação autônoma, interação por voz e infraestrutura de rede) operassem de forma estável e integrada no ambiente real.
+
+Os principais marcos atingidos foram:
+
+* Validação da lógica de navegação via **Nav2 + SLAM** com coordenadas relativas.
+* Implementação completa do pipeline de conversão e reprodução de **áudio via WebRTC**.
+* Estabilização da conectividade na rede corporativa através de **solução customizada com Zenoh**.
+
+***
+
+## 2. Navegação e Posicionamento
+
+Refinamos o entendimento e a lógica de como o robô interpreta o ambiente e executa trajetórias. Confirmou-se que a movimentação **não depende da interface visual (Rviz)** em tempo de execução, mas sim de coordenadas processadas pelo backend.
+
+### Estratégia de Checkpoints
+
+A equipe definiu **endpoints** (comandos diretos) associados a **checkpoints** (posições físicas no mapa). A operação baseia-se na tese de **Posicionamento Relativo**.
+
+* Detalhe importante: para que o posicionamento funcione corretamente, o robô deve ser inicializado na **"Posição Inicial" (Home)**. A partir deste ponto zero, ele calcula a localização de cada sala baseando-se nas coordenadas gravadas no mapa do **SLAM**.
+
+***
+
+## 3. Sistema de Áudio (WebRTC e Conversão)
+
+Foi finalizada a implementação do módulo de voz. Para garantir que o robô consiga "falar" em tempo real com baixa latência, desenvolvemos um fluxo de dados para tratamento de mídia.
+
+### Pipeline de Processamento
+
+1. **Recebimento via WebSocket:** O sistema recebe o áudio em formato de texto codificado (**Base64**).
+2. **Decodificação:** Transformação do código Base64 em arquivo de áudio compactado (**MP3**).
+3. **Conversão para WAV:** Conversão do MP3 para **WAV** para processamento compatível.
+4. **Reprodução via WebRTC:** Transmissão interna do arquivo WAV para os alto-falantes do robô.
+
+***
+
+## 4. Infraestrutura de Rede
+
+Durante as sprints, houve um avanço significativo na arquitetura de conectividade, superando os desafios de integração com a infraestrutura do campus.
+
+### O Desafio
+
+A equipe precisava garantir que os dados do sistema (ROS 2) trafegassem corretamente dentro da rede **Inteli.Iot**. O protocolo padrão (DDS) enfrentava bloqueios de descoberta e instabilidade devido às restrições de tráfego (multicast) típicas de redes corporativas complexas.
+
+### A Solução
+
+A equipe solucionou os impeditivos de rede através da implementação do **zenoh-bridge-ros2dds**, orquestrado pelo repositório customizado **[zenoh-plugin-ros2dds-nix](https://github.com/GustavoWidman/zenoh-plugin-ros2dds-nix)**.
+
+Essa abordagem permitiu que o robô operasse **100% conectado à rede institucional "Inteli.Iot"**. O bridge encapsula o tráfego ROS 2 e o transporta de forma eficiente pela rede, garantindo comunicação estável, segura e sem a necessidade de roteadores dedicados.
+
+***
+
+## 5. Glossário de Conceitos Técnicos
+
+### Comunicação e Rede
+
+* **zenoh-plugin-ros2dds-nix:** Repositório e artefato Nix desenvolvido/utilizado pela equipe para implementar o `zenoh-bridge-ros2dds`. Ele atua como uma ponte que conecta o protocolo DDS do ROS 2 à rede, permitindo o tráfego de dados em ambientes corporativos complexos (como a rede do Inteli) sem falhas de descoberta.
+* **Inteli.Iot:** Rede Wi-Fi corporativa da instituição. Graças à implementação do Zenoh, o robô agora opera plenamente nesta rede, integrando-se ao ecossistema conectado do campus.
+* **WebSocket:** Canal de comunicação bidirecional que permite o envio contínuo de dados (como streams de áudio) sem recarregar a conexão.
+* **WebRTC (Web Real-Time Communication):** Tecnologia que permite a transmissão de áudio e vídeo instantânea, essencial para a voz do robô.
+
+### Robótica e Navegação
+
+* **SLAM (Simultaneous Localization and Mapping):** Técnica computacional que permite ao robô construir um mapa do ambiente ao mesmo tempo em que estima sua própria localização.
+* **Nav2 (Navigation 2):** Framework de navegação do ecossistema ROS 2, responsável pelo planejamento de rotas e desvio de obstáculos dinâmicos.
+* **Rviz (ROS Visualization):** Ferramenta gráfica de visualização 3D utilizada para diagnósticos (ver o que o robô vê), embora a navegação final independa dela.
+* **ROS 2:** Middleware que conecta todos os componentes do robô (lidar, motores, áudio), permitindo a troca de mensagens.
+
+***
+
+## 6. Considerações Finais
+
+As Sprints 5 foram decisivas para transformar componentes isolados em uma **arquitetura sistêmica funcional**. A validação bem-sucedida da operação na rede **Inteli.Iot** (viabilizada pelo `zenoh-plugin-ros2dds-nix`) removeu os principais bloqueios de escalabilidade do projeto.
+
+Com a infraestrutura de rede resolvida e a navegação relativa validada, o sistema está pronto para atuar no ambiente real.
+
+
+# Definições Finais de Arquitetura e Integração do Robo (/docs/sprint-5/robo)
+
+<Cards>
+  <Card title="Exploração do robo" description="Integrações finais do robo na sprint 5." href="/docs/sprint-5/robo/exploracao-robo" />
+</Cards>
+
+
 # Template de Pasta (/docs/sprint-5/template-pasta)
 
 <Cards>
@@ -17111,95 +17200,6 @@ F -->|HTTP| BUCKET
     <File name="meta.json" />
   </Folder>
 </Files>
-
-
-# Exploração e Integração (/docs/sprint-5/robo/exploracao-robo)
-
-# Sprint 5 - Definições Finais de Arquitetura e Integração
-
-## 1. Resumo
-
-Nesta reta final do projeto, os esforços foram concentrados na **consolidação da arquitetura de navegação e o sistema de comunicação**. O foco principal foi garantir que os subsistemas críticos (navegação autônoma, interação por voz e infraestrutura de rede) operassem de forma estável e integrada no ambiente real.
-
-Os principais marcos atingidos foram:
-
-* Validação da lógica de navegação via **Nav2 + SLAM** com coordenadas relativas.
-* Implementação completa do pipeline de conversão e reprodução de **áudio via WebRTC**.
-* Estabilização da conectividade na rede corporativa através de **solução customizada com Zenoh**.
-
-***
-
-## 2. Navegação e Posicionamento
-
-Refinamos o entendimento e a lógica de como o robô interpreta o ambiente e executa trajetórias. Confirmou-se que a movimentação **não depende da interface visual (Rviz)** em tempo de execução, mas sim de coordenadas processadas pelo backend.
-
-### Estratégia de Checkpoints
-
-A equipe definiu **endpoints** (comandos diretos) associados a **checkpoints** (posições físicas no mapa). A operação baseia-se na tese de **Posicionamento Relativo**.
-
-* Detalhe importante: para que o posicionamento funcione corretamente, o robô deve ser inicializado na **"Posição Inicial" (Home)**. A partir deste ponto zero, ele calcula a localização de cada sala baseando-se nas coordenadas gravadas no mapa do **SLAM**.
-
-***
-
-## 3. Sistema de Áudio (WebRTC e Conversão)
-
-Foi finalizada a implementação do módulo de voz. Para garantir que o robô consiga "falar" em tempo real com baixa latência, desenvolvemos um fluxo de dados para tratamento de mídia.
-
-### Pipeline de Processamento
-
-1. **Recebimento via WebSocket:** O sistema recebe o áudio em formato de texto codificado (**Base64**).
-2. **Decodificação:** Transformação do código Base64 em arquivo de áudio compactado (**MP3**).
-3. **Conversão para WAV:** Conversão do MP3 para **WAV** para processamento compatível.
-4. **Reprodução via WebRTC:** Transmissão interna do arquivo WAV para os alto-falantes do robô.
-
-***
-
-## 4. Infraestrutura de Rede
-
-Durante as sprints, houve um avanço significativo na arquitetura de conectividade, superando os desafios de integração com a infraestrutura do campus.
-
-### O Desafio
-
-A equipe precisava garantir que os dados do sistema (ROS 2) trafegassem corretamente dentro da rede **Inteli.Iot**. O protocolo padrão (DDS) enfrentava bloqueios de descoberta e instabilidade devido às restrições de tráfego (multicast) típicas de redes corporativas complexas.
-
-### A Solução
-
-A equipe solucionou os impeditivos de rede através da implementação do **zenoh-bridge-ros2dds**, orquestrado pelo repositório customizado **[zenoh-plugin-ros2dds-nix](https://github.com/GustavoWidman/zenoh-plugin-ros2dds-nix)**.
-
-Essa abordagem permitiu que o robô operasse **100% conectado à rede institucional "Inteli.Iot"**. O bridge encapsula o tráfego ROS 2 e o transporta de forma eficiente pela rede, garantindo comunicação estável, segura e sem a necessidade de roteadores dedicados.
-
-***
-
-## 5. Glossário de Conceitos Técnicos
-
-### Comunicação e Rede
-
-* **zenoh-plugin-ros2dds-nix:** Repositório e artefato Nix desenvolvido/utilizado pela equipe para implementar o `zenoh-bridge-ros2dds`. Ele atua como uma ponte que conecta o protocolo DDS do ROS 2 à rede, permitindo o tráfego de dados em ambientes corporativos complexos (como a rede do Inteli) sem falhas de descoberta.
-* **Inteli.Iot:** Rede Wi-Fi corporativa da instituição. Graças à implementação do Zenoh, o robô agora opera plenamente nesta rede, integrando-se ao ecossistema conectado do campus.
-* **WebSocket:** Canal de comunicação bidirecional que permite o envio contínuo de dados (como streams de áudio) sem recarregar a conexão.
-* **WebRTC (Web Real-Time Communication):** Tecnologia que permite a transmissão de áudio e vídeo instantânea, essencial para a voz do robô.
-
-### Robótica e Navegação
-
-* **SLAM (Simultaneous Localization and Mapping):** Técnica computacional que permite ao robô construir um mapa do ambiente ao mesmo tempo em que estima sua própria localização.
-* **Nav2 (Navigation 2):** Framework de navegação do ecossistema ROS 2, responsável pelo planejamento de rotas e desvio de obstáculos dinâmicos.
-* **Rviz (ROS Visualization):** Ferramenta gráfica de visualização 3D utilizada para diagnósticos (ver o que o robô vê), embora a navegação final independa dela.
-* **ROS 2:** Middleware que conecta todos os componentes do robô (lidar, motores, áudio), permitindo a troca de mensagens.
-
-***
-
-## 6. Considerações Finais
-
-As Sprints 5 foram decisivas para transformar componentes isolados em uma **arquitetura sistêmica funcional**. A validação bem-sucedida da operação na rede **Inteli.Iot** (viabilizada pelo `zenoh-plugin-ros2dds-nix`) removeu os principais bloqueios de escalabilidade do projeto.
-
-Com a infraestrutura de rede resolvida e a navegação relativa validada, o sistema está pronto para atuar no ambiente real.
-
-
-# Definições Finais de Arquitetura e Integração do Robo (/docs/sprint-5/robo)
-
-<Cards>
-  <Card title="Exploração do robo" description="Integrações finais do robo na sprint 5." href="/docs/sprint-5/robo/exploracao-robo" />
-</Cards>
 
 
 # Mapas de Jornada do Usuário (/docs/sprint-1/entendimento-do-usuario/mapa-de-jornada-do-usuario)
