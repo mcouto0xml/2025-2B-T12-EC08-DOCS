@@ -1,0 +1,179 @@
+---
+title: Dashboard Staff
+description: Documentação do Dashboard do Staff
+---
+
+## 1. Introdução
+
+&emsp; O **Dashboard** foi desenvolvido para fornecer uma interface web intuitiva e eficiente destinada aos membros do staff do Inteli, permitindo a visualização, análise e acompanhamento dos dados coletados durante os tours guiados pelo robô-cachorro **LIA**.
+
+&emsp; Por meio deste dashboard, os usuários podem acessar métricas relacionadas ao desempenho dos tours, fluxo de visitantes, pontos de interesse, alertas operacionais e feedbacks coletados ao longo das experiências. Essas informações auxiliam diretamente na tomada de decisão e na melhoria contínua da experiência oferecida aos visitantes.
+
+&emsp; Durante a **Sprint 4**, o foco principal esteve na finalização das telas principais do dashboard e na definição da estrutura visual e navegacional. A integração completa com o backend foi planejada como próximo passo para as sprints subsequentes.
+
+---
+
+## 2. Arquitetura do Projeto
+
+&emsp; Diferentemente dos aplicativos móveis do ecossistema, o Dashboard é uma **aplicação web**, desenvolvida utilizando **React** em conjunto com o **Vite** como ferramenta de build e servidor de desenvolvimento.
+
+&emsp; Essa escolha arquitetural foi motivada por:
+
+- Inicialização rápida do ambiente de desenvolvimento;
+- Excelente performance em aplicações SPA;
+- Facilidade de integração com bibliotecas de visualização de dados;
+- Organização modular baseada em componentes reutilizáveis.
+
+---
+
+## 2.1 Estrutura de Pastas
+
+A estrutura principal do projeto segue uma organização modular, separando responsabilidades por domínio funcional:
+
+```txt
+inteli-dashboard
+├── public
+│
+├── src
+│   ├── assets
+│   │
+│   ├── components
+│   │   ├── dashboard
+│   │   ├── documents-management
+│   │   └── ui
+│   │
+│   ├── hooks
+│   │
+│   ├── lib
+│   │
+│   └── pages
+│   
+│
+└── package.json
+```
+
+Descrição das principais pastas e arquivos:
+
+- **`/public`** - Arquivos públicos e estáticos.
+
+- **`/src/assets`** - Recursos visuais e estáticos.
+
+- **`/src/components`** - Componentes reutilizáveis do sistema.
+
+- **`/src/pages`** - Páginas principais do dashboard.
+
+- **`/src/hooks`** - Hooks personalizados.
+
+- **`/src/lib`** - Funções utilitárias e abstrações.
+
+&emsp;Essa estrutura favorece escalabilidade, clareza de responsabilidades e manutenção do código a longo prazo.
+
+### 2.2 Componentes
+
+&emsp; O dashboard utiliza componentes específicos para visualização de dados e organização da interface. Abaixo estão os principais componentes atualmente implementados.
+
+Componentes do Dashboard
+
+Localizados em components/dashboard/:
+
+- **AlertsLineChart** - Gráfico de linha para visualização de alertas ao longo do tempo.
+
+- **CheckpointsBarChart** - Gráfico de barras representando checkpoints do tour.
+
+- **TopicsBarChart** - Gráfico de barras com temas abordados durante os tours.
+
+- **ToursLineChart** - Gráfico de evolução e quantidade de tours.
+
+- **VisitorsProfileChart** - Visualização do perfil dos visitantes.
+
+- **DashboardHeader** - Cabeçalho específico da área de dashboard.
+
+- **FilterBar** - Barra de filtros para segmentação dos dados exibidos.
+
+Componentes de Gerenciamento de Documentos
+
+Localizados em components/documents-management/:
+
+- **DocumentsHeader** - Cabeçalho da seção de gerenciamento de documentos.
+
+&emsp;  Esses componentes foram projetados para serem reutilizáveis, facilitando a expansão do dashboard com novas métricas e visualizações.
+
+---
+
+## 3. Fluxo de Navegação
+
+
+:::note
+
+**Fluxo Geral da Dashboard**
+
+1. Acesso inicial ao sistema
+
+2. Visualização do Dashboard principal
+
+3. Análise de métricas e gráficos
+
+4. Aplicação de filtros para segmentação dos dados
+
+5. Navegação entre seções (Dashboard, Documentos, Usuários, etc.)
+
+6. Visualização detalhada conforme o contexto selecionado
+
+7. Elementos Persistentes da Interface
+
+8. Cabeçalho global com identidade visual
+
+9. Navegação lateral ou superior entre seções
+
+10. Componentes de filtro acessíveis nas telas analíticas
+
+:::
+
+---
+
+## 4. Como Rodar o Projeto e Dependências
+
+&emsp; Esta seção descreve os requisitos e o passo a passo para executar o Dashboard em ambiente de desenvolvimento local.
+
+### 4.1 Pré-requisitos
+
+- Git instalado
+
+- Node.js (inclui npm) instalado
+
+### 4.2 Passo a Passo
+
+Clone o repositório:
+```bash
+git clone https://github.com/davidijesus/2025-2B-T12-EC08-DashStaff
+```
+
+Acesse a pasta do dashboard:
+```bash
+cd 2025-2B-T12-EC08-DashStaff/inteli-dashboard
+```
+
+Instale as dependências:
+```bash
+npm install
+```
+
+Inicie o servidor de desenvolvimento com Vite:
+```bash
+npm run dev
+```
+
+Acesse no navegador:
+```
+http://localhost:8080/
+```
+
+(ou a porta indicada no terminal do Vite)
+
+---
+
+## 5. Conclusão e Pŕoximos passos
+
+&emsp; O Dashboard do Staff apresenta uma base sólida para análise e visualização dos dados gerados durante os tours guiados pelo robô LIA. A aplicação web foi estruturada com foco em modularidade, clareza visual e escalabilidade.
+
+&emsp; Devido ao escopo do projeto, a integração do dashboard do staff ficará como passos futuros para um novo projeto, ou para futuros desenvolvimentos da equipe do Inteli, no qual deverão integrar a API com este frontend.
